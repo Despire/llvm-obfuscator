@@ -10,8 +10,8 @@
 
 static llvm::cl::opt<Coverage, false, CoverageParser> coverage{
         "coverage",
-        llvm::cl::desc(""),
-        llvm::cl::value_desc(""),
+        llvm::cl::desc("applies substitution on <coverage> percentage of the instructions"),
+        llvm::cl::value_desc("coverage"),
         llvm::cl::init(1.0),
         llvm::cl::Optional
 };
