@@ -3,6 +3,10 @@ project(llvm_obfuscator)
 
 set(CMAKE_CXX_STANDARD 17)
 
+if (NOT CMAKE_BUILD_TYPE)
+    set(CMAKE_BUILD_TYPE Debug)
+endif ()
+
 # Set the directory for the LLVM instalation (crucial step for when using find_package)
 set(LT_LLVM_INSTALL_DIR "/opt/homebrew/opt/llvm@15")
 
