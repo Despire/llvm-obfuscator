@@ -2,10 +2,27 @@
 // Created by Matus Mrekaj on 18/02/2023.
 //
 
+#include "cmd-args/Coverage.h"
 #include "Substitution.h"
 
 #include "llvm/Passes/PassBuilder.h"
 #include "llvm/Passes/PassPlugin.h"
+
+static llvm::cl::opt<Coverage, false, CoverageParser> coverage{
+        "coverage",
+        llvm::cl::desc(""),
+        llvm::cl::value_desc(""),
+        llvm::cl::init(1.0),
+        llvm::cl::Optional
+};
+
+llvm::PreservedAnalyses Substitution::run(llvm::Function &F, llvm::FunctionAnalysisManager &) {
+    return llvm::PreservedAnalyses::all();
+}
+
+bool Substitution::runOnBasicBlock(llvm::BasicBlock &B) {
+    return true;
+}
 
 //------------------------------------------------------
 //               Registration of the Plugin

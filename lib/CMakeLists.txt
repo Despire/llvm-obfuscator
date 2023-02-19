@@ -1,6 +1,6 @@
 set(LLVM_OBFUSCATOR_PLUGINS Substitution)
 
-set(Substitution_SOURCES Substitution.cpp)
+set(Substitution_SOURCES Substitution.cpp cmd-args/Coverage.cpp)
 
 foreach (plugin ${LLVM_OBFUSCATOR_PLUGINS})
     add_library(${plugin} SHARED ${${plugin}_SOURCES})
