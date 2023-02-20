@@ -11,10 +11,12 @@
 #include "llvm/Passes/PassBuilder.h"
 #include "llvm/Passes/PassPlugin.h"
 #include "llvm/Support/Debug.h"
+#include "llvm/IR/Module.h"
 
 #define DEBUG_TYPE "substitution"
 
 STATISTIC(AdditionSubstitutionCount, "# of performed addition substitutions");
+STATISTIC(SubtractionSubstitutionCount, "# of performed subtraction substitutions");
 
 static llvm::cl::opt<Coverage, false, CoverageParser> coverage{
         "coverage",
@@ -48,13 +50,16 @@ bool Substitution::handleBasicBlock(llvm::BasicBlock &BB) {
             continue;
         }
 
+        // TODO: implement coverage option.
+
         switch (BinaryOperation->getOpcode()) {
             case llvm::Instruction::Add:
                 modified |= handleAddition(BB, BinaryOperation, beg);
                 ++AdditionSubstitutionCount;
                 break;
             case llvm::Instruction::Sub:
-                // TODO: implement me!
+                modified |= handleSubtraction(BB, BinaryOperation, beg);
+                ++SubtractionSubstitutionCount;
                 break;
             case llvm::Instruction::And:
                 // TODO: implement me!
@@ -74,7 +79,7 @@ bool Substitution::handleBasicBlock(llvm::BasicBlock &BB) {
     return modified;
 }
 
-llvm::Instruction* Substitution::get8BitAddition(llvm::BinaryOperator *BO) {
+llvm::Instruction *Substitution::get8BitAddition(llvm::BinaryOperator *BO) {
     /*
      * Replace:
      * a=b+c
@@ -119,7 +124,7 @@ llvm::Instruction *Substitution::getAdditionSubstitution(llvm::BinaryOperator *B
 
     /*
      * Replace:
-     * a=b+c
+     * a = b + c
      *
      * With one of the below substitution, chosen at random (where r is a random value):
      * a = b - (-c)
@@ -194,6 +199,66 @@ bool Substitution::handleAddition(llvm::BasicBlock &BB, llvm::BinaryOperator *BO
     LLVM_DEBUG(llvm::dbgs() << "Replaced: " << *BO << " with: " << *NewInstruction << "\n");
 
     return true;
+}
+
+bool Substitution::handleSubtraction(llvm::BasicBlock &BB, llvm::BinaryOperator *BO, llvm::BasicBlock::iterator &BI) {
+    llvm::Instruction *NewInstruction = getSubtractionSubstitution(BO);
+    llvm::ReplaceInstWithInst(BB.getInstList(), BI, NewInstruction);
+    LLVM_DEBUG(llvm::dbgs() << "Replaced: " << *BO << " with: " << *NewInstruction << "\n");
+    return true;
+}
+
+llvm::Instruction *Substitution::getSubtractionSubstitution(llvm::BinaryOperator *BO) {
+    llvm::IRBuilder<> builder(BO);
+    llvm::Instruction *NewInstruction = nullptr;
+
+    /*
+     * Replace
+     * a = b - c
+     *
+     * With one of the below substitution, chosen at random (where r is a random value):
+     * a = b + (-c)
+     * a = b + r; a -= c; a -= r;
+     * a = b - r; a -= c; a += r;
+     */
+
+    uint64_t func = GenerateRandomInt64(SubtractionSubstitutionFuncCount);
+    switch (func) {
+        case 0: {
+            // a = b + (-c)
+            NewInstruction = llvm::BinaryOperator::CreateAdd(BO->getOperand(0), builder.CreateNeg(BO->getOperand(1)));
+            break;
+        }
+        case 1: {
+            // a = b + r; a -= c; a -= r;
+            auto *randomConstant = llvm::ConstantInt::get(BO->getType(), GenerateRandomInt64());
+            NewInstruction = llvm::BinaryOperator::CreateSub(
+                    builder.CreateSub(
+                            builder.CreateAdd(BO->getOperand(0), randomConstant),
+                            BO->getOperand(1)
+                    ),
+                    randomConstant
+            );
+            break;
+        }
+        case 2: {
+            // a = b - r; a -= c; a += r;
+            auto *randomConstant = llvm::ConstantInt::get(BO->getType(), GenerateRandomInt64());
+            NewInstruction = llvm::BinaryOperator::CreateAdd(
+                    builder.CreateSub(
+                            builder.CreateSub(BO->getOperand(0), randomConstant),
+                            BO->getOperand(1)
+                    ),
+                    randomConstant
+            );
+            break;
+        }
+        default:
+            // do nothing.
+            break;
+    }
+
+    return NewInstruction;
 }
 
 //------------------------------------------------------

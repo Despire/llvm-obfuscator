@@ -12,6 +12,9 @@
 // AdditionSubstitutionCount is the number of supported addition subsitutions.
 constexpr int AdditionSubstitionFuncCount = 4;
 
+// SubtractionSubstitutionFuncCount is the number of supported subtraction subtitutions.
+constexpr int SubtractionSubstitutionFuncCount = 3;
+
 struct Substitution : public llvm::PassInfoMixin<Substitution> {
     llvm::PreservedAnalyses run(llvm::Function &F, llvm::FunctionAnalysisManager &);
 
@@ -21,6 +24,7 @@ struct Substitution : public llvm::PassInfoMixin<Substitution> {
     // handleAddition replaces additions with obfuscated code that yields the same result.
     bool handleAddition(llvm::BasicBlock &BB, llvm::BinaryOperator *BO, llvm::BasicBlock::iterator &BI);
 
+    // getAdditionSubstitution returns a random addition substitution.
     llvm::Instruction *getAdditionSubstitution(llvm::BinaryOperator *BO);
 
     // handle8BitAddition is a special case where we apply a different substitution for 8bit additions.
@@ -28,6 +32,9 @@ struct Substitution : public llvm::PassInfoMixin<Substitution> {
 
     // handleSubtraction replaces subtraction with obfuscated code that yields the same result.
     bool handleSubtraction(llvm::BasicBlock &BB, llvm::BinaryOperator *BO, llvm::BasicBlock::iterator &BI);
+
+    // getAdditionSubstitution returns a random subtraction substitution.
+    llvm::Instruction *getSubtractionSubstitution(llvm::BinaryOperator *BO);
 
     // handleBinaryOr replaces binary ORs with obfuscated code that yields the same result.
     bool handleBinaryOr(llvm::BasicBlock &BB, llvm::BinaryOperator *BO, llvm::BasicBlock::iterator &BI);
