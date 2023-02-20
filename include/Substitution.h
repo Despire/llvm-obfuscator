@@ -15,6 +15,9 @@ constexpr int AdditionSubstitionFuncCount = 4;
 // SubtractionSubstitutionFuncCount is the number of supported subtraction subtitutions.
 constexpr int SubtractionSubstitutionFuncCount = 3;
 
+// XORSubstitutionFuncCount is the number of supported XOR subtitutions.
+constexpr int XORSubstitutionFuncCount = 3;
+
 struct Substitution : public llvm::PassInfoMixin<Substitution> {
     llvm::PreservedAnalyses run(llvm::Function &F, llvm::FunctionAnalysisManager &);
 
@@ -36,11 +39,11 @@ struct Substitution : public llvm::PassInfoMixin<Substitution> {
     // getAdditionSubstitution returns a random subtraction substitution.
     llvm::Instruction *getSubtractionSubstitution(llvm::BinaryOperator *BO);
 
-    // handleBinaryOr replaces binary ORs with obfuscated code that yields the same result.
-    bool handleBinaryOr(llvm::BasicBlock &BB, llvm::BinaryOperator *BO, llvm::BasicBlock::iterator &BI);
+    // handleBinaryOR replaces binary ORs with obfuscated code that yields the same result.
+    bool handleBinaryOR(llvm::BasicBlock &BB, llvm::BinaryOperator *BO, llvm::BasicBlock::iterator &BI);
 
-    // handleBinaryAnd replaces binary ANDs with obfuscated code that yields the same result.
-    bool handleBinaryAnd(llvm::BasicBlock &BB, llvm::BinaryOperator *BO, llvm::BasicBlock::iterator &BI);
+    // handleBinaryAND replaces binary ANDs with obfuscated code that yields the same result.
+    bool handleBinaryAND(llvm::BasicBlock &BB, llvm::BinaryOperator *BO, llvm::BasicBlock::iterator &BI);
 
     // handleBinaryXor replaces binary XORs with obfuscated code that yields the same result.
     bool handleBinaryXOR(llvm::BasicBlock &BB, llvm::BinaryOperator *BO, llvm::BasicBlock::iterator &BI);
