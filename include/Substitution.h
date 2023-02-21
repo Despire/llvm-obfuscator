@@ -18,6 +18,12 @@ constexpr int SubtractionSubstitutionFuncCount = 3;
 // XORSubstitutionFuncCount is the number of supported XOR subtitutions.
 constexpr int XORSubstitutionFuncCount = 3;
 
+// ORSubstitutionFuncCount is the number of supported OR subtitutions.
+constexpr int ORSubstitutionFuncCount = 2;
+
+// ANDSubstitutionFuncCount is the number of supported AND subtitutions.
+constexpr int ANDSubstitutionFuncCount = 2;
+
 struct Substitution : public llvm::PassInfoMixin<Substitution> {
     llvm::PreservedAnalyses run(llvm::Function &F, llvm::FunctionAnalysisManager &);
 
