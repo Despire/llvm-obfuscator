@@ -48,33 +48,45 @@ bool Substitution::handleBasicBlock(llvm::BasicBlock &BB) {
     bool modified = false;
 
     for (auto beg = BB.begin(); beg != BB.end(); ++beg) {
-        auto *BinaryOperation = llvm::dyn_cast<llvm::BinaryOperator>(beg);
-        if (BinaryOperation == nullptr || !BinaryOperation->getType()->isIntegerTy()) {
+        auto *BO = llvm::dyn_cast<llvm::BinaryOperator>(beg);
+        if (BO == nullptr || !BO->getType()->isIntegerTy()) {
             continue;
         }
 
         // TODO: implement coverage option.
 
-        switch (BinaryOperation->getOpcode()) {
-            case llvm::Instruction::Add:
-                modified |= handleAddition(BB, BinaryOperation, beg);
+        switch (BO->getOpcode()) {
+            case llvm::Instruction::Add: {
                 ++AdditionSubstitutionCount;
+                bool done = false;
+                if (BO->getType()->getIntegerBitWidth() == 8) {
+                    auto rng = RandomInt64(AdditionSubstitionFuncCount + 1);  // +1 for the special 8bit substitution
+                    if (rng >= AdditionSubstitionFuncCount) {
+                        modified |= handle8BitAddition(BB, BO, beg);
+                        done = true;
+                    }
+                }
+
+                if (!done) {
+                    modified |= (this->*AddHandlers[RandomInt64(AdditionSubstitionFuncCount)])(BB, BO, beg);
+                }
                 break;
+            }
             case llvm::Instruction::Sub:
-                modified |= handleSubtraction(BB, BinaryOperation, beg);
                 ++SubtractionSubstitutionCount;
+                modified |= (this->*SubtractHandlers[RandomInt64(SubtractionSubstitutionFuncCount)])(BB, BO, beg);
                 break;
             case llvm::Instruction::And:
-                modified |= handleBinaryAND(BB, BinaryOperation, beg);
                 ++ANDSubstitutionCount;
+                modified |= (this->*ANDHandlers[RandomInt64(ANDSubstitutionFuncCount)])(BB, BO, beg);
                 break;
             case llvm::Instruction::Or:
-                modified |= handleBinaryOR(BB, BinaryOperation, beg);
                 ++ORSubstitutionCount;
+                modified |= (this->*ORHandlers[RandomInt64(ORSubstitutionFuncCount)])(BB, BO, beg);
                 break;
             case llvm::Instruction::Xor:
-                modified |= handleBinaryXOR(BB, BinaryOperation, beg);
                 ++XORSubstitutionCount;
+                modified |= (this->*XORHandlers[RandomInt64(XORSubstitutionFuncCount)])(BB, BO, beg);
                 break;
             default:
                 // Leave other operations untouched.
@@ -85,7 +97,7 @@ bool Substitution::handleBasicBlock(llvm::BasicBlock &BB) {
     return modified;
 }
 
-llvm::Instruction *Substitution::get8BitAddition(llvm::BinaryOperator *BO) {
+bool Substitution::handle8BitAddition(llvm::BasicBlock &BB, llvm::BinaryOperator *BO, llvm::BasicBlock::iterator &BI) {
     /*
      * Replace:
      * a=b+c
@@ -121,181 +133,58 @@ llvm::Instruction *Substitution::get8BitAddition(llvm::BinaryOperator *BO) {
             )
     );
 
-    return NewInstruction;
+    llvm::ReplaceInstWithInst(BB.getInstList(), BI, NewInstruction);
+    LLVM_DEBUG(llvm::dbgs() << "Replaced: " << *BO << " with: " << *NewInstruction << "\n");
+    return true;
 }
 
-llvm::Instruction *Substitution::getAdditionSubstitution(llvm::BinaryOperator *BO) {
+bool Substitution::handlerANDVersion1(llvm::BasicBlock &BB, llvm::BinaryOperator *BO, llvm::BasicBlock::iterator &BI) {
     llvm::IRBuilder<> builder(BO);
-    llvm::Instruction *NewInstruction = nullptr;
 
-    /*
-     * Replace:
-     * a = b + c
-     *
-     * With one of the below substitution, chosen at random (where r is a random value):
-     * a = b - (-c)
-     * a = -(-b + (-c))
-     * a = b + r; a += c; a -=r
-     * a = b - r; a += c; a += r
-     */
-    uint64_t func = GenerateRandomInt64(AdditionSubstitionFuncCount);
-    switch (func) {
-        case 0: {
-            // a = b - (-c)
-            NewInstruction = llvm::BinaryOperator::CreateSub(BO->getOperand(0), builder.CreateNeg(BO->getOperand(1)));
-            break;
-        }
-        case 1: {
-            // a = -(-b + (-c))
-            NewInstruction = llvm::BinaryOperator::CreateNeg(
-                    builder.CreateAdd(
-                            builder.CreateNeg(BO->getOperand(0)),
-                            builder.CreateNeg(BO->getOperand(1))
+    // implements the substitution a = !(!b | !c) AND (r | !r)
+    auto *randomConstant = llvm::ConstantInt::get(BO->getType(), RandomInt64());
+    llvm::Instruction *NewInstruction = llvm::BinaryOperator::CreateAnd(
+            builder.CreateNot(
+                    builder.CreateOr(
+                            builder.CreateNot(BO->getOperand(0)),
+                            builder.CreateNot(BO->getOperand(1))
                     )
-            );
-            break;
-        }
-        case 2: {
-            // a = b + r; a += c; a -=r
-            auto *randomConstant = llvm::ConstantInt::get(BO->getType(), GenerateRandomInt64());
-            NewInstruction = llvm::BinaryOperator::CreateSub(
-                    builder.CreateAdd(
-                            builder.CreateAdd(BO->getOperand(0), randomConstant),
-                            BO->getOperand(1)
-                    ),
-                    randomConstant
-            );
-            break;
-        }
-        case 3: {
-            // a = b - r; a += c; a += r
-            auto *randomConstant = llvm::ConstantInt::get(BO->getType(), GenerateRandomInt64());
-            NewInstruction = llvm::BinaryOperator::CreateAdd(
-                    builder.CreateAdd(
-                            builder.CreateSub(BO->getOperand(0), randomConstant),
-                            BO->getOperand(1)
-                    ),
-                    randomConstant
-            );
-            break;
-        }
-        default:
-            // do nothing
-            break;
-    }
+            ),
+            builder.CreateOr(
+                    randomConstant,
+                    builder.CreateNot(randomConstant)
+            )
+    );
 
-    return NewInstruction;
-}
-
-bool Substitution::handleAddition(llvm::BasicBlock &BB, llvm::BinaryOperator *BO, llvm::BasicBlock::iterator &BI) {
-    llvm::Instruction *NewInstruction = nullptr;
-
-    if (BO->getType()->getIntegerBitWidth() == 8) {
-        auto rng = GenerateRandomInt64(AdditionSubstitionFuncCount + 1);  // +1 for the special 8bit substitution
-        if (rng > AdditionSubstitionFuncCount) {
-            NewInstruction = get8BitAddition(BO);
-        }
-    }
-
-    if (NewInstruction == nullptr) {
-        NewInstruction = getAdditionSubstitution(BO);
-    }
-
-    llvm::ReplaceInstWithInst(BB.getInstList(), BI, NewInstruction);
-    LLVM_DEBUG(llvm::dbgs() << "Replaced: " << *BO << " with: " << *NewInstruction << "\n");
-
-    return true;
-}
-
-bool Substitution::handleSubtraction(llvm::BasicBlock &BB, llvm::BinaryOperator *BO, llvm::BasicBlock::iterator &BI) {
-    llvm::Instruction *NewInstruction = getSubtractionSubstitution(BO);
     llvm::ReplaceInstWithInst(BB.getInstList(), BI, NewInstruction);
     LLVM_DEBUG(llvm::dbgs() << "Replaced: " << *BO << " with: " << *NewInstruction << "\n");
     return true;
 }
 
-llvm::Instruction *Substitution::getSubtractionSubstitution(llvm::BinaryOperator *BO) {
+bool Substitution::handlerANDVersion2(llvm::BasicBlock &BB, llvm::BinaryOperator *BO, llvm::BasicBlock::iterator &BI) {
     llvm::IRBuilder<> builder(BO);
-    llvm::Instruction *NewInstruction = nullptr;
 
-    /*
-     * Replace
-     * a = b - c
-     *
-     * With one of the below substitution, chosen at random (where r is a random value):
-     * a = b + (-c)
-     * a = b + r; a -= c; a -= r;
-     * a = b - r; a -= c; a += r;
-     */
+    // implements the subsitution a = (b XOR !c) AND b
+    llvm::Instruction *NewInstruction = llvm::BinaryOperator::CreateAnd(
+            builder.CreateXor(
+                    BO->getOperand(0),
+                    builder.CreateNot(BO->getOperand(1))
+            ),
+            BO->getOperand(0)
+    );
 
-    uint64_t func = GenerateRandomInt64(SubtractionSubstitutionFuncCount);
-    switch (func) {
-        case 0: {
-            // a = b + (-c)
-            NewInstruction = llvm::BinaryOperator::CreateAdd(BO->getOperand(0), builder.CreateNeg(BO->getOperand(1)));
-            break;
-        }
-        case 1: {
-            // a = b + r; a -= c; a -= r;
-            auto *randomConstant = llvm::ConstantInt::get(BO->getType(), GenerateRandomInt64());
-            NewInstruction = llvm::BinaryOperator::CreateSub(
-                    builder.CreateSub(
-                            builder.CreateAdd(BO->getOperand(0), randomConstant),
-                            BO->getOperand(1)
-                    ),
-                    randomConstant
-            );
-            break;
-        }
-        case 2: {
-            // a = b - r; a -= c; a += r;
-            auto *randomConstant = llvm::ConstantInt::get(BO->getType(), GenerateRandomInt64());
-            NewInstruction = llvm::BinaryOperator::CreateAdd(
-                    builder.CreateSub(
-                            builder.CreateSub(BO->getOperand(0), randomConstant),
-                            BO->getOperand(1)
-                    ),
-                    randomConstant
-            );
-            break;
-        }
-        default:
-            // do nothing.
-            break;
-    }
-
-    return NewInstruction;
+    llvm::ReplaceInstWithInst(BB.getInstList(), BI, NewInstruction);
+    LLVM_DEBUG(llvm::dbgs() << "Replaced: " << *BO << " with: " << *NewInstruction << "\n");
+    return true;
 }
 
-bool Substitution::handleBinaryXOR(llvm::BasicBlock &BB, llvm::BinaryOperator *BO, llvm::BasicBlock::iterator &BI) {
+bool Substitution::handlerORVersion1(llvm::BasicBlock &BB, llvm::BinaryOperator *BO, llvm::BasicBlock::iterator &BI) {
     llvm::IRBuilder<> builder(BO);
-    llvm::Instruction *NewInstruction = nullptr;
 
-    /*
-     * Replace
-     * a = b XOR c
-     *
-     * With one of the below substitution, chosen at random (where r is a random value):
-     * a = (b XOR r) XOR (c XOR r)
-     * a = (!b AND r OR b AND !r) XOR (!c AND r OR c AND !r)
-     * a = (!b AND c) OR (b AND !c)
-     */
-
-    uint64_t func = GenerateRandomInt64(XORSubstitutionFuncCount);
-    switch (func) {
-        case 0: {
-            // a = (b XOR r) XOR (c XOR r)
-            auto *randomConstant = llvm::ConstantInt::get(BO->getType(), GenerateRandomInt64());
-            NewInstruction = llvm::BinaryOperator::CreateXor(
-                    builder.CreateXor(BO->getOperand(0), randomConstant),
-                    builder.CreateXor(BO->getOperand(1), randomConstant)
-            );
-            break;
-        }
-        case 1: {
-            // a = (!b AND r OR b AND !r) XOR (!c AND r OR c AND !r)
-            auto *randomConstant = llvm::ConstantInt::get(BO->getType(), GenerateRandomInt64());
-            NewInstruction = llvm::BinaryOperator::CreateXor(
+    // implements a = [(!b & r) | (b & !r) ^ (!c & r) | (c & !r) ] | [!(!b | !c) & (r | !r)]
+    auto *randomConstant = llvm::ConstantInt::get(BO->getType(), RandomInt64());
+    llvm::Instruction *NewInstruction = llvm::BinaryOperator::CreateOr(
+            builder.CreateXor(
                     builder.CreateOr(
                             builder.CreateAnd(builder.CreateNot(BO->getOperand(0)), randomConstant),
                             builder.CreateAnd(BO->getOperand(0), builder.CreateNot(randomConstant))
@@ -304,132 +193,187 @@ bool Substitution::handleBinaryXOR(llvm::BasicBlock &BB, llvm::BinaryOperator *B
                             builder.CreateAnd(builder.CreateNot(BO->getOperand(1)), randomConstant),
                             builder.CreateAnd(BO->getOperand(1), builder.CreateNot(randomConstant))
                     )
-            );
-            break;
-        }
-        case 2: {
-            // a = (!b AND c) OR (b AND !c)
-            NewInstruction = llvm::BinaryOperator::CreateOr(
-                    builder.CreateAnd(builder.CreateNot(BO->getOperand(0)), BO->getOperand(1)),
-                    builder.CreateAnd(BO->getOperand(0), builder.CreateNot(BO->getOperand(1)))
-            );
-            break;
-        }
-        default:
-            // do nothing.
-            break;
-    }
-
-    llvm::ReplaceInstWithInst(BB.getInstList(), BI, NewInstruction);
-    LLVM_DEBUG(llvm::dbgs() << "Replaced: " << *BO << " with: " << *NewInstruction << "\n");
-    return true;
-}
-
-bool Substitution::handleBinaryOR(llvm::BasicBlock &BB, llvm::BinaryOperator *BO, llvm::BasicBlock::iterator &BI) {
-    llvm::IRBuilder<> builder(BO);
-    llvm::Instruction *NewInstruction = nullptr;
-
-    /*
-     * Replace
-     * a = b OR c
-     *
-     * With one of the below substitution, chosen at random (where r is a random value):
-     * a = (b & c) | (b ^ c)
-     * a = [(!b & r) | (b & !r) ^ (!c & r) |(c & !r) ] | [!(!b | !c) && (r | !r)]
-     */
-
-    uint64_t func = GenerateRandomInt64(ORSubstitutionFuncCount);
-    switch (func) {
-        case 0: {
-            // a = (b & c) | (b ^ c)
-            NewInstruction = llvm::BinaryOperator::CreateOr(
-                    builder.CreateAnd(BO->getOperand(0), BO->getOperand(1)),
-                    builder.CreateXor(BO->getOperand(0), BO->getOperand(1))
-            );
-            break;
-        }
-        case 1: {
-            // a = [(!b & r) | (b & !r) ^ (!c & r) | (c & !r) ] | [!(!b | !c) & (r | !r)]
-            auto *randomConstant = llvm::ConstantInt::get(BO->getType(), GenerateRandomInt64());
-            NewInstruction = llvm::BinaryOperator::CreateOr(
-                    builder.CreateXor(
-                            builder.CreateOr(
-                                    builder.CreateAnd(builder.CreateNot(BO->getOperand(0)), randomConstant),
-                                    builder.CreateAnd(BO->getOperand(0), builder.CreateNot(randomConstant))
-                            ),
-                            builder.CreateOr(
-                                    builder.CreateAnd(builder.CreateNot(BO->getOperand(1)), randomConstant),
-                                    builder.CreateAnd(BO->getOperand(1), builder.CreateNot(randomConstant))
-                            )
-                    ),
-                    builder.CreateAnd(
-                            builder.CreateNot(
-                                    builder.CreateOr(
-                                            builder.CreateNot(BO->getOperand(0)),
-                                            builder.CreateNot(BO->getOperand(1))
-                                    )
-                            ),
-                            builder.CreateOr(randomConstant, builder.CreateNot(randomConstant))
-                    )
-            );
-            break;
-        }
-        default:
-            // do nothing.
-            break;
-    }
-
-    llvm::ReplaceInstWithInst(BB.getInstList(), BI, NewInstruction);
-    LLVM_DEBUG(llvm::dbgs() << "Replaced: " << *BO << " with: " << *NewInstruction << "\n");
-    return true;
-}
-
-bool Substitution::handleBinaryAND(llvm::BasicBlock &BB, llvm::BinaryOperator *BO, llvm::BasicBlock::iterator &BI) {
-    llvm::IRBuilder<> builder(BO);
-    llvm::Instruction *NewInstruction = nullptr;
-
-    /*
-     * Replace
-     * a = b AND c
-     *
-     * With one of the below substitution, chosen at random (where r is a random value):
-     * a = (b XOR !c) AND b
-     * a = !(!b | !c) AND (r | !r)
-     */
-
-    uint64_t func = GenerateRandomInt64(ANDSubstitutionFuncCount);
-    switch (func) {
-        case 0: {
-            NewInstruction = llvm::BinaryOperator::CreateAnd(
-                    builder.CreateXor(
-                            BO->getOperand(0),
-                            builder.CreateNot(BO->getOperand(1))
-                    ),
-                    BO->getOperand(0)
-            );
-            break;
-        }
-        case 1: {
-            auto *randomConstant = llvm::ConstantInt::get(BO->getType(), GenerateRandomInt64());
-            NewInstruction = llvm::BinaryOperator::CreateAnd(
+            ),
+            builder.CreateAnd(
                     builder.CreateNot(
                             builder.CreateOr(
                                     builder.CreateNot(BO->getOperand(0)),
                                     builder.CreateNot(BO->getOperand(1))
                             )
                     ),
-                    builder.CreateOr(
-                            randomConstant,
-                            builder.CreateNot(randomConstant)
-                    )
-            );
-            break;
-        }
-        default:
-            // do nothing.
-            break;
-    }
+                    builder.CreateOr(randomConstant, builder.CreateNot(randomConstant))
+            )
+    );
 
+    llvm::ReplaceInstWithInst(BB.getInstList(), BI, NewInstruction);
+    LLVM_DEBUG(llvm::dbgs() << "Replaced: " << *BO << " with: " << *NewInstruction << "\n");
+    return true;
+}
+
+bool Substitution::handlerORVersion2(llvm::BasicBlock &BB, llvm::BinaryOperator *BO, llvm::BasicBlock::iterator &BI) {
+    llvm::IRBuilder<> builder(BO);
+
+    // implements the substitution a = (b & c) | (b ^ c)
+    llvm::Instruction *NewInstruction = llvm::BinaryOperator::CreateOr(
+            builder.CreateAnd(BO->getOperand(0), BO->getOperand(1)),
+            builder.CreateXor(BO->getOperand(0), BO->getOperand(1))
+    );
+
+    llvm::ReplaceInstWithInst(BB.getInstList(), BI, NewInstruction);
+    LLVM_DEBUG(llvm::dbgs() << "Replaced: " << *BO << " with: " << *NewInstruction << "\n");
+    return true;
+}
+
+bool Substitution::handlerXORVersion1(llvm::BasicBlock &BB, llvm::BinaryOperator *BO, llvm::BasicBlock::iterator &BI) {
+    llvm::IRBuilder<> builder(BO);
+
+    // implements a = (b XOR r) XOR (c XOR r)
+    auto *randomConstant = llvm::ConstantInt::get(BO->getType(), RandomInt64());
+    llvm::Instruction *NewInstruction = llvm::BinaryOperator::CreateXor(
+            builder.CreateXor(BO->getOperand(0), randomConstant),
+            builder.CreateXor(BO->getOperand(1), randomConstant)
+    );
+
+    llvm::ReplaceInstWithInst(BB.getInstList(), BI, NewInstruction);
+    LLVM_DEBUG(llvm::dbgs() << "Replaced: " << *BO << " with: " << *NewInstruction << "\n");
+    return true;
+}
+
+bool Substitution::handlerXORVersion2(llvm::BasicBlock &BB, llvm::BinaryOperator *BO, llvm::BasicBlock::iterator &BI) {
+    llvm::IRBuilder<> builder(BO);
+
+    // implements a = (!b AND r OR b AND !r) XOR (!c AND r OR c AND !r)
+    auto *randomConstant = llvm::ConstantInt::get(BO->getType(), RandomInt64());
+    llvm::Instruction *NewInstruction = llvm::BinaryOperator::CreateXor(
+            builder.CreateOr(
+                    builder.CreateAnd(builder.CreateNot(BO->getOperand(0)), randomConstant),
+                    builder.CreateAnd(BO->getOperand(0), builder.CreateNot(randomConstant))
+            ),
+            builder.CreateOr(
+                    builder.CreateAnd(builder.CreateNot(BO->getOperand(1)), randomConstant),
+                    builder.CreateAnd(BO->getOperand(1), builder.CreateNot(randomConstant))
+            )
+    );
+
+    llvm::ReplaceInstWithInst(BB.getInstList(), BI, NewInstruction);
+    LLVM_DEBUG(llvm::dbgs() << "Replaced: " << *BO << " with: " << *NewInstruction << "\n");
+    return true;
+}
+
+bool Substitution::handlerXORVersion3(llvm::BasicBlock &BB, llvm::BinaryOperator *BO, llvm::BasicBlock::iterator &BI) {
+    llvm::IRBuilder<> builder(BO);
+
+    // implements a = (!b AND c) OR (b AND !c)
+    llvm::Instruction *NewInstruction = llvm::BinaryOperator::CreateOr(
+            builder.CreateAnd(builder.CreateNot(BO->getOperand(0)), BO->getOperand(1)),
+            builder.CreateAnd(BO->getOperand(0), builder.CreateNot(BO->getOperand(1)))
+    );
+
+    llvm::ReplaceInstWithInst(BB.getInstList(), BI, NewInstruction);
+    LLVM_DEBUG(llvm::dbgs() << "Replaced: " << *BO << " with: " << *NewInstruction << "\n");
+    return true;
+}
+
+bool
+Substitution::handlerSubtractVersion1(llvm::BasicBlock &BB, llvm::BinaryOperator *BO, llvm::BasicBlock::iterator &BI) {
+    llvm::IRBuilder<> builder(BO);
+    // implements a = b + (-c)
+    llvm::Instruction *NewInstruction = llvm::BinaryOperator::CreateAdd(BO->getOperand(0),
+                                                                        builder.CreateNeg(BO->getOperand(1)));
+    llvm::ReplaceInstWithInst(BB.getInstList(), BI, NewInstruction);
+    LLVM_DEBUG(llvm::dbgs() << "Replaced: " << *BO << " with: " << *NewInstruction << "\n");
+    return true;
+}
+
+bool
+Substitution::handlerSubtractVersion2(llvm::BasicBlock &BB, llvm::BinaryOperator *BO, llvm::BasicBlock::iterator &BI) {
+    llvm::IRBuilder<> builder(BO);
+
+    // implements a = b + r; a -= c; a -= r;
+    auto *randomConstant = llvm::ConstantInt::get(BO->getType(), RandomInt64());
+    llvm::Instruction *NewInstruction = llvm::BinaryOperator::CreateSub(
+            builder.CreateSub(
+                    builder.CreateAdd(BO->getOperand(0), randomConstant),
+                    BO->getOperand(1)
+            ),
+            randomConstant
+    );
+
+    llvm::ReplaceInstWithInst(BB.getInstList(), BI, NewInstruction);
+    LLVM_DEBUG(llvm::dbgs() << "Replaced: " << *BO << " with: " << *NewInstruction << "\n");
+    return true;
+}
+
+bool
+Substitution::handlerSubtractVersion3(llvm::BasicBlock &BB, llvm::BinaryOperator *BO, llvm::BasicBlock::iterator &BI) {
+    llvm::IRBuilder<> builder(BO);
+
+    // implemenets a = b - r; a -= c; a += r;
+    auto *randomConstant = llvm::ConstantInt::get(BO->getType(), RandomInt64());
+    llvm::Instruction *NewInstruction = llvm::BinaryOperator::CreateAdd(
+            builder.CreateSub(
+                    builder.CreateSub(BO->getOperand(0), randomConstant),
+                    BO->getOperand(1)
+            ),
+            randomConstant
+    );
+
+    llvm::ReplaceInstWithInst(BB.getInstList(), BI, NewInstruction);
+    LLVM_DEBUG(llvm::dbgs() << "Replaced: " << *BO << " with: " << *NewInstruction << "\n");
+    return true;
+}
+
+bool Substitution::handlerAddVersion1(llvm::BasicBlock &BB, llvm::BinaryOperator *BO, llvm::BasicBlock::iterator &BI) {
+    llvm::IRBuilder<> builder(BO);
+    // implements a = b - (-c)
+    llvm::Instruction *NewInstruction = llvm::BinaryOperator::CreateSub(BO->getOperand(0),
+                                                                        builder.CreateNeg(BO->getOperand(1)));
+    llvm::ReplaceInstWithInst(BB.getInstList(), BI, NewInstruction);
+    LLVM_DEBUG(llvm::dbgs() << "Replaced: " << *BO << " with: " << *NewInstruction << "\n");
+    return true;
+}
+
+bool Substitution::handlerAddVersion2(llvm::BasicBlock &BB, llvm::BinaryOperator *BO, llvm::BasicBlock::iterator &BI) {
+    llvm::IRBuilder<> builder(BO);
+    // implements a = -(-b + (-c))
+    llvm::Instruction *NewInstruction = llvm::BinaryOperator::CreateNeg(
+            builder.CreateAdd(
+                    builder.CreateNeg(BO->getOperand(0)),
+                    builder.CreateNeg(BO->getOperand(1))
+            )
+    );
+    llvm::ReplaceInstWithInst(BB.getInstList(), BI, NewInstruction);
+    LLVM_DEBUG(llvm::dbgs() << "Replaced: " << *BO << " with: " << *NewInstruction << "\n");
+    return true;
+}
+
+bool Substitution::handlerAddVersion3(llvm::BasicBlock &BB, llvm::BinaryOperator *BO, llvm::BasicBlock::iterator &BI) {
+    llvm::IRBuilder<> builder(BO);
+    // implements a = b + r; a += c; a -=r
+    auto *randomConstant = llvm::ConstantInt::get(BO->getType(), RandomInt64());
+    llvm::Instruction *NewInstruction = llvm::BinaryOperator::CreateSub(
+            builder.CreateAdd(
+                    builder.CreateAdd(BO->getOperand(0), randomConstant),
+                    BO->getOperand(1)
+            ),
+            randomConstant
+    );
+    llvm::ReplaceInstWithInst(BB.getInstList(), BI, NewInstruction);
+    LLVM_DEBUG(llvm::dbgs() << "Replaced: " << *BO << " with: " << *NewInstruction << "\n");
+    return true;
+}
+
+bool Substitution::handlerAddVersion4(llvm::BasicBlock &BB, llvm::BinaryOperator *BO, llvm::BasicBlock::iterator &BI) {
+    llvm::IRBuilder<> builder(BO);
+    // implements a = b - r; a += c; a += r
+    auto *randomConstant = llvm::ConstantInt::get(BO->getType(), RandomInt64());
+    llvm::Instruction *NewInstruction = llvm::BinaryOperator::CreateAdd(
+            builder.CreateAdd(
+                    builder.CreateSub(BO->getOperand(0), randomConstant),
+                    BO->getOperand(1)
+            ),
+            randomConstant
+    );
     llvm::ReplaceInstWithInst(BB.getInstList(), BI, NewInstruction);
     LLVM_DEBUG(llvm::dbgs() << "Replaced: " << *BO << " with: " << *NewInstruction << "\n");
     return true;

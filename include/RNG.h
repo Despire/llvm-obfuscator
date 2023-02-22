@@ -7,7 +7,7 @@
 
 #include <random>
 
-uint64_t GenerateRandomInt64() {
+uint64_t RandomInt64() {
     std::random_device rd;
     std::mt19937_64 rand(rd());
     std::uniform_int_distribution<uint64_t> dist;
@@ -15,8 +15,8 @@ uint64_t GenerateRandomInt64() {
     return dist(rand);
 }
 
-uint64_t GenerateRandomInt64(int64_t max) {
-    return GenerateRandomInt64() % max;
+uint64_t RandomInt64(int64_t max) {
+    return RandomInt64() % max;
 }
 
 #endif //LLVM_OBFUSCATOR_RNG_H
