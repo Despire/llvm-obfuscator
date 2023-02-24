@@ -40,12 +40,14 @@ llvm::PreservedAnalyses Substitution::run(llvm::Function &F, llvm::FunctionAnaly
     if (modified) {
         return llvm::PreservedAnalyses::none();
     }
-
     return llvm::PreservedAnalyses::all();
 }
 
 bool Substitution::handleBasicBlock(llvm::BasicBlock &BB) {
     bool modified = false;
+
+    auto generator = GetRandomGenerator();
+    std::uniform_real_distribution<std::float_t> uniformDist(0.0, 1.0);
 
     for (auto beg = BB.begin(); beg != BB.end(); ++beg) {
         auto *BO = llvm::dyn_cast<llvm::BinaryOperator>(beg);
@@ -53,7 +55,9 @@ bool Substitution::handleBasicBlock(llvm::BasicBlock &BB) {
             continue;
         }
 
-        // TODO: implement coverage option.
+        if (uniformDist(generator) > coverage.getValue()) {
+            continue;
+        }
 
         switch (BO->getOpcode()) {
             case llvm::Instruction::Add: {

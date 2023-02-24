@@ -7,11 +7,15 @@
 
 #include <random>
 
-uint64_t RandomInt64() {
+std::mt19937_64 GetRandomGenerator() {
     std::random_device rd;
     std::mt19937_64 rand(rd());
-    std::uniform_int_distribution<uint64_t> dist;
+    return rand;
+}
 
+uint64_t RandomInt64() {
+    auto rand = GetRandomGenerator();
+    std::uniform_int_distribution<uint64_t> dist;
     return dist(rand);
 }
 
