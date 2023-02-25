@@ -5,15 +5,15 @@ target triple = "arm64-apple-macosx12.0.0"
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind readnone ssp willreturn uwtable
 define i32 @_Z10add_valuesiiii(i32 %0, i32 %1, i32 %2, i32 %3) local_unnamed_addr #0 {
-  %5 = add i32 %1, 201848681
-  %6 = add i32 %5, %0
-  %7 = sub i32 %6, 201848681
-  %8 = sub i32 0, %2
-  %9 = sub i32 %7, %8
-  %10 = sub i32 0, %9
-  %11 = sub i32 0, %3
-  %12 = add i32 %10, %11
-  %13 = sub i32 0, %12
+  %5 = and i32 %1, %0
+  %6 = or i32 %1, %0
+  %7 = add i32 %5, %6
+  %8 = sub i32 %7, -370699356
+  %9 = add i32 %8, %2
+  %10 = add i32 %9, -370699356
+  %11 = sub i32 %10, -1924427217
+  %12 = add i32 %11, %3
+  %13 = add i32 %12, -1924427217
   ret i32 %13
 }
 

@@ -5,17 +5,21 @@ target triple = "arm64-apple-macosx12.0.0"
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind readnone ssp willreturn uwtable
 define signext i8 @_Z10add_valuesaaaa(i8 signext %0, i8 signext %1, i8 signext %2, i8 signext %3) local_unnamed_addr #0 {
-  %5 = sub i8 %1, 44
-  %6 = add i8 %5, %0
-  %7 = add i8 %6, 44
-  %8 = add i8 %7, 107
-  %9 = add i8 %8, %2
-  %10 = sub i8 %9, 107
-  %11 = sub i8 0, %10
-  %12 = sub i8 0, %3
-  %13 = add i8 %11, %12
-  %14 = sub i8 0, %13
-  ret i8 %14
+  %5 = xor i8 %1, %0
+  %6 = and i8 %1, %0
+  %7 = mul i8 2, %6
+  %8 = add i8 %5, %7
+  %9 = mul i8 39, %8
+  %10 = add i8 23, %9
+  %11 = mul i8 -105, %10
+  %12 = add i8 111, %11
+  %13 = sub i8 %12, 72
+  %14 = add i8 %13, %2
+  %15 = add i8 %14, 72
+  %16 = sub i8 %15, 71
+  %17 = add i8 %16, %3
+  %18 = add i8 %17, 71
+  ret i8 %18
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind readnone ssp willreturn uwtable

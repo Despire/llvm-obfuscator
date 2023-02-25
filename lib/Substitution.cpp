@@ -383,6 +383,85 @@ bool Substitution::handlerAddVersion4(llvm::BasicBlock &BB, llvm::BinaryOperator
     return true;
 }
 
+bool Substitution::handlerAddVersion5(llvm::BasicBlock &BB, llvm::BinaryOperator *BO, llvm::BasicBlock::iterator &BI) {
+    llvm::IRBuilder<> builder(BO);
+
+    // implements a = (b XOR c) + 2 * (b AND c)
+    llvm::Instruction *NewInstruction = llvm::BinaryOperator::CreateAdd(
+            builder.CreateXor(
+                    BO->getOperand(0),
+                    BO->getOperand(1)
+            ),
+            builder.CreateMul(
+                    llvm::ConstantInt::get(BO->getType(), 2),
+                    builder.CreateAnd(
+                            BO->getOperand(0),
+                            BO->getOperand(1)
+                    )
+            )
+    );
+
+    llvm::ReplaceInstWithInst(BB.getInstList(), BI, NewInstruction);
+    LLVM_DEBUG(llvm::dbgs() << "Replaced: " << *BO << " with: " << *NewInstruction << "\n");
+    return true;
+}
+
+bool Substitution::handlerAddVersion6(llvm::BasicBlock &BB, llvm::BinaryOperator *BO, llvm::BasicBlock::iterator &BI) {
+    llvm::IRBuilder<> builder(BO);
+
+    // implements a = (b AND c) + (b OR c)
+    llvm::Instruction *NewInstruction = llvm::BinaryOperator::CreateAdd(
+            builder.CreateAnd(BO->getOperand(0), BO->getOperand(1)),
+            builder.CreateOr(BO->getOperand(0), BO->getOperand(1))
+    );
+
+    llvm::ReplaceInstWithInst(BB.getInstList(), BI, NewInstruction);
+    LLVM_DEBUG(llvm::dbgs() << "Replaced: " << *BO << " with: " << *NewInstruction << "\n");
+    return true;
+}
+
+bool Substitution::handlerXORVersion4(llvm::BasicBlock &BB, llvm::BinaryOperator *BO, llvm::BasicBlock::iterator &BI) {
+    llvm::IRBuilder<> builder(BO);
+
+    // implements a = (b OR c) - (b AND c)
+    llvm::Instruction *NewInstruction = llvm::BinaryOperator::CreateSub(
+            builder.CreateOr(BO->getOperand(0), BO->getOperand(1)),
+            builder.CreateAnd(BO->getOperand(0), BO->getOperand(1))
+    );
+
+    llvm::ReplaceInstWithInst(BB.getInstList(), BI, NewInstruction);
+    LLVM_DEBUG(llvm::dbgs() << "Replaced: " << *BO << " with: " << *NewInstruction << "\n");
+    return true;
+}
+
+bool Substitution::handlerANDVersion3(llvm::BasicBlock &BB, llvm::BinaryOperator *BO, llvm::BasicBlock::iterator &BI) {
+    llvm::IRBuilder<> builder(BO);
+
+    // implements a = (!b OR c) - (!b)
+    llvm::Instruction *NewInstruction = llvm::BinaryOperator::CreateSub(
+            builder.CreateOr(builder.CreateNot(BO->getOperand(0)), BO->getOperand(1)),
+            builder.CreateNot(BO->getOperand(0))
+    );
+
+    llvm::ReplaceInstWithInst(BB.getInstList(), BI, NewInstruction);
+    LLVM_DEBUG(llvm::dbgs() << "Replaced: " << *BO << " with: " << *NewInstruction << "\n");
+    return true;
+}
+
+bool Substitution::handlerORVersion3(llvm::BasicBlock &BB, llvm::BinaryOperator *BO, llvm::BasicBlock::iterator &BI) {
+    llvm::IRBuilder<> builder(BO);
+
+    // implements a = (b OR !c) + c
+    llvm::Instruction *NewInstruction = llvm::BinaryOperator::CreateAdd(
+            builder.CreateAnd(BO->getOperand(0), builder.CreateNot(BO->getOperand(1))),
+            BO->getOperand(1)
+    );
+
+    llvm::ReplaceInstWithInst(BB.getInstList(), BI, NewInstruction);
+    LLVM_DEBUG(llvm::dbgs() << "Replaced: " << *BO << " with: " << *NewInstruction << "\n");
+    return true;
+}
+
 //------------------------------------------------------
 //               Registration of the Plugin
 //------------------------------------------------------

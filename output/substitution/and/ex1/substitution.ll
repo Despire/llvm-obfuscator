@@ -5,16 +5,21 @@ target triple = "arm64-apple-macosx12.0.0"
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind readnone ssp willreturn uwtable
 define i32 @_Z10xor_valuesiiii(i32 %0, i32 %1, i32 %2, i32 %3) local_unnamed_addr #0 {
-  %5 = xor i32 %0, -1
-  %6 = xor i32 %1, %5
-  %7 = and i32 %6, %1
-  %8 = xor i32 %2, -1
-  %9 = xor i32 %7, %8
-  %10 = and i32 %9, %7
-  %11 = xor i32 %3, -1
-  %12 = xor i32 %10, %11
-  %13 = and i32 %12, %10
-  ret i32 %13
+  %5 = xor i32 %1, -1
+  %6 = xor i32 %0, -1
+  %7 = or i32 %5, %6
+  %8 = xor i32 %7, -1
+  %9 = and i32 %8, -1
+  %10 = xor i32 %9, -1
+  %11 = or i32 %10, %2
+  %12 = xor i32 %9, -1
+  %13 = sub i32 %11, %12
+  %14 = xor i32 %13, -1
+  %15 = xor i32 %3, -1
+  %16 = or i32 %14, %15
+  %17 = xor i32 %16, -1
+  %18 = and i32 %17, -1
+  ret i32 %18
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind readnone ssp willreturn uwtable
