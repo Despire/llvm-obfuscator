@@ -11,12 +11,27 @@ define i32 @_Z10sub_valuesiiii(i32 %0, i32 %1, i32 %2, i32 %3) local_unnamed_add
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind readnone ssp uwtable willreturn
-define i32 @main() local_unnamed_addr #0 {
-  %1 = call i32 @_Z10sub_valuesiiii(i32 15, i32 30, i32 45, i32 10)
-  ret i32 %1
+define i32 @_Z7absDiffii(i32 %0, i32 %1) local_unnamed_addr #0 {
+  %3 = sub nsw i32 %0, %1
+  %4 = call i32 @llvm.abs.i32(i32 %3, i1 true)
+  ret i32 %4
 }
 
+; Function Attrs: mustprogress nofree norecurse nosync nounwind readnone ssp uwtable willreturn
+define i32 @main() local_unnamed_addr #0 {
+  %1 = call i32 @_Z7absDiffii(i32 15, i32 51)
+  %2 = call i32 @_Z7absDiffii(i32 30, i32 35)
+  %3 = call i32 @_Z7absDiffii(i32 45, i32 54)
+  %4 = call i32 @_Z7absDiffii(i32 10, i32 15)
+  %5 = call i32 @_Z10sub_valuesiiii(i32 %1, i32 %2, i32 %3, i32 %4)
+  ret i32 %5
+}
+
+; Function Attrs: nofree nosync nounwind readnone speculatable willreturn
+declare i32 @llvm.abs.i32(i32, i1 immarg) #1
+
 attributes #0 = { mustprogress nofree norecurse nosync nounwind readnone ssp uwtable willreturn "frame-pointer"="non-leaf" "min-legal-vector-width"="0" "no-trapping-math"="true" "probe-stack"="__chkstk_darwin" "stack-protector-buffer-size"="8" "target-cpu"="apple-m1" "target-features"="+aes,+crc,+crypto,+dotprod,+fp-armv8,+fp16fml,+fullfp16,+lse,+neon,+ras,+rcpc,+rdm,+sha2,+sha3,+sm4,+v8.5a,+zcm,+zcz" }
+attributes #1 = { nofree nosync nounwind readnone speculatable willreturn }
 
 !llvm.module.flags = !{!0, !1, !2, !3, !4, !5, !6, !7, !8}
 !llvm.ident = !{!9}

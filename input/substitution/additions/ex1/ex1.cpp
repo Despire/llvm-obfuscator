@@ -4,19 +4,16 @@
 
 #include <stdint.h>
 
-int32_t add_values(int32_t a, int32_t b, int32_t c, int32_t d) {
-    int32_t first = a + b;
-    int32_t second = c + d;
-
-    return first + second;
+int32_t fibonacci(int32_t n) {
+    int a = 0, b = 1, c;
+    for (int i = 2; i <= n; i++) {
+        c = a + b;
+        a = b;
+        b = c;
+    }
+    return c;
 }
 
 int main() {
-    int32_t a = 15;
-    int32_t b = 30;
-    int32_t c = 45;
-    int32_t d = 10;
-
-    int32_t ret = add_values(a, b, c, d);
-    return ret;
+    return fibonacci(10);
 }
