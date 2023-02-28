@@ -9,20 +9,21 @@ define i32 @_Z9fibonaccii(i32 %0) local_unnamed_addr #0 {
   br i1 %2, label %3, label %5
 
 3:                                                ; preds = %5, %1
-  %4 = phi i32 [ undef, %1 ], [ %12, %5 ]
+  %4 = phi i32 [ undef, %1 ], [ %11, %5 ]
   ret i32 %4
 
 5:                                                ; preds = %5, %1
-  %6 = phi i32 [ %13, %5 ], [ 2, %1 ]
-  %7 = phi i32 [ %12, %5 ], [ 1, %1 ]
+  %6 = phi i32 [ %14, %5 ], [ 2, %1 ]
+  %7 = phi i32 [ %11, %5 ], [ 1, %1 ]
   %8 = phi i32 [ %7, %5 ], [ 0, %1 ]
-  %9 = xor i32 %7, %8
-  %10 = and i32 %7, %8
-  %11 = mul i32 2, %10
-  %12 = add i32 %9, %11
-  %13 = sub i32 %6, -1
-  %14 = icmp eq i32 %6, %0
-  br i1 %14, label %3, label %5, !llvm.loop !10
+  %9 = and i32 %7, %8
+  %10 = or i32 %7, %8
+  %11 = add i32 %9, %10
+  %12 = sub i32 %6, -335219725
+  %13 = add i32 %12, 1
+  %14 = add i32 %13, -335219725
+  %15 = icmp eq i32 %6, %0
+  br i1 %15, label %3, label %5, !llvm.loop !10
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind readnone ssp willreturn uwtable

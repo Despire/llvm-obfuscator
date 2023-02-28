@@ -5,19 +5,19 @@ target triple = "arm64-apple-macosx12.0.0"
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind readnone ssp willreturn uwtable
 define i32 @_Z10sub_valuesiiii(i32 %0, i32 %1, i32 %2, i32 %3) local_unnamed_addr #0 {
-  %5 = sub i32 0, %2
-  %6 = add i32 %3, %5
-  %7 = shl i32 %6, 1
-  ret i32 %7
+  %5 = sub i32 %3, 149538726
+  %6 = sub i32 %5, %2
+  %7 = add i32 %6, 149538726
+  %8 = shl i32 %7, 1
+  ret i32 %8
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind readnone ssp willreturn uwtable
 define i32 @_Z7absDiffii(i32 %0, i32 %1) local_unnamed_addr #0 {
-  %3 = add i32 %0, -1775757690
-  %4 = sub i32 %3, %1
-  %5 = sub i32 %4, -1775757690
-  %6 = call i32 @llvm.abs.i32(i32 %5, i1 true)
-  ret i32 %6
+  %3 = sub i32 0, %1
+  %4 = add i32 %0, %3
+  %5 = call i32 @llvm.abs.i32(i32 %4, i1 true)
+  ret i32 %5
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind readnone ssp willreturn uwtable

@@ -3,6 +3,9 @@ import subprocess
 
 for root, dirs, files in os.walk("input"):
     for directory in dirs:
+        if "substitution" not in directory:
+            continue
+
         current_dir = os.path.join(root, directory)
 
         files = os.listdir(current_dir)

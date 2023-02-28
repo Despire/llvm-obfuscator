@@ -24,111 +24,94 @@ define void @_Z9unionSetsPiS_S_iiRi(i32* nocapture readonly %0, i32* nocapture r
   %13 = icmp sgt i32 %4, 0
   br i1 %13, label %15, label %14
 
-14:                                               ; preds = %49, %12
-  br label %70
+14:                                               ; preds = %35, %12
+  br label %54
 
 15:                                               ; preds = %12
   %16 = zext i32 %4 to i64
-  br label %49
+  br label %35
 
 17:                                               ; preds = %17, %10
-  %18 = phi i64 [ 0, %10 ], [ %47, %17 ]
+  %18 = phi i64 [ 0, %10 ], [ %33, %17 ]
   %19 = getelementptr inbounds i32, i32* %0, i64 %18
   %20 = load i32, i32* %19, align 4, !tbaa !10
   %21 = sdiv i32 %20, 32
-  %22 = xor i32 %20, -1
-  %23 = or i32 %22, 31
-  %24 = xor i32 %20, -1
-  %25 = sub i32 %23, %24
-  %26 = shl i32 1, %25
-  %27 = sext i32 %21 to i64
-  %28 = getelementptr inbounds [31251 x i32], [31251 x i32]* %7, i64 0, i64 %27
-  %29 = load i32, i32* %28, align 4, !tbaa !10
-  %30 = xor i32 %26, -1
-  %31 = and i32 %30, -1841722790
-  %32 = and i32 %26, 1841722789
-  %33 = or i32 %31, %32
-  %34 = xor i32 %29, -1
-  %35 = and i32 %34, -1841722790
-  %36 = and i32 %29, 1841722789
-  %37 = or i32 %35, %36
-  %38 = xor i32 %33, %37
-  %39 = xor i32 %26, -1
-  %40 = xor i32 %29, -1
-  %41 = or i32 %39, %40
+  %22 = xor i32 %20, -32
+  %23 = and i32 %22, %20
+  %24 = shl i32 1, %23
+  %25 = sext i32 %21 to i64
+  %26 = getelementptr inbounds [31251 x i32], [31251 x i32]* %7, i64 0, i64 %25
+  %27 = load i32, i32* %26, align 4, !tbaa !10
+  %28 = and i32 %24, %27
+  %29 = xor i32 %24, %27
+  %30 = or i32 %28, %29
+  store i32 %30, i32* %26, align 4, !tbaa !10
+  %31 = sub i64 %18, -5468325209379065095
+  %32 = add i64 %31, 1
+  %33 = add i64 %32, -5468325209379065095
+  %34 = icmp eq i64 %33, %11
+  br i1 %34, label %12, label %17, !llvm.loop !14
+
+35:                                               ; preds = %35, %15
+  %36 = phi i64 [ 0, %15 ], [ %51, %35 ]
+  %37 = getelementptr inbounds i32, i32* %1, i64 %36
+  %38 = load i32, i32* %37, align 4, !tbaa !10
+  %39 = sdiv i32 %38, 32
+  %40 = xor i32 %38, -1
+  %41 = or i32 %40, -32
   %42 = xor i32 %41, -1
   %43 = and i32 %42, -1
-  %44 = or i32 %38, %43
-  store i32 %44, i32* %28, align 4, !tbaa !10
-  %45 = and i64 %18, 1
-  %46 = or i64 %18, 1
-  %47 = add i64 %45, %46
-  %48 = icmp eq i64 %47, %11
-  br i1 %48, label %12, label %17, !llvm.loop !14
+  %44 = shl i32 1, %43
+  %45 = sext i32 %39 to i64
+  %46 = getelementptr inbounds [31251 x i32], [31251 x i32]* %7, i64 0, i64 %45
+  %47 = load i32, i32* %46, align 4, !tbaa !10
+  %48 = xor i32 %47, -1
+  %49 = and i32 %44, %48
+  %50 = add i32 %49, %47
+  store i32 %50, i32* %46, align 4, !tbaa !10
+  %51 = sub i64 %36, -1
+  %52 = icmp eq i64 %51, %16
+  br i1 %52, label %14, label %35, !llvm.loop !17
 
-49:                                               ; preds = %49, %15
-  %50 = phi i64 [ 0, %15 ], [ %67, %49 ]
-  %51 = getelementptr inbounds i32, i32* %1, i64 %50
-  %52 = load i32, i32* %51, align 4, !tbaa !10
-  %53 = sdiv i32 %52, 32
-  %54 = xor i32 %52, -1
-  %55 = or i32 %54, -32
-  %56 = xor i32 %55, -1
-  %57 = and i32 %56, -1
-  %58 = shl i32 1, %57
-  %59 = sext i32 %53 to i64
-  %60 = getelementptr inbounds [31251 x i32], [31251 x i32]* %7, i64 0, i64 %59
-  %61 = load i32, i32* %60, align 4, !tbaa !10
-  %62 = and i32 %58, %61
-  %63 = xor i32 %58, %61
-  %64 = or i32 %62, %63
-  store i32 %64, i32* %60, align 4, !tbaa !10
-  %65 = add i64 %50, -19148294312209565
-  %66 = add i64 %65, 1
-  %67 = sub i64 %66, -19148294312209565
-  %68 = icmp eq i64 %67, %16
-  br i1 %68, label %14, label %49, !llvm.loop !17
-
-69:                                               ; preds = %94
+53:                                               ; preds = %77
   call void @llvm.lifetime.end.p0i8(i64 125004, i8* nonnull %8) #6
   ret void
 
-70:                                               ; preds = %94, %14
-  %71 = phi i32 [ %97, %94 ], [ 0, %14 ]
-  %72 = lshr i32 %71, 5
-  %73 = xor i32 %71, -1
-  %74 = or i32 %73, 31
-  %75 = xor i32 %71, -1
-  %76 = sub i32 %74, %75
-  %77 = zext i32 %72 to i64
-  %78 = getelementptr inbounds [31251 x i32], [31251 x i32]* %7, i64 0, i64 %77
-  %79 = load i32, i32* %78, align 4, !tbaa !10
-  %80 = shl i32 1, %76
-  %81 = xor i32 %79, -1
-  %82 = xor i32 %80, -1
-  %83 = or i32 %81, %82
-  %84 = xor i32 %83, -1
-  %85 = and i32 %84, -1
-  %86 = icmp eq i32 %85, 0
-  br i1 %86, label %94, label %87
+54:                                               ; preds = %77, %14
+  %55 = phi i32 [ %80, %77 ], [ 0, %14 ]
+  %56 = lshr i32 %55, 5
+  %57 = xor i32 %55, -1
+  %58 = or i32 %57, 31
+  %59 = xor i32 %55, -1
+  %60 = sub i32 %58, %59
+  %61 = zext i32 %56 to i64
+  %62 = getelementptr inbounds [31251 x i32], [31251 x i32]* %7, i64 0, i64 %61
+  %63 = load i32, i32* %62, align 4, !tbaa !10
+  %64 = shl i32 1, %60
+  %65 = xor i32 %63, -1
+  %66 = or i32 %65, %64
+  %67 = xor i32 %63, -1
+  %68 = sub i32 %66, %67
+  %69 = icmp eq i32 %68, 0
+  br i1 %69, label %77, label %70
 
-87:                                               ; preds = %70
-  %88 = load i32, i32* %5, align 4, !tbaa !10
-  %89 = sub i32 %88, 1206627287
-  %90 = add i32 %89, 1
-  %91 = add i32 %90, 1206627287
-  store i32 %91, i32* %5, align 4, !tbaa !10
-  %92 = sext i32 %88 to i64
-  %93 = getelementptr inbounds i32, i32* %2, i64 %92
-  store i32 %71, i32* %93, align 4, !tbaa !10
-  br label %94
+70:                                               ; preds = %54
+  %71 = load i32, i32* %5, align 4, !tbaa !10
+  %72 = sub i32 %71, 153590410
+  %73 = add i32 %72, 1
+  %74 = add i32 %73, 153590410
+  store i32 %74, i32* %5, align 4, !tbaa !10
+  %75 = sext i32 %71 to i64
+  %76 = getelementptr inbounds i32, i32* %2, i64 %75
+  store i32 %55, i32* %76, align 4, !tbaa !10
+  br label %77
 
-94:                                               ; preds = %87, %70
-  %95 = and i32 %71, 1
-  %96 = or i32 %71, 1
-  %97 = add i32 %95, %96
-  %98 = icmp eq i32 %97, 1000000
-  br i1 %98, label %69, label %70, !llvm.loop !18
+77:                                               ; preds = %70, %54
+  %78 = add i32 %55, 752097512
+  %79 = add i32 %78, 1
+  %80 = sub i32 %79, 752097512
+  %81 = icmp eq i32 %80, 1000000
+  br i1 %81, label %53, label %54, !llvm.loop !18
 }
 
 ; Function Attrs: argmemonly nocallback nofree nosync nounwind willreturn
@@ -148,22 +131,10 @@ define i32 @_Z9or_valuesiiii(i32 %0, i32 %1, i32 %2, i32 %3) local_unnamed_addr 
   %8 = and i32 %7, %2
   %9 = xor i32 %7, %2
   %10 = or i32 %8, %9
-  %11 = xor i32 %10, -1
-  %12 = and i32 %11, 209214797
-  %13 = and i32 %10, -209214798
-  %14 = or i32 %12, %13
-  %15 = xor i32 %3, -1
-  %16 = and i32 %15, 209214797
-  %17 = and i32 %3, -209214798
-  %18 = or i32 %16, %17
-  %19 = xor i32 %14, %18
-  %20 = xor i32 %10, -1
-  %21 = xor i32 %3, -1
-  %22 = or i32 %20, %21
-  %23 = xor i32 %22, -1
-  %24 = and i32 %23, -1
-  %25 = or i32 %19, %24
-  ret i32 %25
+  %11 = xor i32 %3, -1
+  %12 = and i32 %10, %11
+  %13 = add i32 %12, %3
+  ret i32 %13
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind ssp uwtable
@@ -189,26 +160,14 @@ define i32 @main() local_unnamed_addr #4 {
   %12 = call i32 @_Z9or_valuesiiii(i32 1, i32 2, i32 3, i32 4)
   %13 = load i32, i32* %4, align 4, !tbaa !10
   %14 = call i32 @_Z9or_valuesiiii(i32 4, i32 4, i32 %13, i32 4)
-  %15 = xor i32 %14, -1
-  %16 = and i32 %15, 1951794528
-  %17 = and i32 %14, -1951794529
-  %18 = or i32 %16, %17
-  %19 = xor i32 %12, -1
-  %20 = and i32 %19, 1951794528
-  %21 = and i32 %12, -1951794529
-  %22 = or i32 %20, %21
-  %23 = xor i32 %18, %22
-  %24 = xor i32 %14, -1
-  %25 = xor i32 %12, -1
-  %26 = or i32 %24, %25
-  %27 = xor i32 %26, -1
-  %28 = and i32 %27, -1
-  %29 = or i32 %23, %28
+  %15 = xor i32 %12, -1
+  %16 = and i32 %14, %15
+  %17 = add i32 %16, %12
   call void @llvm.lifetime.end.p0i8(i64 4, i8* nonnull %8) #6
   call void @llvm.lifetime.end.p0i8(i64 32, i8* nonnull %7) #6
   call void @llvm.lifetime.end.p0i8(i64 16, i8* nonnull %6) #6
   call void @llvm.lifetime.end.p0i8(i64 16, i8* nonnull %5) #6
-  ret i32 %29
+  ret i32 %17
 }
 
 ; Function Attrs: argmemonly nocallback nofree nounwind willreturn

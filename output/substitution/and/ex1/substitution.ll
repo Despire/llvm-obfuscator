@@ -6,37 +6,40 @@ target triple = "arm64-apple-macosx12.0.0"
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind readnone ssp willreturn uwtable
 define i32 @_Z10and_valuesiiii(i32 %0, i32 %1, i32 %2, i32 %3) local_unnamed_addr #0 {
   %5 = xor i32 %1, -1
-  %6 = or i32 %5, %0
-  %7 = xor i32 %1, -1
-  %8 = sub i32 %6, %7
-  %9 = xor i32 %2, -1
-  %10 = xor i32 %8, %9
-  %11 = and i32 %10, %8
-  %12 = xor i32 %3, -1
-  %13 = xor i32 %11, %12
-  %14 = and i32 %13, %11
-  ret i32 %14
+  %6 = xor i32 %0, -1
+  %7 = or i32 %5, %6
+  %8 = xor i32 %7, -1
+  %9 = and i32 %8, -1
+  %10 = xor i32 %9, -1
+  %11 = or i32 %10, %2
+  %12 = xor i32 %9, -1
+  %13 = sub i32 %11, %12
+  %14 = xor i32 %3, -1
+  %15 = xor i32 %13, %14
+  %16 = and i32 %15, %13
+  ret i32 %16
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind readnone ssp willreturn uwtable
 define i32 @_Z12countSetBitsi(i32 %0) local_unnamed_addr #0 {
   %2 = icmp eq i32 %0, 0
-  br i1 %2, label %12, label %3
+  br i1 %2, label %13, label %3
 
 3:                                                ; preds = %3, %1
-  %4 = phi i32 [ %9, %3 ], [ 0, %1 ]
-  %5 = phi i32 [ %10, %3 ], [ %0, %1 ]
+  %4 = phi i32 [ %10, %3 ], [ 0, %1 ]
+  %5 = phi i32 [ %11, %3 ], [ %0, %1 ]
   %6 = xor i32 %5, -2
   %7 = and i32 %6, %5
-  %8 = sub i32 0, %7
-  %9 = sub i32 %4, %8
-  %10 = ashr i32 %5, 1
-  %11 = icmp ult i32 %5, 2
-  br i1 %11, label %12, label %3, !llvm.loop !10
+  %8 = add i32 %4, -744077546
+  %9 = add i32 %8, %7
+  %10 = sub i32 %9, -744077546
+  %11 = ashr i32 %5, 1
+  %12 = icmp ult i32 %5, 2
+  br i1 %12, label %13, label %3, !llvm.loop !10
 
-12:                                               ; preds = %3, %1
-  %13 = phi i32 [ 0, %1 ], [ %9, %3 ]
-  ret i32 %13
+13:                                               ; preds = %3, %1
+  %14 = phi i32 [ 0, %1 ], [ %10, %3 ]
+  ret i32 %14
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind readnone ssp willreturn uwtable
