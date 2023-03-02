@@ -12,5 +12,8 @@ struct ControlFlowFlattening : public llvm::PassInfoMixin<ControlFlowFlattening>
     llvm::PreservedAnalyses run(llvm::Function &F, llvm::FunctionAnalysisManager &);
 
     bool handleFunction(llvm::Function &F);
+
+    std::vector<llvm::Instruction*> findAllInstructionUsedInMultipleBlocks(llvm::Function &F) const;
+    std::vector<llvm::PHINode*> findAllPHINodes(llvm::Function &F) const;
 };
 #endif //LLVM_OBFUSCATOR_CONTROLFLOWFLATTENING_H

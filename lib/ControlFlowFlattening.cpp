@@ -37,14 +37,13 @@ llvm::PreservedAnalyses ControlFlowFlattening::run(llvm::Function &F, llvm::Func
     // and transforms them into sequential basic blocks.
     llvm::LowerSwitchPass().run(F, FAM);
 
-//    if (handleFunction(F)) {
-//        ++ControlFlowFlatteningCount;
-//        return llvm::PreservedAnalyses::none();
-//    }
+    if (handleFunction(F)) {
+        ++ControlFlowFlatteningCount;
+        return llvm::PreservedAnalyses::none();
+    }
 
     return llvm::PreservedAnalyses::all();
 }
-
 
 bool ControlFlowFlattening::handleFunction(llvm::Function &F) {
     auto &CTX = F.getContext();
@@ -69,8 +68,7 @@ bool ControlFlowFlattening::handleFunction(llvm::Function &F) {
 
     // If the EntryBasicBlock doesn't end in unconditional branch (i.e. it has multiple BasicBlocks where
     // control flow can go) we need to split the Block into two.
-    auto *BranchInst = llvm::dyn_cast<llvm::BranchInst>(EntryBasicBlock->getTerminator());
-    if ((BranchInst && BranchInst->isConditional()) || (EntryBasicBlock->getTerminator()->getNumSuccessors() > 1)) {
+    if (llvm::dyn_cast<llvm::BranchInst>(EntryBasicBlock->getTerminator())) {
         auto LastInst = std::prev(EntryBasicBlock->end());
         // also take into account the `icmp` instruction that preceeds the `br` instruction.
         if (LastInst != EntryBasicBlock->begin()) {
@@ -195,18 +193,67 @@ bool ControlFlowFlattening::handleFunction(llvm::Function &F) {
         }
     }
 
-    // TODO: we need to fix the Phi nodes
-    // and also Instruction does not dominate all uses!
-    // this occurs since we adjusted the flow and we also
-    // need to adjust the intruction so they'll be reachable
-    // from each case.
-
-    // Debug print.
-    for (auto &BB: F) {
-        llvm::errs() << BB << "\n";
+    // fixup instructions referenced in multiple blocks.
+    for (auto &Inst: findAllInstructionUsedInMultipleBlocks(F)) {
+        llvm::DemoteRegToStack(*Inst);
     }
 
+    assert(findAllInstructionUsedInMultipleBlocks(F).empty() &&
+           "leftover instruction that are used in multiple blocks");
+
+    // fixup PHI nodes reference in basic blocks after the reconstruction
+    // of the control flow.
+    for (auto &PHINode: findAllPHINodes(F)) {
+        llvm::DemotePHIToStack(PHINode);
+    }
+
+    assert(findAllPHINodes(F).empty() && "leftover PHI nodes in basic blocks");
+
+//    // Debug print.
+//    for (auto &BB: F) {
+//        llvm::errs() << BB << "\n";
+//    }
+
     return true;
+}
+
+std::vector<llvm::Instruction *>
+ControlFlowFlattening::findAllInstructionUsedInMultipleBlocks(llvm::Function &F) const {
+    auto *EntryBasicBlock = &*F.begin();
+    std::vector<llvm::Instruction *> usedOutside;
+
+    // fixup instrunction referenced in multiple blocks.
+    for (auto &BB: F) {
+        for (auto &Inst: BB) {
+            // in the entry block there will be a bunch of stack allocation using alloca
+            // that are referenced in multiple blocks thus we need to ignore those when
+            // filtering.
+            if (llvm::isa<llvm::AllocaInst>(Inst) && Inst.getParent() == EntryBasicBlock) {
+                continue;
+            }
+
+            // check if used outside the current block.
+            if (Inst.isUsedOutsideOfBlock(&BB)) {
+                usedOutside.push_back(&Inst);
+            }
+        }
+    }
+
+    return usedOutside;
+}
+
+std::vector<llvm::PHINode *> ControlFlowFlattening::findAllPHINodes(llvm::Function &F) const {
+    std::vector<llvm::PHINode*> nodes;
+
+    for (auto &BB: F) {
+        for (auto &Inst : BB) {
+            if (llvm::isa<llvm::PHINode>(&Inst)) {
+                nodes.push_back(llvm::cast<llvm::PHINode>(&Inst));
+            }
+        }
+    }
+
+    return nodes;
 }
 
 //------------------------------------------------------
