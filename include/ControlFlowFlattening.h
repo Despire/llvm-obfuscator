@@ -13,7 +13,11 @@ struct ControlFlowFlattening : public llvm::PassInfoMixin<ControlFlowFlattening>
 
     bool handleFunction(llvm::Function &F);
 
-    std::vector<llvm::Instruction*> findAllInstructionUsedInMultipleBlocks(llvm::Function &F) const;
-    std::vector<llvm::PHINode*> findAllPHINodes(llvm::Function &F) const;
+    // findAllInstructionUsedInMultipleBlocks finds all Instructions that are used in multiple blocks inside F.
+    std::vector<llvm::Instruction *> findAllInstructionUsedInMultipleBlocks(llvm::Function &F) const;
+
+    // findAllPHINodes finds all PHI nodes for each basic block in F.
+    std::vector<llvm::PHINode *> findAllPHINodes(llvm::Function &F) const;
 };
+
 #endif //LLVM_OBFUSCATOR_CONTROLFLOWFLATTENING_H

@@ -1,19 +1,20 @@
 import os
 import subprocess
 
+# Re-generate test files
 for root, dirs, files in os.walk("input"):
     for directory in dirs:
         if "substitution" not in directory:
             continue
 
         current_dir = os.path.join(root, directory)
-
-        files = os.listdir(current_dir)
-        if "compile.sh" in files:
-            os.environ["input_path"] = current_dir + "/" + directory
-            os.environ["output_path"] = current_dir.replace("input", "output")
-            subprocess.call(["bash", current_dir + "/compile.sh"])
-
+        for directory in os.listdir(current_dir):
+            if "compile.sh" not in directory:
+                continue
+            example = os.path.join(current_dir, directory)
+            os.environ["input_path"] = os.path.join(example, directory)
+            os.environ["output_path"] = example.replace("input", "output")
+            subprocess.call(["bash", example + "/compile.sh"])
 
 # execute tests.
 for root, dirs, files in os.walk("output"):

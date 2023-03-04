@@ -53,13 +53,9 @@ bool ControlFlowFlattening::handleFunction(llvm::Function &F) {
     // We won't do control flow flattening for exceptions for now.
     for (auto &beg: F) {
         // 1.st clear exception handling
-        if (beg.isLandingPad()) {
+        if (beg.isLandingPad() || llvm::isa<llvm::InvokeInst>(&beg)) {
             return false;
         }
-        if (llvm::isa<llvm::InvokeInst>(&beg)) {
-            return false;
-        }
-
         FunctionBasicBlocks.emplace_back(&beg);
     }
 
@@ -243,10 +239,10 @@ ControlFlowFlattening::findAllInstructionUsedInMultipleBlocks(llvm::Function &F)
 }
 
 std::vector<llvm::PHINode *> ControlFlowFlattening::findAllPHINodes(llvm::Function &F) const {
-    std::vector<llvm::PHINode*> nodes;
+    std::vector<llvm::PHINode *> nodes;
 
     for (auto &BB: F) {
-        for (auto &Inst : BB) {
+        for (auto &Inst: BB) {
             if (llvm::isa<llvm::PHINode>(&Inst)) {
                 nodes.push_back(llvm::cast<llvm::PHINode>(&Inst));
             }
