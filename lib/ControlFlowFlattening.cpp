@@ -2,6 +2,8 @@
 // Created by Matus Mrekaj on 25/02/2023.
 //
 #include <vector>
+#include <unordered_map>
+#include <string>
 
 #include "RNG.h"
 
@@ -37,7 +39,8 @@ llvm::PreservedAnalyses ControlFlowFlattening::run(llvm::Function &F, llvm::Func
     // and transforms them into sequential basic blocks.
     llvm::LowerSwitchPass().run(F, FAM);
 
-    if (handleFunction(F)) {
+    bool modified = (this->*Handlers[RandomInt64(ControlFlowFlatteningFuncCount)])(F);
+    if (modified) {
         ++ControlFlowFlatteningCount;
         return llvm::PreservedAnalyses::none();
     }
@@ -45,7 +48,7 @@ llvm::PreservedAnalyses ControlFlowFlattening::run(llvm::Function &F, llvm::Func
     return llvm::PreservedAnalyses::all();
 }
 
-bool ControlFlowFlattening::handleFunction(llvm::Function &F) {
+bool ControlFlowFlattening::handleLoopSwitchVersion(llvm::Function &F) {
     auto &CTX = F.getContext();
     std::vector<llvm::BasicBlock *> FunctionBasicBlocks;
 
@@ -205,11 +208,6 @@ bool ControlFlowFlattening::handleFunction(llvm::Function &F) {
 
     assert(findAllPHINodes(F).empty() && "leftover PHI nodes in basic blocks");
 
-//    // Debug print.
-//    for (auto &BB: F) {
-//        llvm::errs() << BB << "\n";
-//    }
-
     return true;
 }
 
@@ -250,6 +248,145 @@ std::vector<llvm::PHINode *> ControlFlowFlattening::findAllPHINodes(llvm::Functi
     }
 
     return nodes;
+}
+
+bool ControlFlowFlattening::handleJumpTableVersion(llvm::Function &F) {
+    auto &CTX = F.getContext();
+    std::vector<llvm::BasicBlock *> FunctionBasicBlocks;
+
+    // Collect the BasicBlocks and also check whether they throw an exception.
+    // We won't do control flow flattening for exceptions for now.
+    for (auto &beg: F) {
+        // 1.st clear exception handling
+        if (beg.isLandingPad() || llvm::isa<llvm::InvokeInst>(&beg)) {
+            return false;
+        }
+        FunctionBasicBlocks.emplace_back(&beg);
+    }
+
+    auto *EntryBasicBlock = FunctionBasicBlocks.front();
+    EntryBasicBlock->setName("entry");
+
+    // If the EntryBasicBlock doesn't end in unconditional branch (i.e. it has multiple BasicBlocks where
+    // control flow can go) we need to split the Block into two.
+    if (llvm::dyn_cast<llvm::BranchInst>(EntryBasicBlock->getTerminator())) {
+        auto LastInst = std::prev(EntryBasicBlock->end());
+        // also take into account the `icmp` instruction that preceeds the `br` instruction.
+        if (LastInst != EntryBasicBlock->begin()) {
+            --LastInst;
+        }
+
+        auto *split = EntryBasicBlock->splitBasicBlock(LastInst, "EntryBasicBlockSplit");
+        FunctionBasicBlocks.insert(std::next(FunctionBasicBlocks.begin()), split);
+    }
+
+    // remove the entry block from the list of function blocks.
+    FunctionBasicBlocks.erase(FunctionBasicBlocks.begin());
+
+    // collect the addresses of all basic blocks expect the entry.
+    std::vector<llvm::BlockAddress *> BlockAddresses;
+    for (auto &BB: FunctionBasicBlocks) {
+        BlockAddresses.push_back(llvm::BlockAddress::get(BB));
+    }
+
+    llvm::IRBuilder<> Builder(&*EntryBasicBlock->getFirstInsertionPt());
+
+    // Create Jump Table.
+    auto BlockAddressTyp = (*BlockAddresses.begin())->getType();
+    auto JumpTableSize = llvm::ConstantInt::get(llvm::IntegerType::getInt32Ty(CTX), BlockAddresses.size());
+    auto *JumpTable = Builder.CreateAlloca(BlockAddressTyp, JumpTableSize, "JumpTable");
+
+    // Populate the JumpTable with the label addresses
+    std::unordered_map<std::string, llvm::Value *> namesToEps;
+    for (std::size_t i = 0; i < BlockAddresses.size(); i++) {
+        auto *Index = llvm::ConstantInt::get(llvm::IntegerType::getInt32Ty(CTX), i);
+        auto *EP = Builder.CreateGEP(BlockAddressTyp, JumpTable, Index);
+        Builder.CreateStore(BlockAddresses[i], EP);
+
+        // store the element Ptr for later use.
+        if (!BlockAddresses[i]->getBasicBlock()->hasName()) {
+            BlockAddresses[i]->getBasicBlock()->setName(std::to_string(i));
+        }
+        namesToEps.insert({BlockAddresses[i]->getBasicBlock()->getName().str(), EP});
+    }
+
+    // For each Basic block update the Branch instructions.
+    for (auto &BB: FunctionBasicBlocks) {
+        if (auto *ret = llvm::dyn_cast<llvm::ReturnInst>(BB->getTerminator()); ret != nullptr) {
+            continue;
+        }
+
+        if (auto *br = llvm::dyn_cast<llvm::BranchInst>(BB->getTerminator()); br != nullptr && br->isConditional()) {
+            auto *conditionTrueBB = br->getSuccessor(0);
+            auto *conditionFalseBB = br->getSuccessor(1);
+
+            auto *jumpAddressTrue = namesToEps.find(conditionTrueBB->getName().str())->second;
+            auto *jumpAddressFalse = namesToEps.find(conditionFalseBB->getName().str())->second;
+
+            Builder.SetInsertPoint(br);
+            auto *selectInst = Builder.CreateSelect(
+                    br->getCondition(),
+                    jumpAddressTrue,
+                    jumpAddressFalse,
+                    "",
+                    br
+            );
+
+            Builder.SetInsertPoint(br);
+
+            auto *ibr = Builder.CreateIndirectBr(Builder.CreateLoad(BlockAddressTyp, selectInst));
+            for (auto &BB : FunctionBasicBlocks) {
+                ibr->addDestination(BB);
+            }
+
+            br->eraseFromParent();
+
+            continue;
+        }
+
+        if (auto *br = llvm::dyn_cast<llvm::BranchInst>(BB->getTerminator()); br != nullptr && br->isUnconditional()) {
+            auto *jumpAddress = namesToEps.find(br->getSuccessor(0)->getName().str())->second;
+
+            Builder.SetInsertPoint(br);
+
+            auto *ibr = Builder.CreateIndirectBr(Builder.CreateLoad(BlockAddressTyp, jumpAddress));
+            for (auto &BB : FunctionBasicBlocks) {
+                ibr->addDestination(BB);
+            }
+
+            br->eraseFromParent();
+
+            continue;
+        }
+    }
+
+    // Finish with the EntryBlock.
+    Builder.SetInsertPoint(&*EntryBasicBlock->getTerminator());
+    auto *jumpAddres = namesToEps.find(EntryBasicBlock->getTerminator()->getSuccessor(0)->getName().str())->second;
+    auto *ibr = Builder.CreateIndirectBr(Builder.CreateLoad(BlockAddressTyp, jumpAddres));
+    for (auto &BB : FunctionBasicBlocks) {
+        ibr->addDestination(BB);
+    }
+
+    EntryBasicBlock->getTerminator()->eraseFromParent();
+
+    // fixup instructions referenced in multiple blocks.
+    for (auto &Inst: findAllInstructionUsedInMultipleBlocks(F)) {
+        llvm::DemoteRegToStack(*Inst);
+    }
+
+    assert(findAllInstructionUsedInMultipleBlocks(F).empty() &&
+           "leftover instruction that are used in multiple blocks");
+
+    // fixup PHI nodes reference in basic blocks after the reconstruction
+    // of the control flow.
+    for (auto &PHINode: findAllPHINodes(F)) {
+        llvm::DemotePHIToStack(PHINode);
+    }
+
+    assert(findAllPHINodes(F).empty() && "leftover PHI nodes in basic blocks");
+
+    return true;
 }
 
 //------------------------------------------------------
