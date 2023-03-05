@@ -6,155 +6,188 @@ target triple = "arm64-apple-macosx12.0.0"
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind readnone ssp willreturn uwtable
 define i32 @_Z6decideii(i32 %0, i32 %1) local_unnamed_addr #0 {
 entry:
+  %.reg2mem53 = alloca i32, align 4
+  %.reg2mem51 = alloca i32, align 4
   %.reg2mem49 = alloca i32, align 4
   %.reg2mem47 = alloca i32, align 4
-  %.reg2mem45 = alloca i32, align 4
   %.reg2mem43 = alloca i32, align 4
-  %.reg2mem39 = alloca i32, align 4
-  %.reg2mem31 = alloca i32, align 4
-  %.reg2mem28 = alloca i8**, align 8
-  %.reg2mem25 = alloca i8**, align 8
-  %.reg2mem20 = alloca i8**, align 8
-  %.reg2mem17 = alloca i8**, align 8
-  %.reg2mem14 = alloca i8**, align 8
-  %.reg2mem11 = alloca i8**, align 8
-  %.reg2mem8 = alloca i8**, align 8
+  %.reg2mem35 = alloca i32, align 4
+  %.reg2mem32 = alloca i8**, align 8
+  %.reg2mem29 = alloca i8**, align 8
+  %.reg2mem24 = alloca i8**, align 8
+  %.reg2mem21 = alloca i8**, align 8
+  %.reg2mem18 = alloca i8**, align 8
+  %.reg2mem15 = alloca i8**, align 8
+  %.reg2mem12 = alloca i8**, align 8
+  %.reg2mem9 = alloca i8**, align 8
   %.reg2mem5 = alloca i8**, align 8
   %.reg2mem = alloca i8**, align 8
-  %JumpTable = alloca i8*, i32 10, align 8
+  %JumpTable = alloca i8*, i32 11, align 8
   %2 = getelementptr i8*, i8** %JumpTable, i32 0
-  store i8* blockaddress(@_Z6decideii, %EntryBasicBlockSplit), i8** %2, align 8
+  store i8* blockaddress(@_Z6decideii, %BogusBasciBlock), i8** %2, align 8
   %3 = getelementptr i8*, i8** %JumpTable, i32 1
   store i8** %3, i8*** %.reg2mem, align 8
   %.reload4 = load i8**, i8*** %.reg2mem, align 8
-  store i8* blockaddress(@_Z6decideii, %"1"), i8** %.reload4, align 8
+  store i8* blockaddress(@_Z6decideii, %EntryBasicBlockSplit), i8** %.reload4, align 8
   %4 = getelementptr i8*, i8** %JumpTable, i32 2
   store i8** %4, i8*** %.reg2mem5, align 8
-  %.reload7 = load i8**, i8*** %.reg2mem5, align 8
-  store i8* blockaddress(@_Z6decideii, %NodeBlock1), i8** %.reload7, align 8
+  %.reload8 = load i8**, i8*** %.reg2mem5, align 8
+  store i8* blockaddress(@_Z6decideii, %"2"), i8** %.reload8, align 8
   %5 = getelementptr i8*, i8** %JumpTable, i32 3
-  store i8** %5, i8*** %.reg2mem8, align 8
-  %.reload10 = load i8**, i8*** %.reg2mem8, align 8
-  store i8* blockaddress(@_Z6decideii, %NodeBlock), i8** %.reload10, align 8
+  store i8** %5, i8*** %.reg2mem9, align 8
+  %.reload11 = load i8**, i8*** %.reg2mem9, align 8
+  store i8* blockaddress(@_Z6decideii, %NodeBlock1), i8** %.reload11, align 8
   %6 = getelementptr i8*, i8** %JumpTable, i32 4
-  store i8** %6, i8*** %.reg2mem11, align 8
-  %.reload13 = load i8**, i8*** %.reg2mem11, align 8
-  store i8* blockaddress(@_Z6decideii, %LeafBlock), i8** %.reload13, align 8
+  store i8** %6, i8*** %.reg2mem12, align 8
+  %.reload14 = load i8**, i8*** %.reg2mem12, align 8
+  store i8* blockaddress(@_Z6decideii, %NodeBlock), i8** %.reload14, align 8
   %7 = getelementptr i8*, i8** %JumpTable, i32 5
-  store i8** %7, i8*** %.reg2mem14, align 8
-  %.reload16 = load i8**, i8*** %.reg2mem14, align 8
-  store i8* blockaddress(@_Z6decideii, %"5"), i8** %.reload16, align 8
+  store i8** %7, i8*** %.reg2mem15, align 8
+  %.reload17 = load i8**, i8*** %.reg2mem15, align 8
+  store i8* blockaddress(@_Z6decideii, %LeafBlock), i8** %.reload17, align 8
   %8 = getelementptr i8*, i8** %JumpTable, i32 6
-  store i8** %8, i8*** %.reg2mem17, align 8
-  %.reload19 = load i8**, i8*** %.reg2mem17, align 8
-  store i8* blockaddress(@_Z6decideii, %"6"), i8** %.reload19, align 8
+  store i8** %8, i8*** %.reg2mem18, align 8
+  %.reload20 = load i8**, i8*** %.reg2mem18, align 8
+  store i8* blockaddress(@_Z6decideii, %"6"), i8** %.reload20, align 8
   %9 = getelementptr i8*, i8** %JumpTable, i32 7
-  store i8** %9, i8*** %.reg2mem20, align 8
-  %.reload24 = load i8**, i8*** %.reg2mem20, align 8
-  store i8* blockaddress(@_Z6decideii, %"7"), i8** %.reload24, align 8
+  store i8** %9, i8*** %.reg2mem21, align 8
+  %.reload23 = load i8**, i8*** %.reg2mem21, align 8
+  store i8* blockaddress(@_Z6decideii, %"7"), i8** %.reload23, align 8
   %10 = getelementptr i8*, i8** %JumpTable, i32 8
-  store i8** %10, i8*** %.reg2mem25, align 8
-  %.reload27 = load i8**, i8*** %.reg2mem25, align 8
-  store i8* blockaddress(@_Z6decideii, %"8"), i8** %.reload27, align 8
+  store i8** %10, i8*** %.reg2mem24, align 8
+  %.reload28 = load i8**, i8*** %.reg2mem24, align 8
+  store i8* blockaddress(@_Z6decideii, %"8"), i8** %.reload28, align 8
   %11 = getelementptr i8*, i8** %JumpTable, i32 9
-  store i8** %11, i8*** %.reg2mem28, align 8
-  %.reload30 = load i8**, i8*** %.reg2mem28, align 8
-  store i8* blockaddress(@_Z6decideii, %"9"), i8** %.reload30, align 8
-  %12 = load i8*, i8** %2, align 8
-  indirectbr i8* %12, [label %EntryBasicBlockSplit, label %"1", label %NodeBlock1, label %NodeBlock, label %LeafBlock, label %"5", label %"6", label %"7", label %"8", label %"9"]
+  store i8** %11, i8*** %.reg2mem29, align 8
+  %.reload31 = load i8**, i8*** %.reg2mem29, align 8
+  store i8* blockaddress(@_Z6decideii, %"9"), i8** %.reload31, align 8
+  %12 = getelementptr i8*, i8** %JumpTable, i32 10
+  store i8** %12, i8*** %.reg2mem32, align 8
+  %.reload34 = load i8**, i8*** %.reg2mem32, align 8
+  store i8* blockaddress(@_Z6decideii, %"10"), i8** %.reload34, align 8
+  %.reload = load i8**, i8*** %.reg2mem, align 8
+  %13 = load i8*, i8** %.reload, align 8
+  indirectbr i8* %13, [label %BogusBasciBlock, label %EntryBasicBlockSplit, label %"2", label %NodeBlock1, label %NodeBlock, label %LeafBlock, label %"6", label %"7", label %"8", label %"9", label %"10"]
 
-EntryBasicBlockSplit:                             ; preds = %entry, %"8", %"7", %"6", %"5", %LeafBlock, %NodeBlock, %NodeBlock1, %"1", %EntryBasicBlockSplit
+BogusBasciBlock:                                  ; preds = %entry, %"9", %"8", %"7", %"6", %LeafBlock, %NodeBlock, %NodeBlock1, %"2", %EntryBasicBlockSplit, %BogusBasciBlock
+  %14 = getelementptr i8*, i8** %JumpTable, i32 0
+  store i8* blockaddress(@_Z6decideii, %"8"), i8** %14, align 8
+  %15 = getelementptr i8*, i8** %JumpTable, i32 1
+  store i8* blockaddress(@_Z6decideii, %EntryBasicBlockSplit), i8** %15, align 8
+  %16 = getelementptr i8*, i8** %JumpTable, i32 2
+  store i8* blockaddress(@_Z6decideii, %"9"), i8** %16, align 8
+  %17 = getelementptr i8*, i8** %JumpTable, i32 3
+  store i8* blockaddress(@_Z6decideii, %NodeBlock), i8** %17, align 8
+  %18 = getelementptr i8*, i8** %JumpTable, i32 4
+  store i8* blockaddress(@_Z6decideii, %"6"), i8** %18, align 8
+  %19 = getelementptr i8*, i8** %JumpTable, i32 5
+  store i8* blockaddress(@_Z6decideii, %BogusBasciBlock), i8** %19, align 8
+  %20 = getelementptr i8*, i8** %JumpTable, i32 6
+  store i8* blockaddress(@_Z6decideii, %"2"), i8** %20, align 8
+  %21 = getelementptr i8*, i8** %JumpTable, i32 7
+  store i8* blockaddress(@_Z6decideii, %"10"), i8** %21, align 8
+  %22 = getelementptr i8*, i8** %JumpTable, i32 8
+  store i8* blockaddress(@_Z6decideii, %NodeBlock1), i8** %22, align 8
+  %23 = getelementptr i8*, i8** %JumpTable, i32 9
+  store i8* blockaddress(@_Z6decideii, %"7"), i8** %23, align 8
+  %24 = getelementptr i8*, i8** %JumpTable, i32 10
+  store i8* blockaddress(@_Z6decideii, %LeafBlock), i8** %24, align 8
   %.reload3 = load i8**, i8*** %.reg2mem, align 8
-  %13 = load i8*, i8** %.reload3, align 8
-  store i32 %0, i32* %.reg2mem43, align 4
-  store i32 0, i32* %.reg2mem45, align 4
-  indirectbr i8* %13, [label %EntryBasicBlockSplit, label %"1", label %NodeBlock1, label %NodeBlock, label %LeafBlock, label %"5", label %"6", label %"7", label %"8", label %"9"]
+  %25 = load i8*, i8** %.reload3, align 8
+  indirectbr i8* %25, [label %BogusBasciBlock, label %EntryBasicBlockSplit, label %"2", label %NodeBlock1, label %NodeBlock, label %LeafBlock, label %"6", label %"7", label %"8", label %"9", label %"10"]
 
-"1":                                              ; preds = %entry, %"8", %"7", %"6", %"5", %LeafBlock, %NodeBlock, %NodeBlock1, %"1", %EntryBasicBlockSplit
-  %.reload46 = load i32, i32* %.reg2mem45, align 4
-  %.reload44 = load i32, i32* %.reg2mem43, align 4
-  store i32 %.reload46, i32* %.reg2mem39, align 4
-  store i32 %.reload44, i32* %.reg2mem31, align 4
-  %.reload6 = load i8**, i8*** %.reg2mem5, align 8
-  %14 = load i8*, i8** %.reload6, align 8
-  indirectbr i8* %14, [label %EntryBasicBlockSplit, label %"1", label %NodeBlock1, label %NodeBlock, label %LeafBlock, label %"5", label %"6", label %"7", label %"8", label %"9"]
+EntryBasicBlockSplit:                             ; preds = %entry, %"9", %"8", %"7", %"6", %LeafBlock, %NodeBlock, %NodeBlock1, %"2", %EntryBasicBlockSplit, %BogusBasciBlock
+  %.reload7 = load i8**, i8*** %.reg2mem5, align 8
+  %26 = load i8*, i8** %.reload7, align 8
+  store i32 %0, i32* %.reg2mem47, align 4
+  store i32 0, i32* %.reg2mem49, align 4
+  indirectbr i8* %26, [label %BogusBasciBlock, label %EntryBasicBlockSplit, label %"2", label %NodeBlock1, label %NodeBlock, label %LeafBlock, label %"6", label %"7", label %"8", label %"9", label %"10"]
 
-NodeBlock1:                                       ; preds = %entry, %"8", %"7", %"6", %"5", %LeafBlock, %NodeBlock, %NodeBlock1, %"1", %EntryBasicBlockSplit
-  %.reload42 = load i32, i32* %.reg2mem39, align 4
-  %Pivot2 = icmp slt i32 %.reload42, 2
-  %.reload9 = load i8**, i8*** %.reg2mem8, align 8
-  %.reload12 = load i8**, i8*** %.reg2mem11, align 8
-  %15 = select i1 %Pivot2, i8** %.reload12, i8** %.reload9
-  %16 = load i8*, i8** %15, align 8
-  indirectbr i8* %16, [label %EntryBasicBlockSplit, label %"1", label %NodeBlock1, label %NodeBlock, label %LeafBlock, label %"5", label %"6", label %"7", label %"8", label %"9"]
-
-NodeBlock:                                        ; preds = %entry, %"8", %"7", %"6", %"5", %LeafBlock, %NodeBlock, %NodeBlock1, %"1", %EntryBasicBlockSplit
-  %.reload40 = load i32, i32* %.reg2mem39, align 4
-  %Pivot = icmp slt i32 %.reload40, 3
-  %.reload26 = load i8**, i8*** %.reg2mem25, align 8
-  %.reload29 = load i8**, i8*** %.reg2mem28, align 8
-  %17 = select i1 %Pivot, i8** %.reload26, i8** %.reload29
-  %18 = load i8*, i8** %17, align 8
-  indirectbr i8* %18, [label %EntryBasicBlockSplit, label %"1", label %NodeBlock1, label %NodeBlock, label %LeafBlock, label %"5", label %"6", label %"7", label %"8", label %"9"]
-
-LeafBlock:                                        ; preds = %entry, %"8", %"7", %"6", %"5", %LeafBlock, %NodeBlock, %NodeBlock1, %"1", %EntryBasicBlockSplit
-  %.reload41 = load i32, i32* %.reg2mem39, align 4
-  %SwitchLeaf = icmp eq i32 %.reload41, 1
-  %.reload15 = load i8**, i8*** %.reg2mem14, align 8
-  %.reload18 = load i8**, i8*** %.reg2mem17, align 8
-  %19 = select i1 %SwitchLeaf, i8** %.reload18, i8** %.reload15
-  %20 = load i8*, i8** %19, align 8
-  indirectbr i8* %20, [label %EntryBasicBlockSplit, label %"1", label %NodeBlock1, label %NodeBlock, label %LeafBlock, label %"5", label %"6", label %"7", label %"8", label %"9"]
-
-"5":                                              ; preds = %entry, %"8", %"7", %"6", %"5", %LeafBlock, %NodeBlock, %NodeBlock1, %"1", %EntryBasicBlockSplit
-  %.reload38 = load i32, i32* %.reg2mem31, align 4
-  %21 = icmp slt i32 %.reload38, %1
-  %22 = select i1 %21, i32 %1, i32 0
-  %.reload37 = load i32, i32* %.reg2mem31, align 4
-  %23 = add nsw i32 %22, %.reload37
-  %24 = select i1 %21, i32 3, i32 1
-  %.reload23 = load i8**, i8*** %.reg2mem20, align 8
-  %25 = load i8*, i8** %.reload23, align 8
-  store i32 %23, i32* %.reg2mem47, align 4
-  store i32 %24, i32* %.reg2mem49, align 4
-  indirectbr i8* %25, [label %EntryBasicBlockSplit, label %"1", label %NodeBlock1, label %NodeBlock, label %LeafBlock, label %"5", label %"6", label %"7", label %"8", label %"9"]
-
-"6":                                              ; preds = %entry, %"8", %"7", %"6", %"5", %LeafBlock, %NodeBlock, %NodeBlock1, %"1", %EntryBasicBlockSplit
-  %.reload36 = load i32, i32* %.reg2mem31, align 4
-  %26 = icmp eq i32 %.reload36, %1
-  %.reload35 = load i32, i32* %.reg2mem31, align 4
-  %27 = sub nsw i32 %1, %.reload35
-  %.reload34 = load i32, i32* %.reg2mem31, align 4
-  %28 = select i1 %26, i32 %27, i32 %.reload34
-  %29 = select i1 %26, i32 3, i32 2
-  %.reload22 = load i8**, i8*** %.reg2mem20, align 8
-  %30 = load i8*, i8** %.reload22, align 8
-  store i32 %28, i32* %.reg2mem47, align 4
-  store i32 %29, i32* %.reg2mem49, align 4
-  indirectbr i8* %30, [label %EntryBasicBlockSplit, label %"1", label %NodeBlock1, label %NodeBlock, label %LeafBlock, label %"5", label %"6", label %"7", label %"8", label %"9"]
-
-"7":                                              ; preds = %entry, %"8", %"7", %"6", %"5", %LeafBlock, %NodeBlock, %NodeBlock1, %"1", %EntryBasicBlockSplit
+"2":                                              ; preds = %entry, %"9", %"8", %"7", %"6", %LeafBlock, %NodeBlock, %NodeBlock1, %"2", %EntryBasicBlockSplit, %BogusBasciBlock
   %.reload50 = load i32, i32* %.reg2mem49, align 4
   %.reload48 = load i32, i32* %.reg2mem47, align 4
-  %.reload = load i8**, i8*** %.reg2mem, align 8
-  %31 = load i8*, i8** %.reload, align 8
-  store i32 %.reload48, i32* %.reg2mem43, align 4
-  store i32 %.reload50, i32* %.reg2mem45, align 4
-  indirectbr i8* %31, [label %EntryBasicBlockSplit, label %"1", label %NodeBlock1, label %NodeBlock, label %LeafBlock, label %"5", label %"6", label %"7", label %"8", label %"9"]
+  store i32 %.reload50, i32* %.reg2mem43, align 4
+  store i32 %.reload48, i32* %.reg2mem35, align 4
+  %.reload10 = load i8**, i8*** %.reg2mem9, align 8
+  %27 = load i8*, i8** %.reload10, align 8
+  indirectbr i8* %27, [label %BogusBasciBlock, label %EntryBasicBlockSplit, label %"2", label %NodeBlock1, label %NodeBlock, label %LeafBlock, label %"6", label %"7", label %"8", label %"9", label %"10"]
 
-"8":                                              ; preds = %entry, %"8", %"7", %"6", %"5", %LeafBlock, %NodeBlock, %NodeBlock1, %"1", %EntryBasicBlockSplit
-  %.reload33 = load i32, i32* %.reg2mem31, align 4
-  %32 = shl i32 %.reload33, 1
-  %33 = sub i32 %32, %1
-  %.reload21 = load i8**, i8*** %.reg2mem20, align 8
-  %34 = load i8*, i8** %.reload21, align 8
-  store i32 %33, i32* %.reg2mem47, align 4
-  store i32 3, i32* %.reg2mem49, align 4
-  indirectbr i8* %34, [label %EntryBasicBlockSplit, label %"1", label %NodeBlock1, label %NodeBlock, label %LeafBlock, label %"5", label %"6", label %"7", label %"8", label %"9"]
+NodeBlock1:                                       ; preds = %entry, %"9", %"8", %"7", %"6", %LeafBlock, %NodeBlock, %NodeBlock1, %"2", %EntryBasicBlockSplit, %BogusBasciBlock
+  %.reload46 = load i32, i32* %.reg2mem43, align 4
+  %Pivot2 = icmp slt i32 %.reload46, 2
+  %.reload13 = load i8**, i8*** %.reg2mem12, align 8
+  %.reload16 = load i8**, i8*** %.reg2mem15, align 8
+  %28 = select i1 %Pivot2, i8** %.reload16, i8** %.reload13
+  %29 = load i8*, i8** %28, align 8
+  indirectbr i8* %29, [label %BogusBasciBlock, label %EntryBasicBlockSplit, label %"2", label %NodeBlock1, label %NodeBlock, label %LeafBlock, label %"6", label %"7", label %"8", label %"9", label %"10"]
 
-"9":                                              ; preds = %entry, %"8", %"7", %"6", %"5", %LeafBlock, %NodeBlock, %NodeBlock1, %"1", %EntryBasicBlockSplit
-  %.reload32 = load i32, i32* %.reg2mem31, align 4
-  ret i32 %.reload32
+NodeBlock:                                        ; preds = %entry, %"9", %"8", %"7", %"6", %LeafBlock, %NodeBlock, %NodeBlock1, %"2", %EntryBasicBlockSplit, %BogusBasciBlock
+  %.reload44 = load i32, i32* %.reg2mem43, align 4
+  %Pivot = icmp slt i32 %.reload44, 3
+  %.reload30 = load i8**, i8*** %.reg2mem29, align 8
+  %.reload33 = load i8**, i8*** %.reg2mem32, align 8
+  %30 = select i1 %Pivot, i8** %.reload30, i8** %.reload33
+  %31 = load i8*, i8** %30, align 8
+  indirectbr i8* %31, [label %BogusBasciBlock, label %EntryBasicBlockSplit, label %"2", label %NodeBlock1, label %NodeBlock, label %LeafBlock, label %"6", label %"7", label %"8", label %"9", label %"10"]
+
+LeafBlock:                                        ; preds = %entry, %"9", %"8", %"7", %"6", %LeafBlock, %NodeBlock, %NodeBlock1, %"2", %EntryBasicBlockSplit, %BogusBasciBlock
+  %.reload45 = load i32, i32* %.reg2mem43, align 4
+  %SwitchLeaf = icmp eq i32 %.reload45, 1
+  %.reload19 = load i8**, i8*** %.reg2mem18, align 8
+  %.reload22 = load i8**, i8*** %.reg2mem21, align 8
+  %32 = select i1 %SwitchLeaf, i8** %.reload22, i8** %.reload19
+  %33 = load i8*, i8** %32, align 8
+  indirectbr i8* %33, [label %BogusBasciBlock, label %EntryBasicBlockSplit, label %"2", label %NodeBlock1, label %NodeBlock, label %LeafBlock, label %"6", label %"7", label %"8", label %"9", label %"10"]
+
+"6":                                              ; preds = %entry, %"9", %"8", %"7", %"6", %LeafBlock, %NodeBlock, %NodeBlock1, %"2", %EntryBasicBlockSplit, %BogusBasciBlock
+  %.reload42 = load i32, i32* %.reg2mem35, align 4
+  %34 = icmp slt i32 %.reload42, %1
+  %35 = select i1 %34, i32 %1, i32 0
+  %.reload41 = load i32, i32* %.reg2mem35, align 4
+  %36 = add nsw i32 %35, %.reload41
+  %37 = select i1 %34, i32 3, i32 1
+  %.reload27 = load i8**, i8*** %.reg2mem24, align 8
+  %38 = load i8*, i8** %.reload27, align 8
+  store i32 %36, i32* %.reg2mem51, align 4
+  store i32 %37, i32* %.reg2mem53, align 4
+  indirectbr i8* %38, [label %BogusBasciBlock, label %EntryBasicBlockSplit, label %"2", label %NodeBlock1, label %NodeBlock, label %LeafBlock, label %"6", label %"7", label %"8", label %"9", label %"10"]
+
+"7":                                              ; preds = %entry, %"9", %"8", %"7", %"6", %LeafBlock, %NodeBlock, %NodeBlock1, %"2", %EntryBasicBlockSplit, %BogusBasciBlock
+  %.reload40 = load i32, i32* %.reg2mem35, align 4
+  %39 = icmp eq i32 %.reload40, %1
+  %.reload39 = load i32, i32* %.reg2mem35, align 4
+  %40 = sub nsw i32 %1, %.reload39
+  %.reload38 = load i32, i32* %.reg2mem35, align 4
+  %41 = select i1 %39, i32 %40, i32 %.reload38
+  %42 = select i1 %39, i32 3, i32 2
+  %.reload26 = load i8**, i8*** %.reg2mem24, align 8
+  %43 = load i8*, i8** %.reload26, align 8
+  store i32 %41, i32* %.reg2mem51, align 4
+  store i32 %42, i32* %.reg2mem53, align 4
+  indirectbr i8* %43, [label %BogusBasciBlock, label %EntryBasicBlockSplit, label %"2", label %NodeBlock1, label %NodeBlock, label %LeafBlock, label %"6", label %"7", label %"8", label %"9", label %"10"]
+
+"8":                                              ; preds = %entry, %"9", %"8", %"7", %"6", %LeafBlock, %NodeBlock, %NodeBlock1, %"2", %EntryBasicBlockSplit, %BogusBasciBlock
+  %.reload54 = load i32, i32* %.reg2mem53, align 4
+  %.reload52 = load i32, i32* %.reg2mem51, align 4
+  %.reload6 = load i8**, i8*** %.reg2mem5, align 8
+  %44 = load i8*, i8** %.reload6, align 8
+  store i32 %.reload52, i32* %.reg2mem47, align 4
+  store i32 %.reload54, i32* %.reg2mem49, align 4
+  indirectbr i8* %44, [label %BogusBasciBlock, label %EntryBasicBlockSplit, label %"2", label %NodeBlock1, label %NodeBlock, label %LeafBlock, label %"6", label %"7", label %"8", label %"9", label %"10"]
+
+"9":                                              ; preds = %entry, %"9", %"8", %"7", %"6", %LeafBlock, %NodeBlock, %NodeBlock1, %"2", %EntryBasicBlockSplit, %BogusBasciBlock
+  %.reload37 = load i32, i32* %.reg2mem35, align 4
+  %45 = shl i32 %.reload37, 1
+  %46 = sub i32 %45, %1
+  %.reload25 = load i8**, i8*** %.reg2mem24, align 8
+  %47 = load i8*, i8** %.reload25, align 8
+  store i32 %46, i32* %.reg2mem51, align 4
+  store i32 3, i32* %.reg2mem53, align 4
+  indirectbr i8* %47, [label %BogusBasciBlock, label %EntryBasicBlockSplit, label %"2", label %NodeBlock1, label %NodeBlock, label %LeafBlock, label %"6", label %"7", label %"8", label %"9", label %"10"]
+
+"10":                                             ; preds = %entry, %"9", %"8", %"7", %"6", %LeafBlock, %NodeBlock, %NodeBlock1, %"2", %EntryBasicBlockSplit, %BogusBasciBlock
+  %.reload36 = load i32, i32* %.reg2mem35, align 4
+  ret i32 %.reload36
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind readnone ssp willreturn uwtable

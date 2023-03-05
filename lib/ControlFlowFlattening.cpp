@@ -12,13 +12,11 @@
 #include "llvm/ADT/Statistic.h"
 #include "llvm/Passes/PassPlugin.h"
 #include "llvm/Passes/PassBuilder.h"
-#include "llvm/Transforms/Utils/BasicBlockUtils.h"
 #include "llvm/Transforms/Utils/LowerSwitch.h"
 #include "llvm/Transforms/Utils/Cloning.h"
 #include "llvm/Transforms/Scalar.h"
 #include "llvm/IR/Module.h"
 #include "llvm/Transforms/Utils/Local.h"
-#include "llvm/Transforms/Scalar/Reg2Mem.h"
 
 
 #define DEBUG_TYPE "cff"
@@ -283,13 +281,23 @@ bool ControlFlowFlattening::handleJumpTableVersion(llvm::Function &F) {
     // remove the entry block from the list of function blocks.
     FunctionBasicBlocks.erase(FunctionBasicBlocks.begin());
 
+    // Add BogusBasicBlock to add confusion.
+    auto BogusBasicBlock = llvm::BasicBlock::Create(CTX, "BogusBasciBlock", &F);
+    BogusBasicBlock->moveAfter(EntryBasicBlock);
+
+    llvm::IRBuilder<> Builder(BogusBasicBlock);
+    Builder.CreateBr(*FunctionBasicBlocks.begin());
+
+    FunctionBasicBlocks.insert(FunctionBasicBlocks.begin(), BogusBasicBlock);
+
+
     // collect the addresses of all basic blocks expect the entry.
     std::vector<llvm::BlockAddress *> BlockAddresses;
     for (auto &BB: FunctionBasicBlocks) {
         BlockAddresses.push_back(llvm::BlockAddress::get(BB));
     }
 
-    llvm::IRBuilder<> Builder(&*EntryBasicBlock->getFirstInsertionPt());
+    Builder.SetInsertPoint(&*EntryBasicBlock->getFirstInsertionPt());
 
     // Create Jump Table.
     auto BlockAddressTyp = (*BlockAddresses.begin())->getType();
@@ -369,6 +377,17 @@ bool ControlFlowFlattening::handleJumpTableVersion(llvm::Function &F) {
     }
 
     EntryBasicBlock->getTerminator()->eraseFromParent();
+
+    // Add confusion to the bogus block.
+    Builder.SetInsertPoint(&*BogusBasicBlock->getFirstInsertionPt());
+
+    // Insert Bogus operations.
+    std::shuffle(BlockAddresses.begin(), BlockAddresses.end(), GetRandomGenerator());
+    for (std::size_t i = 0; i < BlockAddresses.size(); i++) {
+        auto *Index = llvm::ConstantInt::get(llvm::IntegerType::getInt32Ty(CTX), i);
+        auto *EP = Builder.CreateGEP(BlockAddressTyp, JumpTable, Index);
+        Builder.CreateStore(BlockAddresses[i], EP);
+    }
 
     // fixup instructions referenced in multiple blocks.
     for (auto &Inst: findAllInstructionUsedInMultipleBlocks(F)) {
