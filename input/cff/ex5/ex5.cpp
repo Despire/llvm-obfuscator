@@ -3,7 +3,6 @@
 //
 
 #include <stdint.h>
-#include <cstdlib>
 
 // http://ac.inf.elte.hu/Vol_030_2009/003.pdf
 int32_t duffs_device(int32_t count, int32_t *from, int32_t *to) {
