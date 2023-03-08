@@ -15,7 +15,6 @@
 #include "llvm/Transforms/Utils/LowerSwitch.h"
 #include "llvm/Transforms/Utils/Cloning.h"
 #include "llvm/Transforms/Scalar.h"
-#include "llvm/IR/Module.h"
 #include "llvm/Transforms/Utils/Local.h"
 
 #define DEBUG_TYPE "cff"
@@ -36,7 +35,7 @@ llvm::PreservedAnalyses ControlFlowFlattening::run(llvm::Function &F, llvm::Func
     // and transforms them into sequential basic blocks.
     llvm::LowerSwitchPass().run(F, FAM);
 
-    bool modified = (this->*Handlers[1])(F);
+    bool modified = (this->*Handlers[RandomInt64(ControlFlowFlatteningFuncCount)])(F);
     if (modified) {
         ++ControlFlowFlatteningCount;
         return llvm::PreservedAnalyses::none();
@@ -129,35 +128,55 @@ bool ControlFlowFlattening::handleLoopSwitchVersion(llvm::Function &F) {
     switchStmt->addCase(LLVM_CONST_I32(CTX, switchStmt->getNumCases()), BogusBB);
     BogusBB->moveBefore(defaultSwitchBasicBlock);
 
+
     // setup lookup table.
+    constexpr int32_t ExtraNumberCount = 4;
+
     Builder.SetInsertPoint(&*EntryBasicBlock->getFirstInsertionPt());
     auto *LookupTable = Builder.CreateAlloca(
-            LLVM_I32_ARRAY(CTX, switchStmt->getNumCases()),
+            LLVM_I32_ARRAY(CTX, switchStmt->getNumCases() + ExtraNumberCount),
             nullptr,
             "lookupTable"
     );
 
-    // populate the lookuptable
-    for (int idx = switchStmt->getNumCases() - 1; idx >= 0; idx--) {
-        auto *Index = LLVM_CONST_I32(CTX, idx);
+    // populate the lookup table
+    std::vector<int32_t> lookupTableValues;
+    for (int32_t idx = 0; idx < int32_t(switchStmt->getNumCases() + ExtraNumberCount); ++idx) {
+        int32_t val = (idx + 1) - ExtraNumberCount;
+        lookupTableValues.push_back(val);
         auto *EP = Builder.CreateInBoundsGEP(
-                LLVM_I32_ARRAY(CTX, switchStmt->getNumCases()),
+                LLVM_I32_ARRAY(CTX, switchStmt->getNumCases() + ExtraNumberCount),
                 LookupTable,
-                {LLVM_CONST_I32(CTX, 0), Index}
+                {LLVM_CONST_I32(CTX, 0), LLVM_CONST_I32(CTX, idx)}
         );
-        Builder.CreateStore(Index, EP);
+        Builder.CreateStore(LLVM_CONST_I32(CTX, val), EP);
     }
 
     // insert bogus operations to the BogusBasicBlock.
     Builder.SetInsertPoint(BogusBB);
-    for (std::size_t idx = 1; idx < switchStmt->getNumCases(); ++idx) {
+    for (std::size_t idx = 0; idx < lookupTableValues.size(); idx += 2) {
         auto *EP = Builder.CreateInBoundsGEP(
-                LLVM_I32_ARRAY(CTX, switchStmt->getNumCases()),
+                LLVM_I32_ARRAY(CTX, switchStmt->getNumCases() + ExtraNumberCount),
                 LookupTable,
                 {LLVM_CONST_I32(CTX, 0), LLVM_CONST_I32(CTX, idx)}
         );
+
         Builder.CreateStore(LLVM_CONST_I32(CTX, idx - 1), EP);
+
     }
+    Builder.CreateStore(
+            Builder.CreateLoad(
+                    LLVM_I32(CTX),
+                    Builder.CreateInBoundsGEP(
+                            LLVM_I32_ARRAY(CTX, switchStmt->getNumCases() + ExtraNumberCount),
+                            LookupTable,
+                            {
+                                    LLVM_CONST_I32(CTX, 0),
+                                    LLVM_CONST_I32(CTX, 0)
+                            }
+                    )),
+            loadDispatcherVal->getPointerOperand()
+    );
     Builder.CreateBr(*FunctionBasicBlocks.begin());
 
     // Remap the branches and adjust the logic for flattening.
@@ -191,14 +210,14 @@ bool ControlFlowFlattening::handleLoopSwitchVersion(llvm::Function &F) {
                     Builder,
                     LookupTable,
                     int32_t(switchNumberTrue->getSExtValue()),
-                    int32_t(switchStmt->getNumCases())
+                    lookupTableValues
             );
             auto *falseVal = (this->*NextHandlers[RandomInt64(ComputingNextHandlerFuncCount)])(
                     CTX,
                     Builder,
                     LookupTable,
                     int32_t(switchNumberFalse->getSExtValue()),
-                    int32_t(switchStmt->getNumCases())
+                    lookupTableValues
             );
 
             auto *selectInst = Builder.CreateSelect(br->getCondition(), trueVal, falseVal, "", br);
@@ -222,7 +241,7 @@ bool ControlFlowFlattening::handleLoopSwitchVersion(llvm::Function &F) {
                     Builder,
                     LookupTable,
                     int32_t(switchNumber->getSExtValue()),
-                    int32_t(switchStmt->getNumCases())
+                    lookupTableValues
             );
 
             Builder.CreateStore(Val, loadDispatcherVal->getPointerOperand());
@@ -427,7 +446,7 @@ bool ControlFlowFlattening::handleJumpTableVersion(llvm::Function &F) {
 
     // Insert Bogus operations.
     std::shuffle(BlockAddresses.begin(), BlockAddresses.end(), GetRandomGenerator());
-    for (std::size_t i = 0; i < BlockAddresses.size(); i++) {
+    for (std::size_t i = 0; i < BlockAddresses.size(); i += 2) {
         auto *Index = LLVM_CONST_I32(CTX, i);
         auto *EP = Builder.CreateGEP(BlockAddressTyp, JumpTable, Index);
         Builder.CreateStore(BlockAddresses[i], EP);
@@ -453,17 +472,17 @@ bool ControlFlowFlattening::handleJumpTableVersion(llvm::Function &F) {
 }
 
 std::pair<int32_t, int32_t>
-ControlFlowFlattening::calculateDispatcherValueSubtraction(int32_t switchNumber, int32_t arraySize) const {
-    std::size_t pivot = RandomInt64(arraySize);
+ControlFlowFlattening::calculateDispatcherValueSubtraction(int32_t switchNumber, std::vector<int32_t> &arr) const {
+    std::size_t right = RandomInt64(int32_t(arr.size()));
     std::size_t left = 0;
 
-    if (switchNumber < (pivot - left)) {
-        while (switchNumber < (pivot - left)) ++left;
+    if (switchNumber < (arr[right] - arr[left])) {
+        while (switchNumber < (arr[right] - arr[left])) ++left;
     } else {
-        while (switchNumber > (pivot - left)) ++pivot;
+        while (switchNumber > (arr[right] - arr[left])) ++right;
     }
 
-    return {pivot, left};
+    return {right, left};
 }
 
 llvm::Value *ControlFlowFlattening::handleComputingNextSubtraction(
@@ -471,14 +490,14 @@ llvm::Value *ControlFlowFlattening::handleComputingNextSubtraction(
         llvm::IRBuilder<> &Builder,
         llvm::AllocaInst *LookupTable,
         int32_t n,
-        int32_t size
+        std::vector<int32_t> &arr
 ) {
-    auto indices = calculateDispatcherValueSubtraction(n, size);
+    auto indices = calculateDispatcherValueSubtraction(n, arr);
 
     auto *left = Builder.CreateLoad(
             LLVM_I32(CTX),
             Builder.CreateInBoundsGEP(
-                    LLVM_I32_ARRAY(CTX, size),
+                    LLVM_I32_ARRAY(CTX, arr.size()),
                     LookupTable,
                     {
                             LLVM_CONST_I32(CTX, 0),
@@ -490,7 +509,7 @@ llvm::Value *ControlFlowFlattening::handleComputingNextSubtraction(
     auto *right = Builder.CreateLoad(
             LLVM_I32(CTX),
             Builder.CreateInBoundsGEP(
-                    LLVM_I32_ARRAY(CTX, size),
+                    LLVM_I32_ARRAY(CTX, arr.size()),
                     LookupTable,
                     {
                             LLVM_CONST_I32(CTX, 0),
@@ -500,6 +519,121 @@ llvm::Value *ControlFlowFlattening::handleComputingNextSubtraction(
     );
 
     return Builder.CreateSub(left, right);
+}
+
+std::pair<int32_t, int32_t>
+ControlFlowFlattening::calculateDispatcherValueAddition(int32_t switchNumber, std::vector<int32_t> &arr) const {
+    std::unordered_map<int32_t, int32_t> indices;
+
+    int32_t left = 0;
+    int32_t right = 0;
+
+    for (int32_t i = 0; i < arr.size(); ++i) {
+        if (auto iter = indices.find(switchNumber - arr[i]); iter != indices.end()) {
+            right = i;
+            left = iter->second;
+            break;
+        }
+
+        indices[arr[i]] = i;
+    }
+
+    assert((left != right != 0) && "failed to find two values that sum up to next switch number");
+    return {right, left};
+}
+
+llvm::Value *
+ControlFlowFlattening::handleComputingNextAddition(
+        llvm::LLVMContext &CTX,
+        llvm::IRBuilder<> &Builder,
+        llvm::AllocaInst *LookupTable,
+        int32_t n,
+        std::vector<int32_t> &arr
+) {
+    auto indices = calculateDispatcherValueAddition(n, arr);
+
+    auto *left = Builder.CreateLoad(
+            LLVM_I32(CTX),
+            Builder.CreateInBoundsGEP(
+                    LLVM_I32_ARRAY(CTX, arr.size()),
+                    LookupTable,
+                    {
+                            LLVM_CONST_I32(CTX, 0),
+                            LLVM_CONST_I32(CTX, indices.first)
+                    }
+            )
+    );
+
+    auto *right = Builder.CreateLoad(
+            LLVM_I32(CTX),
+            Builder.CreateInBoundsGEP(
+                    LLVM_I32_ARRAY(CTX, arr.size()),
+                    LookupTable,
+                    {
+                            LLVM_CONST_I32(CTX, 0),
+                            LLVM_CONST_I32(CTX, indices.second)
+                    }
+            )
+    );
+
+    return Builder.CreateAdd(left, right);
+}
+
+std::pair<int32_t, int32_t>
+ControlFlowFlattening::calculateDispatcherValueMod(int32_t switchNumber, std::vector<int32_t> &arr) const {
+    int32_t right = arr.size() - 1; // the last value in the array is a special value.
+    int32_t left = right;
+
+    assert(arr[right] != 0 && "the last value in the array must not be zero");
+
+    bool found = false;
+    while (left >= 0) {
+        if (arr[left] % arr[right] == switchNumber) {
+            found = true;
+            break;
+        }
+        --left;
+    }
+
+    assert(found && (left != right != 0) && "failed to find two values whose modulus is equal to the switch number");
+    return {left, right};
+}
+
+llvm::Value *
+ControlFlowFlattening::handleComputingNextMod(
+        llvm::LLVMContext &CTX,
+        llvm::IRBuilder<> &Builder,
+        llvm::AllocaInst *LookupTable,
+        int32_t n,
+        std::vector<int32_t> &arr
+) {
+    auto indices = calculateDispatcherValueMod(n, arr);
+
+    auto *left = Builder.CreateLoad(
+            LLVM_I32(CTX),
+            Builder.CreateInBoundsGEP(
+                    LLVM_I32_ARRAY(CTX, arr.size()),
+                    LookupTable,
+                    {
+                            LLVM_CONST_I32(CTX, 0),
+                            LLVM_CONST_I32(CTX, indices.first)
+                    }
+            )
+    );
+
+    auto *right = Builder.CreateLoad(
+            LLVM_I32(CTX),
+            Builder.CreateInBoundsGEP(
+                    LLVM_I32_ARRAY(CTX, arr.size()),
+                    LookupTable,
+                    {
+                            LLVM_CONST_I32(CTX, 0),
+                            LLVM_CONST_I32(CTX, indices.second)
+                    }
+            )
+    );
+
+    return Builder.CreateSRem(left, right);
 }
 
 //------------------------------------------------------

@@ -20,6 +20,9 @@ for root, dirs, files in os.walk("output"):
     for directory in dirs:
         current_dir = os.path.join(root, directory)
 
+        if "ex7" in current_dir: # ex7 is a spinning cube nothing to check to automatically must be done maunally.
+            continue
+
         files = os.listdir(current_dir)
         # check first for already linked binaries.
         if "cff.out" in files:

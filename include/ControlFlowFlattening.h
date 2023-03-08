@@ -15,7 +15,7 @@ constexpr int ControlFlowFlatteningFuncCount = 2;
 
 // ComputingNextHandlerFuncCount is the number of supported handlers for computing the next value of the
 // flattened control flow.
-constexpr int ComputingNextHandlerFuncCount = 1;
+constexpr int ComputingNextHandlerFuncCount = 3;
 
 struct ControlFlowFlattening : public llvm::PassInfoMixin<ControlFlowFlattening> {
     using FlatteningHandler = bool (ControlFlowFlattening::*)(llvm::Function &F);
@@ -23,7 +23,8 @@ struct ControlFlowFlattening : public llvm::PassInfoMixin<ControlFlowFlattening>
             llvm::LLVMContext &,
             llvm::IRBuilder<> &,
             llvm::AllocaInst *,
-            int32_t, int32_t
+            int32_t,
+            std::vector<int32_t> &
     );
 
     FlatteningHandler Handlers[ControlFlowFlatteningFuncCount];
@@ -34,6 +35,8 @@ struct ControlFlowFlattening : public llvm::PassInfoMixin<ControlFlowFlattening>
         Handlers[1] = &ControlFlowFlattening::handleLoopSwitchVersion;
 
         NextHandlers[0] = &ControlFlowFlattening::handleComputingNextSubtraction;
+        NextHandlers[1] = &ControlFlowFlattening::handleComputingNextAddition;
+        NextHandlers[2] = &ControlFlowFlattening::handleComputingNextMod;
     }
 
     llvm::PreservedAnalyses run(llvm::Function &F, llvm::FunctionAnalysisManager &);
@@ -44,10 +47,17 @@ struct ControlFlowFlattening : public llvm::PassInfoMixin<ControlFlowFlattening>
     // handleJumpTableVersion implements Flattening with using jump tables.
     bool handleJumpTableVersion(llvm::Function &F);
 
-    // handleComputingNextSubtraction implements calculating the next value for the switch statement
-    // using subtraction.
+    // handleComputingNextSubtraction implements calculating the next value for the switch statement using subtraction.
     llvm::Value *
-    handleComputingNextSubtraction(llvm::LLVMContext &, llvm::IRBuilder<> &, llvm::AllocaInst *, int32_t, int32_t);
+    handleComputingNextSubtraction(llvm::LLVMContext &, llvm::IRBuilder<> &, llvm::AllocaInst *, int32_t, std::vector<int32_t>&);
+
+    // handleComputingNextAddition implements calculating the next value for the switch statement using addition.
+    llvm::Value *
+    handleComputingNextAddition(llvm::LLVMContext &, llvm::IRBuilder<> &, llvm::AllocaInst *, int32_t, std::vector<int32_t>&);
+
+    // handleComputingNextMod implements calculating the next value for the switch statement using modulus.
+    llvm::Value *
+    handleComputingNextMod(llvm::LLVMContext &, llvm::IRBuilder<> &, llvm::AllocaInst *, int32_t, std::vector<int32_t>&);
 
     // findAllInstructionUsedInMultipleBlocks finds all Instructions that are used in multiple blocks inside F.
     std::vector<llvm::Instruction *> findAllInstructionUsedInMultipleBlocks(llvm::Function &F) const;
@@ -57,7 +67,15 @@ struct ControlFlowFlattening : public llvm::PassInfoMixin<ControlFlowFlattening>
 
     // calculateDispatcherValueSubtraction returns two indices into the array that when subtracted return the switch number.
     [[nodiscard]]
-    std::pair<int32_t, int32_t> calculateDispatcherValueSubtraction(int32_t switchNumber, int32_t arraySize) const;
+    std::pair<int32_t, int32_t> calculateDispatcherValueSubtraction(int32_t switchNumber, std::vector<int32_t>& arr) const;
+
+    // calculateDispatcherValueAddition returns two indices into the array that when added return the switch number.
+    [[nodiscard]]
+    std::pair<int32_t, int32_t> calculateDispatcherValueAddition(int32_t switchNumber, std::vector<int32_t>& arr) const;
+
+    // calculateDispatcherValueMod returns two indices into the array that when used with the modulus operator return the switch number.
+    [[nodiscard]]
+    std::pair<int32_t, int32_t> calculateDispatcherValueMod(int32_t switchNumber, std::vector<int32_t>& arr) const;
 };
 
 #endif //LLVM_OBFUSCATOR_CONTROLFLOWFLATTENING_H
