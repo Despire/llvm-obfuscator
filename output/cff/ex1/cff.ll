@@ -33,9 +33,9 @@ entry:
 
 BogusBasciBlock:                                  ; preds = %entry, %"2", %EntryBasicBlockSplit, %BogusBasciBlock
   %6 = getelementptr i8*, i8** %JumpTable, i32 0
-  store i8* blockaddress(@_Z8digitSumi, %"2"), i8** %6, align 8
+  store i8* blockaddress(@_Z8digitSumi, %BogusBasciBlock), i8** %6, align 8
   %7 = getelementptr i8*, i8** %JumpTable, i32 2
-  store i8* blockaddress(@_Z8digitSumi, %EntryBasicBlockSplit), i8** %7, align 8
+  store i8* blockaddress(@_Z8digitSumi, %"2"), i8** %7, align 8
   %.reload1 = load i8**, i8*** %.reg2mem, align 8
   %8 = load i8*, i8** %.reload1, align 8
   indirectbr i8* %8, [label %BogusBasciBlock, label %EntryBasicBlockSplit, label %"2", label %"3"]

@@ -1,6 +1,3 @@
-//
-// Created by Matus Mrekaj on 25/02/2023.
-//
 #include <vector>
 #include <unordered_map>
 #include <string>
@@ -162,8 +159,8 @@ bool ControlFlowFlattening::handleLoopSwitchVersion(llvm::Function &F) {
         );
 
         Builder.CreateStore(LLVM_CONST_I32(CTX, idx - 1), EP);
-
     }
+
     Builder.CreateStore(
             Builder.CreateLoad(
                     LLVM_I32(CTX),
@@ -177,6 +174,7 @@ bool ControlFlowFlattening::handleLoopSwitchVersion(llvm::Function &F) {
                     )),
             loadDispatcherVal->getPointerOperand()
     );
+
     Builder.CreateBr(*FunctionBasicBlocks.begin());
 
     // Remap the branches and adjust the logic for flattening.
@@ -637,7 +635,7 @@ ControlFlowFlattening::handleComputingNextMod(
 }
 
 //------------------------------------------------------
-//               Registration of the Plugi:n
+//               Registration of the Plugin
 //------------------------------------------------------
 llvm::PassPluginLibraryInfo getControlFlowFlatteningPluginInfo() {
     return {

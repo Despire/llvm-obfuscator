@@ -1,7 +1,9 @@
-set(LLVM_OBFUSCATOR_PLUGINS Substitution ControlFlowFlattening)
+set(LLVM_OBFUSCATOR_PLUGINS Substitution ControlFlowFlattening BogusFlowOpaquePredicates ReachableIntegers)
 
 set(Substitution_SOURCES Substitution.cpp cmd-args/Coverage.cpp)
-set(ControlFlowFlattening_SOURCES ControlFlowFlattening.cpp cmd-args/Coverage.cpp)
+set(ControlFlowFlattening_SOURCES ControlFlowFlattening.cpp)
+set(BogusFlowOpaquePredicates_SOURCES OpaquePredicates.cpp)
+set(ReachableIntegers_SOURCES ReachableIntegersAnalysis.cpp)
 
 foreach (plugin ${LLVM_OBFUSCATOR_PLUGINS})
     add_library(${plugin} SHARED ${${plugin}_SOURCES})

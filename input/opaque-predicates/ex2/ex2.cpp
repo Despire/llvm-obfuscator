@@ -1,13 +1,19 @@
+//
+// Created by Matus Mrekaj on 19/02/2023.
+//
+
 #include <stdint.h>
 #include <cstdlib>
 
 int32_t digitSum(int32_t n) {
     int32_t sum = 0;
-    do {
-        for (; n > 0; n /= 10) {
-            sum += n % 10;
+    for(;;) {
+        ++sum;
+        n /= 10;
+        if (n == 0) {
+            break;
         }
-    } while (n != 0);
+    }
     return sum;
 }
 

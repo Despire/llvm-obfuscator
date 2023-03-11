@@ -1,5 +1,11 @@
 #!/bin/bash
 
+echo "-----Testing Opaque Predicates-----"
+for i in {0..30}; do
+  python3 ./tests/test_opaque.py
+done
+echo "-----------------------------------------"
+
 echo "-----Testing Control Flow Flattening-----"
 for i in {0..30}; do
   python3 ./tests/test_cff.py

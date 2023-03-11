@@ -1,11 +1,7 @@
-//
-// Created by Matus Mrekaj on 25/02/2023.
-//
-
 #ifndef LLVM_OBFUSCATOR_CONTROLFLOWFLATTENING_H
 #define LLVM_OBFUSCATOR_CONTROLFLOWFLATTENING_H
 
-#include <llvm/IR/Instructions.h>
+#include "llvm/IR/Instructions.h"
 #include "llvm/IR/PassManager.h"
 #include "llvm/Pass.h"
 #include "llvm/IR/IRBuilder.h"
