@@ -5,127 +5,184 @@ target triple = "arm64-apple-macosx12.0.0"
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind readnone ssp willreturn uwtable
 define i32 @_Z6decideii(i32 %0, i32 %1) local_unnamed_addr #0 {
-"0":
-  %2 = icmp eq i32 %1, 0
-  %3 = icmp ne i32 %1, 0
-  %4 = or i1 %2, %3
-  %5 = icmp slt i32 %0, %1
-  br i1 %4, label %splitBB, label %"2"
+  %3 = icmp slt i32 %0, %1
+  %4 = icmp sge i32 %1, %1
+  %5 = icmp sle i32 %1, %1
+  %6 = xor i1 %5, true
+  %7 = xor i1 %4, %6
+  %8 = and i1 %7, %4
+  br i1 %8, label %9, label %18
 
-splitBB:                                          ; preds = %"0"
-  br i1 %5, label %"1", label %"2"
+9:                                                ; preds = %2
+  %10 = sdiv i32 %0, %0
+  %11 = add i32 %1, %1
+  %12 = add i32 %0, %0
+  %13 = add i32 %0, %0
+  %14 = mul i32 %0, %0
+  %15 = sub i32 %1, %1
+  %16 = sdiv i32 %1, %1
+  %17 = sub i32 %0, %0
+  br label %18
 
-"1":                                              ; preds = %splitBB
-  %6 = icmp eq i1 %2, false
-  %7 = icmp ne i1 %2, false
-  %8 = or i1 %6, %7
-  %9 = add nsw i32 %1, %0
-  br i1 %8, label %splitBB1, label %"5"
+18:                                               ; preds = %2, %9
+  br i1 %3, label %19, label %38
 
-splitBB1:                                         ; preds = %"1"
-  br label %"5"
+19:                                               ; preds = %18
+  %20 = icmp sge i1 %8, %8
+  %21 = icmp sle i1 %8, %8
+  %22 = xor i1 %20, true
+  %23 = xor i1 %21, true
+  %24 = or i1 %22, %23
+  %25 = xor i1 %24, true
+  %26 = and i1 %25, true
+  br i1 %26, label %27, label %36
 
-"2":                                              ; preds = %"0", %splitBB
-  %10 = icmp eq i1 %4, false
-  %11 = icmp ne i1 %4, false
-  %12 = or i1 %10, %11
-  %13 = icmp eq i32 %0, %1
-  br i1 %12, label %splitBB2, label %"4"
+27:                                               ; preds = %19
+  %28 = add i1 %4, %4
+  %29 = mul i1 %5, %5
+  %30 = sdiv i1 %6, %6
+  %31 = mul i32 %1, %1
+  %32 = mul i32 %0, %0
+  %33 = sub i1 %6, %6
+  %34 = sdiv i32 %0, %0
+  %35 = sub i1 %8, %8
+  br label %36
 
-splitBB2:                                         ; preds = %"2"
-  br i1 %13, label %"3", label %"4"
+36:                                               ; preds = %19, %27
+  %37 = add nsw i32 %1, %0
+  br label %105
 
-"3":                                              ; preds = %splitBB2
-  %14 = icmp eq i1 %2, false
-  %15 = icmp ne i1 %2, false
-  %16 = or i1 %14, %15
-  br i1 %16, label %splitBB3, label %"5"
+38:                                               ; preds = %18
+  %39 = icmp eq i1 %5, false
+  %40 = icmp ne i1 %5, false
+  %41 = xor i1 %40, true
+  %42 = and i1 %39, %41
+  %43 = add i1 %42, %40
+  br i1 %43, label %44, label %55
 
-splitBB3:                                         ; preds = %"3"
-  %17 = icmp eq i1 %16, false
-  %18 = icmp ne i1 %16, false
-  %19 = or i1 %17, %18
-  br i1 %19, label %splitBB4, label %"5"
+44:                                               ; preds = %38
+  %45 = mul i32 %1, %1
+  %46 = add i1 %8, %8
+  %47 = sub i32 %0, %0
+  %48 = mul i1 %5, %5
+  %49 = add i1 %6, %6
+  %50 = mul i1 %5, %5
+  %51 = sub i1 %3, %3
+  %52 = sdiv i1 %7, %7
+  %53 = sdiv i32 %0, %0
+  %54 = sdiv i1 %3, %3
+  br label %55
 
-splitBB4:                                         ; preds = %splitBB3
-  %20 = icmp eq i1 %16, false
-  %21 = icmp ne i1 %16, false
-  %22 = or i1 %20, %21
-  br i1 %22, label %splitBB5, label %"5"
+55:                                               ; preds = %38, %44
+  %56 = icmp eq i32 %0, %1
+  br i1 %56, label %57, label %73
 
-splitBB5:                                         ; preds = %splitBB4
-  %23 = icmp eq i1 %10, false
-  %24 = icmp ne i1 %10, false
-  %25 = or i1 %23, %24
-  br i1 %25, label %splitBB6, label %"5"
+57:                                               ; preds = %55
+  %58 = icmp eq i32 %1, 0
+  %59 = icmp ne i32 %1, 0
+  %60 = xor i1 %59, true
+  %61 = and i1 %58, %60
+  %62 = add i1 %61, %59
+  br i1 %62, label %63, label %71
 
-splitBB6:                                         ; preds = %splitBB5
-  %26 = icmp eq i1 %21, false
-  %27 = icmp ne i1 %21, false
-  %28 = or i1 %26, %27
-  br i1 %28, label %splitBB7, label %"5"
+63:                                               ; preds = %57
+  %64 = sdiv i32 %1, %1
+  %65 = sub i1 %6, %6
+  %66 = sub i1 %40, %40
+  %67 = mul i1 %6, %6
+  %68 = mul i1 %39, %39
+  %69 = sdiv i1 %40, %40
+  %70 = sdiv i32 %0, %0
+  br label %71
 
-splitBB7:                                         ; preds = %splitBB6
-  %29 = icmp eq i1 %19, false
-  %30 = icmp ne i1 %19, false
-  %31 = or i1 %29, %30
-  br i1 %31, label %splitBB8, label %"5"
+71:                                               ; preds = %57, %63
+  %72 = mul i32 %1, -2
+  br label %105
 
-splitBB8:                                         ; preds = %splitBB7
-  %32 = icmp eq i1 %20, false
-  %33 = icmp ne i1 %20, false
-  %34 = or i1 %32, %33
-  br i1 %34, label %splitBB9, label %"5"
+73:                                               ; preds = %55
+  %74 = shl i32 %0, 1
+  %75 = sub i32 %74, %1
+  %76 = icmp eq i1 %43, false
+  %77 = icmp ne i1 %43, false
+  %78 = xor i1 %76, true
+  %79 = and i1 %78, false
+  %80 = and i1 %76, true
+  %81 = or i1 %79, %80
+  %82 = xor i1 %77, true
+  %83 = and i1 %82, false
+  %84 = and i1 %77, true
+  %85 = or i1 %83, %84
+  %86 = xor i1 %81, %85
+  %87 = xor i1 %76, true
+  %88 = xor i1 %77, true
+  %89 = or i1 %87, %88
+  %90 = xor i1 %89, true
+  %91 = and i1 %90, true
+  %92 = or i1 %86, %91
+  br i1 %92, label %93, label %104
 
-splitBB9:                                         ; preds = %splitBB8
-  %35 = icmp eq i1 %17, false
-  %36 = icmp ne i1 %17, false
-  %37 = or i1 %35, %36
-  %38 = mul i32 %1, -2
-  br i1 %37, label %splitBB10, label %"5"
+93:                                               ; preds = %73
+  %94 = add i1 %6, %6
+  %95 = sub i1 %42, %42
+  %96 = sdiv i32 %1, %1
+  %97 = add i1 %56, %56
+  %98 = sdiv i1 %40, %40
+  %99 = sdiv i1 %41, %41
+  %100 = add i1 %41, %41
+  %101 = sub i1 %3, %3
+  %102 = mul i1 %42, %42
+  %103 = mul i1 %3, %3
+  br label %104
 
-splitBB10:                                        ; preds = %splitBB9
-  br label %"5"
+104:                                              ; preds = %73, %93
+  br label %105
 
-"4":                                              ; preds = %"2", %splitBB2
-  %39 = icmp eq i1 %11, false
-  %40 = icmp ne i1 %11, false
-  %41 = or i1 %39, %40
-  br i1 %41, label %splitBB11, label %"5"
+105:                                              ; preds = %104, %71, %36
+  %106 = phi i32 [ %37, %36 ], [ %72, %71 ], [ %75, %104 ]
+  %107 = icmp sge i1 %3, %3
+  %108 = icmp sle i1 %3, %3
+  %109 = xor i1 %107, true
+  %110 = or i1 %109, %108
+  %111 = xor i1 %107, true
+  %112 = sub i1 %110, %111
+  br i1 %112, label %113, label %120
 
-splitBB11:                                        ; preds = %"4"
-  %42 = icmp eq i1 %2, false
-  %43 = icmp ne i1 %2, false
-  %44 = or i1 %42, %43
-  br i1 %44, label %splitBB12, label %"5"
+113:                                              ; preds = %105
+  %114 = sdiv i1 %6, %6
+  %115 = sdiv i1 %3, %3
+  %116 = mul i1 %4, %4
+  %117 = sub i1 %4, %4
+  %118 = sdiv i32 %1, %1
+  %119 = add i1 %8, %8
+  br label %120
 
-splitBB12:                                        ; preds = %splitBB11
-  %45 = icmp eq i32 %0, 0
-  %46 = icmp ne i32 %0, 0
-  %47 = or i1 %45, %46
-  br i1 %47, label %splitBB13, label %"5"
-
-splitBB13:                                        ; preds = %splitBB12
-  %48 = icmp eq i1 %46, false
-  %49 = icmp ne i1 %46, false
-  %50 = or i1 %48, %49
-  %51 = shl i32 %0, 1
-  %52 = sub i32 %51, %1
-  br i1 %50, label %splitBB14, label %"5"
-
-splitBB14:                                        ; preds = %splitBB13
-  br label %"5"
-
-"5":                                              ; preds = %splitBB13, %splitBB12, %splitBB11, %"4", %splitBB9, %splitBB8, %splitBB7, %splitBB6, %splitBB5, %splitBB4, %splitBB3, %"3", %"1", %splitBB14, %splitBB10, %splitBB1
-  %53 = phi i32 [ %9, %splitBB1 ], [ %38, %splitBB10 ], [ %52, %splitBB14 ], [ %0, %"1" ], [ %0, %"3" ], [ %0, %splitBB3 ], [ %0, %splitBB4 ], [ %0, %splitBB5 ], [ %0, %splitBB6 ], [ %0, %splitBB7 ], [ %0, %splitBB8 ], [ %0, %splitBB9 ], [ %0, %"4" ], [ %0, %splitBB11 ], [ %0, %splitBB12 ], [ %0, %splitBB13 ]
-  ret i32 %53
+120:                                              ; preds = %105, %113
+  ret i32 %106
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind readnone ssp willreturn uwtable
 define i32 @main(i32 %0, i8** nocapture readnone %1) local_unnamed_addr #0 {
-"0":
-  %2 = call i32 @_Z6decideii(i32 15, i32 25)
-  ret i32 %2
+  %3 = call i32 @_Z6decideii(i32 15, i32 25)
+  %4 = icmp sge i32 %0, %0
+  %5 = icmp sle i32 %0, %0
+  %6 = xor i1 %5, true
+  %7 = xor i1 %4, %6
+  %8 = and i1 %7, %4
+  br i1 %8, label %9, label %18
+
+9:                                                ; preds = %2
+  %10 = sdiv i32 %0, %0
+  %11 = add i32 %0, %0
+  %12 = sub i32 %0, %0
+  %13 = sdiv i32 %0, %0
+  %14 = add i32 %0, %0
+  %15 = sub i32 %0, %0
+  %16 = mul i32 %0, %0
+  %17 = sub i32 %0, %0
+  br label %18
+
+18:                                               ; preds = %2, %9
+  ret i32 %3
 }
 
 attributes #0 = { mustprogress nofree norecurse nosync nounwind readnone ssp willreturn uwtable "frame-pointer"="non-leaf" "min-legal-vector-width"="0" "no-trapping-math"="true" "probe-stack"="__chkstk_darwin" "stack-protector-buffer-size"="8" "target-cpu"="apple-m1" "target-features"="+aes,+crc,+crypto,+dotprod,+fp-armv8,+fp16fml,+fullfp16,+lse,+neon,+ras,+rcpc,+rdm,+sha2,+sha3,+sm4,+v8.5a,+zcm,+zcz" }

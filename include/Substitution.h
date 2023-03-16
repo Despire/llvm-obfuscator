@@ -1,7 +1,3 @@
-//
-// Created by Matus Mrekaj on 18/02/2023.
-//
-
 #ifndef LLVM_OBFUSCATOR_SUBSTITUTION_H
 #define LLVM_OBFUSCATOR_SUBSTITUTION_H
 

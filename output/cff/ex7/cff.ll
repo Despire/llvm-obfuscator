@@ -47,9 +47,9 @@ entry:
 
 BogusBasciBlock:                                  ; preds = %entry, %"5", %"4", %"3", %EntryBasicBlockSplit, %BogusBasciBlock
   %10 = getelementptr i8*, i8** %JumpTable, i32 0
-  store i8* blockaddress(@_Z7displayPKcRfS1_, %EntryBasicBlockSplit), i8** %10, align 8
+  store i8* blockaddress(@_Z7displayPKcRfS1_, %"3"), i8** %10, align 8
   %11 = getelementptr i8*, i8** %JumpTable, i32 2
-  store i8* blockaddress(@_Z7displayPKcRfS1_, %"4"), i8** %11, align 8
+  store i8* blockaddress(@_Z7displayPKcRfS1_, %EntryBasicBlockSplit), i8** %11, align 8
   %12 = getelementptr i8*, i8** %JumpTable, i32 4
   store i8* blockaddress(@_Z7displayPKcRfS1_, %"2"), i8** %12, align 8
   %.reload1 = load i8**, i8*** %.reg2mem, align 8
@@ -219,15 +219,15 @@ entry:
 
 BogusBasciBlock:                                  ; preds = %entry, %"8", %"7", %"6", %"5", %"4", %"2", %EntryBasicBlockSplit, %BogusBasciBlock
   %30 = getelementptr i8*, i8** %JumpTable, i32 0
-  store i8* blockaddress(@_Z6renderffiPfPcii, %"5"), i8** %30, align 8
+  store i8* blockaddress(@_Z6renderffiPfPcii, %"4"), i8** %30, align 8
   %31 = getelementptr i8*, i8** %JumpTable, i32 2
   store i8* blockaddress(@_Z6renderffiPfPcii, %"6"), i8** %31, align 8
   %32 = getelementptr i8*, i8** %JumpTable, i32 4
-  store i8* blockaddress(@_Z6renderffiPfPcii, %"2"), i8** %32, align 8
+  store i8* blockaddress(@_Z6renderffiPfPcii, %EntryBasicBlockSplit), i8** %32, align 8
   %33 = getelementptr i8*, i8** %JumpTable, i32 6
-  store i8* blockaddress(@_Z6renderffiPfPcii, %EntryBasicBlockSplit), i8** %33, align 8
+  store i8* blockaddress(@_Z6renderffiPfPcii, %"8"), i8** %33, align 8
   %34 = getelementptr i8*, i8** %JumpTable, i32 8
-  store i8* blockaddress(@_Z6renderffiPfPcii, %"3"), i8** %34, align 8
+  store i8* blockaddress(@_Z6renderffiPfPcii, %BogusBasciBlock), i8** %34, align 8
   %.reload1 = load i8**, i8*** %.reg2mem, align 8
   %35 = load i8*, i8** %.reload1, align 8
   indirectbr i8* %35, [label %BogusBasciBlock, label %EntryBasicBlockSplit, label %"2", label %"3", label %"4", label %"5", label %"6", label %"7", label %"8"]

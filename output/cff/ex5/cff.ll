@@ -127,25 +127,25 @@ entry:
 
 BogusBasciBlock:                                  ; preds = %entry, %"17", %"16", %"15", %"14", %"13", %"12", %"11", %"10", %LeafBlock, %NodeBlock, %NodeBlock1, %NodeBlock3, %NodeBlock5, %NodeBlock7, %NodeBlock9, %NodeBlock11, %EntryBasicBlockSplit, %BogusBasciBlock
   %25 = getelementptr i8*, i8** %JumpTable, i32 0
-  store i8* blockaddress(@_Z12duffs_deviceiPiS_, %EntryBasicBlockSplit), i8** %25, align 8
+  store i8* blockaddress(@_Z12duffs_deviceiPiS_, %NodeBlock9), i8** %25, align 8
   %26 = getelementptr i8*, i8** %JumpTable, i32 2
-  store i8* blockaddress(@_Z12duffs_deviceiPiS_, %"15"), i8** %26, align 8
+  store i8* blockaddress(@_Z12duffs_deviceiPiS_, %"17"), i8** %26, align 8
   %27 = getelementptr i8*, i8** %JumpTable, i32 4
-  store i8* blockaddress(@_Z12duffs_deviceiPiS_, %"10"), i8** %27, align 8
+  store i8* blockaddress(@_Z12duffs_deviceiPiS_, %NodeBlock11), i8** %27, align 8
   %28 = getelementptr i8*, i8** %JumpTable, i32 6
-  store i8* blockaddress(@_Z12duffs_deviceiPiS_, %NodeBlock), i8** %28, align 8
+  store i8* blockaddress(@_Z12duffs_deviceiPiS_, %NodeBlock1), i8** %28, align 8
   %29 = getelementptr i8*, i8** %JumpTable, i32 8
-  store i8* blockaddress(@_Z12duffs_deviceiPiS_, %NodeBlock5), i8** %29, align 8
+  store i8* blockaddress(@_Z12duffs_deviceiPiS_, %"18"), i8** %29, align 8
   %30 = getelementptr i8*, i8** %JumpTable, i32 10
-  store i8* blockaddress(@_Z12duffs_deviceiPiS_, %"12"), i8** %30, align 8
+  store i8* blockaddress(@_Z12duffs_deviceiPiS_, %NodeBlock7), i8** %30, align 8
   %31 = getelementptr i8*, i8** %JumpTable, i32 12
-  store i8* blockaddress(@_Z12duffs_deviceiPiS_, %"18"), i8** %31, align 8
+  store i8* blockaddress(@_Z12duffs_deviceiPiS_, %NodeBlock3), i8** %31, align 8
   %32 = getelementptr i8*, i8** %JumpTable, i32 14
-  store i8* blockaddress(@_Z12duffs_deviceiPiS_, %NodeBlock11), i8** %32, align 8
+  store i8* blockaddress(@_Z12duffs_deviceiPiS_, %"10"), i8** %32, align 8
   %33 = getelementptr i8*, i8** %JumpTable, i32 16
-  store i8* blockaddress(@_Z12duffs_deviceiPiS_, %"17"), i8** %33, align 8
+  store i8* blockaddress(@_Z12duffs_deviceiPiS_, %BogusBasciBlock), i8** %33, align 8
   %34 = getelementptr i8*, i8** %JumpTable, i32 18
-  store i8* blockaddress(@_Z12duffs_deviceiPiS_, %NodeBlock7), i8** %34, align 8
+  store i8* blockaddress(@_Z12duffs_deviceiPiS_, %"11"), i8** %34, align 8
   %.reload13 = load i8**, i8*** %.reg2mem, align 8
   %35 = load i8*, i8** %.reload13, align 8
   indirectbr i8* %35, [label %BogusBasciBlock, label %EntryBasicBlockSplit, label %NodeBlock11, label %NodeBlock9, label %NodeBlock7, label %NodeBlock5, label %NodeBlock3, label %NodeBlock1, label %NodeBlock, label %LeafBlock, label %"10", label %"11", label %"12", label %"13", label %"14", label %"15", label %"16", label %"17", label %"18"]

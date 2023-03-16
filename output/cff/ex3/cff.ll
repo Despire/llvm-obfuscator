@@ -46,11 +46,11 @@ entry:
 
 BogusBasciBlock:                                  ; preds = %entry, %"5", %"4", %"3", %"2", %EntryBasicBlockSplit, %BogusBasciBlock
   %10 = getelementptr i8*, i8** %JumpTable, i32 0
-  store i8* blockaddress(@_Z6decideii, %"4"), i8** %10, align 8
+  store i8* blockaddress(@_Z6decideii, %"3"), i8** %10, align 8
   %11 = getelementptr i8*, i8** %JumpTable, i32 2
   store i8* blockaddress(@_Z6decideii, %BogusBasciBlock), i8** %11, align 8
   %12 = getelementptr i8*, i8** %JumpTable, i32 4
-  store i8* blockaddress(@_Z6decideii, %"3"), i8** %12, align 8
+  store i8* blockaddress(@_Z6decideii, %EntryBasicBlockSplit), i8** %12, align 8
   %13 = getelementptr i8*, i8** %JumpTable, i32 6
   store i8* blockaddress(@_Z6decideii, %"2"), i8** %13, align 8
   %.reload1 = load i8**, i8*** %.reg2mem, align 8
