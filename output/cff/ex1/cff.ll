@@ -41,16 +41,16 @@ loopStart:                                        ; preds = %loopEnd, %entry
 
 EntryBasicBlockSplit:                             ; preds = %BogusBasicBlock, %loopStart
   %9 = icmp sgt i32 %0, 0
-  %10 = getelementptr inbounds [8 x i32], [8 x i32]* %lookupTable, i32 0, i32 4
+  %10 = getelementptr inbounds [8 x i32], [8 x i32]* %lookupTable, i32 0, i32 6
   %11 = load i32, i32* %10, align 4
-  %12 = getelementptr inbounds [8 x i32], [8 x i32]* %lookupTable, i32 0, i32 3
+  %12 = getelementptr inbounds [8 x i32], [8 x i32]* %lookupTable, i32 0, i32 5
   %13 = load i32, i32* %12, align 4
-  %14 = add i32 %11, %13
-  %15 = getelementptr inbounds [8 x i32], [8 x i32]* %lookupTable, i32 0, i32 4
+  %14 = sub i32 %11, %13
+  %15 = getelementptr inbounds [8 x i32], [8 x i32]* %lookupTable, i32 0, i32 5
   %16 = load i32, i32* %15, align 4
-  %17 = getelementptr inbounds [8 x i32], [8 x i32]* %lookupTable, i32 0, i32 2
+  %17 = getelementptr inbounds [8 x i32], [8 x i32]* %lookupTable, i32 0, i32 7
   %18 = load i32, i32* %17, align 4
-  %19 = sub i32 %16, %18
+  %19 = srem i32 %16, %18
   %20 = select i1 %9, i32 %14, i32 %19
   store i32 %20, i32* %dispatcher, align 4
   store i32 0, i32* %.reg2mem, align 4
@@ -69,14 +69,14 @@ EntryBasicBlockSplit:                             ; preds = %BogusBasicBlock, %l
   %27 = icmp sgt i32 %.reload3, 9
   %28 = getelementptr inbounds [8 x i32], [8 x i32]* %lookupTable, i32 0, i32 4
   %29 = load i32, i32* %28, align 4
-  %30 = getelementptr inbounds [8 x i32], [8 x i32]* %lookupTable, i32 0, i32 7
+  %30 = getelementptr inbounds [8 x i32], [8 x i32]* %lookupTable, i32 0, i32 3
   %31 = load i32, i32* %30, align 4
-  %32 = srem i32 %29, %31
+  %32 = add i32 %29, %31
   %33 = getelementptr inbounds [8 x i32], [8 x i32]* %lookupTable, i32 0, i32 5
   %34 = load i32, i32* %33, align 4
-  %35 = getelementptr inbounds [8 x i32], [8 x i32]* %lookupTable, i32 0, i32 3
+  %35 = getelementptr inbounds [8 x i32], [8 x i32]* %lookupTable, i32 0, i32 7
   %36 = load i32, i32* %35, align 4
-  %37 = add i32 %34, %36
+  %37 = srem i32 %34, %36
   %38 = select i1 %27, i32 %32, i32 %37
   store i32 %38, i32* %dispatcher, align 4
   store i32 %26, i32* %.reg2mem, align 4

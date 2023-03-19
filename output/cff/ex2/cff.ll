@@ -6,67 +6,98 @@ target triple = "arm64-apple-macosx12.0.0"
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind readnone ssp willreturn uwtable
 define i32 @_Z8digitSumi(i32 %0) local_unnamed_addr #0 {
 entry:
-  %.reg2mem15 = alloca i32, align 4
-  %.reg2mem13 = alloca i32, align 4
-  %.reg2mem10 = alloca i32, align 4
-  %.reg2mem7 = alloca i8**, align 8
-  %.reg2mem3 = alloca i8**, align 8
-  %.reg2mem = alloca i8**, align 8
-  %JumpTable = alloca i8*, i32 4, align 8
-  %1 = getelementptr i8*, i8** %JumpTable, i32 0
-  store i8* blockaddress(@_Z8digitSumi, %BogusBasciBlock), i8** %1, align 8
-  %2 = getelementptr i8*, i8** %JumpTable, i32 1
-  store i8** %2, i8*** %.reg2mem, align 8
-  %.reload2 = load i8**, i8*** %.reg2mem, align 8
-  store i8* blockaddress(@_Z8digitSumi, %EntryBasicBlockSplit), i8** %.reload2, align 8
-  %3 = getelementptr i8*, i8** %JumpTable, i32 2
-  store i8** %3, i8*** %.reg2mem3, align 8
-  %.reload6 = load i8**, i8*** %.reg2mem3, align 8
-  store i8* blockaddress(@_Z8digitSumi, %"2"), i8** %.reload6, align 8
-  %4 = getelementptr i8*, i8** %JumpTable, i32 3
-  store i8** %4, i8*** %.reg2mem7, align 8
-  %.reload9 = load i8**, i8*** %.reg2mem7, align 8
-  store i8* blockaddress(@_Z8digitSumi, %"3"), i8** %.reload9, align 8
-  %.reload = load i8**, i8*** %.reg2mem, align 8
-  %5 = load i8*, i8** %.reload, align 8
-  indirectbr i8* %5, [label %BogusBasciBlock, label %EntryBasicBlockSplit, label %"2", label %"3"]
+  %.reg2mem5 = alloca i32, align 4
+  %.reg2mem3 = alloca i32, align 4
+  %.reg2mem = alloca i32, align 4
+  %lookupTable = alloca [8 x i32], align 4
+  %1 = getelementptr inbounds [8 x i32], [8 x i32]* %lookupTable, i32 0, i32 0
+  store i32 -3, i32* %1, align 4
+  %2 = getelementptr inbounds [8 x i32], [8 x i32]* %lookupTable, i32 0, i32 1
+  store i32 -2, i32* %2, align 4
+  %3 = getelementptr inbounds [8 x i32], [8 x i32]* %lookupTable, i32 0, i32 2
+  store i32 -1, i32* %3, align 4
+  %4 = getelementptr inbounds [8 x i32], [8 x i32]* %lookupTable, i32 0, i32 3
+  store i32 0, i32* %4, align 4
+  %5 = getelementptr inbounds [8 x i32], [8 x i32]* %lookupTable, i32 0, i32 4
+  store i32 1, i32* %5, align 4
+  %6 = getelementptr inbounds [8 x i32], [8 x i32]* %lookupTable, i32 0, i32 5
+  store i32 2, i32* %6, align 4
+  %7 = getelementptr inbounds [8 x i32], [8 x i32]* %lookupTable, i32 0, i32 6
+  store i32 3, i32* %7, align 4
+  %8 = getelementptr inbounds [8 x i32], [8 x i32]* %lookupTable, i32 0, i32 7
+  store i32 4, i32* %8, align 4
+  %dispatcher = alloca i32, align 4
+  store i32 0, i32* %dispatcher, align 4
+  br label %loopStart
 
-BogusBasciBlock:                                  ; preds = %entry, %"2", %EntryBasicBlockSplit, %BogusBasciBlock
-  %6 = getelementptr i8*, i8** %JumpTable, i32 0
-  store i8* blockaddress(@_Z8digitSumi, %"3"), i8** %6, align 8
-  %7 = getelementptr i8*, i8** %JumpTable, i32 2
-  store i8* blockaddress(@_Z8digitSumi, %"2"), i8** %7, align 8
-  %.reload1 = load i8**, i8*** %.reg2mem, align 8
-  %8 = load i8*, i8** %.reload1, align 8
-  indirectbr i8* %8, [label %BogusBasciBlock, label %EntryBasicBlockSplit, label %"2", label %"3"]
+loopStart:                                        ; preds = %loopEnd, %entry
+  %dispatcher1 = load i32, i32* %dispatcher, align 4
+  switch i32 %dispatcher1, label %defaultSwitchBasicBlock [
+    i32 0, label %EntryBasicBlockSplit
+    i32 1, label %14
+    i32 2, label %30
+    i32 3, label %BogusBasicBlock
+  ]
 
-EntryBasicBlockSplit:                             ; preds = %entry, %"2", %EntryBasicBlockSplit, %BogusBasciBlock
-  %.reload5 = load i8**, i8*** %.reg2mem3, align 8
-  %9 = load i8*, i8** %.reload5, align 8
-  store i32 %0, i32* %.reg2mem13, align 4
-  store i32 0, i32* %.reg2mem15, align 4
-  indirectbr i8* %9, [label %BogusBasciBlock, label %EntryBasicBlockSplit, label %"2", label %"3"]
+EntryBasicBlockSplit:                             ; preds = %BogusBasicBlock, %loopStart
+  %9 = getelementptr inbounds [8 x i32], [8 x i32]* %lookupTable, i32 0, i32 5
+  %10 = load i32, i32* %9, align 4
+  %11 = getelementptr inbounds [8 x i32], [8 x i32]* %lookupTable, i32 0, i32 4
+  %12 = load i32, i32* %11, align 4
+  %13 = sub i32 %10, %12
+  store i32 %13, i32* %dispatcher, align 4
+  store i32 %0, i32* %.reg2mem3, align 4
+  store i32 0, i32* %.reg2mem5, align 4
+  br label %loopEnd
 
-"2":                                              ; preds = %entry, %"2", %EntryBasicBlockSplit, %BogusBasciBlock
-  %.reload16 = load i32, i32* %.reg2mem15, align 4
-  %.reload14 = load i32, i32* %.reg2mem13, align 4
-  %10 = add nuw nsw i32 %.reload16, 1
-  store i32 %10, i32* %.reg2mem10, align 4
-  %11 = sdiv i32 %.reload14, 10
-  %12 = add i32 %.reload14, 9
-  %13 = icmp ult i32 %12, 19
-  %.reload4 = load i8**, i8*** %.reg2mem3, align 8
-  %.reload8 = load i8**, i8*** %.reg2mem7, align 8
-  %14 = select i1 %13, i8** %.reload8, i8** %.reload4
-  %15 = load i8*, i8** %14, align 8
-  %.reload12 = load i32, i32* %.reg2mem10, align 4
-  store i32 %11, i32* %.reg2mem13, align 4
-  store i32 %.reload12, i32* %.reg2mem15, align 4
-  indirectbr i8* %15, [label %BogusBasciBlock, label %EntryBasicBlockSplit, label %"2", label %"3"]
+14:                                               ; preds = %loopStart
+  %.reload6 = load i32, i32* %.reg2mem5, align 4
+  %.reload4 = load i32, i32* %.reg2mem3, align 4
+  %15 = add nuw nsw i32 %.reload6, 1
+  store i32 %15, i32* %.reg2mem, align 4
+  %16 = sdiv i32 %.reload4, 10
+  %17 = add i32 %.reload4, 9
+  %18 = icmp ult i32 %17, 19
+  %19 = getelementptr inbounds [8 x i32], [8 x i32]* %lookupTable, i32 0, i32 5
+  %20 = load i32, i32* %19, align 4
+  %21 = getelementptr inbounds [8 x i32], [8 x i32]* %lookupTable, i32 0, i32 3
+  %22 = load i32, i32* %21, align 4
+  %23 = add i32 %20, %22
+  %24 = getelementptr inbounds [8 x i32], [8 x i32]* %lookupTable, i32 0, i32 4
+  %25 = load i32, i32* %24, align 4
+  %26 = getelementptr inbounds [8 x i32], [8 x i32]* %lookupTable, i32 0, i32 3
+  %27 = load i32, i32* %26, align 4
+  %28 = add i32 %25, %27
+  %29 = select i1 %18, i32 %23, i32 %28
+  store i32 %29, i32* %dispatcher, align 4
+  %.reload2 = load i32, i32* %.reg2mem, align 4
+  store i32 %16, i32* %.reg2mem3, align 4
+  store i32 %.reload2, i32* %.reg2mem5, align 4
+  br label %loopEnd
 
-"3":                                              ; preds = %entry, %"2", %EntryBasicBlockSplit, %BogusBasciBlock
-  %.reload11 = load i32, i32* %.reg2mem10, align 4
-  ret i32 %.reload11
+30:                                               ; preds = %loopStart
+  %.reload = load i32, i32* %.reg2mem, align 4
+  ret i32 %.reload
+
+BogusBasicBlock:                                  ; preds = %loopStart
+  %31 = getelementptr inbounds [8 x i32], [8 x i32]* %lookupTable, i32 0, i32 0
+  store i32 -1, i32* %31, align 4
+  %32 = getelementptr inbounds [8 x i32], [8 x i32]* %lookupTable, i32 0, i32 2
+  store i32 1, i32* %32, align 4
+  %33 = getelementptr inbounds [8 x i32], [8 x i32]* %lookupTable, i32 0, i32 4
+  store i32 3, i32* %33, align 4
+  %34 = getelementptr inbounds [8 x i32], [8 x i32]* %lookupTable, i32 0, i32 6
+  store i32 5, i32* %34, align 4
+  %35 = getelementptr inbounds [8 x i32], [8 x i32]* %lookupTable, i32 0, i32 0
+  %36 = load i32, i32* %35, align 4
+  store i32 %36, i32* %dispatcher, align 4
+  br label %EntryBasicBlockSplit
+
+defaultSwitchBasicBlock:                          ; preds = %loopStart
+  br label %loopEnd
+
+loopEnd:                                          ; preds = %14, %EntryBasicBlockSplit, %defaultSwitchBasicBlock
+  br label %loopStart
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind readnone ssp willreturn uwtable

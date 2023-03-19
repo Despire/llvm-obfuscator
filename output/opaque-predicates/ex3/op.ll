@@ -6,182 +6,138 @@ target triple = "arm64-apple-macosx12.0.0"
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind readnone ssp willreturn uwtable
 define i32 @_Z6decideii(i32 %0, i32 %1) local_unnamed_addr #0 {
   %3 = icmp slt i32 %0, %1
-  %4 = icmp sge i32 %1, %1
-  %5 = icmp sle i32 %1, %1
-  %6 = xor i1 %5, true
-  %7 = xor i1 %4, %6
-  %8 = and i1 %7, %4
-  br i1 %8, label %9, label %18
+  %4 = srem i32 %0, 2
+  %5 = icmp eq i32 %4, 0
+  br i1 %5, label %6, label %7
 
-9:                                                ; preds = %2
-  %10 = sdiv i32 %0, %0
-  %11 = add i32 %1, %1
-  %12 = add i32 %0, %0
-  %13 = add i32 %0, %0
-  %14 = mul i32 %0, %0
-  %15 = sub i32 %1, %1
-  %16 = sdiv i32 %1, %1
-  %17 = sub i32 %0, %0
-  br label %18
+6:                                                ; preds = %2
+  br label %8
 
-18:                                               ; preds = %2, %9
-  br i1 %3, label %19, label %38
+7:                                                ; preds = %2
+  br label %8
 
-19:                                               ; preds = %18
-  %20 = icmp sge i1 %8, %8
-  %21 = icmp sle i1 %8, %8
-  %22 = xor i1 %20, true
-  %23 = xor i1 %21, true
-  %24 = or i1 %22, %23
-  %25 = xor i1 %24, true
-  %26 = and i1 %25, true
-  br i1 %26, label %27, label %36
+8:                                                ; preds = %7, %6
+  br i1 %3, label %9, label %24
 
-27:                                               ; preds = %19
-  %28 = add i1 %4, %4
-  %29 = mul i1 %5, %5
-  %30 = sdiv i1 %6, %6
-  %31 = mul i32 %1, %1
-  %32 = mul i32 %0, %0
-  %33 = sub i1 %6, %6
-  %34 = sdiv i32 %0, %0
-  %35 = sub i1 %8, %8
-  br label %36
+9:                                                ; preds = %8
+  %10 = add nsw i32 %1, %0
+  %11 = icmp sge i1 %5, %5
+  %12 = icmp sle i1 %5, %5
+  %13 = xor i1 %12, true
+  %14 = xor i1 %11, %13
+  %15 = and i1 %14, %11
+  br i1 %15, label %16, label %23
 
-36:                                               ; preds = %19, %27
-  %37 = add nsw i32 %1, %0
-  br label %105
+16:                                               ; preds = %9
+  %17 = sdiv i32 645734148, -2037789133
+  %18 = sub i32 -2000693921, -68462025
+  %19 = sub i32 -1296124601, 1328038960
+  %20 = sub i32 1208819680, 160272319
+  %21 = sdiv i32 1135748781, 1872078820
+  %22 = sdiv i32 765217076, -967788661
+  br label %23
 
-38:                                               ; preds = %18
-  %39 = icmp eq i1 %5, false
-  %40 = icmp ne i1 %5, false
-  %41 = xor i1 %40, true
-  %42 = and i1 %39, %41
-  %43 = add i1 %42, %40
-  br i1 %43, label %44, label %55
+23:                                               ; preds = %9, %16
+  br label %50
 
-44:                                               ; preds = %38
-  %45 = mul i32 %1, %1
-  %46 = add i1 %8, %8
-  %47 = sub i32 %0, %0
-  %48 = mul i1 %5, %5
-  %49 = add i1 %6, %6
-  %50 = mul i1 %5, %5
-  %51 = sub i1 %3, %3
-  %52 = sdiv i1 %7, %7
-  %53 = sdiv i32 %0, %0
-  %54 = sdiv i1 %3, %3
-  br label %55
+24:                                               ; preds = %8
+  %25 = srem i32 %1, 2
+  %26 = icmp eq i32 %25, 0
+  br i1 %26, label %27, label %29
 
-55:                                               ; preds = %38, %44
-  %56 = icmp eq i32 %0, %1
-  br i1 %56, label %57, label %73
+27:                                               ; preds = %24
+  %28 = icmp eq i32 %0, %1
+  br label %31
 
-57:                                               ; preds = %55
-  %58 = icmp eq i32 %1, 0
-  %59 = icmp ne i32 %1, 0
-  %60 = xor i1 %59, true
-  %61 = and i1 %58, %60
-  %62 = add i1 %61, %59
-  br i1 %62, label %63, label %71
+29:                                               ; preds = %24
+  %30 = icmp eq i32 %0, %1
+  br label %31
 
-63:                                               ; preds = %57
-  %64 = sdiv i32 %1, %1
-  %65 = sub i1 %6, %6
-  %66 = sub i1 %40, %40
-  %67 = mul i1 %6, %6
-  %68 = mul i1 %39, %39
-  %69 = sdiv i1 %40, %40
-  %70 = sdiv i32 %0, %0
-  br label %71
+31:                                               ; preds = %29, %27
+  %32 = phi i1 [ %30, %29 ], [ %28, %27 ]
+  br i1 %32, label %33, label %42
 
-71:                                               ; preds = %57, %63
-  %72 = mul i32 %1, -2
-  br label %105
+33:                                               ; preds = %31
+  %34 = srem i1 %3, false
+  %35 = icmp eq i1 %34, false
+  br i1 %35, label %36, label %38
 
-73:                                               ; preds = %55
-  %74 = shl i32 %0, 1
-  %75 = sub i32 %74, %1
-  %76 = icmp eq i1 %43, false
-  %77 = icmp ne i1 %43, false
-  %78 = xor i1 %76, true
-  %79 = and i1 %78, false
-  %80 = and i1 %76, true
-  %81 = or i1 %79, %80
-  %82 = xor i1 %77, true
-  %83 = and i1 %82, false
-  %84 = and i1 %77, true
-  %85 = or i1 %83, %84
-  %86 = xor i1 %81, %85
-  %87 = xor i1 %76, true
-  %88 = xor i1 %77, true
-  %89 = or i1 %87, %88
-  %90 = xor i1 %89, true
-  %91 = and i1 %90, true
-  %92 = or i1 %86, %91
-  br i1 %92, label %93, label %104
+36:                                               ; preds = %33
+  %37 = mul i32 %1, -2
+  br label %40
 
-93:                                               ; preds = %73
-  %94 = add i1 %6, %6
-  %95 = sub i1 %42, %42
-  %96 = sdiv i32 %1, %1
-  %97 = add i1 %56, %56
-  %98 = sdiv i1 %40, %40
-  %99 = sdiv i1 %41, %41
-  %100 = add i1 %41, %41
-  %101 = sub i1 %3, %3
-  %102 = mul i1 %42, %42
-  %103 = mul i1 %3, %3
-  br label %104
+38:                                               ; preds = %33
+  %39 = mul i32 %1, -2
+  br label %40
 
-104:                                              ; preds = %73, %93
-  br label %105
+40:                                               ; preds = %38, %36
+  %41 = phi i32 [ %39, %38 ], [ %37, %36 ]
+  br label %50
 
-105:                                              ; preds = %104, %71, %36
-  %106 = phi i32 [ %37, %36 ], [ %72, %71 ], [ %75, %104 ]
-  %107 = icmp sge i1 %3, %3
-  %108 = icmp sle i1 %3, %3
-  %109 = xor i1 %107, true
-  %110 = or i1 %109, %108
-  %111 = xor i1 %107, true
-  %112 = sub i1 %110, %111
-  br i1 %112, label %113, label %120
+42:                                               ; preds = %31
+  %43 = shl i32 %0, 1
+  %44 = sub i32 %43, %1
+  %45 = srem i1 %3, false
+  %46 = icmp eq i1 %45, false
+  br i1 %46, label %47, label %48
 
-113:                                              ; preds = %105
-  %114 = sdiv i1 %6, %6
-  %115 = sdiv i1 %3, %3
-  %116 = mul i1 %4, %4
-  %117 = sub i1 %4, %4
-  %118 = sdiv i32 %1, %1
-  %119 = add i1 %8, %8
-  br label %120
+47:                                               ; preds = %42
+  br label %49
 
-120:                                              ; preds = %105, %113
-  ret i32 %106
+48:                                               ; preds = %42
+  br label %49
+
+49:                                               ; preds = %48, %47
+  br label %50
+
+50:                                               ; preds = %49, %40, %23
+  %51 = phi i32 [ %10, %23 ], [ %41, %40 ], [ %44, %49 ]
+  %52 = icmp eq i32 %1, 0
+  %53 = icmp ne i32 %1, 0
+  %54 = xor i1 %53, true
+  %55 = and i1 %52, %54
+  %56 = add i1 %55, %53
+  br i1 %56, label %57, label %66
+
+57:                                               ; preds = %50
+  %58 = sub i32 -1329477330, -440677040
+  %59 = sub i32 -1320661484, -1975387514
+  %60 = sub i32 101674409, 211682096
+  %61 = mul i32 -839431564, 787135270
+  %62 = add i32 -213458120, 410716412
+  %63 = mul i32 562717276, 1087915771
+  %64 = sdiv i32 1736462242, 44172761
+  %65 = add i32 -492013009, 1748027342
+  br label %66
+
+66:                                               ; preds = %50, %57
+  ret i32 %51
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind readnone ssp willreturn uwtable
 define i32 @main(i32 %0, i8** nocapture readnone %1) local_unnamed_addr #0 {
   %3 = call i32 @_Z6decideii(i32 15, i32 25)
-  %4 = icmp sge i32 %0, %0
-  %5 = icmp sle i32 %0, %0
-  %6 = xor i1 %5, true
-  %7 = xor i1 %4, %6
-  %8 = and i1 %7, %4
-  br i1 %8, label %9, label %18
+  %4 = icmp eq i32 %0, 0
+  %5 = icmp ne i32 %0, 0
+  %6 = and i1 %4, %5
+  %7 = xor i1 %4, %5
+  %8 = or i1 %6, %7
+  br i1 %8, label %9, label %20
 
 9:                                                ; preds = %2
-  %10 = sdiv i32 %0, %0
-  %11 = add i32 %0, %0
-  %12 = sub i32 %0, %0
-  %13 = sdiv i32 %0, %0
-  %14 = add i32 %0, %0
-  %15 = sub i32 %0, %0
-  %16 = mul i32 %0, %0
-  %17 = sub i32 %0, %0
-  br label %18
+  %10 = sub i32 316516332, -381655424
+  %11 = sub i32 2106361901, 1951294200
+  %12 = mul i32 1148722652, -798905619
+  %13 = sub i32 393760847, 679316275
+  %14 = sdiv i32 904153524, -1680673530
+  %15 = sdiv i32 -1121108893, 1181261839
+  %16 = sub i32 -297482968, 448657975
+  %17 = mul i32 1589851762, 436504328
+  %18 = sdiv i32 31304136, 9280666
+  %19 = sdiv i32 2050554369, 722044045
+  br label %20
 
-18:                                               ; preds = %2, %9
+20:                                               ; preds = %2, %9
   ret i32 %3
 }
 

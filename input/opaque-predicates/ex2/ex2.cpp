@@ -4,8 +4,14 @@
 
 #include <stdint.h>
 #include <cstdlib>
+#include "stdio.h"
+
+void test() {
+    printf("hello");
+}
 
 int32_t digitSum(int32_t n) {
+    test();
     int32_t sum = 0;
     for(;;) {
         ++sum;

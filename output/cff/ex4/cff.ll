@@ -73,15 +73,15 @@ BogusBasciBlock:                                  ; preds = %entry, %"9", %"8", 
   %14 = getelementptr i8*, i8** %JumpTable, i32 0
   store i8* blockaddress(@_Z6decideii, %LeafBlock), i8** %14, align 8
   %15 = getelementptr i8*, i8** %JumpTable, i32 2
-  store i8* blockaddress(@_Z6decideii, %"6"), i8** %15, align 8
+  store i8* blockaddress(@_Z6decideii, %NodeBlock), i8** %15, align 8
   %16 = getelementptr i8*, i8** %JumpTable, i32 4
-  store i8* blockaddress(@_Z6decideii, %"10"), i8** %16, align 8
+  store i8* blockaddress(@_Z6decideii, %EntryBasicBlockSplit), i8** %16, align 8
   %17 = getelementptr i8*, i8** %JumpTable, i32 6
-  store i8* blockaddress(@_Z6decideii, %"9"), i8** %17, align 8
+  store i8* blockaddress(@_Z6decideii, %"2"), i8** %17, align 8
   %18 = getelementptr i8*, i8** %JumpTable, i32 8
-  store i8* blockaddress(@_Z6decideii, %"2"), i8** %18, align 8
+  store i8* blockaddress(@_Z6decideii, %"8"), i8** %18, align 8
   %19 = getelementptr i8*, i8** %JumpTable, i32 10
-  store i8* blockaddress(@_Z6decideii, %NodeBlock), i8** %19, align 8
+  store i8* blockaddress(@_Z6decideii, %NodeBlock1), i8** %19, align 8
   %.reload3 = load i8**, i8*** %.reg2mem, align 8
   %20 = load i8*, i8** %.reload3, align 8
   indirectbr i8* %20, [label %BogusBasciBlock, label %EntryBasicBlockSplit, label %"2", label %NodeBlock1, label %NodeBlock, label %LeafBlock, label %"6", label %"7", label %"8", label %"9", label %"10"]
