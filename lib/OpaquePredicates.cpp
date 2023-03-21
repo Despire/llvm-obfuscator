@@ -56,42 +56,24 @@ bool OpaquePredicates::handleOpaquelyTruePredicate(llvm::BasicBlock &BB, llvm::F
     // invalidate the cached result afterwards.
     FAM.clear();
 
-    // select a random integer from the set of reachable integers.
-    auto randomInteger = RandomReachableInteger(RI);
-    LLVM_DEBUG(
-            llvm::dbgs() << "selected random integer from the set of reachable integers: " << *randomInteger << "\n");
-
+    // select a random instruction to split on.
     auto randomInstruction = RandomNonPHIInstruction(BB);
     LLVM_DEBUG(llvm::dbgs() << "selected instruction to split on: " << *randomInstruction << '\n');
 
-    llvm::IRBuilder<> Builder(randomInstruction);
 
-    Substitution substitution;
-    llvm::Value *cond = nullptr;
-    Substitution::SubstitutionHandler handler = nullptr;
-
-    if (RandomInt64(2)) {
-        // create the condition (I == 0) || (I != 0) which is always true.
-        auto isNull = Builder.CreateIsNull(randomInteger);
-        auto isNotNull = Builder.CreateIsNotNull(randomInteger);
-        cond = Builder.CreateOr(isNull, isNotNull);
-        handler = substitution.ORHandlers[RandomInt64(ORSubstitutionFuncCount)];
-    } else {
-        // create the condition (I >= I) && (I <= I)
-        auto isGE = Builder.CreateICmpSGE(randomInteger, randomInteger);
-        auto isLE = Builder.CreateICmpSLE(randomInteger, randomInteger);
-        cond = Builder.CreateAnd(isGE, isLE);
-        handler = substitution.ANDHandlers[RandomInt64(ANDSubstitutionFuncCount)];
-    }
+    auto pair = getRandomOpaquelyTruePredicate();
+    auto *cond = (this->*pair.first)(RandomReachableInteger(RI), randomInstruction);
 
     LLVM_DEBUG(llvm::dbgs() << "condition for evaluating the next block: " << *cond << '\n');
 
     auto newBB = llvm::SplitBlockAndInsertIfThen(cond, randomInstruction, false);
     addBogusOperations(newBB, RI);
 
+    Substitution substitution;
+
     auto Inst = llvm::dyn_cast<llvm::Instruction>(cond);
     auto Iter = Inst->getIterator();
-    (substitution.*handler)(BB, llvm::dyn_cast<llvm::BinaryOperator>(Iter), Iter);
+    (substitution.*pair.second)(BB, llvm::dyn_cast<llvm::BinaryOperator>(Iter), Iter);
 
     return true;
 }
@@ -180,7 +162,8 @@ bool OpaquePredicates::handleLoopOpaquelyTruePredicates(llvm::Loop &Loop, Reacha
     auto *Header = Loop.getHeader();
 
     // Update the Header branching condition if exists and there exist reachable integers.
-    if (auto br = llvm::dyn_cast<llvm::BranchInst>(Header->getTerminator()); br && br->isConditional() && !RI[Header].empty()) {
+    if (auto br = llvm::dyn_cast<llvm::BranchInst>(Header->getTerminator()); br && br->isConditional() &&
+                                                                             !RI[Header].empty()) {
         auto pair = getRandomOpaquelyTruePredicate();
 
         auto *predicate = (this->*pair.first)(RandomReachableInteger(RI[Header]), br);
@@ -207,7 +190,8 @@ bool OpaquePredicates::handleLoopOpaquelyTruePredicates(llvm::Loop &Loop, Reacha
     if (Header != Loop.getLoopLatch()) {
         auto Latch = Loop.getLoopLatch();
         // Update the Latch branch condition if exists.
-        if (auto br = llvm::dyn_cast<llvm::BranchInst>(Loop.getLoopLatch()); br && br->isConditional() && !RI[Latch].empty()) {
+        if (auto br = llvm::dyn_cast<llvm::BranchInst>(Loop.getLoopLatch()); br && br->isConditional() &&
+                                                                             !RI[Latch].empty()) {
             auto pair = getRandomOpaquelyTruePredicate();
 
             auto *predicate = (this->*pair.first)(RandomReachableInteger(RI[Latch]), br);
@@ -241,7 +225,8 @@ OpaquePredicates::conditionOpaquePredicateOR(
 ) {
     llvm::IRBuilder<> Builder(InsertBefore);
 
-    // ((a & 1 == 0) || (a & 1 == 1))
+
+    // ((a & 1 == 0) || (3(x+1)(x+2)) % 6 == 0)
     llvm::Value *Res = Builder.CreateOr(
             Builder.CreateICmpEQ(
                     Builder.CreateAnd(
@@ -251,11 +236,25 @@ OpaquePredicates::conditionOpaquePredicateOR(
                     LLVM_CONST_INT(ChosenInteger->getType(), 0)
             ),
             Builder.CreateICmpEQ(
-                    Builder.CreateAnd(
-                            ChosenInteger,
-                            LLVM_CONST_INT(ChosenInteger->getType(), 1)
+                    Builder.CreateSRem(
+                            // (3(x+1)(x+2)
+                            Builder.CreateMul(
+                                    // 3(x+1)
+                                    Builder.CreateMul(
+                                            LLVM_CONST_INT(ChosenInteger->getType(), 3),
+                                            Builder.CreateAdd(
+                                                    ChosenInteger,
+                                                    LLVM_CONST_INT(ChosenInteger->getType(), 1)
+                                            )
+                                    ),
+                                    Builder.CreateAdd(
+                                            ChosenInteger,
+                                            LLVM_CONST_INT(ChosenInteger->getType(), 2)
+                                    )
+                            ),
+                            LLVM_CONST_INT(ChosenInteger->getType(), 6)
                     ),
-                    LLVM_CONST_INT(ChosenInteger->getType(), 1)
+                    LLVM_CONST_INT(ChosenInteger->getType(), 0)
             )
     );
 
@@ -286,14 +285,199 @@ OpaquePredicates::conditionOpaquePredicateAND(
 ) {
     llvm::IRBuilder<> Builder(InsertBefore);
 
-    // ((a != -a) && (a ^ a == 0))
+    // ((3(x+1)(x+2)) % 6 == 0 && (x^2 + x) % 2 == 0)
     llvm::Value *Res = Builder.CreateAnd(
-            Builder.CreateICmpNE(
-                    ChosenInteger,
-                    Builder.CreateNeg(ChosenInteger)
+            Builder.CreateICmpEQ(
+                    Builder.CreateSRem(
+                            // (3(x+1)(x+2)
+                            Builder.CreateMul(
+                                    // 3(x+1)
+                                    Builder.CreateMul(
+                                            LLVM_CONST_INT(ChosenInteger->getType(), 3),
+                                            Builder.CreateAdd(
+                                                    ChosenInteger,
+                                                    LLVM_CONST_INT(ChosenInteger->getType(), 1)
+                                            )
+                                    ),
+                                    Builder.CreateAdd(
+                                            ChosenInteger,
+                                            LLVM_CONST_INT(ChosenInteger->getType(), 2)
+                                    )
+                            ),
+                            LLVM_CONST_INT(ChosenInteger->getType(), 6)
+                    ),
+                    LLVM_CONST_INT(ChosenInteger->getType(), 0)
             ),
             Builder.CreateICmpEQ(
-                    Builder.CreateXor(ChosenInteger, ChosenInteger),
+                    Builder.CreateSRem(
+                            // (x^2 + x)
+                            Builder.CreateAdd(
+                                    // x^2
+                                    Builder.CreateMul(
+                                            ChosenInteger,
+                                            ChosenInteger
+                                    ),
+                                    ChosenInteger
+                            ),
+                            LLVM_CONST_INT(ChosenInteger->getType(), 2)
+                    ),
+                    LLVM_CONST_INT(ChosenInteger->getType(), 0)
+            )
+    );
+
+    return Res;
+}
+
+llvm::Value *
+OpaquePredicates::conditionOpaquePredicateORv2(llvm::Value *ChosenInteger, llvm::Instruction *InsertBefore) {
+    llvm::IRBuilder<> Builder(InsertBefore);
+
+    // (a & 1 == 1 || (x^2 + x) % 2 == 0)
+    llvm::Value *Res = Builder.CreateOr(
+            Builder.CreateICmpEQ(
+                    Builder.CreateAnd(
+                            ChosenInteger,
+                            LLVM_CONST_INT(ChosenInteger->getType(), 1)
+                    ),
+                    LLVM_CONST_INT(ChosenInteger->getType(), 1)
+            ),
+            Builder.CreateICmpEQ(
+                    Builder.CreateSRem(
+                            // (x^2 + x)
+                            Builder.CreateAdd(
+                                    // x^2
+                                    Builder.CreateMul(
+                                            ChosenInteger,
+                                            ChosenInteger
+                                    ),
+                                    ChosenInteger
+                            ),
+                            LLVM_CONST_INT(ChosenInteger->getType(), 2)
+                    ),
+                    LLVM_CONST_INT(ChosenInteger->getType(), 0)
+            )
+    );
+
+    return Res;
+}
+
+llvm::Value *
+OpaquePredicates::conditionOpaquePredicateORv3(llvm::Value *ChosenInteger, llvm::Instruction *InsertBefore) {
+    llvm::IRBuilder<> Builder(InsertBefore);
+
+    // ((x^3 + 3x^2 + 2x) % 3 == 0 || (x^2 + x) % 2 == 0)
+    llvm::Value *Res = Builder.CreateOr(
+            Builder.CreateICmpEQ(
+                    Builder.CreateSRem(
+                            // (3(x+1)(x+2)
+                            Builder.CreateMul(
+                                    // 3(x+1)
+                                    Builder.CreateMul(
+                                            LLVM_CONST_INT(ChosenInteger->getType(), 3),
+                                            Builder.CreateAdd(
+                                                    ChosenInteger,
+                                                    LLVM_CONST_INT(ChosenInteger->getType(), 1)
+                                            )
+                                    ),
+                                    Builder.CreateAdd(
+                                            ChosenInteger,
+                                            LLVM_CONST_INT(ChosenInteger->getType(), 2)
+                                    )
+                            ),
+                            LLVM_CONST_INT(ChosenInteger->getType(), 6)
+                    ),
+                    LLVM_CONST_INT(ChosenInteger->getType(), 0)
+            ),
+            Builder.CreateICmpEQ(
+                    Builder.CreateSRem(
+                            // (x^2 + x)
+                            Builder.CreateAdd(
+                                    // x^2
+                                    Builder.CreateMul(
+                                            ChosenInteger,
+                                            ChosenInteger
+                                    ),
+                                    ChosenInteger
+                            ),
+                            LLVM_CONST_INT(ChosenInteger->getType(), 2)
+                    ),
+                    LLVM_CONST_INT(ChosenInteger->getType(), 0)
+            )
+    );
+
+    return Res;
+}
+
+llvm::Value *
+OpaquePredicates::conditionOpaquePredicateANDv2(llvm::Value *ChosenInteger, llvm::Instruction *InsertBefore) {
+    llvm::IRBuilder<> Builder(InsertBefore);
+
+    // ((x^2 + x) % 2 == 0 && (x >= x))
+    llvm::Value *Res = Builder.CreateAnd(
+            Builder.CreateICmpEQ(
+                    Builder.CreateSRem(
+                            // (3(x+1)(x+2)
+                            Builder.CreateMul(
+                                    // 3(x+1)
+                                    Builder.CreateMul(
+                                            LLVM_CONST_INT(ChosenInteger->getType(), 3),
+                                            Builder.CreateAdd(
+                                                    ChosenInteger,
+                                                    LLVM_CONST_INT(ChosenInteger->getType(), 1)
+                                            )
+                                    ),
+                                    Builder.CreateAdd(
+                                            ChosenInteger,
+                                            LLVM_CONST_INT(ChosenInteger->getType(), 2)
+                                    )
+                            ),
+                            LLVM_CONST_INT(ChosenInteger->getType(), 6)
+                    ),
+                    LLVM_CONST_INT(ChosenInteger->getType(), 0)
+            ),
+            Builder.CreateICmpEQ(
+                    Builder.CreateSRem(
+                            // (x^2 + x)
+                            Builder.CreateAdd(
+                                    // x^2
+                                    Builder.CreateMul(
+                                            ChosenInteger,
+                                            ChosenInteger
+                                    ),
+                                    ChosenInteger
+                            ),
+                            LLVM_CONST_INT(ChosenInteger->getType(), 2)
+                    ),
+                    LLVM_CONST_INT(ChosenInteger->getType(), 0)
+            )
+    );
+
+    return Res;
+}
+
+llvm::Value *
+OpaquePredicates::conditionOpaquePredicateANDv3(llvm::Value *ChosenInteger, llvm::Instruction *InsertBefore) {
+    llvm::IRBuilder<> Builder(InsertBefore);
+
+    // ((x^3 + 3x^2 + 2x) % 3 == 0 && (x^2 + x) % 2 == 0)
+    llvm::Value *Res = Builder.CreateAnd(
+            Builder.CreateICmpSGE(
+                    ChosenInteger,
+                    ChosenInteger
+            ),
+            Builder.CreateICmpEQ(
+                    Builder.CreateSRem(
+                            // (x^2 + x)
+                            Builder.CreateAdd(
+                                    // x^2
+                                    Builder.CreateMul(
+                                            ChosenInteger,
+                                            ChosenInteger
+                                    ),
+                                    ChosenInteger
+                            ),
+                            LLVM_CONST_INT(ChosenInteger->getType(), 2)
+                    ),
                     LLVM_CONST_INT(ChosenInteger->getType(), 0)
             )
     );

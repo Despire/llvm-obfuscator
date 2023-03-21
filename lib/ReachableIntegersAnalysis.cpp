@@ -14,7 +14,7 @@ ReachableIntegers::Result ReachableIntegers::run(llvm::Function &F, llvm::Functi
         auto &list = blockDefinitions[&BB];
 
         for (auto &I: BB) {
-            if (I.getType()->isIntegerTy()) {
+            if (I.getType()->isIntegerTy() && I.getType()->getIntegerBitWidth() >= 8) {
                 list.insert(&I);
             }
         }
@@ -27,13 +27,13 @@ ReachableIntegers::Result ReachableIntegers::run(llvm::Function &F, llvm::Functi
     auto &entryList = result[&F.getEntryBlock()];
 
     for (auto &Arg: F.args()) {
-        if (Arg.getType()->isIntegerTy()) {
+        if (Arg.getType()->isIntegerTy() && Arg.getType()->getIntegerBitWidth() >= 8) {
             entryList.insert(&Arg);
         }
     }
 
     for (auto &Global: F.getParent()->getGlobalList()) {
-        if (Global.getValueType()->isIntegerTy()) {
+        if (Global.getValueType()->isIntegerTy() && Global.getType()->getIntegerBitWidth() >= 8) {
             entryList.insert(&Global);
         }
     }
