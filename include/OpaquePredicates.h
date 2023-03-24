@@ -1,8 +1,10 @@
 #ifndef LLVM_OBFUSCATOR_OPAQUEPREDICATES_H
 #define LLVM_OBFUSCATOR_OPAQUEPREDICATES_H
 
-#include <llvm/Analysis/LoopInfo.h>
+#include "Substitution.h"
 #include "ReachableIntegersAnalysis.h"
+
+#include "llvm/Analysis/LoopInfo.h"
 #include "llvm/IR/PassManager.h"
 #include "llvm/Pass.h"
 
@@ -44,10 +46,17 @@ struct OpaquePredicates : public llvm::PassInfoMixin<OpaquePredicates> {
 
     llvm::PreservedAnalyses run(llvm::Function &F, llvm::FunctionAnalysisManager &);
 
+    // Insert a new basic block with bogus operations by injecting an if->then construct that will always be false
+    // and thus the block will not be executed.
     bool handleOpaquelyTruePredicate(llvm::BasicBlock &BB, llvm::FunctionAnalysisManager &FAM);
 
+    // Insert a new basic block that is a clone of an existing basic block, injects an if-then-else construct where
+    // one of the blocks is obfuscating by using substitution and both blocks have a change of being executed by
+    // comparing a reachable integer in the environment in an expression.
     bool handleOpaquelyTruePredicateWithClone(llvm::BasicBlock &BB, llvm::FunctionAnalysisManager &FAM);
 
+    // Obfuscates the conditions in the Loop Header and Latch basic blocks (if any) by adding an opaque predicate
+    // to the condition and then further obfuscating the condition by using substitutions.
     bool handleLoopOpaquelyTruePredicates(llvm::Loop &Loop, ReachableIntegers::Result &RI);
 
     llvm::Value *conditionOpaquePredicateOR(llvm::Value *ChosenInteger, llvm::Instruction *InsertBefore);
@@ -64,6 +73,19 @@ struct OpaquePredicates : public llvm::PassInfoMixin<OpaquePredicates> {
 
     std::pair<OpaquelyTruePredicate, Substitution::SubstitutionHandler> getRandomOpaquelyTruePredicate();
 
+    // Finds all Basic Blocks that are not part of a loop in a function and that have at least one reachable integer.
+    std::vector<llvm::BasicBlock *>
+    findAllBBNotInLoop(llvm::Function &F, llvm::LoopInfo &LoopInfo, ReachableIntegers::Result &Set);
+
+    // Find all Basic Blocks in a function that have at least one reachable integer.
+    std::vector<llvm::BasicBlock *> findAllBBWithReachableIntegers(llvm::Function &F, ReachableIntegers::Result &Set);
+
+    // Find all loops in a function, including nested loops.
+    void findAllLoops(const std::vector<llvm::Loop*> &TopLevel, std::vector<llvm::Loop*> &loops);
+
+    bool tryIntroducingNewPath(llvm::Loop *TopLevelLoop, ReachableIntegers::Result &Set);
+
+    std::unordered_set<llvm::Instruction*> findAllPrecedingInstructionInALoop(llvm::BasicBlock &BB, llvm::Loop &Loop);
 
 };
 

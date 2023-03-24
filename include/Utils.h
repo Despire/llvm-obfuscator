@@ -1,6 +1,7 @@
 #ifndef LLVM_OBFUSCATOR_UTILS_H
 #define LLVM_OBFUSCATOR_UTILS_H
 
+#include <queue>
 #include <unordered_set>
 #include <algorithm>
 
@@ -12,6 +13,7 @@
 #include "llvm/IR/Constants.h"
 #include "llvm/Analysis/LoopInfo.h"
 #include "llvm/Transforms/Utils/ValueMapper.h"
+#include "llvm/Transforms/Utils/BasicBlockUtils.h"
 
 #define NON_ZERO(num)       num == 0 ? (num + 1) : num
 #define LLVM_I32(ctx)       llvm::IntegerType::getInt32Ty(ctx)
@@ -32,12 +34,38 @@ inline Iter RandomElement(Iter start, Iter end) {
     return RandomElementRNG(start, end, rng);
 }
 
+inline int64_t numOfPredecessors(llvm::BasicBlock* BB) {
+    int64_t count = 0;
+    for (auto p: predecessors(BB)) {
+        ++count;
+    }
+    return count;
+}
+
+inline bool isaPredecessor(llvm::BasicBlock *BB, llvm::BasicBlock *Target) {
+    for (auto p : predecessors(Target)) {
+        if (p == BB) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+template<typename LLVMTypeWithOperands>
+inline bool checkIfInstructionInOperand(llvm::Instruction *ToCheck, LLVMTypeWithOperands *I) {
+    for (auto &O: I->operands()) {
+        if (auto *inst = llvm::dyn_cast<llvm::Instruction>(O.get()); inst == ToCheck) {
+            return true;
+        }
+    }
+    return false;
+}
+
 inline bool existsPhiThatContainInstruction(llvm::Instruction *I, llvm::BasicBlock &BB) {
     for (auto &PHI: BB.phis()) {
-        for (auto &O: PHI.operands()) {
-            if (auto *inst = llvm::dyn_cast<llvm::Instruction>(O.get()); inst == I) {
-                return true;
-            }
+        if (checkIfInstructionInOperand(I, &PHI)) {
+            return true;
         }
     }
     return false;
@@ -59,284 +87,56 @@ inline llvm::Instruction *RandomNonPHIInstruction(llvm::BasicBlock &BB) {
     return &*beg;
 }
 
-inline std::unordered_set<llvm::BasicBlock *> findDirectPredecessors(llvm::BasicBlock *Start, llvm::BasicBlock *End) {
-    for (auto P: predecessors(End)) {
-        if (P == Start) {
-            return {Start};
-        }
-    }
-    std::unordered_set<llvm::BasicBlock *> visited;
-    std::unordered_set<llvm::BasicBlock *> predecessors;
-    std::vector<llvm::BasicBlock *> queue;
+inline std::unordered_set<llvm::BasicBlock *>
+directPredecessors(llvm::Instruction *start, llvm::BasicBlock *jumpToBlock) {
+    std::unordered_set<llvm::BasicBlock *> reachable;
 
-    queue.push_back(Start);
-    while (!queue.empty()) {
-        auto *current = queue.back();
-        queue.pop_back();
+    for (auto p: llvm::predecessors(jumpToBlock)) {
+        std::unordered_set<llvm::BasicBlock *> processed;
+        std::queue<llvm::BasicBlock *> queue;
 
-        // check if we visited this node.
-        if (visited.find(current) != visited.end()) {
-            continue;
-        }
-        visited.insert(current);
+        queue.push(start->getParent());
+        while (!queue.empty()) {
+            auto *current = queue.front();
+            queue.pop();
 
-        // for each successor check if it is the end block
-        // if yes add this to the predecessors vector and continue
-        // with following other paths.
-        bool isDirectPredecessor = false;
-        for (auto S: successors(current)) {
-            if (S == End) {
-                isDirectPredecessor = true;
+            // if processed skipped.
+            if (processed.find(current) != processed.end()) {
                 continue;
             }
-            queue.push_back(S);
-        }
+            processed.insert(current);
 
-        if (isDirectPredecessor) {
-            predecessors.insert(current);
-        }
-    }
-
-    return predecessors;
-}
-
-inline llvm::Value *findFirstSuitableInstruction(llvm::Type *typ, llvm::SmallDenseSet<llvm::Value *> &set) {
-    auto beg = set.begin();
-
-    while (beg != set.end()) {
-        if ((*beg)->getType() == typ) {
-            break;
-        }
-        ++beg;
-    }
-
-    if (beg != set.end()) {
-        return *beg;
-    }
-
-    return llvm::ConstantAggregateZero::getNullValue(typ);
-}
-
-
-inline std::unordered_set<llvm::Instruction *>
-findAllPrecedingInstructionInALoop(llvm::BasicBlock &BB, llvm::Loop &Loop) {
-    std::vector<llvm::BasicBlock *> queue;
-    std::unordered_set<llvm::BasicBlock *> visited;
-    std::unordered_set<llvm::Instruction *> inst;
-
-    if (Loop.getHeader() != &BB) {
-        for (auto P: predecessors(&BB)) {
-            if (Loop.contains(P)) {
-                queue.push_back(P);
-            }
-        }
-    }
-
-    while (!queue.empty()) {
-        auto *current = queue.back();
-        queue.pop_back();
-
-        // if we have processed this block already skip.
-        if (visited.find(current) != visited.end()) {
-            continue;
-        }
-
-        visited.insert(current);
-
-        // if the current is not in the loop skip.
-        if (!Loop.contains(current)) {
-            continue;
-        }
-
-        // add instruction from the current block.
-        for (auto &I: *current) {
-            inst.insert(&I);
-        }
-
-        // if current is the header we're done skip.
-        if (current == Loop.getHeader()) {
-            continue;
-        }
-
-        // add predecessors.
-        for (auto P: llvm::predecessors(current)) {
-            queue.push_back(P);
-        }
-    }
-
-    return inst;
-}
-
-inline
-void remapInstructionAfterNewPathToLoop(
-        llvm::BasicBlock *LoopPredecessorBlock,
-        llvm::BasicBlock *NewBlock,
-        llvm::BasicBlock *JumpToLoopBlock,
-        llvm::Loop *Loop,
-        ReachableIntegers::Result &Set
-) {
-    llvm::SmallVector<llvm::Loop *> innerLoops;
-    llvm::Loop::getInnerLoopsInPreorder(*Loop, innerLoops);
-
-    llvm::errs() << "num of inner loops: " << innerLoops.size() << '\n';
-    for (auto &InnerLoop: innerLoops) {
-        if (InnerLoop->contains(JumpToLoopBlock)) {
-            llvm::errs() << "Jumping to inner loop: " << '\n';
-        }
-    }
-
-    auto possibleUses = findAllPrecedingInstructionInALoop(*JumpToLoopBlock, *Loop);
-
-    for (auto &I: possibleUses) {
-        llvm::errs() << "loop context: " << *I << '\n';
-    }
-    llvm::errs() << "==========================================" << '\n';
-
-    std::vector<llvm::BasicBlock *> queue;
-    std::unordered_set<llvm::BasicBlock *> visited;
-    std::unordered_set<llvm::Instruction *> phi;
-    std::unordered_set<llvm::Instruction *> nonPhi;
-    std::unordered_set<llvm::Instruction *> out_of_context;
-    std::unordered_set<llvm::Instruction *> remap;
-
-    queue.push_back(JumpToLoopBlock);
-    while (!queue.empty()) {
-        auto *current = queue.back();
-        queue.pop_back();
-
-        // if we have processed this block already skip.
-        if (visited.find(current) != visited.end()) {
-            continue;
-        }
-
-        visited.insert(current);
-
-        // if the current is not in the loop skip.
-        if (!Loop->contains(current)) {
-            continue;
-        }
-
-        // if current is the header we're done skip.
-        if (current == Loop->getHeader()) {
-            continue;
-        }
-
-        // process.
-        for (auto &I: *current) {
-            bool update = false;
-
-            for (auto &O: I.operands()) {
-                if (auto *inst = llvm::dyn_cast<llvm::Instruction>(O.get()); inst) {
-                    if (possibleUses.find(inst) != possibleUses.end()) {
-                        if (llvm::isa<llvm::PHINode>(inst)) {
-                            phi.insert(inst);
-                        } else {
-                            nonPhi.insert(inst);
-                        }
-                        update = true;
-                    } else {
-                        out_of_context.insert(inst);
-                    }
-                }
+            if (current == p) {
+                // we're done.
+                reachable.insert(p);
+                break;
             }
 
-            if (update) {
-                remap.insert(&I);
-            }
-        }
-
-        // add successors.
-        for (auto S: llvm::successors(current)) {
-            queue.push_back(S);
-        }
-    }
-
-    for (auto &I: out_of_context) {
-        llvm::errs() << "out of context: " << *I << '\n';
-    }
-    llvm::errs() << " ========================================================== " << '\n';
-
-    // if there are any PHIS in the block we're jumping to introduce a new predecessor to each of them.
-    for (auto &PHI: JumpToLoopBlock->phis()) {
-        // we're using the reachable integers from the Predecessors as the NewBB was split right before the
-        // branch instruction and thus the same Integers should be reachable from that path.
-        PHI.addIncoming(findFirstSuitableInstruction(PHI.getType(), Set[LoopPredecessorBlock]), NewBlock);
-    }
-
-    llvm::ValueToValueMapTy mappings;
-    llvm::IRBuilder<> Builder(&*JumpToLoopBlock->getFirstInsertionPt());
-
-    for (auto &I: nonPhi) {
-        if (existsPhiThatContainInstruction(I, *JumpToLoopBlock)) {
-            continue;
-        }
-
-        auto pred = findDirectPredecessors(I->getParent(), JumpToLoopBlock);
-
-        auto *PHI = Builder.CreatePHI(I->getType(), 2);
-        PHI->addIncoming(I, *pred.begin());
-        for (auto P: llvm::predecessors(JumpToLoopBlock)) {
-            if (PHI->getBasicBlockIndex(P) >= 0) {
+            // if we reached the block along the path continue.
+            if (current == jumpToBlock) {
                 continue;
             }
-            PHI->addIncoming(findFirstSuitableInstruction(PHI->getType(), Set[P]), P);
+
+            // continue with successors.
+            for (auto s: llvm::successors(current)) {
+                queue.push(s);
+            }
         }
-
-        mappings[I] = PHI;
-
-        llvm::errs() << "NonPHI Instruction: " << *I << " Created PHI instruction: " << *PHI << '\n';
     }
 
-    for (auto &I: phi) {
-        if (existsPhiThatContainInstruction(I, *JumpToLoopBlock)) {
-            continue;
-        }
+    return reachable;
+}
 
-        auto pred = findDirectPredecessors(I->getParent(), JumpToLoopBlock);
-
-        auto *PHI = Builder.CreatePHI(I->getType(), 2);
-        PHI->addIncoming(I, *pred.begin());
-        for (auto P: llvm::predecessors(JumpToLoopBlock)) {
-            if (PHI->getBasicBlockIndex(P) >= 0) {
-                continue;
-            }
-            PHI->addIncoming(findFirstSuitableInstruction(PHI->getType(), Set[P]), P);
-        }
-
-        mappings[I] = PHI;
-
-        llvm::errs() << "PHI Instruction: " << *I << '\n';
+inline void findDeepestInnerLoop(llvm::Loop *Loop, llvm::Loop *&CurrentLevel) {
+    for (auto &SubLoop: Loop->getSubLoopsVector()) {
+        findDeepestInnerLoop(SubLoop, CurrentLevel);
     }
 
-    for (auto &I: remap) {
-        std::vector<std::pair<const llvm::Value *const, llvm::Value *>> cc;
-        if (auto *phi = llvm::dyn_cast<llvm::PHINode>(I); phi) {
-            // we only added new phi nodes to the Block to which the jump was made.
-            // thus if we are remapping a phi node and the predecessors of the remapping
-            // was not the block we jumped to, we skip.
-            for (std::size_t i = 0; i < phi->getNumOperands(); ++i) {
-                if (mappings.find(phi->getIncomingValue(i)) != mappings.end()) {
-                    if (phi->getIncomingBlock(i) != JumpToLoopBlock) {
-                        auto tt = mappings.find(phi->getIncomingValue(i));
-                        cc.emplace_back(phi->getIncomingValue(i), tt->second);
-                        mappings.erase(phi->getIncomingValue(i));
-                    }
-                }
-            }
-
-            for (auto kk: cc) {
-                llvm::errs() << "skipping over: " << *kk.first << " " << *kk.second << '\n';
-            }
-        }
-
-        llvm::errs() << "remapping: " << *I << '\n';
-        llvm::RemapInstruction(I, mappings, llvm::RF_IgnoreMissingLocals);
-
-        for (auto &v: cc) {
-            mappings[v.first] = v.second;
-        }
+    if (Loop->getLoopDepth() > CurrentLevel->getLoopDepth()) {
+        CurrentLevel = Loop;
     }
 }
+
 
 inline void addBogusOperations(llvm::Instruction *Dst, llvm::SmallDenseSet<llvm::Value *> &Set) {
     std::mt19937_64 gen = GetRandomGenerator();
