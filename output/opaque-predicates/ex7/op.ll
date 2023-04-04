@@ -8,145 +8,218 @@ target triple = "arm64-apple-macosx12.0.0"
 @.str.2 = private unnamed_addr constant [5 x i8] c"\1B[2J\00", align 1
 
 ; Function Attrs: mustprogress nofree nounwind ssp uwtable
-define void @_Z7displayPKcRfS1_(i8* nocapture readonly %0, float* nocapture nonnull align 4 dereferenceable(4) %1, float* nocapture nonnull align 4 dereferenceable(4) %2) local_unnamed_addr #0 {
-  %4 = call i32 (i8*, ...) @printf(i8* nonnull dereferenceable(1) getelementptr inbounds ([4 x i8], [4 x i8]* @.str, i64 0, i64 0))
-  br label %23
+define void @_Z7displayPKcRfS1_i(i8* nocapture readonly %0, float* nocapture nonnull align 4 dereferenceable(4) %1, float* nocapture nonnull align 4 dereferenceable(4) %2, i32 %3) local_unnamed_addr #0 {
+  %5 = add i32 %3, 1
+  %6 = mul i32 3, %5
+  %7 = add i32 %3, 2
+  %8 = mul i32 %6, %7
+  %9 = srem i32 %8, 6
+  %10 = icmp eq i32 %9, 0
+  %11 = mul i32 %3, %3
+  %12 = add i32 %11, %3
+  %13 = srem i32 %12, 2
+  %14 = icmp eq i32 %13, 0
+  %15 = xor i1 %10, true
+  %16 = or i1 %15, %14
+  %17 = xor i1 %10, true
+  %18 = sub i1 %16, %17
+  br i1 %18, label %19, label %29
 
-5:                                                ; preds = %108
-  %6 = icmp sge i64 %109, %109
-  %7 = icmp sle i64 %109, %109
-  %8 = xor i1 %7, true
-  %9 = xor i1 %6, %8
-  %10 = and i1 %9, %6
-  br i1 %10, label %11, label %22
+19:                                               ; preds = %4
+  %20 = mul i32 70, 28
+  %21 = mul i32 100, 93
+  %22 = sdiv i32 18, 5
+  %23 = add i32 93, 100
+  %24 = sdiv i32 2, 100
+  %25 = add i32 105, 95
+  %26 = add i32 59, 10
+  %27 = sub i32 98, 99
+  %28 = sdiv i32 39, 56
+  br label %29
 
-11:                                               ; preds = %5
-  %12 = sdiv i32 -1227846629, -229632312
-  %13 = mul i32 -1675403515, 1520159342
-  %14 = mul i32 682304420, 2104066937
-  %15 = add i32 1737860319, -160582504
-  %16 = add i32 150262904, -1581473068
-  %17 = sub i32 1633594282, -191526691
-  %18 = sdiv i32 -700155969, -814982291
-  %19 = sdiv i32 -528469045, 97261158
-  %20 = mul i32 959621066, 2049167014
-  %21 = sub i32 2087602635, 807688147
-  br label %22
+29:                                               ; preds = %4, %19
+  %30 = call i32 (i8*, ...) @printf(i8* nonnull dereferenceable(1) getelementptr inbounds ([4 x i8], [4 x i8]* @.str, i64 0, i64 0))
+  br label %54
 
-22:                                               ; preds = %5, %11
+31:                                               ; preds = %173
+  %32 = add i32 %12, 1
+  %33 = mul i32 3, %32
+  %34 = add i32 %12, 2
+  %35 = mul i32 %33, %34
+  %36 = srem i32 %35, 6
+  %37 = icmp eq i32 %36, 0
+  %38 = mul i32 %12, %12
+  %39 = add i32 %38, %12
+  %40 = srem i32 %39, 2
+  %41 = icmp eq i32 %40, 0
+  %42 = xor i1 %37, true
+  %43 = or i1 %42, %41
+  %44 = xor i1 %37, true
+  %45 = sub i1 %43, %44
+  br i1 %45, label %46, label %53
+
+46:                                               ; preds = %31
+  %47 = mul i32 75, 31
+  %48 = sub i32 70, 52
+  %49 = sub i32 82, 49
+  %50 = sub i32 45, 6
+  %51 = mul i32 23, 81
+  %52 = add i32 82, 22
+  br label %53
+
+53:                                               ; preds = %31, %46
   ret void
 
-23:                                               ; preds = %108, %3
-  %24 = phi i64 [ 0, %3 ], [ %109, %108 ]
-  %25 = trunc i64 %24 to i32
-  %26 = urem i32 %25, 80
-  %27 = icmp eq i32 %26, 0
-  %28 = and i32 %4, 1
-  %29 = icmp eq i32 %28, 0
-  %30 = and i32 %4, 1
-  %31 = icmp eq i32 %30, 1
-  %32 = xor i1 %29, true
-  %33 = and i1 %32, false
-  %34 = and i1 %29, true
-  %35 = or i1 %33, %34
-  %36 = xor i1 %31, true
-  %37 = and i1 %36, false
-  %38 = and i1 %31, true
-  %39 = or i1 %37, %38
-  %40 = xor i1 %35, %39
-  %41 = xor i1 %29, true
-  %42 = icmp eq i32 %4, 0
-  %43 = icmp ne i32 %4, 0
-  %44 = xor i1 %42, true
-  %45 = and i1 %44, true
-  %46 = and i1 %42, false
-  %47 = or i1 %45, %46
-  %48 = xor i1 %43, true
-  %49 = and i1 %48, true
-  %50 = and i1 %43, false
-  %51 = or i1 %49, %50
-  %52 = xor i1 %47, %51
-  %53 = xor i1 %42, true
-  %54 = xor i1 %43, true
-  %55 = or i1 %53, %54
-  %56 = xor i1 %55, true
-  %57 = and i1 %56, true
-  %58 = or i1 %52, %57
-  br i1 %58, label %59, label %69
+54:                                               ; preds = %173, %29
+  %55 = phi i64 [ 0, %29 ], [ %179, %173 ]
+  %56 = trunc i64 %55 to i32
+  %57 = urem i32 %56, 80
+  %58 = icmp eq i32 %57, 0
+  %59 = add i32 %30, 1
+  %60 = mul i32 3, %59
+  %61 = add i32 %30, 2
+  %62 = mul i32 %60, %61
+  %63 = srem i32 %62, 6
+  %64 = icmp eq i32 %63, 0
+  %65 = srem i32 %30, 2
+  %66 = icmp eq i32 %65, 0
+  br i1 %66, label %67, label %79
 
-59:                                               ; preds = %23
-  %60 = sdiv i32 154826984, 1604190531
-  %61 = mul i32 735724678, -763828079
-  %62 = mul i32 -846979754, 1014379046
-  %63 = sub i32 -608529861, 1332383996
-  %64 = sdiv i32 1232117031, 249210982
-  %65 = add i32 -650120694, 621187105
-  %66 = sub i32 723655296, -1631931185
-  %67 = mul i32 396194328, -986045488
-  %68 = mul i32 -445215284, 152610922
-  br label %69
-
-69:                                               ; preds = %23, %59
-  %70 = xor i1 %31, true
-  %71 = or i1 %41, %70
+67:                                               ; preds = %54
+  %68 = mul i32 %30, %30
+  %69 = add i32 %68, %30
+  %70 = srem i32 %69, 2
+  %71 = icmp eq i32 %70, 0
   %72 = xor i1 %71, true
-  %73 = and i1 %72, true
-  %74 = or i1 %40, %73
-  %75 = xor i1 %74, true
-  %76 = xor i1 %27, %75
-  %77 = and i1 %76, %27
-  br i1 %77, label %87, label %78
-
-78:                                               ; preds = %69
-  %79 = getelementptr inbounds i8, i8* %0, i64 %24
-  %80 = load i8, i8* %79, align 1, !tbaa !10
-  %81 = sext i8 %80 to i32
-  %82 = srem i1 %36, false
-  %83 = icmp eq i1 %82, false
-  br i1 %83, label %84, label %85
-
-84:                                               ; preds = %78
-  br label %86
-
-85:                                               ; preds = %78
-  br label %86
-
-86:                                               ; preds = %85, %84
-  br label %87
-
-87:                                               ; preds = %86, %69
-  %88 = phi i32 [ %81, %86 ], [ 10, %69 ]
-  %89 = call i32 @putchar(i32 %88)
-  %90 = load float, float* %1, align 4, !tbaa !13
-  %91 = fpext float %90 to double
-  %92 = fadd double %91, 4.000000e-05
-  %93 = fptrunc double %92 to float
-  store float %93, float* %1, align 4, !tbaa !13
-  %94 = load float, float* %2, align 4, !tbaa !13
-  %95 = fpext float %94 to double
-  %96 = fadd double %95, 2.000000e-05
-  %97 = fptrunc double %96 to float
-  store float %97, float* %2, align 4, !tbaa !13
-  %98 = srem i1 %33, false
-  %99 = icmp eq i1 %98, false
-  br i1 %99, label %100, label %103
-
-100:                                              ; preds = %87
-  %101 = add nuw nsw i64 %24, 1
-  %102 = icmp eq i64 %101, 1761
+  %73 = xor i1 %64, %72
+  %74 = and i1 %73, %64
+  %75 = xor i1 %58, true
+  %76 = or i1 %75, %74
+  %77 = xor i1 %58, true
+  %78 = sub i1 %76, %77
   br label %108
 
-103:                                              ; preds = %87
-  %104 = add i64 %24, 7730572141651416252
-  %105 = add i64 %104, 1
-  %106 = sub i64 %105, 7730572141651416252
-  %107 = icmp eq i64 %106, 1761
+79:                                               ; preds = %54
+  %80 = mul i32 %30, %30
+  %81 = add i32 %80, 451675096
+  %82 = add i32 %81, %30
+  %83 = sub i32 %82, 451675096
+  %84 = srem i32 %83, 2
+  %85 = icmp eq i32 %84, 0
+  %86 = or i1 %85, true
+  %87 = and i1 %85, true
+  %88 = sub i1 %86, %87
+  %89 = or i1 %64, %88
+  %90 = and i1 %64, %88
+  %91 = sub i1 %89, %90
+  %92 = xor i1 %64, true
+  %93 = xor i1 %91, %92
+  %94 = and i1 %93, %91
+  %95 = xor i1 %58, false
+  %96 = xor i1 %95, true
+  %97 = xor i1 %94, true
+  %98 = and i1 %96, %97
+  %99 = add i1 %98, %94
+  %100 = xor i1 %58, true
+  %101 = and i1 %100, true
+  %102 = and i1 %58, false
+  %103 = or i1 %101, %102
+  %104 = xor i1 %103, false
+  %105 = sub i1 %99, true
+  %106 = sub i1 %105, %104
+  %107 = add i1 %106, true
   br label %108
 
-108:                                              ; preds = %103, %100
-  %109 = phi i64 [ %106, %103 ], [ %101, %100 ]
-  %110 = phi i1 [ %107, %103 ], [ %102, %100 ]
-  br i1 %110, label %5, label %23, !llvm.loop !15
+108:                                              ; preds = %79, %67
+  %109 = phi i32 [ %80, %79 ], [ %68, %67 ]
+  %110 = phi i32 [ %83, %79 ], [ %69, %67 ]
+  %111 = phi i32 [ %84, %79 ], [ %70, %67 ]
+  %112 = phi i1 [ %85, %79 ], [ %71, %67 ]
+  %113 = phi i1 [ %88, %79 ], [ %72, %67 ]
+  %114 = phi i1 [ %91, %79 ], [ %73, %67 ]
+  %115 = phi i1 [ %94, %79 ], [ %74, %67 ]
+  %116 = phi i1 [ %96, %79 ], [ %75, %67 ]
+  %117 = phi i1 [ %99, %79 ], [ %76, %67 ]
+  %118 = phi i1 [ %104, %79 ], [ %77, %67 ]
+  %119 = phi i1 [ %107, %79 ], [ %78, %67 ]
+  br i1 %119, label %135, label %120
+
+120:                                              ; preds = %108
+  %121 = srem i32 %56, 2
+  %122 = icmp eq i32 %121, 0
+  br i1 %122, label %123, label %127
+
+123:                                              ; preds = %120
+  %124 = getelementptr inbounds i8, i8* %0, i64 %55
+  %125 = load i8, i8* %124, align 1, !tbaa !10
+  %126 = sext i8 %125 to i32
+  br label %131
+
+127:                                              ; preds = %120
+  %128 = getelementptr inbounds i8, i8* %0, i64 %55
+  %129 = load i8, i8* %128, align 1, !tbaa !10
+  %130 = sext i8 %129 to i32
+  br label %131
+
+131:                                              ; preds = %127, %123
+  %132 = phi i8* [ %128, %127 ], [ %124, %123 ]
+  %133 = phi i8 [ %129, %127 ], [ %125, %123 ]
+  %134 = phi i32 [ %130, %127 ], [ %126, %123 ]
+  br label %135
+
+135:                                              ; preds = %131, %108
+  %136 = phi i32 [ %134, %131 ], [ 10, %108 ]
+  %137 = call i32 @putchar(i32 %136)
+  %138 = load float, float* %1, align 4, !tbaa !13
+  %139 = fpext float %138 to double
+  %140 = fadd double %139, 4.000000e-05
+  %141 = and i32 %12, 1
+  %142 = icmp eq i32 %141, 0
+  %143 = add i32 %12, 1
+  %144 = mul i32 3, %143
+  %145 = add i32 %12, 2
+  %146 = mul i32 %144, %145
+  %147 = srem i32 %146, 6
+  %148 = icmp eq i32 %147, 0
+  %149 = xor i1 %142, true
+  %150 = and i1 %149, true
+  %151 = and i1 %142, false
+  %152 = or i1 %150, %151
+  %153 = xor i1 %148, true
+  %154 = and i1 %153, true
+  %155 = and i1 %148, false
+  %156 = or i1 %154, %155
+  %157 = xor i1 %152, %156
+  %158 = xor i1 %142, true
+  %159 = xor i1 %148, true
+  %160 = or i1 %158, %159
+  %161 = xor i1 %160, true
+  %162 = and i1 %161, true
+  %163 = or i1 %157, %162
+  br i1 %163, label %164, label %173
+
+164:                                              ; preds = %135
+  %165 = sub i32 14, 13
+  %166 = add i32 95, 2
+  %167 = add i32 31, 48
+  %168 = add i32 4, 18
+  %169 = sub i32 40, 89
+  %170 = add i32 22, 27
+  %171 = sub i32 119, 87
+  %172 = add i32 69, 40
+  br label %173
+
+173:                                              ; preds = %135, %164
+  %174 = fptrunc double %140 to float
+  store float %174, float* %1, align 4, !tbaa !13
+  %175 = load float, float* %2, align 4, !tbaa !13
+  %176 = fpext float %175 to double
+  %177 = fadd double %176, 2.000000e-05
+  %178 = fptrunc double %177 to float
+  store float %178, float* %2, align 4, !tbaa !13
+  %179 = add nuw nsw i64 %55, 1
+  %180 = icmp eq i64 %179, 1761
+  br i1 %180, label %31, label %54, !llvm.loop !15
 }
 
 ; Function Attrs: nofree nounwind
@@ -158,6 +231,9 @@ declare void @llvm.lifetime.start.p0i8(i64 immarg, i8* nocapture) #2
 ; Function Attrs: nofree nounwind
 declare noundef i32 @putchar(i32 noundef) local_unnamed_addr #1
 
+; Function Attrs: argmemonly nocallback nofree nosync nounwind willreturn
+declare void @llvm.lifetime.end.p0i8(i64 immarg, i8* nocapture) #2
+
 ; Function Attrs: mustprogress nofree nosync nounwind ssp uwtable
 define void @_Z6renderffiPfPcii(float %0, float %1, i32 %2, float* nocapture %3, i8* nocapture %4, i32 %5, i32 %6) local_unnamed_addr #3 {
   %8 = sdiv i32 %6, 40
@@ -167,350 +243,568 @@ define void @_Z6renderffiPfPcii(float %0, float %1, i32 %2, float* nocapture %3,
   %11 = shl nsw i64 %9, 2
   call void @llvm.memset.p0i8.i64(i8* align 4 %10, i8 0, i64 %11, i1 false)
   %12 = sitofp i32 %8 to float
-  %13 = icmp sge i32 %6, %6
-  %14 = icmp sle i32 %6, %6
-  %15 = xor i1 %14, true
-  %16 = xor i1 %13, %15
-  %17 = and i1 %16, %13
-  br i1 %17, label %18, label %29
+  %13 = sdiv i32 %6, 2
+  %14 = sitofp i32 %13 to float
+  %15 = sdiv i32 %5, 2
+  %16 = add nsw i32 %15, 1
+  %17 = add i32 %2, 1
+  %18 = mul i32 3, %17
+  %19 = add i32 %2, 2
+  %20 = mul i32 %18, %19
+  %21 = srem i32 %20, 6
+  %22 = icmp eq i32 %21, 0
+  %23 = mul i32 %2, %2
+  %24 = add i32 %23, %2
+  %25 = srem i32 %24, 2
+  %26 = icmp eq i32 %25, 0
+  %27 = xor i1 %22, true
+  %28 = and i1 %27, true
+  %29 = and i1 %22, false
+  %30 = or i1 %28, %29
+  %31 = xor i1 %26, true
+  %32 = and i1 %31, true
+  %33 = and i1 %26, false
+  %34 = or i1 %32, %33
+  %35 = xor i1 %30, %34
+  %36 = xor i1 %22, true
+  %37 = xor i1 %26, true
+  %38 = or i1 %36, %37
+  %39 = xor i1 %38, true
+  %40 = and i1 %39, true
+  %41 = or i1 %35, %40
+  br i1 %41, label %42, label %53
 
-18:                                               ; preds = %7
-  %19 = add i32 -865063532, -1771089026
-  %20 = sub i32 1291115711, 752216681
-  %21 = add i32 534100075, 693368817
-  %22 = sdiv i32 -99543507, -1628527739
-  %23 = mul i32 -1306808003, 552126591
-  %24 = sdiv i32 -474603401, 256928218
-  %25 = add i32 615021577, 1630102820
-  %26 = sub i32 -1962894930, -34228833
-  %27 = sdiv i32 -11687099, -1567801147
-  %28 = mul i32 416508108, -1591986748
-  br label %29
+42:                                               ; preds = %7
+  %43 = add i32 50, 120
+  %44 = mul i32 122, 119
+  %45 = mul i32 1, 32
+  %46 = sdiv i32 7, 15
+  %47 = add i32 23, 89
+  %48 = sub i32 87, 42
+  %49 = mul i32 0, 80
+  %50 = add i32 23, 117
+  %51 = mul i32 125, 79
+  %52 = sub i32 40, 45
+  br label %53
 
-29:                                               ; preds = %7, %18
-  %30 = sdiv i32 %6, 2
-  %31 = sitofp i32 %30 to float
-  %32 = sdiv i32 %5, 2
-  %33 = add nsw i32 %32, 1
-  %34 = sitofp i32 %33 to float
-  %35 = call fastcc float @_ZL3sinf(float %0) #8
-  %36 = call fastcc float @_ZL3cosf(float %0) #8
-  %37 = call fastcc float @_ZL3cosf(float %1) #8
-  %38 = call fastcc float @_ZL3sinf(float %1) #8
-  br label %39
+53:                                               ; preds = %7, %42
+  %54 = sitofp i32 %16 to float
+  %55 = call fastcc float @_ZL3sinf(float 5.000000e-01) #9
+  %56 = call fastcc float @_ZL3sinf(float %0) #9
+  %57 = call fastcc float @_ZL3cosf(float %0) #9
+  %58 = call fastcc float @_ZL3cosf(float 5.000000e-01) #9
+  %59 = call fastcc float @_ZL3cosf(float %1) #9
+  %60 = call fastcc float @_ZL3sinf(float %1) #9
+  br label %74
 
-39:                                               ; preds = %81, %29
-  %40 = phi double [ 0.000000e+00, %29 ], [ %84, %81 ]
-  %41 = phi float [ 0.000000e+00, %29 ], [ %83, %81 ]
-  %42 = call fastcc float @_ZL3cosf(float %41) #8
-  %43 = icmp sge i64 %11, %11
-  %44 = icmp sle i64 %11, %11
-  %45 = xor i1 %44, true
-  %46 = xor i1 %43, %45
-  %47 = and i1 %46, %43
-  br i1 %47, label %48, label %57
+61:                                               ; preds = %205
+  %62 = fcmp une float %56, 0.000000e+00
+  %63 = srem i32 %23, 2
+  %64 = icmp eq i32 %63, 0
+  br i1 %64, label %65, label %68
 
-48:                                               ; preds = %39
-  %49 = add i32 1295993156, -1546293961
-  %50 = sdiv i32 -838766811, 455704722
-  %51 = add i32 823430713, 117711194
-  %52 = sub i32 1224109612, -747171549
-  %53 = add i32 -1443049774, -2018722425
-  %54 = mul i32 415424866, -338111873
-  %55 = add i32 668705601, -1392352154
-  %56 = add i32 2033081944, -937879217
-  br label %57
+65:                                               ; preds = %61
+  %66 = fmul float %56, 2.000000e+00
+  %67 = select i1 %62, float %66, float %56
+  br label %71
 
-57:                                               ; preds = %39, %48
-  %58 = call fastcc float @_ZL3sinf(float %41) #8
-  %59 = fadd float %42, %12
-  %60 = fmul float %35, %58
-  %61 = fmul float %58, %36
-  br label %86
+68:                                               ; preds = %61
+  %69 = fmul float %56, 2.000000e+00
+  %70 = select i1 %62, float %69, float %56
+  br label %71
 
-62:                                               ; preds = %81
-  %63 = srem i1 %220, false
-  %64 = icmp eq i1 %63, false
-  br i1 %64, label %65, label %66
+71:                                               ; preds = %68, %65
+  %72 = phi float [ %69, %68 ], [ %66, %65 ]
+  %73 = phi float [ %70, %68 ], [ %67, %65 ]
+  br label %216
 
-65:                                               ; preds = %62
-  br label %67
+74:                                               ; preds = %205, %53
+  %75 = phi double [ 0.000000e+00, %53 ], [ %208, %205 ]
+  %76 = phi float [ 0.000000e+00, %53 ], [ %207, %205 ]
+  %77 = call fastcc float @_ZL3cosf(float %76) #9
+  %78 = call fastcc float @_ZL3sinf(float %76) #9
+  %79 = fadd float %77, %12
+  %80 = fmul float %55, %79
+  %81 = fmul float %80, %57
+  %82 = fmul float %56, %78
+  %83 = fsub float %81, %82
+  %84 = fmul float %56, %80
+  %85 = fmul float %78, %57
+  %86 = fadd float %84, %85
+  %87 = fadd float %86, 5.000000e+00
+  %88 = fdiv float 1.000000e+00, %87
+  %89 = fmul float %88, 3.000000e+01
+  %90 = fmul float %79, %58
+  %91 = fmul float %90, %59
+  %92 = fmul float %83, %60
+  %93 = fadd float %91, %92
+  %94 = fmul float %89, %93
+  %95 = fadd float %94, %14
+  %96 = icmp sge i32 %17, %17
+  %97 = mul i32 %17, %17
+  %98 = add i32 %97, %17
+  %99 = srem i32 %98, 2
+  %100 = icmp eq i32 %99, 0
+  %101 = xor i1 %96, true
+  %102 = or i1 %101, %100
+  %103 = xor i1 %96, true
+  %104 = sub i1 %102, %103
+  br i1 %104, label %105, label %115
 
-66:                                               ; preds = %62
-  br label %67
+105:                                              ; preds = %74
+  %106 = add i32 12, 7
+  %107 = sdiv i32 68, 93
+  %108 = sub i32 63, 18
+  %109 = sub i32 107, 86
+  %110 = sdiv i32 114, 36
+  %111 = mul i32 4, 16
+  %112 = add i32 115, 122
+  %113 = sub i32 58, 15
+  %114 = sdiv i32 123, 38
+  br label %115
 
-67:                                               ; preds = %66, %65
+115:                                              ; preds = %74, %105
+  %116 = fptosi float %95 to i32
+  %117 = fmul float %88, 1.500000e+01
+  %118 = fmul float %90, %60
+  %119 = fmul float %83, %59
+  %120 = fsub float %118, %119
+  %121 = fmul float %117, %120
+  %122 = fadd float %121, %54
+  %123 = fptosi float %122 to i32
+  %124 = fmul float %55, %77
+  %125 = fmul float %124, %57
+  %126 = fsub float %82, %125
+  %127 = fmul float %126, %59
+  %128 = fmul float %124, %56
+  %129 = fsub float %127, %128
+  %130 = fsub float %129, %85
+  %131 = fmul float %77, %58
+  %132 = fmul float %131, %60
+  %133 = fsub float %130, %132
+  %134 = fmul float %133, 8.000000e+00
+  %135 = fptosi float %134 to i32
+  %136 = icmp slt i32 %123, %5
+  %137 = icmp sgt i32 %123, 0
+  %138 = and i1 %136, %137
+  %139 = icmp sgt i32 %116, 0
+  %140 = select i1 %138, i1 %139, i1 false
+  %141 = icmp slt i32 %116, %6
+  %142 = select i1 %140, i1 %141, i1 false
+  %143 = add i32 %2, 1
+  %144 = mul i32 3, %143
+  %145 = add i32 %2, 2
+  %146 = mul i32 %144, %145
+  %147 = srem i32 %146, 6
+  %148 = icmp eq i32 %147, 0
+  %149 = mul i32 %2, %2
+  %150 = add i32 %149, %2
+  %151 = srem i32 %150, 2
+  %152 = icmp eq i32 %151, 0
+  %153 = and i1 %148, %152
+  %154 = xor i1 %148, %152
+  %155 = or i1 %153, %154
+  %156 = xor i1 %142, true
+  %157 = or i1 %156, %155
+  %158 = xor i1 %142, true
+  %159 = sub i1 %157, %158
+  br i1 %159, label %160, label %192
+
+160:                                              ; preds = %115
+  %161 = mul nsw i32 %123, %6
+  %162 = add nsw i32 %161, %116
+  %163 = sext i32 %162 to i64
+  %164 = getelementptr inbounds float, float* %3, i64 %163
+  %165 = load float, float* %164, align 4, !tbaa !13
+  %166 = fcmp ogt float %88, %165
+  %167 = srem i32 %2, 2
+  %168 = icmp eq i32 %167, 0
+  br i1 %168, label %169, label %170
+
+169:                                              ; preds = %160
+  br label %171
+
+170:                                              ; preds = %160
+  br label %171
+
+171:                                              ; preds = %170, %169
+  br i1 %166, label %172, label %192
+
+172:                                              ; preds = %171
+  store float %88, float* %164, align 4, !tbaa !13
+  %173 = icmp sgt i32 %135, 0
+  %174 = select i1 %173, i32 %135, i32 0
+  %175 = srem i32 %147, 2
+  %176 = icmp eq i32 %175, 0
+  br i1 %176, label %177, label %182
+
+177:                                              ; preds = %172
+  %178 = zext i32 %174 to i64
+  %179 = getelementptr inbounds [13 x i8], [13 x i8]* @.str.1, i64 0, i64 %178
+  %180 = load i8, i8* %179, align 1, !tbaa !10
+  %181 = getelementptr inbounds i8, i8* %4, i64 %163
+  store i8 %180, i8* %181, align 1, !tbaa !10
+  br label %187
+
+182:                                              ; preds = %172
+  %183 = zext i32 %174 to i64
+  %184 = getelementptr inbounds [13 x i8], [13 x i8]* @.str.1, i64 0, i64 %183
+  %185 = load i8, i8* %184, align 1, !tbaa !10
+  %186 = getelementptr inbounds i8, i8* %4, i64 %163
+  store i8 %185, i8* %186, align 1, !tbaa !10
+  br label %187
+
+187:                                              ; preds = %182, %177
+  %188 = phi i64 [ %183, %182 ], [ %178, %177 ]
+  %189 = phi i8* [ %184, %182 ], [ %179, %177 ]
+  %190 = phi i8 [ %185, %182 ], [ %180, %177 ]
+  %191 = phi i8* [ %186, %182 ], [ %181, %177 ]
+  br label %192
+
+192:                                              ; preds = %187, %171, %115
+  %193 = srem i32 %21, 2
+  %194 = icmp eq i32 %193, 0
+  br i1 %194, label %195, label %200
+
+195:                                              ; preds = %192
+  %196 = fadd double %75, 7.000000e-02
+  %197 = fptrunc double %196 to float
+  %198 = fpext float %197 to double
+  %199 = fcmp olt double %198, 6.280000e+00
+  br label %205
+
+200:                                              ; preds = %192
+  %201 = fadd double %75, 7.000000e-02
+  %202 = fptrunc double %201 to float
+  %203 = fpext float %202 to double
+  %204 = fcmp olt double %203, 6.280000e+00
+  br label %205
+
+205:                                              ; preds = %200, %195
+  %206 = phi double [ %201, %200 ], [ %196, %195 ]
+  %207 = phi float [ %202, %200 ], [ %197, %195 ]
+  %208 = phi double [ %203, %200 ], [ %198, %195 ]
+  %209 = phi i1 [ %204, %200 ], [ %199, %195 ]
+  br i1 %209, label %74, label %61, !llvm.loop !18
+
+210:                                              ; preds = %487
+  %211 = srem i32 %386, 2
+  %212 = icmp eq i32 %211, 0
+  br i1 %212, label %213, label %214
+
+213:                                              ; preds = %210
+  br label %215
+
+214:                                              ; preds = %210
+  br label %215
+
+215:                                              ; preds = %214, %213
   ret void
 
-68:                                               ; preds = %294
-  %69 = srem i1 %43, false
-  %70 = icmp eq i1 %69, false
-  br i1 %70, label %71, label %76
+216:                                              ; preds = %487, %71
+  %217 = phi double [ 0.000000e+00, %71 ], [ %489, %487 ]
+  %218 = phi i32 [ 0, %71 ], [ %220, %487 ]
+  %219 = phi float [ 0.000000e+00, %71 ], [ %488, %487 ]
+  %220 = add nuw nsw i32 %218, 1
+  %221 = sitofp i32 %218 to float
+  %222 = fadd float %55, %221
+  %223 = call fastcc float @_ZL3cosf(float %219) #9
+  %224 = fcmp une float %222, 0.000000e+00
+  %225 = fmul float %222, 2.000000e+00
+  %226 = fmul float %223, 2.000000e+00
+  %227 = select i1 %224, float %223, float %226
+  %228 = select i1 %224, float %225, float %222
+  %229 = call fastcc float @_ZL3sinf(float %219) #9
+  %230 = fmul float %229, 2.000000e+00
+  %231 = select i1 %62, float %229, float %230
+  %232 = fadd float %227, %12
+  %233 = fmul float %228, %232
+  %234 = fmul float %57, %233
+  %235 = fmul float %73, %231
+  %236 = fsub float %234, %235
+  %237 = fcmp une float %232, 0.000000e+00
+  %238 = fmul float %236, 2.000000e+00
+  %239 = fmul float %232, 2.000000e+00
+  %240 = select i1 %237, float %238, float %236
+  %241 = select i1 %237, float %232, float %239
+  %242 = fmul float %228, %241
+  %243 = fmul float %73, %242
+  %244 = fmul float %57, %231
+  %245 = fadd float %244, %243
+  %246 = fadd float %245, 5.000000e+00
+  %247 = fdiv float 1.000000e+00, %246
+  %248 = fmul float %247, 3.000000e+01
+  %249 = fmul float %58, %241
+  %250 = srem i32 %16, 2
+  %251 = icmp eq i32 %250, 0
+  br i1 %251, label %252, label %297
 
-71:                                               ; preds = %68
-  %72 = fadd double %40, 7.000000e-02
-  %73 = fptrunc double %72 to float
-  %74 = fpext float %73 to double
-  %75 = fcmp olt double %74, 6.280000e+00
-  br label %81
+252:                                              ; preds = %216
+  %253 = fmul float %59, %249
+  %254 = fmul float %60, %240
+  %255 = fadd float %253, %254
+  %256 = fmul float %255, %248
+  %257 = fadd float %256, %14
+  %258 = fptosi float %257 to i32
+  %259 = fmul float %247, 1.500000e+01
+  %260 = fmul float %249, %60
+  %261 = fmul float %59, %240
+  %262 = fsub float %260, %261
+  %263 = fmul float %262, %259
+  %264 = fadd float %263, %54
+  %265 = fptosi float %264 to i32
+  %266 = fmul float %228, %227
+  %267 = fmul float %266, %57
+  %268 = fsub float %235, %267
+  %269 = fmul float %59, %268
+  %270 = fmul float %266, %73
+  %271 = fsub float %269, %270
+  %272 = fsub float %271, %244
+  %273 = fmul float %227, %58
+  %274 = fmul float %273, %60
+  %275 = fsub float %272, %274
+  %276 = fmul float %275, 8.000000e+00
+  %277 = fptosi float %276 to i32
+  %278 = icmp slt i32 %265, %5
+  %279 = icmp sgt i32 %265, 0
+  %280 = and i1 %278, %279
+  %281 = icmp sgt i32 %258, 0
+  %282 = select i1 %280, i1 %281, i1 false
+  %283 = icmp slt i32 %258, %6
+  %284 = select i1 %282, i1 %283, i1 false
+  %285 = icmp sge i32 %16, %16
+  %286 = mul i32 %16, %16
+  %287 = add i32 %286, %16
+  %288 = srem i32 %287, 2
+  %289 = icmp eq i32 %288, 0
+  %290 = xor i1 %285, true
+  %291 = or i1 %290, %289
+  %292 = xor i1 %285, true
+  %293 = sub i1 %291, %292
+  %294 = xor i1 %293, true
+  %295 = xor i1 %284, %294
+  %296 = and i1 %295, %284
+  br label %373
 
-76:                                               ; preds = %68
-  %77 = fadd double %40, 7.000000e-02
-  %78 = fptrunc double %77 to float
-  %79 = fpext float %78 to double
-  %80 = fcmp olt double %79, 6.280000e+00
-  br label %81
+297:                                              ; preds = %216
+  %298 = fmul float %59, %249
+  %299 = fmul float %60, %240
+  %300 = fadd float %298, %299
+  %301 = fmul float %300, %248
+  %302 = fadd float %301, %14
+  %303 = fptosi float %302 to i32
+  %304 = fmul float %247, 1.500000e+01
+  %305 = fmul float %249, %60
+  %306 = fmul float %59, %240
+  %307 = fsub float %305, %306
+  %308 = fmul float %307, %304
+  %309 = fadd float %308, %54
+  %310 = fptosi float %309 to i32
+  %311 = fmul float %228, %227
+  %312 = fmul float %311, %57
+  %313 = fsub float %235, %312
+  %314 = fmul float %59, %313
+  %315 = fmul float %311, %73
+  %316 = fsub float %314, %315
+  %317 = fsub float %316, %244
+  %318 = fmul float %227, %58
+  %319 = fmul float %318, %60
+  %320 = fsub float %317, %319
+  %321 = fmul float %320, 8.000000e+00
+  %322 = fptosi float %321 to i32
+  %323 = icmp slt i32 %310, %5
+  %324 = icmp sgt i32 %310, 0
+  %325 = xor i1 %323, true
+  %326 = or i1 %325, %324
+  %327 = xor i1 %323, true
+  %328 = sub i1 %326, %327
+  %329 = icmp sgt i32 %303, 0
+  %330 = select i1 %328, i1 %329, i1 false
+  %331 = icmp slt i32 %303, %6
+  %332 = select i1 %330, i1 %331, i1 false
+  %333 = icmp sge i32 %16, %16
+  %334 = mul i32 %16, %16
+  %335 = xor i32 %334, %16
+  %336 = and i32 %334, %16
+  %337 = mul i32 2, %336
+  %338 = add i32 %335, %337
+  %339 = srem i32 %338, 2
+  %340 = icmp eq i32 %339, 0
+  %341 = or i1 %333, true
+  %342 = and i1 %333, true
+  %343 = sub i1 %341, %342
+  %344 = and i1 %343, %340
+  %345 = xor i1 %343, %340
+  %346 = or i1 %344, %345
+  %347 = xor i1 %333, true
+  %348 = and i1 %347, false
+  %349 = and i1 %333, true
+  %350 = or i1 %348, %349
+  %351 = xor i1 %350, true
+  %352 = sub i1 false, %351
+  %353 = add i1 %346, %352
+  %354 = xor i1 %353, true
+  %355 = and i1 %354, false
+  %356 = and i1 %353, true
+  %357 = or i1 %355, %356
+  %358 = xor i1 %357, true
+  %359 = xor i1 %332, true
+  %360 = and i1 %359, true
+  %361 = and i1 %332, false
+  %362 = or i1 %360, %361
+  %363 = xor i1 %358, true
+  %364 = and i1 %363, true
+  %365 = and i1 %358, false
+  %366 = or i1 %364, %365
+  %367 = xor i1 %362, %366
+  %368 = xor i1 %367, true
+  %369 = xor i1 %332, true
+  %370 = or i1 %368, %369
+  %371 = xor i1 %370, true
+  %372 = and i1 %371, true
+  br label %373
 
-81:                                               ; preds = %76, %71
-  %82 = phi double [ %77, %76 ], [ %72, %71 ]
-  %83 = phi float [ %78, %76 ], [ %73, %71 ]
-  %84 = phi double [ %79, %76 ], [ %74, %71 ]
-  %85 = phi i1 [ %80, %76 ], [ %75, %71 ]
-  br i1 %85, label %39, label %62, !llvm.loop !18
+373:                                              ; preds = %297, %252
+  %374 = phi float [ %298, %297 ], [ %253, %252 ]
+  %375 = phi float [ %299, %297 ], [ %254, %252 ]
+  %376 = phi float [ %300, %297 ], [ %255, %252 ]
+  %377 = phi float [ %301, %297 ], [ %256, %252 ]
+  %378 = phi float [ %302, %297 ], [ %257, %252 ]
+  %379 = phi i32 [ %303, %297 ], [ %258, %252 ]
+  %380 = phi float [ %304, %297 ], [ %259, %252 ]
+  %381 = phi float [ %305, %297 ], [ %260, %252 ]
+  %382 = phi float [ %306, %297 ], [ %261, %252 ]
+  %383 = phi float [ %307, %297 ], [ %262, %252 ]
+  %384 = phi float [ %308, %297 ], [ %263, %252 ]
+  %385 = phi float [ %309, %297 ], [ %264, %252 ]
+  %386 = phi i32 [ %310, %297 ], [ %265, %252 ]
+  %387 = phi float [ %311, %297 ], [ %266, %252 ]
+  %388 = phi float [ %312, %297 ], [ %267, %252 ]
+  %389 = phi float [ %313, %297 ], [ %268, %252 ]
+  %390 = phi float [ %314, %297 ], [ %269, %252 ]
+  %391 = phi float [ %315, %297 ], [ %270, %252 ]
+  %392 = phi float [ %316, %297 ], [ %271, %252 ]
+  %393 = phi float [ %317, %297 ], [ %272, %252 ]
+  %394 = phi float [ %318, %297 ], [ %273, %252 ]
+  %395 = phi float [ %319, %297 ], [ %274, %252 ]
+  %396 = phi float [ %320, %297 ], [ %275, %252 ]
+  %397 = phi float [ %321, %297 ], [ %276, %252 ]
+  %398 = phi i32 [ %322, %297 ], [ %277, %252 ]
+  %399 = phi i1 [ %323, %297 ], [ %278, %252 ]
+  %400 = phi i1 [ %324, %297 ], [ %279, %252 ]
+  %401 = phi i1 [ %328, %297 ], [ %280, %252 ]
+  %402 = phi i1 [ %329, %297 ], [ %281, %252 ]
+  %403 = phi i1 [ %330, %297 ], [ %282, %252 ]
+  %404 = phi i1 [ %331, %297 ], [ %283, %252 ]
+  %405 = phi i1 [ %332, %297 ], [ %284, %252 ]
+  %406 = phi i1 [ %333, %297 ], [ %285, %252 ]
+  %407 = phi i32 [ %334, %297 ], [ %286, %252 ]
+  %408 = phi i32 [ %338, %297 ], [ %287, %252 ]
+  %409 = phi i32 [ %339, %297 ], [ %288, %252 ]
+  %410 = phi i1 [ %340, %297 ], [ %289, %252 ]
+  %411 = phi i1 [ %343, %297 ], [ %290, %252 ]
+  %412 = phi i1 [ %346, %297 ], [ %291, %252 ]
+  %413 = phi i1 [ %351, %297 ], [ %292, %252 ]
+  %414 = phi i1 [ %353, %297 ], [ %293, %252 ]
+  %415 = phi i1 [ %358, %297 ], [ %294, %252 ]
+  %416 = phi i1 [ %367, %297 ], [ %295, %252 ]
+  %417 = phi i1 [ %372, %297 ], [ %296, %252 ]
+  br i1 %417, label %418, label %461
 
-86:                                               ; preds = %294, %57
-  %87 = phi double [ 0.000000e+00, %57 ], [ %296, %294 ]
-  %88 = phi float [ 0.000000e+00, %57 ], [ %295, %294 ]
-  %89 = call fastcc float @_ZL3sinf(float %88) #8
-  %90 = fmul float %89, %59
-  %91 = fmul float %90, %36
-  %92 = fsub float %91, %60
-  %93 = fmul float %35, %90
-  %94 = fadd float %93, %61
-  %95 = fadd float %94, 5.000000e+00
-  %96 = fdiv float 1.000000e+00, %95
-  %97 = call fastcc float @_ZL3cosf(float %88) #8
-  %98 = fmul float %96, 3.000000e+01
-  %99 = fmul float %59, %97
-  %100 = fmul float %99, %37
-  %101 = fmul float %92, %38
-  %102 = fadd float %100, %101
-  %103 = fmul float %98, %102
-  %104 = fadd float %103, %31
-  %105 = fptosi float %104 to i32
-  %106 = fmul float %96, 1.500000e+01
-  %107 = fmul float %99, %38
-  %108 = fmul float %92, %37
-  %109 = fsub float %107, %108
-  %110 = fmul float %106, %109
-  %111 = fadd float %110, %34
-  %112 = fptosi float %111 to i32
-  %113 = fmul float %89, %42
-  %114 = fmul float %113, %36
-  %115 = fsub float %60, %114
-  %116 = fmul float %115, %37
-  %117 = srem i1 %45, false
-  %118 = icmp eq i1 %117, false
-  br i1 %118, label %119, label %148
+418:                                              ; preds = %373
+  %419 = mul nsw i32 %386, %6
+  %420 = add nsw i32 %419, %379
+  %421 = sext i32 %420 to i64
+  %422 = getelementptr inbounds float, float* %3, i64 %421
+  %423 = load float, float* %422, align 4, !tbaa !13
+  %424 = srem i32 %98, 2
+  %425 = icmp eq i32 %424, 0
+  br i1 %425, label %426, label %428
 
-119:                                              ; preds = %86
-  %120 = fmul float %113, %35
-  %121 = fsub float %116, %120
-  %122 = fsub float %121, %61
-  %123 = fmul float %42, %97
-  %124 = fmul float %123, %38
-  %125 = fsub float %122, %124
-  %126 = fmul float %125, 8.000000e+00
-  %127 = fptosi float %126 to i32
-  %128 = icmp slt i32 %112, %5
-  %129 = icmp sgt i32 %112, 0
-  %130 = and i1 %128, %129
-  %131 = icmp sgt i32 %105, 0
-  %132 = select i1 %130, i1 %131, i1 false
-  %133 = icmp slt i32 %105, %6
-  %134 = select i1 %132, i1 %133, i1 false
-  %135 = sub i32 0, %8
-  %136 = icmp ne i32 %8, %135
-  %137 = xor i32 %8, %8
-  %138 = icmp eq i32 %137, 0
-  %139 = xor i1 %136, true
-  %140 = or i1 %139, %138
-  %141 = xor i1 %136, true
-  %142 = sub i1 %140, %141
-  %143 = xor i1 %134, true
-  %144 = xor i1 %142, true
-  %145 = or i1 %143, %144
-  %146 = xor i1 %145, true
-  %147 = and i1 %146, true
-  br label %209
+426:                                              ; preds = %418
+  %427 = fcmp ogt float %247, %423
+  br label %430
 
-148:                                              ; preds = %86
-  %149 = fmul float %113, %35
-  %150 = fsub float %116, %149
-  %151 = fsub float %150, %61
-  %152 = fmul float %42, %97
-  %153 = fmul float %152, %38
-  %154 = fsub float %151, %153
-  %155 = fmul float %154, 8.000000e+00
-  %156 = fptosi float %155 to i32
-  %157 = icmp slt i32 %112, %5
-  %158 = icmp sgt i32 %112, 0
-  %159 = xor i1 %158, true
-  %160 = xor i1 %157, %159
-  %161 = and i1 %160, %157
-  %162 = icmp sgt i32 %105, 0
-  %163 = select i1 %161, i1 %162, i1 false
-  %164 = icmp slt i32 %105, %6
-  %165 = select i1 %163, i1 %164, i1 false
-  %166 = sub i32 962090706, %8
-  %167 = sub i32 %166, 962090706
-  %168 = icmp ne i32 %8, %167
-  %169 = xor i32 %8, -1042087208
-  %170 = xor i32 %8, -1042087208
-  %171 = xor i32 %169, %170
-  %172 = icmp eq i32 %171, 0
-  %173 = or i1 %168, true
-  %174 = and i1 %168, true
-  %175 = sub i1 %173, %174
-  %176 = xor i1 %175, true
-  %177 = and i1 %176, true
-  %178 = and i1 %175, false
-  %179 = or i1 %177, %178
-  %180 = xor i1 %172, true
-  %181 = and i1 %180, true
-  %182 = and i1 %172, false
-  %183 = or i1 %181, %182
-  %184 = xor i1 %179, %183
-  %185 = xor i1 %175, true
-  %186 = xor i1 %172, true
-  %187 = or i1 %185, %186
-  %188 = xor i1 %187, true
-  %189 = and i1 %188, true
-  %190 = or i1 %184, %189
-  %191 = xor i1 %168, true
-  %192 = xor i1 %191, false
-  %193 = sub i1 false, %192
-  %194 = add i1 %190, %193
-  %195 = or i1 %165, true
-  %196 = and i1 %165, true
-  %197 = sub i1 %195, %196
-  %198 = xor i1 %194, false
-  %199 = xor i1 %198, true
-  %200 = and i1 %197, %199
-  %201 = xor i1 %197, %199
-  %202 = or i1 %200, %201
-  %203 = xor i1 %202, false
-  %204 = xor i1 %203, true
-  %205 = xor i1 %204, true
-  %206 = or i1 %205, false
-  %207 = xor i1 %206, true
-  %208 = and i1 %207, true
-  br label %209
+428:                                              ; preds = %418
+  %429 = fcmp ogt float %247, %423
+  br label %430
 
-209:                                              ; preds = %148, %119
-  %210 = phi float [ %149, %148 ], [ %120, %119 ]
-  %211 = phi float [ %150, %148 ], [ %121, %119 ]
-  %212 = phi float [ %151, %148 ], [ %122, %119 ]
-  %213 = phi float [ %152, %148 ], [ %123, %119 ]
-  %214 = phi float [ %153, %148 ], [ %124, %119 ]
-  %215 = phi float [ %154, %148 ], [ %125, %119 ]
-  %216 = phi float [ %155, %148 ], [ %126, %119 ]
-  %217 = phi i32 [ %156, %148 ], [ %127, %119 ]
-  %218 = phi i1 [ %157, %148 ], [ %128, %119 ]
-  %219 = phi i1 [ %158, %148 ], [ %129, %119 ]
-  %220 = phi i1 [ %161, %148 ], [ %130, %119 ]
-  %221 = phi i1 [ %162, %148 ], [ %131, %119 ]
-  %222 = phi i1 [ %163, %148 ], [ %132, %119 ]
-  %223 = phi i1 [ %164, %148 ], [ %133, %119 ]
-  %224 = phi i1 [ %165, %148 ], [ %134, %119 ]
-  %225 = phi i32 [ %167, %148 ], [ %135, %119 ]
-  %226 = phi i1 [ %168, %148 ], [ %136, %119 ]
-  %227 = phi i32 [ %171, %148 ], [ %137, %119 ]
-  %228 = phi i1 [ %172, %148 ], [ %138, %119 ]
-  %229 = phi i1 [ %175, %148 ], [ %139, %119 ]
-  %230 = phi i1 [ %190, %148 ], [ %140, %119 ]
-  %231 = phi i1 [ %192, %148 ], [ %141, %119 ]
-  %232 = phi i1 [ %194, %148 ], [ %142, %119 ]
-  %233 = phi i1 [ %197, %148 ], [ %143, %119 ]
-  %234 = phi i1 [ %199, %148 ], [ %144, %119 ]
-  %235 = phi i1 [ %202, %148 ], [ %145, %119 ]
-  %236 = phi i1 [ %204, %148 ], [ %146, %119 ]
-  %237 = phi i1 [ %208, %148 ], [ %147, %119 ]
-  br i1 %237, label %238, label %282
+430:                                              ; preds = %428, %426
+  %431 = phi i1 [ %429, %428 ], [ %427, %426 ]
+  br i1 %431, label %432, label %461
 
-238:                                              ; preds = %209
-  %239 = mul nsw i32 %112, %6
-  %240 = srem i32 %2, 2
-  %241 = icmp eq i32 %240, 0
-  br i1 %241, label %242, label %248
+432:                                              ; preds = %430
+  store float %247, float* %422, align 4, !tbaa !13
+  %433 = icmp sgt i32 %398, 0
+  %434 = select i1 %433, i32 %398, i32 0
+  %435 = zext i32 %434 to i64
+  %436 = getelementptr inbounds [13 x i8], [13 x i8]* @.str.1, i64 0, i64 %435
+  %437 = load i8, i8* %436, align 1, !tbaa !10
+  %438 = and i32 %6, 1
+  %439 = icmp eq i32 %438, 0
+  %440 = add i32 %6, 1
+  %441 = mul i32 3, %440
+  %442 = add i32 %6, 2
+  %443 = mul i32 %441, %442
+  %444 = srem i32 %443, 6
+  %445 = icmp eq i32 %444, 0
+  %446 = and i1 %439, %445
+  %447 = xor i1 %439, %445
+  %448 = or i1 %446, %447
+  br i1 %448, label %449, label %459
 
-242:                                              ; preds = %238
-  %243 = add nsw i32 %239, %105
-  %244 = sext i32 %243 to i64
-  %245 = getelementptr inbounds float, float* %3, i64 %244
-  %246 = load float, float* %245, align 4, !tbaa !13
-  %247 = fcmp ogt float %96, %246
-  br label %256
+449:                                              ; preds = %432
+  %450 = add i32 103, 37
+  %451 = add i32 53, 109
+  %452 = sdiv i32 59, 39
+  %453 = add i32 97, 3
+  %454 = mul i32 47, 103
+  %455 = sub i32 121, 3
+  %456 = sub i32 81, 93
+  %457 = sub i32 120, 107
+  %458 = add i32 99, 76
+  br label %459
 
-248:                                              ; preds = %238
-  %249 = sub i32 %239, 1460204390
-  %250 = add i32 %249, %105
-  %251 = add i32 %250, 1460204390
-  %252 = sext i32 %251 to i64
-  %253 = getelementptr inbounds float, float* %3, i64 %252
-  %254 = load float, float* %253, align 4, !tbaa !13
-  %255 = fcmp ogt float %96, %254
-  br label %256
+459:                                              ; preds = %432, %449
+  %460 = getelementptr inbounds i8, i8* %4, i64 %421
+  store i8 %437, i8* %460, align 1, !tbaa !10
+  br label %461
 
-256:                                              ; preds = %248, %242
-  %257 = phi i32 [ %251, %248 ], [ %243, %242 ]
-  %258 = phi i64 [ %252, %248 ], [ %244, %242 ]
-  %259 = phi float* [ %253, %248 ], [ %245, %242 ]
-  %260 = phi float [ %254, %248 ], [ %246, %242 ]
-  %261 = phi i1 [ %255, %248 ], [ %247, %242 ]
-  br i1 %261, label %262, label %282
+461:                                              ; preds = %459, %430, %373
+  %462 = fadd double %217, 7.000000e-02
+  %463 = add i32 %98, 1
+  %464 = mul i32 3, %463
+  %465 = add i32 %98, 2
+  %466 = mul i32 %464, %465
+  %467 = srem i32 %466, 6
+  %468 = icmp eq i32 %467, 0
+  %469 = mul i32 %98, %98
+  %470 = add i32 %469, %98
+  %471 = srem i32 %470, 2
+  %472 = icmp eq i32 %471, 0
+  %473 = xor i1 %468, true
+  %474 = or i1 %473, %472
+  %475 = xor i1 %468, true
+  %476 = sub i1 %474, %475
+  br i1 %476, label %477, label %487
 
-262:                                              ; preds = %256
-  %263 = icmp eq i1 %226, false
-  %264 = icmp ne i1 %226, false
-  %265 = and i1 %263, %264
-  %266 = xor i1 %263, %264
-  %267 = or i1 %265, %266
-  br i1 %267, label %268, label %275
+477:                                              ; preds = %461
+  %478 = sdiv i32 94, 125
+  %479 = sub i32 66, 105
+  %480 = sdiv i32 30, 75
+  %481 = sdiv i32 26, 22
+  %482 = mul i32 7, 56
+  %483 = sdiv i32 64, 42
+  %484 = sub i32 32, 54
+  %485 = sdiv i32 90, 61
+  %486 = add i32 84, 19
+  br label %487
 
-268:                                              ; preds = %262
-  %269 = sdiv i32 570489877, 1298807543
-  %270 = sdiv i32 -1366301916, 1378834090
-  %271 = sub i32 1923349734, -1453138884
-  %272 = sub i32 1516656510, 212889820
-  %273 = add i32 2015582710, 1382398438
-  %274 = add i32 9250407, 276496829
-  br label %275
-
-275:                                              ; preds = %262, %268
-  store float %96, float* %259, align 4, !tbaa !13
-  %276 = icmp sgt i32 %217, 0
-  %277 = select i1 %276, i32 %217, i32 0
-  %278 = zext i32 %277 to i64
-  %279 = getelementptr inbounds [13 x i8], [13 x i8]* @.str.1, i64 0, i64 %278
-  %280 = load i8, i8* %279, align 1, !tbaa !10
-  %281 = getelementptr inbounds i8, i8* %4, i64 %258
-  store i8 %280, i8* %281, align 1, !tbaa !10
-  br label %282
-
-282:                                              ; preds = %275, %256, %209
-  %283 = fadd double %87, 2.000000e-02
-  %284 = srem i32 %33, 2
-  %285 = icmp eq i32 %284, 0
-  br i1 %285, label %286, label %290
-
-286:                                              ; preds = %282
-  %287 = fptrunc double %283 to float
-  %288 = fpext float %287 to double
-  %289 = fcmp olt double %288, 6.280000e+00
-  br label %294
-
-290:                                              ; preds = %282
-  %291 = fptrunc double %283 to float
-  %292 = fpext float %291 to double
-  %293 = fcmp olt double %292, 6.280000e+00
-  br label %294
-
-294:                                              ; preds = %290, %286
-  %295 = phi float [ %291, %290 ], [ %287, %286 ]
-  %296 = phi double [ %292, %290 ], [ %288, %286 ]
-  %297 = phi i1 [ %293, %290 ], [ %289, %286 ]
-  br i1 %297, label %86, label %68, !llvm.loop !19
+487:                                              ; preds = %461, %477
+  %488 = fptrunc double %462 to float
+  %489 = fpext float %488 to double
+  %490 = icmp eq i32 %220, 90
+  br i1 %490, label %210, label %216, !llvm.loop !19
 }
 
 ; Function Attrs: argmemonly nocallback nofree nounwind willreturn writeonly
@@ -528,66 +822,217 @@ define internal fastcc float @_ZL3cosf(float %0) unnamed_addr #5 {
   ret float %2
 }
 
-; Function Attrs: mustprogress nofree norecurse noreturn nounwind ssp uwtable
+; Function Attrs: mustprogress nofree norecurse nounwind ssp uwtable
 define i32 @main() local_unnamed_addr #6 {
   %1 = alloca float, align 4
   %2 = alloca float, align 4
   %3 = bitcast float* %1 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 4, i8* nonnull %3) #8
+  call void @llvm.lifetime.start.p0i8(i64 4, i8* nonnull %3) #9
   store float 0.000000e+00, float* %1, align 4, !tbaa !13
   %4 = bitcast float* %2 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 4, i8* nonnull %4) #8
+  call void @llvm.lifetime.start.p0i8(i64 4, i8* nonnull %4) #9
   store float 0.000000e+00, float* %2, align 4, !tbaa !13
-  %5 = alloca [1760 x float], align 4
-  %6 = alloca [1760 x i8], align 1
-  %7 = getelementptr inbounds [1760 x i8], [1760 x i8]* %6, i64 0, i64 0
-  %8 = getelementptr inbounds [1760 x float], [1760 x float]* %5, i64 0, i64 0
-  %9 = call i32 (i8*, ...) @printf(i8* nonnull dereferenceable(1) getelementptr inbounds ([5 x i8], [5 x i8]* @.str.2, i64 0, i64 0))
-  br label %10
+  %5 = call i8* @llvm.stacksave()
+  %6 = alloca [1760 x float], align 4
+  %7 = alloca [1760 x i8], align 1
+  %8 = getelementptr inbounds [1760 x i8], [1760 x i8]* %7, i64 0, i64 0
+  %9 = getelementptr inbounds [1760 x float], [1760 x float]* %6, i64 0, i64 0
+  %10 = call i32 (i8*, ...) @printf(i8* nonnull dereferenceable(1) getelementptr inbounds ([5 x i8], [5 x i8]* @.str.2, i64 0, i64 0))
+  br label %11
 
-10:                                               ; preds = %37, %0
-  %11 = load float, float* %1, align 4, !tbaa !13
-  %12 = icmp eq i32 %9, 0
-  %13 = icmp ne i32 %9, 0
-  %14 = xor i1 %12, true
-  %15 = and i1 %14, true
-  %16 = and i1 %12, false
-  %17 = or i1 %15, %16
-  %18 = xor i1 %13, true
-  %19 = and i1 %18, true
-  %20 = and i1 %13, false
-  %21 = or i1 %19, %20
-  %22 = xor i1 %17, %21
-  %23 = xor i1 %12, true
-  %24 = xor i1 %13, true
-  %25 = or i1 %23, %24
-  %26 = xor i1 %25, true
-  %27 = and i1 %26, true
-  %28 = or i1 %22, %27
-  br i1 %28, label %29, label %37
+11:                                               ; preds = %60, %0
+  %12 = phi i32 [ 5, %0 ], [ %15, %60 ]
+  %13 = load float, float* %1, align 4, !tbaa !13
+  %14 = load float, float* %2, align 4, !tbaa !13
+  call void @_Z6renderffiPfPcii(float %13, float %14, i32 1760, float* nonnull %9, i8* nonnull %8, i32 22, i32 80)
+  call void @_Z7displayPKcRfS1_i(i8* nonnull %8, float* nonnull align 4 dereferenceable(4) %1, float* nonnull align 4 dereferenceable(4) %2, i32 1)
+  %15 = add nuw nsw i32 %12, 1
+  %16 = icmp eq i32 %15, 10
+  %17 = and i32 %10, 1
+  %18 = icmp eq i32 %17, 0
+  %19 = add i32 %10, 1
+  %20 = mul i32 3, %19
+  %21 = add i32 %10, 2
+  %22 = mul i32 %20, %21
+  %23 = srem i32 %22, 6
+  %24 = srem i32 %10, 2
+  %25 = icmp eq i32 %24, 0
+  br i1 %25, label %26, label %34
 
-29:                                               ; preds = %10
-  %30 = add i32 340695660, -1590415504
-  %31 = sub i32 -1158259360, 487107086
-  %32 = add i32 -1761996221, 441518190
-  %33 = sub i32 -1328967040, -1448059374
-  %34 = sub i32 -2007740970, -1753503417
-  %35 = add i32 -1984417415, -863912982
-  %36 = sdiv i32 -87407466, -1620665338
-  br label %37
+26:                                               ; preds = %11
+  %27 = icmp eq i32 %23, 0
+  %28 = xor i1 %27, true
+  %29 = and i1 %18, %28
+  %30 = add i1 %29, %27
+  %31 = xor i1 %30, true
+  %32 = xor i1 %16, %31
+  %33 = and i1 %32, %16
+  br label %60
 
-37:                                               ; preds = %10, %29
-  %38 = load float, float* %2, align 4, !tbaa !13
-  call void @_Z6renderffiPfPcii(float %11, float %38, i32 1760, float* nonnull %8, i8* nonnull %7, i32 22, i32 80)
-  call void @_Z7displayPKcRfS1_(i8* nonnull %7, float* nonnull align 4 dereferenceable(4) %1, float* nonnull align 4 dereferenceable(4) %2)
-  br label %10, !llvm.loop !20
+34:                                               ; preds = %11
+  %35 = icmp eq i32 %23, 0
+  %36 = xor i1 %35, true
+  %37 = and i1 %36, true
+  %38 = and i1 %35, false
+  %39 = or i1 %37, %38
+  %40 = xor i1 %39, true
+  %41 = xor i1 %18, %40
+  %42 = and i1 %41, %18
+  %43 = add i1 %42, false
+  %44 = add i1 %43, %35
+  %45 = sub i1 %44, false
+  %46 = xor i1 %45, false
+  %47 = xor i1 %46, true
+  %48 = xor i1 %16, true
+  %49 = and i1 %48, true
+  %50 = and i1 %16, false
+  %51 = or i1 %49, %50
+  %52 = xor i1 %47, true
+  %53 = and i1 %52, true
+  %54 = and i1 %47, false
+  %55 = or i1 %53, %54
+  %56 = xor i1 %51, %55
+  %57 = xor i1 %16, true
+  %58 = xor i1 %56, %57
+  %59 = and i1 %58, %56
+  br label %60
+
+60:                                               ; preds = %34, %26
+  %61 = phi i1 [ %35, %34 ], [ %27, %26 ]
+  %62 = phi i1 [ %39, %34 ], [ %28, %26 ]
+  %63 = phi i1 [ %42, %34 ], [ %29, %26 ]
+  %64 = phi i1 [ %45, %34 ], [ %30, %26 ]
+  %65 = phi i1 [ %47, %34 ], [ %31, %26 ]
+  %66 = phi i1 [ %56, %34 ], [ %32, %26 ]
+  %67 = phi i1 [ %59, %34 ], [ %33, %26 ]
+  br i1 %67, label %74, label %11, !llvm.loop !20
+
+68:                                               ; preds = %142
+  call void @llvm.stackrestore(i8* %5)
+  %69 = srem i32 %79, 2
+  %70 = icmp eq i32 %69, 0
+  br i1 %70, label %71, label %72
+
+71:                                               ; preds = %68
+  call void @llvm.lifetime.end.p0i8(i64 4, i8* nonnull %4) #9
+  call void @llvm.lifetime.end.p0i8(i64 4, i8* nonnull %3) #9
+  br label %73
+
+72:                                               ; preds = %68
+  call void @llvm.lifetime.end.p0i8(i64 4, i8* nonnull %4) #9
+  call void @llvm.lifetime.end.p0i8(i64 4, i8* nonnull %3) #9
+  br label %73
+
+73:                                               ; preds = %72, %71
+  ret i32 %145
+
+74:                                               ; preds = %142, %60
+  %75 = phi i64 [ %146, %142 ], [ 0, %60 ]
+  %76 = phi i32 [ %145, %142 ], [ 0, %60 ]
+  %77 = getelementptr inbounds [1760 x i8], [1760 x i8]* %7, i64 0, i64 %75
+  %78 = load i8, i8* %77, align 1, !tbaa !10
+  %79 = sext i8 %78 to i32
+  %80 = add nsw i32 %76, %79
+  %81 = getelementptr inbounds [1760 x float], [1760 x float]* %6, i64 0, i64 %75
+  %82 = load float, float* %81, align 4, !tbaa !13
+  %83 = srem i32 %22, 2
+  %84 = icmp eq i32 %83, 0
+  br i1 %84, label %85, label %104
+
+85:                                               ; preds = %74
+  %86 = sitofp i32 %80 to float
+  %87 = fadd float %82, %86
+  %88 = fptosi float %87 to i32
+  %89 = add nuw nsw i64 %75, 1
+  %90 = icmp eq i64 %89, 1760
+  %91 = and i32 %10, 1
+  %92 = icmp eq i32 %91, 1
+  %93 = mul i32 %10, %10
+  %94 = add i32 %93, %10
+  %95 = srem i32 %94, 2
+  %96 = icmp eq i32 %95, 0
+  %97 = and i1 %92, %96
+  %98 = xor i1 %92, %96
+  %99 = or i1 %97, %98
+  %100 = xor i1 %90, true
+  %101 = or i1 %100, %99
+  %102 = xor i1 %90, true
+  %103 = sub i1 %101, %102
+  br label %142
+
+104:                                              ; preds = %74
+  %105 = sitofp i32 %80 to float
+  %106 = fadd float %82, %105
+  %107 = fptosi float %106 to i32
+  %108 = sub i64 %75, -8372800909582452856
+  %109 = add i64 %108, 1
+  %110 = add i64 %109, -8372800909582452856
+  %111 = icmp eq i64 %110, 1760
+  %112 = xor i32 %10, -2
+  %113 = and i32 %112, %10
+  %114 = icmp eq i32 %113, 1
+  %115 = mul i32 %10, %10
+  %116 = sub i32 0, %10
+  %117 = sub i32 %115, %116
+  %118 = srem i32 %117, 2
+  %119 = icmp eq i32 %118, 0
+  %120 = xor i1 %114, true
+  %121 = xor i1 %119, true
+  %122 = or i1 %120, %121
+  %123 = xor i1 %122, true
+  %124 = and i1 %123, true
+  %125 = or i1 %114, %119
+  %126 = and i1 %114, %119
+  %127 = sub i1 %125, %126
+  %128 = xor i1 %127, true
+  %129 = and i1 %124, %128
+  %130 = add i1 %129, %127
+  %131 = or i1 %111, true
+  %132 = and i1 %111, true
+  %133 = sub i1 %131, %132
+  %134 = xor i1 %130, true
+  %135 = and i1 %133, %134
+  %136 = add i1 %135, %130
+  %137 = or i1 %111, true
+  %138 = and i1 %111, true
+  %139 = sub i1 %137, %138
+  %140 = sub i1 false, %139
+  %141 = add i1 %136, %140
+  br label %142
+
+142:                                              ; preds = %104, %85
+  %143 = phi float [ %105, %104 ], [ %86, %85 ]
+  %144 = phi float [ %106, %104 ], [ %87, %85 ]
+  %145 = phi i32 [ %107, %104 ], [ %88, %85 ]
+  %146 = phi i64 [ %110, %104 ], [ %89, %85 ]
+  %147 = phi i1 [ %111, %104 ], [ %90, %85 ]
+  %148 = phi i32 [ %113, %104 ], [ %91, %85 ]
+  %149 = phi i1 [ %114, %104 ], [ %92, %85 ]
+  %150 = phi i32 [ %115, %104 ], [ %93, %85 ]
+  %151 = phi i32 [ %117, %104 ], [ %94, %85 ]
+  %152 = phi i32 [ %118, %104 ], [ %95, %85 ]
+  %153 = phi i1 [ %119, %104 ], [ %96, %85 ]
+  %154 = phi i1 [ %124, %104 ], [ %97, %85 ]
+  %155 = phi i1 [ %127, %104 ], [ %98, %85 ]
+  %156 = phi i1 [ %130, %104 ], [ %99, %85 ]
+  %157 = phi i1 [ %133, %104 ], [ %100, %85 ]
+  %158 = phi i1 [ %136, %104 ], [ %101, %85 ]
+  %159 = phi i1 [ %139, %104 ], [ %102, %85 ]
+  %160 = phi i1 [ %141, %104 ], [ %103, %85 ]
+  br i1 %160, label %68, label %74, !llvm.loop !21
 }
 
-; Function Attrs: nocallback nofree nosync nounwind readnone speculatable willreturn
-declare float @llvm.sin.f32(float) #7
+; Function Attrs: nocallback nofree nosync nounwind willreturn
+declare i8* @llvm.stacksave() #7
+
+; Function Attrs: nocallback nofree nosync nounwind willreturn
+declare void @llvm.stackrestore(i8*) #7
 
 ; Function Attrs: nocallback nofree nosync nounwind readnone speculatable willreturn
-declare float @llvm.cos.f32(float) #7
+declare float @llvm.sin.f32(float) #8
+
+; Function Attrs: nocallback nofree nosync nounwind readnone speculatable willreturn
+declare float @llvm.cos.f32(float) #8
 
 attributes #0 = { mustprogress nofree nounwind ssp uwtable "frame-pointer"="non-leaf" "min-legal-vector-width"="0" "no-trapping-math"="true" "probe-stack"="__chkstk_darwin" "stack-protector-buffer-size"="8" "target-cpu"="apple-m1" "target-features"="+aes,+crc,+crypto,+dotprod,+fp-armv8,+fp16fml,+fullfp16,+lse,+neon,+ras,+rcpc,+rdm,+sha2,+sha3,+sm4,+v8.5a,+zcm,+zcz" }
 attributes #1 = { nofree nounwind "frame-pointer"="non-leaf" "no-trapping-math"="true" "probe-stack"="__chkstk_darwin" "stack-protector-buffer-size"="8" "target-cpu"="apple-m1" "target-features"="+aes,+crc,+crypto,+dotprod,+fp-armv8,+fp16fml,+fullfp16,+lse,+neon,+ras,+rcpc,+rdm,+sha2,+sha3,+sm4,+v8.5a,+zcm,+zcz" }
@@ -595,9 +1040,10 @@ attributes #2 = { argmemonly nocallback nofree nosync nounwind willreturn }
 attributes #3 = { mustprogress nofree nosync nounwind ssp uwtable "frame-pointer"="non-leaf" "min-legal-vector-width"="0" "no-trapping-math"="true" "probe-stack"="__chkstk_darwin" "stack-protector-buffer-size"="8" "target-cpu"="apple-m1" "target-features"="+aes,+crc,+crypto,+dotprod,+fp-armv8,+fp16fml,+fullfp16,+lse,+neon,+ras,+rcpc,+rdm,+sha2,+sha3,+sm4,+v8.5a,+zcm,+zcz" }
 attributes #4 = { argmemonly nocallback nofree nounwind willreturn writeonly }
 attributes #5 = { inlinehint mustprogress nofree nosync nounwind readnone ssp willreturn uwtable "frame-pointer"="non-leaf" "min-legal-vector-width"="0" "no-trapping-math"="true" "probe-stack"="__chkstk_darwin" "stack-protector-buffer-size"="8" "target-cpu"="apple-m1" "target-features"="+aes,+crc,+crypto,+dotprod,+fp-armv8,+fp16fml,+fullfp16,+lse,+neon,+ras,+rcpc,+rdm,+sha2,+sha3,+sm4,+v8.5a,+zcm,+zcz" }
-attributes #6 = { mustprogress nofree norecurse noreturn nounwind ssp uwtable "frame-pointer"="non-leaf" "min-legal-vector-width"="0" "no-trapping-math"="true" "probe-stack"="__chkstk_darwin" "stack-protector-buffer-size"="8" "target-cpu"="apple-m1" "target-features"="+aes,+crc,+crypto,+dotprod,+fp-armv8,+fp16fml,+fullfp16,+lse,+neon,+ras,+rcpc,+rdm,+sha2,+sha3,+sm4,+v8.5a,+zcm,+zcz" }
-attributes #7 = { nocallback nofree nosync nounwind readnone speculatable willreturn }
-attributes #8 = { nounwind }
+attributes #6 = { mustprogress nofree norecurse nounwind ssp uwtable "frame-pointer"="non-leaf" "min-legal-vector-width"="0" "no-trapping-math"="true" "probe-stack"="__chkstk_darwin" "stack-protector-buffer-size"="8" "target-cpu"="apple-m1" "target-features"="+aes,+crc,+crypto,+dotprod,+fp-armv8,+fp16fml,+fullfp16,+lse,+neon,+ras,+rcpc,+rdm,+sha2,+sha3,+sm4,+v8.5a,+zcm,+zcz" }
+attributes #7 = { nocallback nofree nosync nounwind willreturn }
+attributes #8 = { nocallback nofree nosync nounwind readnone speculatable willreturn }
+attributes #9 = { nounwind }
 
 !llvm.module.flags = !{!0, !1, !2, !3, !4, !5, !6, !7, !8}
 !llvm.ident = !{!9}
@@ -623,3 +1069,4 @@ attributes #8 = { nounwind }
 !18 = distinct !{!18, !16, !17}
 !19 = distinct !{!19, !16, !17}
 !20 = distinct !{!20, !16, !17}
+!21 = distinct !{!21, !16, !17}

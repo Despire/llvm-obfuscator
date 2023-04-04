@@ -5,213 +5,201 @@ target triple = "arm64-apple-macosx12.0.0"
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind ssp uwtable
 define i32 @_Z1diPiS_(i32 %0, i32* nocapture %1, i32* nocapture %2) local_unnamed_addr #0 {
-  %4 = icmp sge i32 %0, %0
-  %5 = icmp sle i32 %0, %0
-  %6 = xor i1 %4, true
-  %7 = xor i1 %5, true
-  %8 = or i1 %6, %7
-  %9 = xor i1 %8, true
-  %10 = and i1 %9, true
-  br i1 %10, label %11, label %21
+  %4 = icmp sgt i32 %0, 0
+  %5 = add i32 %0, 1
+  %6 = mul i32 3, %5
+  %7 = add i32 %0, 2
+  %8 = mul i32 %6, %7
+  %9 = srem i32 %8, 6
+  %10 = icmp eq i32 %9, 0
+  %11 = mul i32 %0, %0
+  %12 = add i32 %11, %0
+  %13 = srem i32 %12, 2
+  %14 = icmp eq i32 %13, 0
+  %15 = xor i1 %14, true
+  %16 = and i1 %10, %15
+  %17 = add i1 %16, %14
+  br i1 %17, label %18, label %28
 
-11:                                               ; preds = %3
-  %12 = sdiv i32 -1727424018, -141755844
-  %13 = sub i32 1859084428, 1043959996
-  %14 = add i32 1827797720, 611243596
-  %15 = sub i32 2036073099, 1898341139
-  %16 = sdiv i32 -1387466854, 1696776938
-  %17 = mul i32 -1337427973, -1836473426
-  %18 = mul i32 746730281, 2109898523
-  %19 = sub i32 887782262, 2077350723
-  %20 = mul i32 -1067493047, -245497356
-  br label %21
+18:                                               ; preds = %3
+  %19 = sdiv i32 31, 125
+  %20 = add i32 111, 38
+  %21 = sub i32 111, 66
+  %22 = mul i32 80, 7
+  %23 = mul i32 113, 2
+  %24 = sdiv i32 20, 107
+  %25 = sdiv i32 33, 91
+  %26 = mul i32 12, 74
+  %27 = mul i32 83, 68
+  br label %28
 
-21:                                               ; preds = %3, %11
-  %22 = icmp sgt i32 %0, 0
-  br i1 %22, label %30, label %23
+28:                                               ; preds = %3, %18
+  br i1 %4, label %47, label %29
 
-23:                                               ; preds = %21
-  %24 = load i32, i32* %2, align 4, !tbaa !10
-  %25 = srem i1 %4, false
-  %26 = icmp eq i1 %25, false
-  br i1 %26, label %27, label %28
+29:                                               ; preds = %28
+  %30 = load i32, i32* %2, align 4, !tbaa !10
+  %31 = icmp sge i32 %0, %0
+  %32 = mul i32 %0, %0
+  %33 = add i32 %32, %0
+  %34 = srem i32 %33, 2
+  %35 = icmp eq i32 %34, 0
+  %36 = xor i1 %35, true
+  %37 = xor i1 %31, %36
+  %38 = and i1 %37, %31
+  br i1 %38, label %39, label %46
 
-27:                                               ; preds = %23
-  br label %29
+39:                                               ; preds = %29
+  %40 = sdiv i32 19, 12
+  %41 = sdiv i32 93, 68
+  %42 = sdiv i32 97, 1
+  %43 = sdiv i32 105, 39
+  %44 = sdiv i32 58, 77
+  %45 = add i32 109, 113
+  br label %46
 
-28:                                               ; preds = %23
-  br label %29
+46:                                               ; preds = %29, %39
+  br label %70
 
-29:                                               ; preds = %28, %27
-  br label %54
+47:                                               ; preds = %28
+  %48 = icmp sge i32 %9, %9
+  %49 = mul i32 %9, %9
+  %50 = add i32 %49, %9
+  %51 = srem i32 %50, 2
+  %52 = icmp eq i32 %51, 0
+  %53 = xor i1 %48, true
+  %54 = or i1 %53, %52
+  %55 = xor i1 %48, true
+  %56 = sub i1 %54, %55
+  br i1 %56, label %57, label %67
 
-30:                                               ; preds = %21
-  %31 = add nuw nsw i32 %0, 7
-  %32 = lshr i32 %31, 3
-  %33 = icmp sge i1 %5, %5
-  %34 = icmp sle i1 %5, %5
-  %35 = xor i1 %34, true
-  %36 = xor i1 %33, %35
-  %37 = and i1 %36, %33
-  br i1 %37, label %38, label %48
+57:                                               ; preds = %47
+  %58 = add i32 49, 109
+  %59 = mul i32 86, 45
+  %60 = mul i32 6, 43
+  %61 = mul i32 11, 82
+  %62 = mul i32 103, 50
+  %63 = mul i32 11, 108
+  %64 = sub i32 13, 101
+  %65 = sub i32 58, 4
+  %66 = sdiv i32 92, 70
+  br label %67
 
-38:                                               ; preds = %30
-  %39 = sub i32 1369892096, 642415511
-  %40 = sdiv i32 -1266056454, 798842481
-  %41 = add i32 1893795731, 1152705410
-  %42 = sub i32 53124465, -477754130
-  %43 = mul i32 -710099788, 1889814179
-  %44 = mul i32 -36608102, 173460807
-  %45 = sdiv i32 -765387886, 1884526610
-  %46 = sdiv i32 -2137288719, 1502628878
-  %47 = mul i32 -1690646716, -915168250
-  br label %48
+67:                                               ; preds = %47, %57
+  %68 = add nuw nsw i32 %0, 7
+  %69 = lshr i32 %68, 3
+  br label %97
 
-48:                                               ; preds = %30, %38
-  br label %64
+70:                                               ; preds = %116, %46
+  %71 = phi i32 [ %30, %46 ], [ %99, %116 ]
+  %72 = load i32, i32* %1, align 4, !tbaa !10
+  %73 = add nsw i32 %72, %0
+  %74 = and i32 %13, 1
+  %75 = icmp eq i32 %74, 0
+  %76 = add i32 %13, 1
+  %77 = mul i32 3, %76
+  %78 = add i32 %13, 2
+  %79 = mul i32 %77, %78
+  %80 = srem i32 %79, 6
+  %81 = icmp eq i32 %80, 0
+  %82 = and i1 %75, %81
+  %83 = xor i1 %75, %81
+  %84 = or i1 %82, %83
+  br i1 %84, label %85, label %95
 
-.loopexit:                                        ; preds = %133
-  %49 = srem i1 %139, false
-  %50 = icmp eq i1 %49, false
-  br i1 %50, label %51, label %52
+85:                                               ; preds = %70
+  %86 = mul i32 36, 42
+  %87 = sub i32 89, 80
+  %88 = mul i32 38, 94
+  %89 = add i32 119, 69
+  %90 = mul i32 73, 91
+  %91 = sub i32 71, 112
+  %92 = mul i32 113, 67
+  %93 = sub i32 54, 108
+  %94 = sdiv i32 75, 120
+  br label %95
 
-51:                                               ; preds = %.loopexit
-  br label %53
+95:                                               ; preds = %70, %85
+  %96 = add nsw i32 %73, %71
+  ret i32 %96
 
-52:                                               ; preds = %.loopexit
-  br label %53
+97:                                               ; preds = %116, %67
+  %98 = phi i32 [ %117, %116 ], [ 0, %67 ]
+  %99 = load i32, i32* %1, align 4, !tbaa !10
+  %100 = add nsw i32 %99, 1
+  store i32 %100, i32* %1, align 4, !tbaa !10
+  %101 = icmp sge i32 %0, %0
+  %102 = mul i32 %0, %0
+  %103 = add i32 %102, %0
+  %104 = srem i32 %103, 2
+  %105 = icmp eq i32 %104, 0
+  %106 = xor i1 %105, true
+  %107 = xor i1 %101, %106
+  %108 = and i1 %107, %101
+  br i1 %108, label %109, label %116
 
-53:                                               ; preds = %52, %51
-  br label %54
+109:                                              ; preds = %97
+  %110 = sdiv i32 66, 118
+  %111 = sdiv i32 6, 123
+  %112 = sub i32 95, 23
+  %113 = sub i32 99, 61
+  %114 = sdiv i32 69, 105
+  %115 = sub i32 78, 110
+  br label %116
 
-54:                                               ; preds = %53, %29
-  %55 = phi i32 [ %24, %29 ], [ %66, %53 ]
-  %56 = load i32, i32* %1, align 4, !tbaa !10
-  %57 = add nsw i32 %56, %0
-  %58 = add nsw i32 %57, %55
-  %59 = srem i32 %0, 2
-  %60 = icmp eq i32 %59, 0
-  br i1 %60, label %61, label %62
-
-61:                                               ; preds = %54
-  br label %63
-
-62:                                               ; preds = %54
-  br label %63
-
-63:                                               ; preds = %62, %61
-  ret i32 %58
-
-64:                                               ; preds = %133, %48
-  %65 = phi i32 [ %134, %133 ], [ 0, %48 ]
-  %66 = load i32, i32* %1, align 4, !tbaa !10
-  %67 = add nsw i32 %66, 1
-  %68 = srem i1 %7, false
-  %69 = icmp eq i1 %68, false
-  br i1 %69, label %70, label %85
-
-70:                                               ; preds = %64
-  store i32 %67, i32* %1, align 4, !tbaa !10
-  store i32 %66, i32* %2, align 4, !tbaa !10
-  %71 = add nuw nsw i32 %65, 1
-  %72 = icmp eq i32 %71, %32
-  %73 = sub i32 0, %31
-  %74 = icmp ne i32 %31, %73
-  %75 = xor i32 %31, %31
-  %76 = icmp eq i32 %75, 0
-  %77 = xor i1 %76, true
-  %78 = xor i1 %74, %77
-  %79 = and i1 %78, %74
-  %80 = xor i1 %72, true
-  %81 = xor i1 %79, true
-  %82 = or i1 %80, %81
-  %83 = xor i1 %82, true
-  %84 = and i1 %83, true
-  br label %133
-
-85:                                               ; preds = %64
-  store i32 %67, i32* %1, align 4, !tbaa !10
-  store i32 %66, i32* %2, align 4, !tbaa !10
-  %86 = sub i32 %65, -1
-  %87 = icmp eq i32 %86, %32
-  %88 = sub i32 0, %31
-  %89 = add i32 0, %88
-  %90 = icmp ne i32 %31, %89
-  %91 = or i32 %31, %31
-  %92 = and i32 %31, %31
-  %93 = sub i32 %91, %92
-  %94 = icmp eq i32 %93, 0
-  %95 = or i1 %94, true
-  %96 = and i1 %94, true
-  %97 = sub i1 %95, %96
-  %98 = xor i1 %90, false
-  %99 = xor i1 %97, false
-  %100 = xor i1 %98, %99
-  %101 = xor i1 %90, true
-  %102 = xor i1 %100, %101
-  %103 = and i1 %102, %100
-  %104 = xor i1 %87, true
-  %105 = and i1 %104, true
-  %106 = and i1 %87, false
-  %107 = or i1 %105, %106
-  %108 = xor i1 %107, false
-  %109 = xor i1 %103, false
-  %110 = xor i1 %109, true
-  %111 = xor i1 %108, true
-  %112 = and i1 %111, false
-  %113 = and i1 %108, true
-  %114 = or i1 %112, %113
-  %115 = xor i1 %110, true
-  %116 = and i1 %115, false
-  %117 = and i1 %110, true
-  %118 = or i1 %116, %117
-  %119 = xor i1 %114, %118
-  %120 = xor i1 %108, true
-  %121 = xor i1 %110, true
-  %122 = or i1 %120, %121
-  %123 = xor i1 %122, true
-  %124 = and i1 %123, true
-  %125 = or i1 %119, %124
-  %126 = or i1 %125, true
-  %127 = and i1 %125, true
-  %128 = sub i1 %126, %127
-  %129 = xor i1 %128, true
-  %130 = or i1 %129, false
-  %131 = xor i1 %130, true
-  %132 = and i1 %131, true
-  br label %133
-
-133:                                              ; preds = %85, %70
-  %134 = phi i32 [ %86, %85 ], [ %71, %70 ]
-  %135 = phi i1 [ %87, %85 ], [ %72, %70 ]
-  %136 = phi i32 [ %89, %85 ], [ %73, %70 ]
-  %137 = phi i1 [ %90, %85 ], [ %74, %70 ]
-  %138 = phi i32 [ %93, %85 ], [ %75, %70 ]
-  %139 = phi i1 [ %94, %85 ], [ %76, %70 ]
-  %140 = phi i1 [ %97, %85 ], [ %77, %70 ]
-  %141 = phi i1 [ %100, %85 ], [ %78, %70 ]
-  %142 = phi i1 [ %103, %85 ], [ %79, %70 ]
-  %143 = phi i1 [ %108, %85 ], [ %80, %70 ]
-  %144 = phi i1 [ %110, %85 ], [ %81, %70 ]
-  %145 = phi i1 [ %125, %85 ], [ %82, %70 ]
-  %146 = phi i1 [ %128, %85 ], [ %83, %70 ]
-  %147 = phi i1 [ %132, %85 ], [ %84, %70 ]
-  br i1 %147, label %.loopexit, label %64, !llvm.loop !14
+116:                                              ; preds = %97, %109
+  store i32 %99, i32* %2, align 4, !tbaa !10
+  %117 = add nuw nsw i32 %98, 1
+  %118 = icmp eq i32 %117, %69
+  %119 = add i32 %0, 1
+  %120 = mul i32 3, %119
+  %121 = add i32 %0, 2
+  %122 = mul i32 %120, %121
+  %123 = srem i32 %122, 6
+  %124 = icmp eq i32 %123, 0
+  %125 = mul i32 %0, %0
+  %126 = add i32 %125, %0
+  %127 = srem i32 %126, 2
+  %128 = icmp eq i32 %127, 0
+  %129 = xor i1 %124, true
+  %130 = xor i1 %128, true
+  %131 = or i1 %129, %130
+  %132 = xor i1 %131, true
+  %133 = and i1 %132, true
+  %134 = xor i1 %133, true
+  %135 = xor i1 %118, %134
+  %136 = and i1 %135, %118
+  br i1 %136, label %70, label %97, !llvm.loop !14
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind readnone ssp willreturn uwtable
 define i32 @main(i32 %0, i8** nocapture readnone %1) local_unnamed_addr #1 {
-  %3 = srem i32 %0, 2
+  %3 = and i32 %0, 1
   %4 = icmp eq i32 %3, 0
-  br i1 %4, label %5, label %6
+  %5 = add i32 %0, 1
+  %6 = mul i32 3, %5
+  %7 = add i32 %0, 2
+  %8 = mul i32 %6, %7
+  %9 = srem i32 %8, 6
+  %10 = icmp eq i32 %9, 0
+  %11 = xor i1 %10, true
+  %12 = and i1 %4, %11
+  %13 = add i1 %12, %10
+  br i1 %13, label %14, label %25
 
-5:                                                ; preds = %2
-  br label %7
+14:                                               ; preds = %2
+  %15 = sub i32 69, 122
+  %16 = mul i32 101, 96
+  %17 = add i32 19, 69
+  %18 = sub i32 2, 63
+  %19 = sdiv i32 118, 20
+  %20 = mul i32 14, 57
+  %21 = sdiv i32 111, 14
+  %22 = sdiv i32 13, 51
+  %23 = sdiv i32 16, 7
+  %24 = add i32 20, 82
+  br label %25
 
-6:                                                ; preds = %2
-  br label %7
-
-7:                                                ; preds = %6, %5
+25:                                               ; preds = %2, %14
   ret i32 54
 }
 

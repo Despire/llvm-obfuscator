@@ -42,16 +42,6 @@ inline int64_t numOfPredecessors(llvm::BasicBlock* BB) {
     return count;
 }
 
-inline bool isaPredecessor(llvm::BasicBlock *BB, llvm::BasicBlock *Target) {
-    for (auto p : predecessors(Target)) {
-        if (p == BB) {
-            return true;
-        }
-    }
-
-    return false;
-}
-
 template<typename LLVMTypeWithOperands>
 inline bool checkIfInstructionInOperand(llvm::Instruction *ToCheck, LLVMTypeWithOperands *I) {
     for (auto &O: I->operands()) {
@@ -62,13 +52,13 @@ inline bool checkIfInstructionInOperand(llvm::Instruction *ToCheck, LLVMTypeWith
     return false;
 }
 
-inline bool existsPhiThatContainInstruction(llvm::Instruction *I, llvm::BasicBlock &BB) {
+inline llvm::PHINode* existsPhiThatContainInstruction(llvm::Instruction *I, llvm::BasicBlock &BB) {
     for (auto &PHI: BB.phis()) {
         if (checkIfInstructionInOperand(I, &PHI)) {
-            return true;
+            return &PHI;
         }
     }
-    return false;
+    return nullptr;
 }
 
 inline llvm::Instruction *RandomNonPHIInstruction(llvm::BasicBlock &BB) {

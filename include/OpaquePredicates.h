@@ -73,20 +73,8 @@ struct OpaquePredicates : public llvm::PassInfoMixin<OpaquePredicates> {
 
     std::pair<OpaquelyTruePredicate, Substitution::SubstitutionHandler> getRandomOpaquelyTruePredicate();
 
-    // Finds all Basic Blocks that are not part of a loop in a function and that have at least one reachable integer.
-    std::vector<llvm::BasicBlock *>
-    findAllBBNotInLoop(llvm::Function &F, llvm::LoopInfo &LoopInfo, ReachableIntegers::Result &Set);
-
     // Find all Basic Blocks in a function that have at least one reachable integer.
     std::vector<llvm::BasicBlock *> findAllBBWithReachableIntegers(llvm::Function &F, ReachableIntegers::Result &Set);
-
-    // Find all loops in a function, including nested loops.
-    void findAllLoops(const std::vector<llvm::Loop*> &TopLevel, std::vector<llvm::Loop*> &loops);
-
-    bool tryIntroducingNewPath(llvm::Loop *TopLevelLoop, ReachableIntegers::Result &Set);
-
-    std::unordered_set<llvm::Instruction*> findAllPrecedingInstructionInALoop(llvm::BasicBlock &BB, llvm::Loop &Loop);
-
 };
 
 #endif //LLVM_OBFUSCATOR_OPAQUEPREDICATES_H

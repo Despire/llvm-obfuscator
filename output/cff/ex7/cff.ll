@@ -51,7 +51,7 @@ BogusBasciBlock:                                  ; preds = %entry, %"5", %"4", 
   %11 = getelementptr i8*, i8** %JumpTable, i32 2
   store i8* blockaddress(@_Z7displayPKcRfS1_, %"4"), i8** %11, align 8
   %12 = getelementptr i8*, i8** %JumpTable, i32 4
-  store i8* blockaddress(@_Z7displayPKcRfS1_, %"2"), i8** %12, align 8
+  store i8* blockaddress(@_Z7displayPKcRfS1_, %"3"), i8** %12, align 8
   %.reload1 = load i8**, i8*** %.reg2mem, align 8
   %13 = load i8*, i8** %.reload1, align 8
   indirectbr i8* %13, [label %BogusBasciBlock, label %EntryBasicBlockSplit, label %"2", label %"3", label %"4", label %"5"]
@@ -219,15 +219,15 @@ entry:
 
 BogusBasciBlock:                                  ; preds = %entry, %"8", %"7", %"6", %"5", %"4", %"2", %EntryBasicBlockSplit, %BogusBasciBlock
   %30 = getelementptr i8*, i8** %JumpTable, i32 0
-  store i8* blockaddress(@_Z6renderffiPfPcii, %"7"), i8** %30, align 8
+  store i8* blockaddress(@_Z6renderffiPfPcii, %BogusBasciBlock), i8** %30, align 8
   %31 = getelementptr i8*, i8** %JumpTable, i32 2
-  store i8* blockaddress(@_Z6renderffiPfPcii, %EntryBasicBlockSplit), i8** %31, align 8
+  store i8* blockaddress(@_Z6renderffiPfPcii, %"4"), i8** %31, align 8
   %32 = getelementptr i8*, i8** %JumpTable, i32 4
   store i8* blockaddress(@_Z6renderffiPfPcii, %"6"), i8** %32, align 8
   %33 = getelementptr i8*, i8** %JumpTable, i32 6
-  store i8* blockaddress(@_Z6renderffiPfPcii, %"2"), i8** %33, align 8
+  store i8* blockaddress(@_Z6renderffiPfPcii, %"5"), i8** %33, align 8
   %34 = getelementptr i8*, i8** %JumpTable, i32 8
-  store i8* blockaddress(@_Z6renderffiPfPcii, %"8"), i8** %34, align 8
+  store i8* blockaddress(@_Z6renderffiPfPcii, %EntryBasicBlockSplit), i8** %34, align 8
   %.reload1 = load i8**, i8*** %.reg2mem, align 8
   %35 = load i8*, i8** %.reload1, align 8
   indirectbr i8* %35, [label %BogusBasciBlock, label %EntryBasicBlockSplit, label %"2", label %"3", label %"4", label %"5", label %"6", label %"7", label %"8"]
@@ -435,65 +435,94 @@ define internal fastcc float @_ZL3cosf(float %0) unnamed_addr #5 {
 ; Function Attrs: mustprogress nofree norecurse noreturn nounwind ssp uwtable
 define i32 @main() local_unnamed_addr #6 {
 entry:
-  %.reg2mem10 = alloca float*, align 8
-  %.reg2mem7 = alloca i8*, align 8
-  %.reg2mem3 = alloca i8**, align 8
-  %.reg2mem = alloca i8**, align 8
-  %JumpTable = alloca i8*, i32 3, align 8
-  %0 = getelementptr i8*, i8** %JumpTable, i32 0
-  store i8* blockaddress(@main, %BogusBasciBlock), i8** %0, align 8
-  %1 = getelementptr i8*, i8** %JumpTable, i32 1
-  store i8** %1, i8*** %.reg2mem, align 8
-  %.reload2 = load i8**, i8*** %.reg2mem, align 8
-  store i8* blockaddress(@main, %EntryBasicBlockSplit), i8** %.reload2, align 8
-  %2 = getelementptr i8*, i8** %JumpTable, i32 2
-  store i8** %2, i8*** %.reg2mem3, align 8
-  %.reload6 = load i8**, i8*** %.reg2mem3, align 8
-  store i8* blockaddress(@main, %"2"), i8** %.reload6, align 8
-  %3 = alloca float, align 4
-  %4 = alloca float, align 4
-  %5 = bitcast float* %3 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 4, i8* nonnull %5) #8
-  store float 0.000000e+00, float* %3, align 4, !tbaa !13
-  %6 = bitcast float* %4 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 4, i8* nonnull %6) #8
-  store float 0.000000e+00, float* %4, align 4, !tbaa !13
-  %7 = alloca [1760 x float], align 4
-  %8 = alloca [1760 x i8], align 1
-  %9 = getelementptr inbounds [1760 x i8], [1760 x i8]* %8, i64 0, i64 0
-  store i8* %9, i8** %.reg2mem7, align 8
-  %10 = getelementptr inbounds [1760 x float], [1760 x float]* %7, i64 0, i64 0
-  store float* %10, float** %.reg2mem10, align 8
-  %.reload = load i8**, i8*** %.reg2mem, align 8
-  %11 = load i8*, i8** %.reload, align 8
-  indirectbr i8* %11, [label %BogusBasciBlock, label %EntryBasicBlockSplit, label %"2"]
+  %.reg2mem3 = alloca float*, align 8
+  %.reg2mem = alloca i8*, align 8
+  %lookupTable = alloca [7 x i32], align 4
+  %0 = getelementptr inbounds [7 x i32], [7 x i32]* %lookupTable, i32 0, i32 0
+  store i32 -3, i32* %0, align 4
+  %1 = getelementptr inbounds [7 x i32], [7 x i32]* %lookupTable, i32 0, i32 1
+  store i32 -2, i32* %1, align 4
+  %2 = getelementptr inbounds [7 x i32], [7 x i32]* %lookupTable, i32 0, i32 2
+  store i32 -1, i32* %2, align 4
+  %3 = getelementptr inbounds [7 x i32], [7 x i32]* %lookupTable, i32 0, i32 3
+  store i32 0, i32* %3, align 4
+  %4 = getelementptr inbounds [7 x i32], [7 x i32]* %lookupTable, i32 0, i32 4
+  store i32 1, i32* %4, align 4
+  %5 = getelementptr inbounds [7 x i32], [7 x i32]* %lookupTable, i32 0, i32 5
+  store i32 2, i32* %5, align 4
+  %6 = getelementptr inbounds [7 x i32], [7 x i32]* %lookupTable, i32 0, i32 6
+  store i32 3, i32* %6, align 4
+  %7 = alloca float, align 4
+  %8 = alloca float, align 4
+  %9 = bitcast float* %7 to i8*
+  call void @llvm.lifetime.start.p0i8(i64 4, i8* nonnull %9) #8
+  store float 0.000000e+00, float* %7, align 4, !tbaa !13
+  %10 = bitcast float* %8 to i8*
+  call void @llvm.lifetime.start.p0i8(i64 4, i8* nonnull %10) #8
+  store float 0.000000e+00, float* %8, align 4, !tbaa !13
+  %11 = alloca [1760 x float], align 4
+  %12 = alloca [1760 x i8], align 1
+  %13 = getelementptr inbounds [1760 x i8], [1760 x i8]* %12, i64 0, i64 0
+  store i8* %13, i8** %.reg2mem, align 8
+  %14 = getelementptr inbounds [1760 x float], [1760 x float]* %11, i64 0, i64 0
+  store float* %14, float** %.reg2mem3, align 8
+  %dispatcher = alloca i32, align 4
+  store i32 0, i32* %dispatcher, align 4
+  br label %loopStart
 
-BogusBasciBlock:                                  ; preds = %entry, %"2", %EntryBasicBlockSplit, %BogusBasciBlock
-  %12 = getelementptr i8*, i8** %JumpTable, i32 0
-  store i8* blockaddress(@main, %"2"), i8** %12, align 8
-  %13 = getelementptr i8*, i8** %JumpTable, i32 2
-  store i8* blockaddress(@main, %EntryBasicBlockSplit), i8** %13, align 8
-  %.reload1 = load i8**, i8*** %.reg2mem, align 8
-  %14 = load i8*, i8** %.reload1, align 8
-  indirectbr i8* %14, [label %BogusBasciBlock, label %EntryBasicBlockSplit, label %"2"]
+loopStart:                                        ; preds = %loopEnd, %entry
+  %dispatcher1 = load i32, i32* %dispatcher, align 4
+  switch i32 %dispatcher1, label %defaultSwitchBasicBlock [
+    i32 0, label %EntryBasicBlockSplit
+    i32 1, label %21
+    i32 2, label %BogusBasicBlock
+  ]
 
-EntryBasicBlockSplit:                             ; preds = %entry, %"2", %EntryBasicBlockSplit, %BogusBasciBlock
+EntryBasicBlockSplit:                             ; preds = %BogusBasicBlock, %loopStart
   %15 = call i32 (i8*, ...) @printf(i8* nonnull dereferenceable(1) getelementptr inbounds ([5 x i8], [5 x i8]* @.str.2, i64 0, i64 0))
-  %.reload5 = load i8**, i8*** %.reg2mem3, align 8
-  %16 = load i8*, i8** %.reload5, align 8
-  indirectbr i8* %16, [label %BogusBasciBlock, label %EntryBasicBlockSplit, label %"2"]
+  %16 = getelementptr inbounds [7 x i32], [7 x i32]* %lookupTable, i32 0, i32 4
+  %17 = load i32, i32* %16, align 4
+  %18 = getelementptr inbounds [7 x i32], [7 x i32]* %lookupTable, i32 0, i32 6
+  %19 = load i32, i32* %18, align 4
+  %20 = srem i32 %17, %19
+  store i32 %20, i32* %dispatcher, align 4
+  br label %loopEnd
 
-"2":                                              ; preds = %entry, %"2", %EntryBasicBlockSplit, %BogusBasciBlock
-  %17 = load float, float* %3, align 4, !tbaa !13
-  %18 = load float, float* %4, align 4, !tbaa !13
-  %.reload9 = load i8*, i8** %.reg2mem7, align 8
-  %.reload11 = load float*, float** %.reg2mem10, align 8
-  call void @_Z6renderffiPfPcii(float %17, float %18, i32 1760, float* nonnull %.reload11, i8* nonnull %.reload9, i32 22, i32 80)
-  %.reload8 = load i8*, i8** %.reg2mem7, align 8
-  call void @_Z7displayPKcRfS1_(i8* nonnull %.reload8, float* nonnull align 4 dereferenceable(4) %3, float* nonnull align 4 dereferenceable(4) %4)
-  %.reload4 = load i8**, i8*** %.reg2mem3, align 8
-  %19 = load i8*, i8** %.reload4, align 8
-  indirectbr i8* %19, [label %BogusBasciBlock, label %EntryBasicBlockSplit, label %"2"]
+21:                                               ; preds = %loopStart
+  %22 = load float, float* %7, align 4, !tbaa !13
+  %23 = load float, float* %8, align 4, !tbaa !13
+  %.reload2 = load i8*, i8** %.reg2mem, align 8
+  %.reload4 = load float*, float** %.reg2mem3, align 8
+  call void @_Z6renderffiPfPcii(float %22, float %23, i32 1760, float* nonnull %.reload4, i8* nonnull %.reload2, i32 22, i32 80)
+  %.reload = load i8*, i8** %.reg2mem, align 8
+  call void @_Z7displayPKcRfS1_(i8* nonnull %.reload, float* nonnull align 4 dereferenceable(4) %7, float* nonnull align 4 dereferenceable(4) %8)
+  %24 = getelementptr inbounds [7 x i32], [7 x i32]* %lookupTable, i32 0, i32 4
+  %25 = load i32, i32* %24, align 4
+  %26 = getelementptr inbounds [7 x i32], [7 x i32]* %lookupTable, i32 0, i32 6
+  %27 = load i32, i32* %26, align 4
+  %28 = srem i32 %25, %27
+  store i32 %28, i32* %dispatcher, align 4
+  br label %loopEnd
+
+BogusBasicBlock:                                  ; preds = %loopStart
+  %29 = getelementptr inbounds [7 x i32], [7 x i32]* %lookupTable, i32 0, i32 0
+  store i32 -1, i32* %29, align 4
+  %30 = getelementptr inbounds [7 x i32], [7 x i32]* %lookupTable, i32 0, i32 2
+  store i32 1, i32* %30, align 4
+  %31 = getelementptr inbounds [7 x i32], [7 x i32]* %lookupTable, i32 0, i32 4
+  store i32 3, i32* %31, align 4
+  %32 = getelementptr inbounds [7 x i32], [7 x i32]* %lookupTable, i32 0, i32 6
+  store i32 5, i32* %32, align 4
+  %33 = getelementptr inbounds [7 x i32], [7 x i32]* %lookupTable, i32 0, i32 0
+  %34 = load i32, i32* %33, align 4
+  store i32 %34, i32* %dispatcher, align 4
+  br label %EntryBasicBlockSplit
+
+defaultSwitchBasicBlock:                          ; preds = %loopStart
+  br label %loopEnd
+
+loopEnd:                                          ; preds = %21, %EntryBasicBlockSplit, %defaultSwitchBasicBlock
+  br label %loopStart
 }
 
 ; Function Attrs: nocallback nofree nosync nounwind readnone speculatable willreturn

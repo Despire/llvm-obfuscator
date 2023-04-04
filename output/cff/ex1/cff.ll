@@ -41,16 +41,16 @@ loopStart:                                        ; preds = %loopEnd, %entry
 
 EntryBasicBlockSplit:                             ; preds = %BogusBasicBlock, %loopStart
   %9 = icmp sgt i32 %0, 0
-  %10 = getelementptr inbounds [8 x i32], [8 x i32]* %lookupTable, i32 0, i32 6
+  %10 = getelementptr inbounds [8 x i32], [8 x i32]* %lookupTable, i32 0, i32 4
   %11 = load i32, i32* %10, align 4
-  %12 = getelementptr inbounds [8 x i32], [8 x i32]* %lookupTable, i32 0, i32 5
+  %12 = getelementptr inbounds [8 x i32], [8 x i32]* %lookupTable, i32 0, i32 7
   %13 = load i32, i32* %12, align 4
-  %14 = sub i32 %11, %13
-  %15 = getelementptr inbounds [8 x i32], [8 x i32]* %lookupTable, i32 0, i32 5
+  %14 = srem i32 %11, %13
+  %15 = getelementptr inbounds [8 x i32], [8 x i32]* %lookupTable, i32 0, i32 6
   %16 = load i32, i32* %15, align 4
-  %17 = getelementptr inbounds [8 x i32], [8 x i32]* %lookupTable, i32 0, i32 7
+  %17 = getelementptr inbounds [8 x i32], [8 x i32]* %lookupTable, i32 0, i32 4
   %18 = load i32, i32* %17, align 4
-  %19 = srem i32 %16, %18
+  %19 = sub i32 %16, %18
   %20 = select i1 %9, i32 %14, i32 %19
   store i32 %20, i32* %dispatcher, align 4
   store i32 0, i32* %.reg2mem, align 4

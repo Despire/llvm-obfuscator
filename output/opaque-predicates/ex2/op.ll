@@ -16,145 +16,154 @@ declare noundef i32 @printf(i8* nocapture noundef readonly, ...) local_unnamed_a
 
 ; Function Attrs: mustprogress nofree nounwind ssp uwtable
 define i32 @_Z8digitSumi(i32 %0) local_unnamed_addr #0 {
-  call void @_Z4testv()
   %2 = srem i32 %0, 2
   %3 = icmp eq i32 %2, 0
   br i1 %3, label %4, label %5
 
 4:                                                ; preds = %1
+  call void @_Z4testv()
   br label %6
 
 5:                                                ; preds = %1
+  call void @_Z4testv()
   br label %6
 
 6:                                                ; preds = %5, %4
   br label %7
 
-7:                                                ; preds = %39, %6
-  %8 = phi i32 [ %0, %6 ], [ %11, %39 ]
-  %9 = phi i32 [ 0, %6 ], [ %10, %39 ]
+7:                                                ; preds = %76, %6
+  %8 = phi i32 [ %0, %6 ], [ %11, %76 ]
+  %9 = phi i32 [ 0, %6 ], [ %10, %76 ]
   %10 = add nuw nsw i32 %9, 1
   %11 = sdiv i32 %8, 10
   %12 = add i32 %8, 9
-  %13 = icmp eq i32 %0, 0
-  %14 = icmp ne i32 %0, 0
-  %15 = xor i1 %13, true
-  %16 = and i1 %15, false
-  %17 = and i1 %13, true
-  %18 = or i1 %16, %17
-  %19 = xor i1 %14, true
-  %20 = and i1 %19, false
-  %21 = and i1 %14, true
-  %22 = or i1 %20, %21
-  %23 = xor i1 %18, %22
-  %24 = xor i1 %13, true
-  %25 = xor i1 %14, true
-  %26 = or i1 %24, %25
-  %27 = xor i1 %26, true
-  %28 = and i1 %27, true
-  %29 = or i1 %23, %28
-  br i1 %29, label %30, label %39
+  %13 = icmp ult i32 %12, 19
+  %14 = add i32 %0, 1
+  %15 = mul i32 3, %14
+  %16 = add i32 %0, 2
+  %17 = mul i32 %15, %16
+  %18 = srem i32 %17, 6
+  %19 = icmp eq i32 %18, 0
+  %20 = mul i32 %0, %0
+  %21 = add i32 %20, %0
+  %22 = srem i32 %21, 2
+  %23 = icmp eq i32 %22, 0
+  %24 = srem i32 %0, 2
+  %25 = icmp eq i32 %24, 0
+  br i1 %25, label %26, label %35
 
-30:                                               ; preds = %7
-  %31 = sdiv i32 -341937562, 1613225169
-  %32 = sub i32 1904027927, -53319
-  %33 = sub i32 1217948289, 593660589
-  %34 = add i32 -718764482, -335126738
-  %35 = mul i32 -1169907933, -1050535341
-  %36 = add i32 1690739102, -1086316295
-  %37 = sub i32 1106720571, -1358343446
-  %38 = sdiv i32 -1474138743, 549639291
-  br label %39
+26:                                               ; preds = %7
+  %27 = xor i1 %19, true
+  %28 = or i1 %27, %23
+  %29 = xor i1 %19, true
+  %30 = sub i1 %28, %29
+  %31 = xor i1 %13, true
+  %32 = or i1 %31, %30
+  %33 = xor i1 %13, true
+  %34 = sub i1 %32, %33
+  br label %76
 
-39:                                               ; preds = %7, %30
-  %40 = icmp ult i32 %12, 19
-  %41 = and i32 %0, 1
-  %42 = icmp eq i32 %41, 0
-  %43 = and i32 %0, 1
-  %44 = icmp eq i32 %43, 1
-  %45 = xor i1 %42, true
-  %46 = and i1 %45, false
-  %47 = and i1 %42, true
-  %48 = or i1 %46, %47
-  %49 = xor i1 %44, true
-  %50 = and i1 %49, false
-  %51 = and i1 %44, true
-  %52 = or i1 %50, %51
-  %53 = xor i1 %48, %52
-  %54 = xor i1 %42, true
-  %55 = xor i1 %44, true
-  %56 = or i1 %54, %55
-  %57 = xor i1 %56, true
-  %58 = and i1 %57, true
-  %59 = or i1 %53, %58
-  %60 = xor i1 %40, true
-  %61 = xor i1 %59, true
+35:                                               ; preds = %7
+  %36 = xor i1 %19, true
+  %37 = and i1 %36, true
+  %38 = and i1 %19, false
+  %39 = or i1 %37, %38
+  %40 = xor i1 %39, false
+  %41 = xor i1 %23, true
+  %42 = and i1 %40, %41
+  %43 = add i1 %42, %23
+  %44 = xor i1 %19, true
+  %45 = and i1 %44, true
+  %46 = and i1 %19, false
+  %47 = or i1 %45, %46
+  %48 = sub i1 false, %47
+  %49 = add i1 %43, %48
+  %50 = xor i1 %13, true
+  %51 = and i1 %50, true
+  %52 = and i1 %13, false
+  %53 = or i1 %51, %52
+  %54 = xor i1 %53, false
+  %55 = xor i1 %54, true
+  %56 = and i1 %55, true
+  %57 = and i1 %54, false
+  %58 = or i1 %56, %57
+  %59 = xor i1 %49, true
+  %60 = and i1 %59, true
+  %61 = and i1 %49, false
   %62 = or i1 %60, %61
-  %63 = xor i1 %62, true
-  %64 = and i1 %63, true
-  br i1 %64, label %65, label %7, !llvm.loop !10
+  %63 = xor i1 %58, %62
+  %64 = xor i1 %54, true
+  %65 = xor i1 %49, true
+  %66 = or i1 %64, %65
+  %67 = xor i1 %66, true
+  %68 = and i1 %67, true
+  %69 = or i1 %63, %68
+  %70 = or i1 %13, true
+  %71 = and i1 %13, true
+  %72 = sub i1 %70, %71
+  %73 = add i1 %69, false
+  %74 = sub i1 %73, %72
+  %75 = sub i1 %74, false
+  br label %76
 
-65:                                               ; preds = %39
-  %66 = icmp sge i1 %49, %49
-  %67 = icmp sle i1 %49, %49
-  %68 = xor i1 %66, true
-  %69 = or i1 %68, %67
-  %70 = xor i1 %66, true
-  %71 = sub i1 %69, %70
-  br i1 %71, label %72, label %81
+76:                                               ; preds = %35, %26
+  %77 = phi i1 [ %40, %35 ], [ %27, %26 ]
+  %78 = phi i1 [ %43, %35 ], [ %28, %26 ]
+  %79 = phi i1 [ %47, %35 ], [ %29, %26 ]
+  %80 = phi i1 [ %49, %35 ], [ %30, %26 ]
+  %81 = phi i1 [ %54, %35 ], [ %31, %26 ]
+  %82 = phi i1 [ %69, %35 ], [ %32, %26 ]
+  %83 = phi i1 [ %72, %35 ], [ %33, %26 ]
+  %84 = phi i1 [ %75, %35 ], [ %34, %26 ]
+  br i1 %84, label %85, label %7, !llvm.loop !10
 
-72:                                               ; preds = %65
-  %73 = add i32 -569459203, -1841093520
-  %74 = sub i32 79495543, 2130484880
-  %75 = sdiv i32 -1578064572, -1437441193
-  %76 = mul i32 -398436606, 1428595511
-  %77 = add i32 -334994739, 1302570621
-  %78 = mul i32 473875570, -1607268594
-  %79 = mul i32 899871668, 1319560358
-  %80 = add i32 -774635534, -846928865
-  br label %81
+85:                                               ; preds = %76
+  %86 = srem i32 %12, 2
+  %87 = icmp eq i32 %86, 0
+  br i1 %87, label %88, label %89
 
-81:                                               ; preds = %65, %72
+88:                                               ; preds = %85
+  br label %90
+
+89:                                               ; preds = %85
+  br label %90
+
+90:                                               ; preds = %89, %88
   ret i32 %10
 }
 
 ; Function Attrs: mustprogress nofree norecurse nounwind ssp uwtable
 define i32 @main(i32 %0, i8** nocapture readnone %1) local_unnamed_addr #2 {
   %3 = call i32 @_Z8digitSumi(i32 15)
-  %4 = icmp eq i32 %0, 0
-  %5 = icmp ne i32 %0, 0
-  %6 = xor i1 %4, true
-  %7 = and i1 %6, false
-  %8 = and i1 %4, true
-  %9 = or i1 %7, %8
-  %10 = xor i1 %5, true
-  %11 = and i1 %10, false
-  %12 = and i1 %5, true
-  %13 = or i1 %11, %12
-  %14 = xor i1 %9, %13
-  %15 = xor i1 %4, true
-  %16 = xor i1 %5, true
-  %17 = or i1 %15, %16
-  %18 = xor i1 %17, true
-  %19 = and i1 %18, true
-  %20 = or i1 %14, %19
-  br i1 %20, label %21, label %30
+  %4 = call i32 @_Z8digitSumi(i32 25)
+  %5 = add nsw i32 %4, %3
+  %6 = add i32 %0, 1
+  %7 = mul i32 3, %6
+  %8 = add i32 %0, 2
+  %9 = mul i32 %7, %8
+  %10 = srem i32 %9, 6
+  %11 = icmp eq i32 %10, 0
+  %12 = mul i32 %0, %0
+  %13 = add i32 %12, %0
+  %14 = srem i32 %13, 2
+  %15 = icmp eq i32 %14, 0
+  %16 = xor i1 %15, true
+  %17 = and i1 %11, %16
+  %18 = add i1 %17, %15
+  br i1 %18, label %19, label %27
 
-21:                                               ; preds = %2
-  %22 = mul i32 292937270, -2126491799
-  %23 = sub i32 -209236431, -1836331790
-  %24 = sdiv i32 -751643929, -1518700118
-  %25 = mul i32 -401255694, -880082369
-  %26 = mul i32 -297546178, 1005837691
-  %27 = add i32 1570348966, 87327712
-  %28 = mul i32 284907370, 1365574505
-  %29 = sdiv i32 986542269, 292944143
-  br label %30
+19:                                               ; preds = %2
+  %20 = sdiv i32 57, 2
+  %21 = add i32 65, 66
+  %22 = sdiv i32 113, 126
+  %23 = sub i32 11, 61
+  %24 = sdiv i32 86, 74
+  %25 = sub i32 65, 94
+  %26 = sdiv i32 42, 21
+  br label %27
 
-30:                                               ; preds = %2, %21
-  %31 = call i32 @_Z8digitSumi(i32 25)
-  %32 = add nsw i32 %31, %3
-  ret i32 %32
+27:                                               ; preds = %2, %19
+  ret i32 %5
 }
 
 attributes #0 = { mustprogress nofree nounwind ssp uwtable "frame-pointer"="non-leaf" "min-legal-vector-width"="0" "no-trapping-math"="true" "probe-stack"="__chkstk_darwin" "stack-protector-buffer-size"="8" "target-cpu"="apple-m1" "target-features"="+aes,+crc,+crypto,+dotprod,+fp-armv8,+fp16fml,+fullfp16,+lse,+neon,+ras,+rcpc,+rdm,+sha2,+sha3,+sm4,+v8.5a,+zcm,+zcz" }
