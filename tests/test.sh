@@ -1,6 +1,10 @@
 #!/bin/bash
 
 echo "-----Testing Jump Into Loop-----"
+  python3 ./tests/test_strobfs.py
+echo "-----------------------------------------"
+
+echo "-----Testing Jump Into Loop-----"
 for i in {0..60}; do
   python3 ./tests/test_loopjump.py
 done

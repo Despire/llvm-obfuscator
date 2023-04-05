@@ -44,18 +44,6 @@ llvm::PreservedAnalyses JumpIntoLoop::run(llvm::Function &F, llvm::FunctionAnaly
     return llvm::PreservedAnalyses::all();
 }
 
-std::vector<llvm::PHINode *> findAllPHINodes(llvm::BasicBlock &BB) {
-    std::vector<llvm::PHINode *> nodes;
-
-    for (auto &Inst: BB) {
-        if (llvm::isa<llvm::PHINode>(&Inst)) {
-            nodes.push_back(llvm::cast<llvm::PHINode>(&Inst));
-        }
-    }
-
-    return nodes;
-}
-
 bool JumpIntoLoop::tryIntroducingNewPath(llvm::Loop *TopLevelLoop, ReachableIntegers::Result &Set) {
     // given a top level loop find the deepest nested loop.
     llvm::Loop *innerLevelLoop = TopLevelLoop;
