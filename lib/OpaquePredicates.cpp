@@ -59,7 +59,7 @@ bool OpaquePredicates::handleOpaquelyTruePredicate(llvm::BasicBlock &BB, llvm::F
 
     // split block and insert bogus operation.
     auto newBB = llvm::SplitBlockAndInsertIfThen(cond, randomInstruction, false);
-    addBogusOperations(newBB, RI);
+    addBogusOperations(newBB->getParent());
 
     Substitution substitution;
 
@@ -225,8 +225,7 @@ OpaquePredicates::conditionOpaquePredicateOR(
 ) {
     llvm::IRBuilder<> Builder(InsertBefore);
 
-
-    // ((a & 1 == 0) || (3(x+1)(x+2)) % 6 == 0)
+    // ((a & 1 == 0) || (3(x+1)(x+2)) % 2 == 0)
     llvm::Value *Res = Builder.CreateOr(
             Builder.CreateICmpEQ(
                     Builder.CreateAnd(
@@ -237,22 +236,19 @@ OpaquePredicates::conditionOpaquePredicateOR(
             ),
             Builder.CreateICmpEQ(
                     Builder.CreateSRem(
-                            // (3(x+1)(x+2)
                             Builder.CreateMul(
-                                    // 3(x+1)
-                                    Builder.CreateMul(
-                                            LLVM_CONST_INT(ChosenInteger->getType(), 3),
-                                            Builder.CreateAdd(
-                                                    ChosenInteger,
-                                                    LLVM_CONST_INT(ChosenInteger->getType(), 1)
-                                            )
-                                    ),
+                                    // 3(x^2 + x)
                                     Builder.CreateAdd(
-                                            ChosenInteger,
-                                            LLVM_CONST_INT(ChosenInteger->getType(), 2)
-                                    )
+                                            // x^2
+                                            Builder.CreateMul(
+                                                    ChosenInteger,
+                                                    ChosenInteger
+                                            ),
+                                            ChosenInteger
+                                    ),
+                                    LLVM_CONST_INT(ChosenInteger->getType(), 3)
                             ),
-                            LLVM_CONST_INT(ChosenInteger->getType(), 6)
+                            LLVM_CONST_INT(ChosenInteger->getType(), 2)
                     ),
                     LLVM_CONST_INT(ChosenInteger->getType(), 0)
             )
@@ -274,7 +270,7 @@ std::pair<
 
     return {
             ANDOpaquelyTruePredicates[RandomInt64(ANDOpaquelyTruePredicatesFuncCount)],
-            Substitution().ANDHandlers[RandomInt64(ORSubstitutionFuncCount)]
+            Substitution().ANDHandlers[RandomInt64(ANDSubstitutionFuncCount)]
     };
 }
 
@@ -285,32 +281,11 @@ OpaquePredicates::conditionOpaquePredicateAND(
 ) {
     llvm::IRBuilder<> Builder(InsertBefore);
 
-    // ((3(x+1)(x+2)) % 6 == 0 && (x^2 + x) % 2 == 0)
-    llvm::Value *Res = Builder.CreateAnd(
-            Builder.CreateICmpEQ(
-                    Builder.CreateSRem(
-                            // (3(x+1)(x+2)
-                            Builder.CreateMul(
-                                    // 3(x+1)
-                                    Builder.CreateMul(
-                                            LLVM_CONST_INT(ChosenInteger->getType(), 3),
-                                            Builder.CreateAdd(
-                                                    ChosenInteger,
-                                                    LLVM_CONST_INT(ChosenInteger->getType(), 1)
-                                            )
-                                    ),
-                                    Builder.CreateAdd(
-                                            ChosenInteger,
-                                            LLVM_CONST_INT(ChosenInteger->getType(), 2)
-                                    )
-                            ),
-                            LLVM_CONST_INT(ChosenInteger->getType(), 6)
-                    ),
-                    LLVM_CONST_INT(ChosenInteger->getType(), 0)
-            ),
-            Builder.CreateICmpEQ(
-                    Builder.CreateSRem(
-                            // (x^2 + x)
+    // 3(x^2 + x) % 2 == 0
+    llvm::Value *LHS = Builder.CreateICmpEQ(
+            Builder.CreateSRem(
+                    Builder.CreateMul(
+                            // 3(x^2 + x)
                             Builder.CreateAdd(
                                     // x^2
                                     Builder.CreateMul(
@@ -319,13 +294,32 @@ OpaquePredicates::conditionOpaquePredicateAND(
                                     ),
                                     ChosenInteger
                             ),
-                            LLVM_CONST_INT(ChosenInteger->getType(), 2)
+                            LLVM_CONST_INT(ChosenInteger->getType(), 3)
                     ),
-                    LLVM_CONST_INT(ChosenInteger->getType(), 0)
-            )
+                    LLVM_CONST_INT(ChosenInteger->getType(), 2)
+            ),
+            LLVM_CONST_INT(ChosenInteger->getType(), 0)
     );
 
-    return Res;
+    // (x^2 + x) % 2 == 0
+    llvm::Value *RHS = Builder.CreateICmpEQ(
+            Builder.CreateSRem(
+                    // (x^2 + x)
+                    Builder.CreateAdd(
+                            // x^2
+                            Builder.CreateMul(
+                                    ChosenInteger,
+                                    ChosenInteger
+                            ),
+                            ChosenInteger
+                    ),
+                    LLVM_CONST_INT(ChosenInteger->getType(), 2)
+            ),
+            LLVM_CONST_INT(ChosenInteger->getType(), 0)
+    );
+
+    // 3(x^2 + x) % 2 == 0 && (x^2 + x) % 2 == 0)
+    return Builder.CreateAnd(LHS, RHS);
 }
 
 llvm::Value *
@@ -365,26 +359,21 @@ llvm::Value *
 OpaquePredicates::conditionOpaquePredicateORv3(llvm::Value *ChosenInteger, llvm::Instruction *InsertBefore) {
     llvm::IRBuilder<> Builder(InsertBefore);
 
-    // ((x^3 + 3x^2 + 2x) % 3 == 0 || (x^2 + x) % 2 == 0)
+    // ((2x + 2)(2x) % 4 == 0 || (x^2 + x) % 2 == 0)
     llvm::Value *Res = Builder.CreateOr(
             Builder.CreateICmpEQ(
                     Builder.CreateSRem(
-                            // (3(x+1)(x+2)
                             Builder.CreateMul(
-                                    // 3(x+1)
-                                    Builder.CreateMul(
-                                            LLVM_CONST_INT(ChosenInteger->getType(), 3),
-                                            Builder.CreateAdd(
-                                                    ChosenInteger,
-                                                    LLVM_CONST_INT(ChosenInteger->getType(), 1)
-                                            )
-                                    ),
+                                    Builder.CreateMul(ChosenInteger, LLVM_CONST_INT(ChosenInteger->getType(), 2)),
                                     Builder.CreateAdd(
-                                            ChosenInteger,
-                                            LLVM_CONST_INT(ChosenInteger->getType(), 2)
+                                            LLVM_CONST_INT(ChosenInteger->getType(), 2),
+                                            Builder.CreateMul(
+                                                    ChosenInteger,
+                                                    LLVM_CONST_INT(ChosenInteger->getType(), 2)
+                                            )
                                     )
                             ),
-                            LLVM_CONST_INT(ChosenInteger->getType(), 6)
+                            LLVM_CONST_INT(ChosenInteger->getType(), 4)
                     ),
                     LLVM_CONST_INT(ChosenInteger->getType(), 0)
             ),
@@ -412,26 +401,21 @@ llvm::Value *
 OpaquePredicates::conditionOpaquePredicateANDv2(llvm::Value *ChosenInteger, llvm::Instruction *InsertBefore) {
     llvm::IRBuilder<> Builder(InsertBefore);
 
-    // ((x^2 + x) % 2 == 0 && (x >= x))
+    // ((x^2 + x) % 2 == 0 && ((2x+2)(2x) % 4 == 0)
     llvm::Value *Res = Builder.CreateAnd(
             Builder.CreateICmpEQ(
                     Builder.CreateSRem(
-                            // (3(x+1)(x+2)
                             Builder.CreateMul(
-                                    // 3(x+1)
-                                    Builder.CreateMul(
-                                            LLVM_CONST_INT(ChosenInteger->getType(), 3),
-                                            Builder.CreateAdd(
-                                                    ChosenInteger,
-                                                    LLVM_CONST_INT(ChosenInteger->getType(), 1)
-                                            )
-                                    ),
+                                    Builder.CreateMul(ChosenInteger, LLVM_CONST_INT(ChosenInteger->getType(), 2)),
                                     Builder.CreateAdd(
-                                            ChosenInteger,
-                                            LLVM_CONST_INT(ChosenInteger->getType(), 2)
+                                            LLVM_CONST_INT(ChosenInteger->getType(), 2),
+                                            Builder.CreateMul(
+                                                    ChosenInteger,
+                                                    LLVM_CONST_INT(ChosenInteger->getType(), 2)
+                                            )
                                     )
                             ),
-                            LLVM_CONST_INT(ChosenInteger->getType(), 6)
+                            LLVM_CONST_INT(ChosenInteger->getType(), 4)
                     ),
                     LLVM_CONST_INT(ChosenInteger->getType(), 0)
             ),
@@ -459,19 +443,35 @@ llvm::Value *
 OpaquePredicates::conditionOpaquePredicateANDv3(llvm::Value *ChosenInteger, llvm::Instruction *InsertBefore) {
     llvm::IRBuilder<> Builder(InsertBefore);
 
-    // ((x^3 + 3x^2 + 2x) % 3 == 0 && (x^2 + x) % 2 == 0)
+    // (x + x^3) % 2 == 0 && (2x + 2)(2x) % 4 == 0)
     llvm::Value *Res = Builder.CreateAnd(
-            Builder.CreateICmpSGE(
-                    ChosenInteger,
-                    ChosenInteger
+            //(2x + 2)(2x) % 4 == 0
+            Builder.CreateICmpEQ(
+                    Builder.CreateSRem(
+                            Builder.CreateMul(
+                                    Builder.CreateMul(ChosenInteger, LLVM_CONST_INT(ChosenInteger->getType(), 2)),
+                                    Builder.CreateAdd(
+                                            LLVM_CONST_INT(ChosenInteger->getType(), 2),
+                                            Builder.CreateMul(
+                                                    ChosenInteger,
+                                                    LLVM_CONST_INT(ChosenInteger->getType(), 2)
+                                            )
+                                    )
+                            ),
+                            LLVM_CONST_INT(ChosenInteger->getType(), 4)
+                    ),
+                    LLVM_CONST_INT(ChosenInteger->getType(), 0)
             ),
             Builder.CreateICmpEQ(
                     Builder.CreateSRem(
-                            // (x^2 + x)
+                            // (x^3 + x)
                             Builder.CreateAdd(
-                                    // x^2
+                                    // x^3
                                     Builder.CreateMul(
-                                            ChosenInteger,
+                                            Builder.CreateMul(
+                                                    ChosenInteger,
+                                                    ChosenInteger
+                                            ),
                                             ChosenInteger
                                     ),
                                     ChosenInteger
@@ -483,19 +483,6 @@ OpaquePredicates::conditionOpaquePredicateANDv3(llvm::Value *ChosenInteger, llvm
     );
 
     return Res;
-}
-
-std::vector<llvm::BasicBlock *>
-OpaquePredicates::findAllBBWithReachableIntegers(llvm::Function &F, ReachableIntegers::Result &Set) {
-    std::vector<llvm::BasicBlock *> result;
-
-    for (auto &BB: F) {
-        if (auto set = Set[&BB]; !set.empty()) {
-            result.push_back(&BB);
-        }
-    }
-
-    return result;
 }
 
 //------------------------------------------------------

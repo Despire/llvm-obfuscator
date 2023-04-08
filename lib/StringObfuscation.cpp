@@ -202,14 +202,14 @@ void StringObfuscation::createCtor(llvm::Module &M, std::vector<GlobalStringData
                 1 // number of elements
         );
 
-        M.getGlobalList().push_back(new llvm::GlobalVariable(
+        new llvm::GlobalVariable(
                 M,
                 ctorsArrayType,
                 true, // isConstant
                 llvm::GlobalValue::AppendingLinkage, // linkage
                 llvm::ConstantArray::get(ctorsArrayType, ctorsArray), // initializer
                 "llvm.global_ctors" // name
-        ));
+        );
         return;
     }
 

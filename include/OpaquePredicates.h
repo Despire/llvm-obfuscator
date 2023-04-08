@@ -23,24 +23,24 @@ struct OpaquePredicates : public llvm::PassInfoMixin<OpaquePredicates> {
 
     OpaquePredicateHandler OpaquePredicateHandlers[OpaquePredicateFuncCount];
     OpaquelyTruePredicate OROpaquelyTruePredicates[OROpaquelyTruePredicatesFuncCount];
-    OpaquelyTruePredicate ANDOpaquelyTruePredicates[OROpaquelyTruePredicatesFuncCount];
+    OpaquelyTruePredicate ANDOpaquelyTruePredicates[ANDOpaquelyTruePredicatesFuncCount];
 
     explicit OpaquePredicates() : PassInfoMixin() {
         OpaquePredicateHandlers[0] = &OpaquePredicates::handleOpaquelyTruePredicate;
         OpaquePredicateHandlers[1] = &OpaquePredicates::handleOpaquelyTruePredicateWithClone;
 
-        // ((a & 1 == 0) || (3(x+1)(x+2)) % 6 == 0)
+        // ((a & 1 == 0) || 3(x^2 + x) % 2 == 0)
         OROpaquelyTruePredicates[0] = &OpaquePredicates::conditionOpaquePredicateOR;
         // (a & 1 == 1 || (x^2 + x) % 2 == 0)
         OROpaquelyTruePredicates[1] = &OpaquePredicates::conditionOpaquePredicateORv2;
-        // ((x^3 + 3x^2 + 2x) % 3 == 0 || (x^2 + x) % 2 == 0)
+        // ((2x + 2)(2x) % 4 == 0 || (x^2 + x) % 2 == 0)
         OROpaquelyTruePredicates[2] = &OpaquePredicates::conditionOpaquePredicateORv3;
 
-        // ((3(x+1)(x+2)) % 6 == 0 && (x^2 + x) % 2 == 0)
+        // 3(x^2 + x) % 2 == 0 && (x^2 + x) % 2 == 0)
         ANDOpaquelyTruePredicates[0] = &OpaquePredicates::conditionOpaquePredicateAND;
-        // ((x^2 + x) % 2 == 0 && (x >= x))
+        // ((x^2 + x) % 2 == 0 && ((2x+2)(2x) % 4 == 0)
         ANDOpaquelyTruePredicates[1] = &OpaquePredicates::conditionOpaquePredicateANDv2;
-        // ((x^3 + 3x^2 + 2x) % 3 == 0 && (x^2 + x) % 2 == 0)
+        // (x + x^3) % 2 == 0 && (2x + 2)(2x) % 4 == 0)
         ANDOpaquelyTruePredicates[2] = &OpaquePredicates::conditionOpaquePredicateANDv3;
     }
 
@@ -72,9 +72,6 @@ struct OpaquePredicates : public llvm::PassInfoMixin<OpaquePredicates> {
     llvm::Value *conditionOpaquePredicateANDv3(llvm::Value *ChosenInteger, llvm::Instruction *InsertBefore);
 
     std::pair<OpaquelyTruePredicate, Substitution::SubstitutionHandler> getRandomOpaquelyTruePredicate();
-
-    // Find all Basic Blocks in a function that have at least one reachable integer.
-    std::vector<llvm::BasicBlock *> findAllBBWithReachableIntegers(llvm::Function &F, ReachableIntegers::Result &Set);
 };
 
 #endif //LLVM_OBFUSCATOR_OPAQUEPREDICATES_H

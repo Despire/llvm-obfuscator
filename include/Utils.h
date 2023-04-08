@@ -37,7 +37,7 @@ inline Iter RandomElement(Iter start, Iter end) {
     return RandomElementRNG(start, end, rng);
 }
 
-inline int64_t numOfPredecessors(llvm::BasicBlock* BB) {
+inline int64_t numOfPredecessors(llvm::BasicBlock *BB) {
     int64_t count = 0;
     for (auto p: predecessors(BB)) {
         ++count;
@@ -55,7 +55,7 @@ inline bool checkIfInstructionInOperand(llvm::Instruction *ToCheck, LLVMTypeWith
     return false;
 }
 
-inline llvm::PHINode* existsPhiThatContainInstruction(llvm::Instruction *I, llvm::BasicBlock &BB) {
+inline llvm::PHINode *existsPhiThatContainInstruction(llvm::Instruction *I, llvm::BasicBlock &BB) {
     for (auto &PHI: BB.phis()) {
         if (checkIfInstructionInOperand(I, &PHI)) {
             return &PHI;
@@ -131,34 +131,55 @@ inline void findDeepestInnerLoop(llvm::Loop *Loop, llvm::Loop *&CurrentLevel) {
 }
 
 
-inline void addBogusOperations(llvm::Instruction *Dst, llvm::SmallDenseSet<llvm::Value *> &Set) {
+inline void addBogusOperations(llvm::BasicBlock *BB) {
     std::mt19937_64 gen = GetRandomGenerator();
     std::uniform_int_distribution dist(6, 10);
 
     int64_t instructionCount = dist(gen);
 
+    auto beg = BB->getFirstNonPHI()->getIterator();
+    auto end = BB->getTerminator()->getIterator();
+
     for (int64_t i = 0; i < instructionCount; ++i) {
-        auto *left = LLVM_CONST_I32(Dst->getContext(), RandomInt64(std::numeric_limits<std::int8_t>::max()));
-        auto *right = LLVM_CONST_I32(Dst->getContext(), RandomInt64(std::numeric_limits<std::int8_t>::max()));
+        auto *left = LLVM_CONST_I32(BB->getContext(), RandomInt64(std::numeric_limits<std::int8_t>::max()));
+        auto *right = LLVM_CONST_I32(BB->getContext(), RandomInt64(std::numeric_limits<std::int8_t>::max()));
+
         switch (RandomInt64() % 4) {
             case 0: {
-                llvm::BinaryOperator::CreateAdd(left, right, "", Dst);
+                llvm::BinaryOperator::CreateAdd(left, right, "", &*beg);
                 break;
             }
             case 1: {
-                llvm::BinaryOperator::CreateSub(left, right, "", Dst);
+                llvm::BinaryOperator::CreateSub(left, right, "", &*beg);
                 break;
             }
             case 2: {
-                llvm::BinaryOperator::CreateMul(left, right, "", Dst);
+                llvm::BinaryOperator::CreateMul(left, right, "", &*beg);
                 break;
             }
             case 3: {
-                llvm::BinaryOperator::CreateSDiv(left, right, "", Dst);
+                llvm::BinaryOperator::CreateSDiv(left, right, "", &*beg);
                 break;
             }
         }
+
+        if (beg != end) {
+            beg = std::next(beg);
+        }
     }
+}
+
+inline std::vector<llvm::BasicBlock *>
+findAllBBWithReachableIntegers(llvm::Function &F, ReachableIntegers::Result &Set) {
+    std::vector<llvm::BasicBlock *> result;
+
+    for (auto &BB: F) {
+        if (auto set = Set[&BB]; !set.empty()) {
+            result.push_back(&BB);
+        }
+    }
+
+    return result;
 }
 
 #endif //LLVM_OBFUSCATOR_UTILS_H

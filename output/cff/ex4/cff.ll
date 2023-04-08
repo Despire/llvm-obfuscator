@@ -66,9 +66,9 @@ loopStart:                                        ; preds = %loopEnd, %entry
 EntryBasicBlockSplit:                             ; preds = %BogusBasicBlock, %loopStart
   %17 = getelementptr inbounds [15 x i32], [15 x i32]* %lookupTable, i32 0, i32 4
   %18 = load i32, i32* %17, align 4
-  %19 = getelementptr inbounds [15 x i32], [15 x i32]* %lookupTable, i32 0, i32 3
+  %19 = getelementptr inbounds [15 x i32], [15 x i32]* %lookupTable, i32 0, i32 14
   %20 = load i32, i32* %19, align 4
-  %21 = add i32 %18, %20
+  %21 = srem i32 %18, %20
   store i32 %21, i32* %dispatcher, align 4
   store i32 %0, i32* %.reg2mem14, align 4
   store i32 0, i32* %.reg2mem16, align 4
@@ -83,21 +83,21 @@ EntryBasicBlockSplit:                             ; preds = %BogusBasicBlock, %l
   %24 = load i32, i32* %23, align 4
   %25 = getelementptr inbounds [15 x i32], [15 x i32]* %lookupTable, i32 0, i32 3
   %26 = load i32, i32* %25, align 4
-  %27 = add i32 %24, %26
+  %27 = sub i32 %24, %26
   store i32 %27, i32* %dispatcher, align 4
   br label %loopEnd
 
 NodeBlock1:                                       ; preds = %loopStart
   %.reload13 = load i32, i32* %.reg2mem10, align 4
   %Pivot2 = icmp slt i32 %.reload13, 2
-  %28 = getelementptr inbounds [15 x i32], [15 x i32]* %lookupTable, i32 0, i32 6
+  %28 = getelementptr inbounds [15 x i32], [15 x i32]* %lookupTable, i32 0, i32 7
   %29 = load i32, i32* %28, align 4
-  %30 = getelementptr inbounds [15 x i32], [15 x i32]* %lookupTable, i32 0, i32 4
+  %30 = getelementptr inbounds [15 x i32], [15 x i32]* %lookupTable, i32 0, i32 14
   %31 = load i32, i32* %30, align 4
-  %32 = add i32 %29, %31
-  %33 = getelementptr inbounds [15 x i32], [15 x i32]* %lookupTable, i32 0, i32 3
+  %32 = srem i32 %29, %31
+  %33 = getelementptr inbounds [15 x i32], [15 x i32]* %lookupTable, i32 0, i32 13
   %34 = load i32, i32* %33, align 4
-  %35 = getelementptr inbounds [15 x i32], [15 x i32]* %lookupTable, i32 0, i32 0
+  %35 = getelementptr inbounds [15 x i32], [15 x i32]* %lookupTable, i32 0, i32 10
   %36 = load i32, i32* %35, align 4
   %37 = sub i32 %34, %36
   %38 = select i1 %Pivot2, i32 %32, i32 %37
@@ -107,16 +107,16 @@ NodeBlock1:                                       ; preds = %loopStart
 NodeBlock:                                        ; preds = %loopStart
   %.reload11 = load i32, i32* %.reg2mem10, align 4
   %Pivot = icmp slt i32 %.reload11, 3
-  %39 = getelementptr inbounds [15 x i32], [15 x i32]* %lookupTable, i32 0, i32 8
+  %39 = getelementptr inbounds [15 x i32], [15 x i32]* %lookupTable, i32 0, i32 14
   %40 = load i32, i32* %39, align 4
   %41 = getelementptr inbounds [15 x i32], [15 x i32]* %lookupTable, i32 0, i32 6
   %42 = load i32, i32* %41, align 4
-  %43 = add i32 %40, %42
-  %44 = getelementptr inbounds [15 x i32], [15 x i32]* %lookupTable, i32 0, i32 8
+  %43 = sub i32 %40, %42
+  %44 = getelementptr inbounds [15 x i32], [15 x i32]* %lookupTable, i32 0, i32 12
   %45 = load i32, i32* %44, align 4
-  %46 = getelementptr inbounds [15 x i32], [15 x i32]* %lookupTable, i32 0, i32 7
+  %46 = getelementptr inbounds [15 x i32], [15 x i32]* %lookupTable, i32 0, i32 14
   %47 = load i32, i32* %46, align 4
-  %48 = add i32 %45, %47
+  %48 = srem i32 %45, %47
   %49 = select i1 %Pivot, i32 %43, i32 %48
   store i32 %49, i32* %dispatcher, align 4
   br label %loopEnd
@@ -124,16 +124,16 @@ NodeBlock:                                        ; preds = %loopStart
 LeafBlock:                                        ; preds = %loopStart
   %.reload12 = load i32, i32* %.reg2mem10, align 4
   %SwitchLeaf = icmp eq i32 %.reload12, 1
-  %50 = getelementptr inbounds [15 x i32], [15 x i32]* %lookupTable, i32 0, i32 6
+  %50 = getelementptr inbounds [15 x i32], [15 x i32]* %lookupTable, i32 0, i32 7
   %51 = load i32, i32* %50, align 4
-  %52 = getelementptr inbounds [15 x i32], [15 x i32]* %lookupTable, i32 0, i32 0
+  %52 = getelementptr inbounds [15 x i32], [15 x i32]* %lookupTable, i32 0, i32 5
   %53 = load i32, i32* %52, align 4
-  %54 = sub i32 %51, %53
+  %54 = add i32 %51, %53
   %55 = getelementptr inbounds [15 x i32], [15 x i32]* %lookupTable, i32 0, i32 8
   %56 = load i32, i32* %55, align 4
-  %57 = getelementptr inbounds [15 x i32], [15 x i32]* %lookupTable, i32 0, i32 14
+  %57 = getelementptr inbounds [15 x i32], [15 x i32]* %lookupTable, i32 0, i32 3
   %58 = load i32, i32* %57, align 4
-  %59 = srem i32 %56, %58
+  %59 = sub i32 %56, %58
   %60 = select i1 %SwitchLeaf, i32 %54, i32 %59
   store i32 %60, i32* %dispatcher, align 4
   br label %loopEnd
@@ -145,11 +145,11 @@ LeafBlock:                                        ; preds = %loopStart
   %.reload8 = load i32, i32* %.reg2mem, align 4
   %64 = add nsw i32 %63, %.reload8
   %65 = select i1 %62, i32 3, i32 1
-  %66 = getelementptr inbounds [15 x i32], [15 x i32]* %lookupTable, i32 0, i32 7
+  %66 = getelementptr inbounds [15 x i32], [15 x i32]* %lookupTable, i32 0, i32 10
   %67 = load i32, i32* %66, align 4
-  %68 = getelementptr inbounds [15 x i32], [15 x i32]* %lookupTable, i32 0, i32 6
+  %68 = getelementptr inbounds [15 x i32], [15 x i32]* %lookupTable, i32 0, i32 3
   %69 = load i32, i32* %68, align 4
-  %70 = add i32 %67, %69
+  %70 = sub i32 %67, %69
   store i32 %70, i32* %dispatcher, align 4
   store i32 %64, i32* %.reg2mem18, align 4
   store i32 %65, i32* %.reg2mem20, align 4
@@ -163,11 +163,11 @@ LeafBlock:                                        ; preds = %loopStart
   %.reload5 = load i32, i32* %.reg2mem, align 4
   %74 = select i1 %72, i32 %73, i32 %.reload5
   %75 = select i1 %72, i32 3, i32 2
-  %76 = getelementptr inbounds [15 x i32], [15 x i32]* %lookupTable, i32 0, i32 7
+  %76 = getelementptr inbounds [15 x i32], [15 x i32]* %lookupTable, i32 0, i32 13
   %77 = load i32, i32* %76, align 4
   %78 = getelementptr inbounds [15 x i32], [15 x i32]* %lookupTable, i32 0, i32 6
   %79 = load i32, i32* %78, align 4
-  %80 = add i32 %77, %79
+  %80 = sub i32 %77, %79
   store i32 %80, i32* %dispatcher, align 4
   store i32 %74, i32* %.reg2mem18, align 4
   store i32 %75, i32* %.reg2mem20, align 4
@@ -176,11 +176,11 @@ LeafBlock:                                        ; preds = %loopStart
 81:                                               ; preds = %loopStart
   %.reload21 = load i32, i32* %.reg2mem20, align 4
   %.reload19 = load i32, i32* %.reg2mem18, align 4
-  %82 = getelementptr inbounds [15 x i32], [15 x i32]* %lookupTable, i32 0, i32 4
+  %82 = getelementptr inbounds [15 x i32], [15 x i32]* %lookupTable, i32 0, i32 3
   %83 = load i32, i32* %82, align 4
-  %84 = getelementptr inbounds [15 x i32], [15 x i32]* %lookupTable, i32 0, i32 14
+  %84 = getelementptr inbounds [15 x i32], [15 x i32]* %lookupTable, i32 0, i32 2
   %85 = load i32, i32* %84, align 4
-  %86 = srem i32 %83, %85
+  %86 = sub i32 %83, %85
   store i32 %86, i32* %dispatcher, align 4
   store i32 %.reload19, i32* %.reg2mem14, align 4
   store i32 %.reload21, i32* %.reg2mem16, align 4
@@ -190,11 +190,11 @@ LeafBlock:                                        ; preds = %loopStart
   %.reload4 = load i32, i32* %.reg2mem, align 4
   %88 = shl i32 %.reload4, 1
   %89 = sub i32 %88, %1
-  %90 = getelementptr inbounds [15 x i32], [15 x i32]* %lookupTable, i32 0, i32 10
+  %90 = getelementptr inbounds [15 x i32], [15 x i32]* %lookupTable, i32 0, i32 7
   %91 = load i32, i32* %90, align 4
-  %92 = getelementptr inbounds [15 x i32], [15 x i32]* %lookupTable, i32 0, i32 14
+  %92 = getelementptr inbounds [15 x i32], [15 x i32]* %lookupTable, i32 0, i32 6
   %93 = load i32, i32* %92, align 4
-  %94 = srem i32 %91, %93
+  %94 = add i32 %91, %93
   store i32 %94, i32* %dispatcher, align 4
   store i32 %89, i32* %.reg2mem18, align 4
   store i32 3, i32* %.reg2mem20, align 4

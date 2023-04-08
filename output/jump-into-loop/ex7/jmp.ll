@@ -10,57 +10,59 @@ target triple = "arm64-apple-macosx12.0.0"
 ; Function Attrs: mustprogress nofree nounwind ssp uwtable
 define void @_Z7displayPKcRfS1_i(i8* nocapture readonly %0, float* nocapture nonnull align 4 dereferenceable(4) %1, float* nocapture nonnull align 4 dereferenceable(4) %2, i32 %3) local_unnamed_addr #0 {
   %5 = call i32 (i8*, ...) @printf(i8* nonnull dereferenceable(1) getelementptr inbounds ([4 x i8], [4 x i8]* @.str, i64 0, i64 0))
-  %6 = add i32 %3, 1
-  %7 = mul i32 3, %6
-  %8 = add i32 %3, 2
-  %9 = mul i32 %7, %8
-  %10 = srem i32 %9, 6
+  %6 = mul i32 %3, 2
+  %7 = mul i32 %3, 2
+  %8 = add i32 2, %7
+  %9 = mul i32 %6, %8
+  %10 = srem i32 %9, 4
   %11 = icmp eq i32 %10, 0
   %12 = mul i32 %3, %3
   %13 = add i32 %12, %3
   %14 = srem i32 %13, 2
   %15 = icmp eq i32 %14, 0
-  %16 = and i1 %11, %15
+  %16 = or i1 %11, %15
   br i1 %16, label %18, label %17
 
 17:                                               ; preds = %4
-  br label %20
+  br label %25
 
 18:                                               ; preds = %4
   br label %20
 
-19:                                               ; preds = %29
+19:                                               ; preds = %30
   ret void
 
-20:                                               ; preds = %17, %29, %18
-  %21 = phi i64 [ 0, %18 ], [ %40, %29 ], [ 0, %17 ]
+20:                                               ; preds = %30, %18
+  %21 = phi i64 [ 0, %18 ], [ %42, %30 ]
   %22 = trunc i64 %21 to i32
   %23 = urem i32 %22, 80
   %24 = icmp eq i32 %23, 0
-  br i1 %24, label %29, label %25
+  br i1 %24, label %30, label %25
 
-25:                                               ; preds = %20
-  %26 = getelementptr inbounds i8, i8* %0, i64 %21
-  %27 = load i8, i8* %26, align 1, !tbaa !10
-  %28 = sext i8 %27 to i32
-  br label %29
+25:                                               ; preds = %17, %20
+  %26 = phi i64 [ %21, %20 ], [ 0, %17 ]
+  %27 = getelementptr inbounds i8, i8* %0, i64 %26
+  %28 = load i8, i8* %27, align 1, !tbaa !10
+  %29 = sext i8 %28 to i32
+  br label %30
 
-29:                                               ; preds = %25, %20
-  %30 = phi i32 [ %28, %25 ], [ 10, %20 ]
-  %31 = call i32 @putchar(i32 %30)
-  %32 = load float, float* %1, align 4, !tbaa !13
-  %33 = fpext float %32 to double
-  %34 = fadd double %33, 4.000000e-05
-  %35 = fptrunc double %34 to float
-  store float %35, float* %1, align 4, !tbaa !13
-  %36 = load float, float* %2, align 4, !tbaa !13
-  %37 = fpext float %36 to double
-  %38 = fadd double %37, 2.000000e-05
-  %39 = fptrunc double %38 to float
-  store float %39, float* %2, align 4, !tbaa !13
-  %40 = add nuw nsw i64 %21, 1
-  %41 = icmp eq i64 %40, 1761
-  br i1 %41, label %19, label %20, !llvm.loop !15
+30:                                               ; preds = %25, %20
+  %31 = phi i32 [ %29, %25 ], [ 10, %20 ]
+  %32 = phi i64 [ %21, %20 ], [ %26, %25 ]
+  %33 = call i32 @putchar(i32 %31)
+  %34 = load float, float* %1, align 4, !tbaa !13
+  %35 = fpext float %34 to double
+  %36 = fadd double %35, 4.000000e-05
+  %37 = fptrunc double %36 to float
+  store float %37, float* %1, align 4, !tbaa !13
+  %38 = load float, float* %2, align 4, !tbaa !13
+  %39 = fpext float %38 to double
+  %40 = fadd double %39, 2.000000e-05
+  %41 = fptrunc double %40 to float
+  store float %41, float* %2, align 4, !tbaa !13
+  %42 = add nuw nsw i64 %32, 1
+  %43 = icmp eq i64 %42, 1761
+  br i1 %43, label %19, label %20, !llvm.loop !15
 }
 
 ; Function Attrs: nofree nounwind
@@ -176,297 +178,288 @@ define void @_Z6renderffiPfPcii(float %0, float %1, i32 %2, float* nocapture %3,
   br i1 %91, label %24, label %.preheader1, !llvm.loop !18
 
 .preheader1:                                      ; preds = %86
-  %92 = add i32 %5, 1
-  %93 = mul i32 3, %92
-  %94 = add i32 %5, 2
-  %95 = mul i32 %93, %94
-  %96 = srem i32 %95, 6
-  %97 = icmp eq i32 %96, 0
-  %98 = mul i32 %5, %5
-  %99 = add i32 %98, %5
-  %100 = srem i32 %99, 2
-  %101 = icmp eq i32 %100, 0
-  %102 = or i1 %97, %101
-  br i1 %102, label %104, label %103
+  br label %92
 
-103:                                              ; preds = %.preheader1
-  br label %154
+92:                                               ; preds = %.preheader1, %155
+  %93 = phi double [ %158, %155 ], [ 0.000000e+00, %.preheader1 ]
+  %94 = phi float [ %157, %155 ], [ 0.000000e+00, %.preheader1 ]
+  %95 = call fastcc float @_ZL3cosf(float %94) #9
+  %96 = call fastcc float @_ZL3sinf(float %94) #9
+  %97 = fadd float %95, %15
+  %98 = fmul float %12, %97
+  %99 = fmul float %14, %98
+  %100 = fmul float %13, %96
+  %101 = fsub float %99, %100
+  %102 = fmul float %13, %98
+  %103 = fmul float %14, %96
+  %104 = fadd float %103, %102
+  %105 = fadd float %104, 5.000000e+00
+  %106 = fdiv float 1.000000e+00, %105
+  %107 = fmul float %106, 3.000000e+01
+  %108 = fmul float %16, %97
+  %109 = fmul float %17, %108
+  %110 = fmul float %18, %101
+  %111 = fadd float %109, %110
+  %112 = fmul float %111, %107
+  %113 = fadd float %112, %20
+  %114 = fptosi float %113 to i32
+  %115 = fmul float %106, 1.500000e+01
+  %116 = fmul float %18, %108
+  %117 = fmul float %17, %101
+  %118 = fsub float %116, %117
+  %119 = fmul float %118, %115
+  %120 = fadd float %119, %23
+  %121 = fptosi float %120 to i32
+  %122 = fmul float %12, %95
+  %123 = fmul float %14, %122
+  %124 = fsub float %100, %123
+  %125 = fmul float %17, %124
+  %126 = fmul float %13, %122
+  %127 = fsub float %125, %126
+  %128 = fsub float %127, %103
+  %129 = fmul float %16, %95
+  %130 = fmul float %18, %129
+  %131 = fsub float %128, %130
+  %132 = fmul float %131, 8.000000e+00
+  %133 = fptosi float %132 to i32
+  %134 = icmp slt i32 %121, %5
+  %135 = icmp sgt i32 %121, 0
+  %136 = and i1 %134, %135
+  %137 = icmp sgt i32 %114, 0
+  %138 = select i1 %136, i1 %137, i1 false
+  %139 = icmp slt i32 %114, %6
+  %140 = select i1 %138, i1 %139, i1 false
+  br i1 %140, label %141, label %155
 
-104:                                              ; preds = %.preheader1
-  br label %105
+141:                                              ; preds = %92
+  %142 = mul nsw i32 %121, %6
+  %143 = add nsw i32 %142, %114
+  %144 = sext i32 %143 to i64
+  %145 = getelementptr inbounds float, float* %3, i64 %144
+  %146 = load float, float* %145, align 4, !tbaa !13
+  %147 = fcmp ogt float %106, %146
+  br i1 %147, label %148, label %155
 
-105:                                              ; preds = %104, %173
-  %106 = phi double [ %181, %173 ], [ 0.000000e+00, %104 ]
-  %107 = phi float [ %180, %173 ], [ 0.000000e+00, %104 ]
-  %108 = call fastcc float @_ZL3cosf(float %107) #9
-  %109 = call fastcc float @_ZL3sinf(float %107) #9
-  %110 = fadd float %108, %15
-  %111 = fmul float %12, %110
-  %112 = fmul float %14, %111
-  %113 = fmul float %13, %109
-  %114 = fsub float %112, %113
-  %115 = fmul float %13, %111
-  %116 = fmul float %14, %109
-  %117 = fadd float %116, %115
-  %118 = fadd float %117, 5.000000e+00
-  %119 = fdiv float 1.000000e+00, %118
-  %120 = fmul float %119, 3.000000e+01
-  %121 = fmul float %16, %110
-  %122 = fmul float %17, %121
-  %123 = fmul float %18, %114
-  %124 = fadd float %122, %123
-  %125 = fmul float %124, %120
-  %126 = fadd float %125, %20
-  %127 = fptosi float %126 to i32
-  %128 = fmul float %119, 1.500000e+01
-  %129 = fmul float %18, %121
-  %130 = fmul float %17, %114
-  %131 = fsub float %129, %130
-  %132 = fmul float %131, %128
-  %133 = fadd float %132, %23
-  %134 = fptosi float %133 to i32
-  %135 = fmul float %12, %108
-  %136 = fmul float %14, %135
-  %137 = fsub float %113, %136
-  %138 = fmul float %17, %137
-  %139 = fmul float %13, %135
-  %140 = fsub float %138, %139
-  %141 = fsub float %140, %116
-  %142 = fmul float %16, %108
-  %143 = fmul float %18, %142
-  %144 = fsub float %141, %143
-  %145 = fmul float %144, 8.000000e+00
-  %146 = fptosi float %145 to i32
-  %147 = icmp slt i32 %134, %5
-  %148 = icmp sgt i32 %134, 0
-  %149 = and i1 %147, %148
-  %150 = icmp sgt i32 %127, 0
-  %151 = select i1 %149, i1 %150, i1 false
-  %152 = icmp slt i32 %127, %6
-  %153 = select i1 %151, i1 %152, i1 false
-  br i1 %153, label %154, label %173
+148:                                              ; preds = %141
+  store float %106, float* %145, align 4, !tbaa !13
+  %149 = icmp sgt i32 %133, 0
+  %150 = select i1 %149, i32 %133, i32 0
+  %151 = zext i32 %150 to i64
+  %152 = getelementptr inbounds [13 x i8], [13 x i8]* @.str.1, i64 0, i64 %151
+  %153 = load i8, i8* %152, align 1, !tbaa !10
+  %154 = getelementptr inbounds i8, i8* %4, i64 %144
+  store i8 %153, i8* %154, align 1, !tbaa !10
+  br label %155
 
-154:                                              ; preds = %103, %105
-  %155 = phi float [ %119, %105 ], [ 0.000000e+00, %103 ]
-  %156 = phi i32 [ %127, %105 ], [ 0, %103 ]
-  %157 = phi double [ %106, %105 ], [ 0.000000e+00, %103 ]
-  %158 = phi i32 [ %134, %105 ], [ 0, %103 ]
-  %159 = phi i32 [ %146, %105 ], [ 0, %103 ]
-  %160 = mul nsw i32 %158, %6
-  %161 = add nsw i32 %160, %156
-  %162 = sext i32 %161 to i64
-  %163 = getelementptr inbounds float, float* %3, i64 %162
-  %164 = load float, float* %163, align 4, !tbaa !13
-  %165 = fcmp ogt float %155, %164
-  br i1 %165, label %166, label %173
+155:                                              ; preds = %148, %141, %92
+  %156 = fadd double %93, 7.000000e-02
+  %157 = fptrunc double %156 to float
+  %158 = fpext float %157 to double
+  %159 = fcmp olt double %158, 6.280000e+00
+  br i1 %159, label %92, label %.preheader, !llvm.loop !19
 
-166:                                              ; preds = %154
-  store float %155, float* %163, align 4, !tbaa !13
-  %167 = icmp sgt i32 %159, 0
-  %168 = select i1 %167, i32 %159, i32 0
-  %169 = zext i32 %168 to i64
-  %170 = getelementptr inbounds [13 x i8], [13 x i8]* @.str.1, i64 0, i64 %169
-  %171 = load i8, i8* %170, align 1, !tbaa !10
-  %172 = getelementptr inbounds i8, i8* %4, i64 %162
-  store i8 %171, i8* %172, align 1, !tbaa !10
-  br label %173
+.preheader:                                       ; preds = %155
+  br label %178
 
-173:                                              ; preds = %166, %154, %105
-  %174 = phi float [ %119, %105 ], [ %155, %154 ], [ %155, %166 ]
-  %175 = phi i32 [ %127, %105 ], [ %156, %154 ], [ %156, %166 ]
-  %176 = phi double [ %106, %105 ], [ %157, %154 ], [ %157, %166 ]
-  %177 = phi i32 [ %134, %105 ], [ %158, %154 ], [ %158, %166 ]
-  %178 = phi i32 [ %146, %105 ], [ %159, %154 ], [ %159, %166 ]
-  %179 = fadd double %176, 7.000000e-02
-  %180 = fptrunc double %179 to float
-  %181 = fpext float %180 to double
-  %182 = fcmp olt double %181, 6.280000e+00
-  br i1 %182, label %105, label %.preheader, !llvm.loop !19
+160:                                              ; preds = %241
+  %161 = fcmp une float %13, 0.000000e+00
+  %162 = fmul float %13, 2.000000e+00
+  %163 = select i1 %161, float %162, float %13
+  %164 = mul i64 %9, 2
+  %165 = mul i64 %9, 2
+  %166 = add i64 2, %165
+  %167 = mul i64 %164, %166
+  %168 = srem i64 %167, 4
+  %169 = icmp eq i64 %168, 0
+  %170 = mul i64 %9, %9
+  %171 = mul i64 %170, %9
+  %172 = add i64 %171, %9
+  %173 = srem i64 %172, 2
+  %174 = icmp eq i64 %173, 0
+  %175 = and i1 %169, %174
+  br i1 %175, label %177, label %176
 
-.preheader:                                       ; preds = %173
-  br label %187
+176:                                              ; preds = %160
+  br label %247
 
-183:                                              ; preds = %250
-  %184 = fcmp une float %13, 0.000000e+00
-  %185 = fmul float %13, 2.000000e+00
-  %186 = select i1 %184, float %185, float %13
-  br label %256
+177:                                              ; preds = %160
+  br label %247
 
-187:                                              ; preds = %.preheader, %250
-  %188 = phi double [ %253, %250 ], [ 0.000000e+00, %.preheader ]
-  %189 = phi float [ %252, %250 ], [ 0.000000e+00, %.preheader ]
-  %190 = call fastcc float @_ZL3cosf(float %189) #9
-  %191 = call fastcc float @_ZL3sinf(float %189) #9
-  %192 = fadd float %190, %15
-  %193 = fmul float %12, %192
-  %194 = fmul float %14, %193
-  %195 = fmul float %13, %191
-  %196 = fsub float %194, %195
-  %197 = fmul float %13, %193
-  %198 = fmul float %14, %191
-  %199 = fadd float %198, %197
-  %200 = fadd float %199, 5.000000e+00
-  %201 = fdiv float 1.000000e+00, %200
-  %202 = fmul float %201, 3.000000e+01
-  %203 = fmul float %16, %192
-  %204 = fmul float %17, %203
-  %205 = fmul float %18, %196
-  %206 = fadd float %204, %205
-  %207 = fmul float %206, %202
-  %208 = fadd float %207, %20
-  %209 = fptosi float %208 to i32
-  %210 = fmul float %201, 1.500000e+01
-  %211 = fmul float %18, %203
-  %212 = fmul float %17, %196
+178:                                              ; preds = %.preheader, %241
+  %179 = phi double [ %244, %241 ], [ 0.000000e+00, %.preheader ]
+  %180 = phi float [ %243, %241 ], [ 0.000000e+00, %.preheader ]
+  %181 = call fastcc float @_ZL3cosf(float %180) #9
+  %182 = call fastcc float @_ZL3sinf(float %180) #9
+  %183 = fadd float %181, %15
+  %184 = fmul float %12, %183
+  %185 = fmul float %14, %184
+  %186 = fmul float %13, %182
+  %187 = fsub float %185, %186
+  %188 = fmul float %13, %184
+  %189 = fmul float %14, %182
+  %190 = fadd float %189, %188
+  %191 = fadd float %190, 5.000000e+00
+  %192 = fdiv float 1.000000e+00, %191
+  %193 = fmul float %192, 3.000000e+01
+  %194 = fmul float %16, %183
+  %195 = fmul float %17, %194
+  %196 = fmul float %18, %187
+  %197 = fadd float %195, %196
+  %198 = fmul float %197, %193
+  %199 = fadd float %198, %20
+  %200 = fptosi float %199 to i32
+  %201 = fmul float %192, 1.500000e+01
+  %202 = fmul float %18, %194
+  %203 = fmul float %17, %187
+  %204 = fsub float %202, %203
+  %205 = fmul float %204, %201
+  %206 = fadd float %205, %23
+  %207 = fptosi float %206 to i32
+  %208 = fmul float %12, %181
+  %209 = fmul float %14, %208
+  %210 = fsub float %186, %209
+  %211 = fmul float %17, %210
+  %212 = fmul float %13, %208
   %213 = fsub float %211, %212
-  %214 = fmul float %213, %210
-  %215 = fadd float %214, %23
-  %216 = fptosi float %215 to i32
-  %217 = fmul float %12, %190
-  %218 = fmul float %14, %217
-  %219 = fsub float %195, %218
-  %220 = fmul float %17, %219
-  %221 = fmul float %13, %217
-  %222 = fsub float %220, %221
-  %223 = fsub float %222, %198
-  %224 = fmul float %16, %190
-  %225 = fmul float %18, %224
-  %226 = fsub float %223, %225
-  %227 = fmul float %226, 8.000000e+00
-  %228 = fptosi float %227 to i32
-  %229 = icmp slt i32 %216, %5
-  %230 = icmp sgt i32 %216, 0
-  %231 = and i1 %229, %230
-  %232 = icmp sgt i32 %209, 0
-  %233 = select i1 %231, i1 %232, i1 false
-  %234 = icmp slt i32 %209, %6
-  %235 = select i1 %233, i1 %234, i1 false
-  br i1 %235, label %236, label %250
+  %214 = fsub float %213, %189
+  %215 = fmul float %16, %181
+  %216 = fmul float %18, %215
+  %217 = fsub float %214, %216
+  %218 = fmul float %217, 8.000000e+00
+  %219 = fptosi float %218 to i32
+  %220 = icmp slt i32 %207, %5
+  %221 = icmp sgt i32 %207, 0
+  %222 = and i1 %220, %221
+  %223 = icmp sgt i32 %200, 0
+  %224 = select i1 %222, i1 %223, i1 false
+  %225 = icmp slt i32 %200, %6
+  %226 = select i1 %224, i1 %225, i1 false
+  br i1 %226, label %227, label %241
 
-236:                                              ; preds = %187
-  %237 = mul nsw i32 %216, %6
-  %238 = add nsw i32 %237, %209
-  %239 = sext i32 %238 to i64
-  %240 = getelementptr inbounds float, float* %3, i64 %239
-  %241 = load float, float* %240, align 4, !tbaa !13
-  %242 = fcmp ogt float %201, %241
-  br i1 %242, label %243, label %250
+227:                                              ; preds = %178
+  %228 = mul nsw i32 %207, %6
+  %229 = add nsw i32 %228, %200
+  %230 = sext i32 %229 to i64
+  %231 = getelementptr inbounds float, float* %3, i64 %230
+  %232 = load float, float* %231, align 4, !tbaa !13
+  %233 = fcmp ogt float %192, %232
+  br i1 %233, label %234, label %241
 
-243:                                              ; preds = %236
-  store float %201, float* %240, align 4, !tbaa !13
-  %244 = icmp sgt i32 %228, 0
-  %245 = select i1 %244, i32 %228, i32 0
-  %246 = zext i32 %245 to i64
-  %247 = getelementptr inbounds [13 x i8], [13 x i8]* @.str.1, i64 0, i64 %246
-  %248 = load i8, i8* %247, align 1, !tbaa !10
-  %249 = getelementptr inbounds i8, i8* %4, i64 %239
-  store i8 %248, i8* %249, align 1, !tbaa !10
-  br label %250
+234:                                              ; preds = %227
+  store float %192, float* %231, align 4, !tbaa !13
+  %235 = icmp sgt i32 %219, 0
+  %236 = select i1 %235, i32 %219, i32 0
+  %237 = zext i32 %236 to i64
+  %238 = getelementptr inbounds [13 x i8], [13 x i8]* @.str.1, i64 0, i64 %237
+  %239 = load i8, i8* %238, align 1, !tbaa !10
+  %240 = getelementptr inbounds i8, i8* %4, i64 %230
+  store i8 %239, i8* %240, align 1, !tbaa !10
+  br label %241
 
-250:                                              ; preds = %243, %236, %187
-  %251 = fadd double %188, 7.000000e-02
-  %252 = fptrunc double %251 to float
-  %253 = fpext float %252 to double
-  %254 = fcmp olt double %253, 6.280000e+00
-  br i1 %254, label %187, label %183, !llvm.loop !20
+241:                                              ; preds = %234, %227, %178
+  %242 = fadd double %179, 7.000000e-02
+  %243 = fptrunc double %242 to float
+  %244 = fpext float %243 to double
+  %245 = fcmp olt double %244, 6.280000e+00
+  br i1 %245, label %178, label %160, !llvm.loop !20
 
-255:                                              ; preds = %336
+246:                                              ; preds = %327
   ret void
 
-256:                                              ; preds = %336, %183
-  %257 = phi double [ 0.000000e+00, %183 ], [ %339, %336 ]
-  %258 = phi i32 [ 0, %183 ], [ %260, %336 ]
-  %259 = phi float [ 0.000000e+00, %183 ], [ %338, %336 ]
-  %260 = add nuw nsw i32 %258, 1
-  %261 = sitofp i32 %258 to float
-  %262 = fadd float %12, %261
-  %263 = call fastcc float @_ZL3cosf(float %259) #9
-  %264 = fcmp une float %262, 0.000000e+00
-  %265 = fmul float %262, 2.000000e+00
-  %266 = fmul float %263, 2.000000e+00
-  %267 = select i1 %264, float %263, float %266
-  %268 = select i1 %264, float %265, float %262
-  %269 = call fastcc float @_ZL3sinf(float %259) #9
-  %270 = fmul float %269, 2.000000e+00
-  %271 = select i1 %184, float %269, float %270
-  %272 = fadd float %267, %15
-  %273 = fmul float %268, %272
-  %274 = fmul float %14, %273
-  %275 = fmul float %186, %271
-  %276 = fsub float %274, %275
-  %277 = fcmp une float %272, 0.000000e+00
-  %278 = fmul float %276, 2.000000e+00
-  %279 = fmul float %272, 2.000000e+00
-  %280 = select i1 %277, float %272, float %279
-  %281 = select i1 %277, float %278, float %276
-  %282 = fmul float %268, %280
-  %283 = fmul float %186, %282
-  %284 = fmul float %14, %271
-  %285 = fadd float %284, %283
-  %286 = fadd float %285, 5.000000e+00
-  %287 = fdiv float 1.000000e+00, %286
-  %288 = fmul float %287, 3.000000e+01
-  %289 = fmul float %16, %280
-  %290 = fmul float %17, %289
-  %291 = fmul float %18, %281
-  %292 = fadd float %290, %291
-  %293 = fmul float %292, %288
-  %294 = fadd float %293, %20
-  %295 = fptosi float %294 to i32
-  %296 = fmul float %287, 1.500000e+01
-  %297 = fmul float %18, %289
-  %298 = fmul float %17, %281
+247:                                              ; preds = %176, %327, %177
+  %248 = phi double [ 0.000000e+00, %177 ], [ %330, %327 ], [ 0.000000e+00, %176 ]
+  %249 = phi i32 [ 0, %177 ], [ %251, %327 ], [ 0, %176 ]
+  %250 = phi float [ 0.000000e+00, %177 ], [ %329, %327 ], [ 0.000000e+00, %176 ]
+  %251 = add nuw nsw i32 %249, 1
+  %252 = sitofp i32 %249 to float
+  %253 = fadd float %12, %252
+  %254 = call fastcc float @_ZL3cosf(float %250) #9
+  %255 = fcmp une float %253, 0.000000e+00
+  %256 = fmul float %253, 2.000000e+00
+  %257 = fmul float %254, 2.000000e+00
+  %258 = select i1 %255, float %254, float %257
+  %259 = select i1 %255, float %256, float %253
+  %260 = call fastcc float @_ZL3sinf(float %250) #9
+  %261 = fmul float %260, 2.000000e+00
+  %262 = select i1 %161, float %260, float %261
+  %263 = fadd float %258, %15
+  %264 = fmul float %259, %263
+  %265 = fmul float %14, %264
+  %266 = fmul float %163, %262
+  %267 = fsub float %265, %266
+  %268 = fcmp une float %263, 0.000000e+00
+  %269 = fmul float %267, 2.000000e+00
+  %270 = fmul float %263, 2.000000e+00
+  %271 = select i1 %268, float %263, float %270
+  %272 = select i1 %268, float %269, float %267
+  %273 = fmul float %259, %271
+  %274 = fmul float %163, %273
+  %275 = fmul float %14, %262
+  %276 = fadd float %275, %274
+  %277 = fadd float %276, 5.000000e+00
+  %278 = fdiv float 1.000000e+00, %277
+  %279 = fmul float %278, 3.000000e+01
+  %280 = fmul float %16, %271
+  %281 = fmul float %17, %280
+  %282 = fmul float %18, %272
+  %283 = fadd float %281, %282
+  %284 = fmul float %283, %279
+  %285 = fadd float %284, %20
+  %286 = fptosi float %285 to i32
+  %287 = fmul float %278, 1.500000e+01
+  %288 = fmul float %18, %280
+  %289 = fmul float %17, %272
+  %290 = fsub float %288, %289
+  %291 = fmul float %290, %287
+  %292 = fadd float %291, %23
+  %293 = fptosi float %292 to i32
+  %294 = fmul float %259, %258
+  %295 = fmul float %14, %294
+  %296 = fsub float %266, %295
+  %297 = fmul float %17, %296
+  %298 = fmul float %163, %294
   %299 = fsub float %297, %298
-  %300 = fmul float %299, %296
-  %301 = fadd float %300, %23
-  %302 = fptosi float %301 to i32
-  %303 = fmul float %268, %267
-  %304 = fmul float %14, %303
-  %305 = fsub float %275, %304
-  %306 = fmul float %17, %305
-  %307 = fmul float %186, %303
-  %308 = fsub float %306, %307
-  %309 = fsub float %308, %284
-  %310 = fmul float %16, %267
-  %311 = fmul float %18, %310
-  %312 = fsub float %309, %311
-  %313 = fmul float %312, 8.000000e+00
-  %314 = fptosi float %313 to i32
-  %315 = icmp slt i32 %302, %5
-  %316 = icmp sgt i32 %302, 0
-  %317 = and i1 %315, %316
-  %318 = icmp sgt i32 %295, 0
-  %319 = select i1 %317, i1 %318, i1 false
-  %320 = icmp slt i32 %295, %6
-  %321 = select i1 %319, i1 %320, i1 false
-  br i1 %321, label %322, label %336
+  %300 = fsub float %299, %275
+  %301 = fmul float %16, %258
+  %302 = fmul float %18, %301
+  %303 = fsub float %300, %302
+  %304 = fmul float %303, 8.000000e+00
+  %305 = fptosi float %304 to i32
+  %306 = icmp slt i32 %293, %5
+  %307 = icmp sgt i32 %293, 0
+  %308 = and i1 %306, %307
+  %309 = icmp sgt i32 %286, 0
+  %310 = select i1 %308, i1 %309, i1 false
+  %311 = icmp slt i32 %286, %6
+  %312 = select i1 %310, i1 %311, i1 false
+  br i1 %312, label %313, label %327
 
-322:                                              ; preds = %256
-  %323 = mul nsw i32 %302, %6
-  %324 = add nsw i32 %323, %295
-  %325 = sext i32 %324 to i64
-  %326 = getelementptr inbounds float, float* %3, i64 %325
-  %327 = load float, float* %326, align 4, !tbaa !13
-  %328 = fcmp ogt float %287, %327
-  br i1 %328, label %329, label %336
+313:                                              ; preds = %247
+  %314 = mul nsw i32 %293, %6
+  %315 = add nsw i32 %314, %286
+  %316 = sext i32 %315 to i64
+  %317 = getelementptr inbounds float, float* %3, i64 %316
+  %318 = load float, float* %317, align 4, !tbaa !13
+  %319 = fcmp ogt float %278, %318
+  br i1 %319, label %320, label %327
 
-329:                                              ; preds = %322
-  store float %287, float* %326, align 4, !tbaa !13
-  %330 = icmp sgt i32 %314, 0
-  %331 = select i1 %330, i32 %314, i32 0
-  %332 = zext i32 %331 to i64
-  %333 = getelementptr inbounds [13 x i8], [13 x i8]* @.str.1, i64 0, i64 %332
-  %334 = load i8, i8* %333, align 1, !tbaa !10
-  %335 = getelementptr inbounds i8, i8* %4, i64 %325
-  store i8 %334, i8* %335, align 1, !tbaa !10
-  br label %336
+320:                                              ; preds = %313
+  store float %278, float* %317, align 4, !tbaa !13
+  %321 = icmp sgt i32 %305, 0
+  %322 = select i1 %321, i32 %305, i32 0
+  %323 = zext i32 %322 to i64
+  %324 = getelementptr inbounds [13 x i8], [13 x i8]* @.str.1, i64 0, i64 %323
+  %325 = load i8, i8* %324, align 1, !tbaa !10
+  %326 = getelementptr inbounds i8, i8* %4, i64 %316
+  store i8 %325, i8* %326, align 1, !tbaa !10
+  br label %327
 
-336:                                              ; preds = %329, %322, %256
-  %337 = fadd double %257, 7.000000e-02
-  %338 = fptrunc double %337 to float
-  %339 = fpext float %338 to double
-  %340 = icmp eq i32 %260, 90
-  br i1 %340, label %255, label %256, !llvm.loop !21
+327:                                              ; preds = %320, %313, %247
+  %328 = fadd double %248, 7.000000e-02
+  %329 = fptrunc double %328 to float
+  %330 = fpext float %329 to double
+  %331 = icmp eq i32 %251, 90
+  br i1 %331, label %246, label %247, !llvm.loop !21
 }
 
 ; Function Attrs: argmemonly nocallback nofree nounwind willreturn writeonly
@@ -513,29 +506,42 @@ define i32 @main() local_unnamed_addr #6 {
   br i1 %16, label %.preheader, label %11, !llvm.loop !22
 
 .preheader:                                       ; preds = %11
-  br label %18
+  %17 = and i32 %12, 1
+  %18 = icmp eq i32 %17, 1
+  %19 = mul i32 %12, %12
+  %20 = add i32 %19, %12
+  %21 = srem i32 %20, 2
+  %22 = icmp eq i32 %21, 0
+  %23 = or i1 %18, %22
+  br i1 %23, label %25, label %24
 
-17:                                               ; preds = %18
+24:                                               ; preds = %.preheader
+  br label %27
+
+25:                                               ; preds = %.preheader
+  br label %27
+
+26:                                               ; preds = %27
   call void @llvm.stackrestore(i8* %5)
   call void @llvm.lifetime.end.p0i8(i64 4, i8* nonnull %4) #9
   call void @llvm.lifetime.end.p0i8(i64 4, i8* nonnull %3) #9
-  ret i32 %29
+  ret i32 %38
 
-18:                                               ; preds = %.preheader, %18
-  %19 = phi i64 [ %30, %18 ], [ 0, %.preheader ]
-  %20 = phi i32 [ %29, %18 ], [ 0, %.preheader ]
-  %21 = getelementptr inbounds [1760 x i8], [1760 x i8]* %7, i64 0, i64 %19
-  %22 = load i8, i8* %21, align 1, !tbaa !10
-  %23 = sext i8 %22 to i32
-  %24 = add nsw i32 %20, %23
-  %25 = getelementptr inbounds [1760 x float], [1760 x float]* %6, i64 0, i64 %19
-  %26 = load float, float* %25, align 4, !tbaa !13
-  %27 = sitofp i32 %24 to float
-  %28 = fadd float %26, %27
-  %29 = fptosi float %28 to i32
-  %30 = add nuw nsw i64 %19, 1
-  %31 = icmp eq i64 %30, 1760
-  br i1 %31, label %17, label %18, !llvm.loop !23
+27:                                               ; preds = %24, %25, %27
+  %28 = phi i64 [ %39, %27 ], [ 0, %25 ], [ 0, %24 ]
+  %29 = phi i32 [ %38, %27 ], [ 0, %25 ], [ 0, %24 ]
+  %30 = getelementptr inbounds [1760 x i8], [1760 x i8]* %7, i64 0, i64 %28
+  %31 = load i8, i8* %30, align 1, !tbaa !10
+  %32 = sext i8 %31 to i32
+  %33 = add nsw i32 %29, %32
+  %34 = getelementptr inbounds [1760 x float], [1760 x float]* %6, i64 0, i64 %28
+  %35 = load float, float* %34, align 4, !tbaa !13
+  %36 = sitofp i32 %33 to float
+  %37 = fadd float %35, %36
+  %38 = fptosi float %37 to i32
+  %39 = add nuw nsw i64 %28, 1
+  %40 = icmp eq i64 %39, 1760
+  br i1 %40, label %26, label %27, !llvm.loop !23
 }
 
 ; Function Attrs: nocallback nofree nosync nounwind willreturn

@@ -5,64 +5,60 @@ target triple = "arm64-apple-macosx12.0.0"
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind readnone ssp willreturn uwtable
 define i32 @_Z6decideii(i32 %0, i32 %1) local_unnamed_addr #0 {
-  %3 = and i32 %0, 1
-  %4 = icmp eq i32 %3, 0
-  %5 = add i32 %0, 1
-  %6 = mul i32 3, %5
-  %7 = add i32 %0, 2
-  %8 = mul i32 %6, %7
-  %9 = srem i32 %8, 6
-  %10 = icmp eq i32 %9, 0
-  %11 = or i1 %4, %10
-  br i1 %11, label %13, label %12
+  %3 = and i32 %1, 1
+  %4 = icmp eq i32 %3, 1
+  %5 = mul i32 %1, %1
+  %6 = add i32 %5, %1
+  %7 = srem i32 %6, 2
+  %8 = icmp eq i32 %7, 0
+  %9 = or i1 %4, %8
+  br i1 %9, label %11, label %10
 
-12:                                               ; preds = %2
-  br label %18
+10:                                               ; preds = %2
+  br label %13
 
-13:                                               ; preds = %2
-  br label %15
+11:                                               ; preds = %2
+  br label %13
 
-14:                                               ; preds = %15
+12:                                               ; preds = %13
   unreachable
 
-15:                                               ; preds = %29, %13
-  %16 = phi i32 [ %0, %13 ], [ %30, %29 ]
-  %17 = phi i32 [ 0, %13 ], [ %31, %29 ]
-  switch i32 %17, label %14 [
-    i32 0, label %18
-    i32 1, label %24
-    i32 2, label %33
-    i32 3, label %36
+13:                                               ; preds = %10, %26, %11
+  %14 = phi i32 [ %0, %11 ], [ %27, %26 ], [ 0, %10 ]
+  %15 = phi i32 [ 0, %11 ], [ %28, %26 ], [ 0, %10 ]
+  switch i32 %15, label %12 [
+    i32 0, label %16
+    i32 1, label %21
+    i32 2, label %29
+    i32 3, label %32
   ], !llvm.loop !10
 
-18:                                               ; preds = %12, %15
-  %19 = phi i32 [ %16, %15 ], [ 0, %12 ]
-  %20 = icmp slt i32 %19, %1
-  %21 = select i1 %20, i32 %1, i32 0
-  %22 = add nsw i32 %21, %19
-  %23 = select i1 %20, i32 3, i32 1
-  br label %29
+16:                                               ; preds = %13
+  %17 = icmp slt i32 %14, %1
+  %18 = select i1 %17, i32 %1, i32 0
+  %19 = add nsw i32 %18, %14
+  %20 = select i1 %17, i32 3, i32 1
+  br label %26
 
-24:                                               ; preds = %15
-  %25 = icmp eq i32 %16, %1
-  %26 = sub nsw i32 %1, %16
-  %27 = select i1 %25, i32 %26, i32 %16
-  %28 = select i1 %25, i32 3, i32 2
-  br label %29
+21:                                               ; preds = %13
+  %22 = icmp eq i32 %14, %1
+  %23 = sub nsw i32 %1, %14
+  %24 = select i1 %22, i32 %23, i32 %14
+  %25 = select i1 %22, i32 3, i32 2
+  br label %26
 
-29:                                               ; preds = %33, %24, %18
-  %30 = phi i32 [ %35, %33 ], [ %22, %18 ], [ %27, %24 ]
-  %31 = phi i32 [ 3, %33 ], [ %23, %18 ], [ %28, %24 ]
-  %32 = phi i32 [ %19, %18 ], [ %16, %24 ], [ %16, %33 ]
-  br label %15, !llvm.loop !13
+26:                                               ; preds = %29, %21, %16
+  %27 = phi i32 [ %31, %29 ], [ %19, %16 ], [ %24, %21 ]
+  %28 = phi i32 [ 3, %29 ], [ %20, %16 ], [ %25, %21 ]
+  br label %13, !llvm.loop !13
 
-33:                                               ; preds = %15
-  %34 = shl i32 %16, 1
-  %35 = sub i32 %34, %1
-  br label %29
+29:                                               ; preds = %13
+  %30 = shl i32 %14, 1
+  %31 = sub i32 %30, %1
+  br label %26
 
-36:                                               ; preds = %15
-  ret i32 %16
+32:                                               ; preds = %13
+  ret i32 %14
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind readnone ssp willreturn uwtable

@@ -9,12 +9,25 @@ void test() {
 int32_t digitSum(int32_t n) {
     test();
     int32_t sum = 0;
-    for(;;) {
+    for (;;) {
         ++sum;
         n /= 10;
         if (n == 0) {
             break;
         }
+        if (n + 2 == 1) {
+            n++;
+        } else {
+            int q = 2 * sum;
+            sum -= 1;
+            n += sum;
+        }
+        if (n == 5) {
+            break;
+        }
+
+        float phi = 3.5;
+        n += phi ? 2 * sum : 0;
     }
     return sum;
 }

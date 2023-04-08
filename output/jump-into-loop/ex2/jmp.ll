@@ -17,36 +17,61 @@ declare noundef i32 @printf(i8* nocapture noundef readonly, ...) local_unnamed_a
 ; Function Attrs: mustprogress nofree nounwind ssp uwtable
 define i32 @_Z8digitSumi(i32 %0) local_unnamed_addr #0 {
   call void @_Z4testv()
-  %2 = add i32 %0, 1
-  %3 = mul i32 3, %2
-  %4 = add i32 %0, 2
-  %5 = mul i32 %3, %4
-  %6 = srem i32 %5, 6
-  %7 = icmp eq i32 %6, 0
-  %8 = mul i32 %0, %0
-  %9 = add i32 %8, %0
-  %10 = srem i32 %9, 2
-  %11 = icmp eq i32 %10, 0
-  %12 = and i1 %7, %11
-  br i1 %12, label %14, label %13
+  %2 = add i32 %0, 9
+  %3 = icmp ult i32 %2, 19
+  br i1 %3, label %37, label %.preheader
 
-13:                                               ; preds = %1
-  br label %15
+.preheader:                                       ; preds = %1
+  %4 = mul i32 %0, 2
+  %5 = mul i32 %0, 2
+  %6 = add i32 2, %5
+  %7 = mul i32 %4, %6
+  %8 = srem i32 %7, 4
+  %9 = icmp eq i32 %8, 0
+  %10 = mul i32 %0, %0
+  %11 = mul i32 %10, %0
+  %12 = add i32 %11, %0
+  %13 = srem i32 %12, 2
+  %14 = icmp eq i32 %13, 0
+  %15 = and i1 %9, %14
+  br i1 %15, label %17, label %16
 
-14:                                               ; preds = %1
-  br label %15
+16:                                               ; preds = %.preheader
+  br label %29
 
-15:                                               ; preds = %13, %15, %14
-  %16 = phi i32 [ %0, %14 ], [ %19, %15 ], [ 0, %13 ]
-  %17 = phi i32 [ 0, %14 ], [ %18, %15 ], [ 0, %13 ]
-  %18 = add nuw nsw i32 %17, 1
-  %19 = sdiv i32 %16, 10
-  %20 = add i32 %16, 9
-  %21 = icmp ult i32 %20, 19
-  br i1 %21, label %22, label %15, !llvm.loop !10
+17:                                               ; preds = %.preheader
+  br label %18
 
-22:                                               ; preds = %15
-  ret i32 %18
+18:                                               ; preds = %17, %29
+  %19 = phi i32 [ %34, %29 ], [ 1, %17 ]
+  %20 = phi i32 [ %33, %29 ], [ %0, %17 ]
+  %21 = phi i32 [ %31, %29 ], [ 0, %17 ]
+  %22 = sdiv i32 %20, 10
+  %23 = add i32 %20, 19
+  %24 = icmp ult i32 %23, 10
+  %25 = select i1 %24, i32 %19, i32 %21
+  %26 = select i1 %24, i32 1, i32 %21
+  %27 = add nsw i32 %26, %22
+  %28 = icmp eq i32 %27, 5
+  br i1 %28, label %.loopexit, label %29
+
+29:                                               ; preds = %16, %18
+  %30 = phi i32 [ %27, %18 ], [ 0, %16 ]
+  %31 = phi i32 [ %25, %18 ], [ 0, %16 ]
+  %32 = shl nsw i32 %31, 1
+  %33 = add nsw i32 %30, %32
+  %34 = add nsw i32 %31, 1
+  %35 = add i32 %33, 9
+  %36 = icmp ult i32 %35, 19
+  br i1 %36, label %.loopexit, label %18, !llvm.loop !10
+
+.loopexit:                                        ; preds = %18, %29
+  %.ph = phi i32 [ %25, %18 ], [ %34, %29 ]
+  br label %37
+
+37:                                               ; preds = %.loopexit, %1
+  %38 = phi i32 [ 1, %1 ], [ %.ph, %.loopexit ]
+  ret i32 %38
 }
 
 ; Function Attrs: mustprogress nofree norecurse nounwind ssp uwtable

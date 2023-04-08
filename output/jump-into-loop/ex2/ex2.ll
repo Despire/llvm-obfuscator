@@ -17,19 +17,34 @@ declare noundef i32 @printf(i8* nocapture noundef readonly, ...) local_unnamed_a
 ; Function Attrs: mustprogress nofree nounwind ssp uwtable
 define i32 @_Z8digitSumi(i32 %0) local_unnamed_addr #0 {
   call void @_Z4testv()
-  br label %2
+  %2 = add i32 %0, 9
+  %3 = icmp ult i32 %2, 19
+  br i1 %3, label %21, label %4
 
-2:                                                ; preds = %2, %1
-  %3 = phi i32 [ %0, %1 ], [ %6, %2 ]
-  %4 = phi i32 [ 0, %1 ], [ %5, %2 ]
-  %5 = add nuw nsw i32 %4, 1
-  %6 = sdiv i32 %3, 10
-  %7 = add i32 %3, 9
-  %8 = icmp ult i32 %7, 19
-  br i1 %8, label %9, label %2, !llvm.loop !10
+4:                                                ; preds = %1, %15
+  %5 = phi i32 [ %18, %15 ], [ 1, %1 ]
+  %6 = phi i32 [ %17, %15 ], [ %0, %1 ]
+  %7 = phi i32 [ %11, %15 ], [ 0, %1 ]
+  %8 = sdiv i32 %6, 10
+  %9 = add i32 %6, 19
+  %10 = icmp ult i32 %9, 10
+  %11 = select i1 %10, i32 %5, i32 %7
+  %12 = select i1 %10, i32 1, i32 %7
+  %13 = add nsw i32 %12, %8
+  %14 = icmp eq i32 %13, 5
+  br i1 %14, label %21, label %15
 
-9:                                                ; preds = %2
-  ret i32 %5
+15:                                               ; preds = %4
+  %16 = shl nsw i32 %11, 1
+  %17 = add nsw i32 %13, %16
+  %18 = add nsw i32 %11, 1
+  %19 = add i32 %17, 9
+  %20 = icmp ult i32 %19, 19
+  br i1 %20, label %21, label %4, !llvm.loop !10
+
+21:                                               ; preds = %15, %4, %1
+  %22 = phi i32 [ 1, %1 ], [ %18, %15 ], [ %11, %4 ]
+  ret i32 %22
 }
 
 ; Function Attrs: mustprogress nofree norecurse nounwind ssp uwtable

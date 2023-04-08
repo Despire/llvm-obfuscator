@@ -10,44 +10,49 @@ define i32 @_Z1diPiS_(i32 %0, i32* nocapture %1, i32* nocapture %2) local_unname
 
 5:                                                ; preds = %3
   %6 = load i32, i32* %2, align 4, !tbaa !10
-  br label %18
+  br label %23
 
 7:                                                ; preds = %3
   %8 = add nuw nsw i32 %0, 7
   %9 = lshr i32 %8, 3
-  %10 = icmp sge i32 %0, %0
-  %11 = mul i32 %0, %0
-  %12 = add i32 %11, %0
-  %13 = srem i32 %12, 2
-  %14 = icmp eq i32 %13, 0
-  %15 = and i1 %10, %14
-  br i1 %15, label %17, label %16
+  %10 = mul i32 %0, 2
+  %11 = mul i32 %0, 2
+  %12 = add i32 2, %11
+  %13 = mul i32 %10, %12
+  %14 = srem i32 %13, 4
+  %15 = icmp eq i32 %14, 0
+  %16 = mul i32 %0, %0
+  %17 = add i32 %16, %0
+  %18 = srem i32 %17, 2
+  %19 = icmp eq i32 %18, 0
+  %20 = or i1 %15, %19
+  br i1 %20, label %22, label %21
 
-16:                                               ; preds = %7
+21:                                               ; preds = %7
+  br label %28
+
+22:                                               ; preds = %7
+  br label %28
+
+.loopexit:                                        ; preds = %28
   br label %23
 
-17:                                               ; preds = %7
-  br label %23
-
-.loopexit:                                        ; preds = %23
-  br label %18
-
-18:                                               ; preds = %.loopexit, %5
-  %19 = phi i32 [ %6, %5 ], [ %25, %.loopexit ]
-  %20 = load i32, i32* %1, align 4, !tbaa !10
-  %21 = add nsw i32 %20, %0
-  %22 = add nsw i32 %21, %19
-  ret i32 %22
-
-23:                                               ; preds = %16, %23, %17
-  %24 = phi i32 [ %27, %23 ], [ 0, %17 ], [ 0, %16 ]
+23:                                               ; preds = %.loopexit, %5
+  %24 = phi i32 [ %6, %5 ], [ %30, %.loopexit ]
   %25 = load i32, i32* %1, align 4, !tbaa !10
-  %26 = add nsw i32 %25, 1
-  store i32 %26, i32* %1, align 4, !tbaa !10
-  store i32 %25, i32* %2, align 4, !tbaa !10
-  %27 = add nuw nsw i32 %24, 1
-  %28 = icmp eq i32 %27, %9
-  br i1 %28, label %.loopexit, label %23, !llvm.loop !14
+  %26 = add nsw i32 %25, %0
+  %27 = add nsw i32 %26, %24
+  ret i32 %27
+
+28:                                               ; preds = %21, %28, %22
+  %29 = phi i32 [ %32, %28 ], [ 0, %22 ], [ 0, %21 ]
+  %30 = load i32, i32* %1, align 4, !tbaa !10
+  %31 = add nsw i32 %30, 1
+  store i32 %31, i32* %1, align 4, !tbaa !10
+  store i32 %30, i32* %2, align 4, !tbaa !10
+  %32 = add nuw nsw i32 %29, 1
+  %33 = icmp eq i32 %32, %9
+  br i1 %33, label %.loopexit, label %28, !llvm.loop !14
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind readnone ssp willreturn uwtable

@@ -1,6 +1,12 @@
 #!/bin/bash
 
-echo "-----Testing Jump Into Loop-----"
+echo "-----Testing Fake Loop-----"
+for i in {0..60}; do
+  python3 ./tests/test_fakeloop.py
+done
+echo "-----------------------------------------"
+
+echo "-----Testing String obfuscation-----"
   python3 ./tests/test_strobfs.py
 echo "-----------------------------------------"
 
