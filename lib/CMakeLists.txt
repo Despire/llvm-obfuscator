@@ -6,6 +6,7 @@ set(LLVM_OBFUSCATOR_PLUGINS
         BogusFlowJumpIntoLoop
         StringObfuscation
         BogusFlowIntroduceLoop
+        BranchFunction
 )
 
 set(Substitution_SOURCES Substitution.cpp cmd-args/Coverage.cpp)
@@ -15,6 +16,7 @@ set(BogusFlowJumpIntoLoop_SOURCES JumpIntoLoop.cpp)
 set(ReachableIntegers_SOURCES ReachableIntegersAnalysis.cpp)
 set(StringObfuscation_SOURCES StringObfuscation.cpp)
 set(BogusFlowIntroduceLoop_SOURCES BogusFlowIntroduceLoop.cpp)
+set(BranchFunction_SOURCES BranchFunction.cpp)
 
 foreach (plugin ${LLVM_OBFUSCATOR_PLUGINS})
     add_library(${plugin} SHARED ${${plugin}_SOURCES})
