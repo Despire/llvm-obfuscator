@@ -1,5 +1,10 @@
 #!/bin/bash
 
+echo "-----Testing Branch Function-----"
+for i in {0..60}; do
+  python3 ./tests/test_branchf.py
+done
+echo "-----------------------------------------"
 echo "-----Testing Fake Loop-----"
 for i in {0..60}; do
   python3 ./tests/test_fakeloop.py
