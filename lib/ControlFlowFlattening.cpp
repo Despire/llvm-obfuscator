@@ -125,7 +125,6 @@ bool ControlFlowFlattening::handleLoopSwitchVersion(llvm::Function &F) {
     switchStmt->addCase(LLVM_CONST_I32(CTX, switchStmt->getNumCases()), BogusBB);
     BogusBB->moveBefore(defaultSwitchBasicBlock);
 
-
     // setup lookup table.
     constexpr int32_t ExtraNumberCount = 4;
 
@@ -350,7 +349,6 @@ bool ControlFlowFlattening::handleJumpTableVersion(llvm::Function &F) {
     Builder.CreateBr(*FunctionBasicBlocks.begin());
 
     FunctionBasicBlocks.insert(FunctionBasicBlocks.begin(), BogusBasicBlock);
-
 
     // collect the addresses of all basic blocks expect the entry.
     std::vector<llvm::BlockAddress *> BlockAddresses;

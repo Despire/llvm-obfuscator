@@ -18,6 +18,7 @@
 #define NON_ZERO(num)       num == 0 ? (num + 1) : num
 #define LLVM_I32(ctx)       llvm::IntegerType::getInt32Ty(ctx)
 #define LLVM_I64(ctx)       llvm::IntegerType::getInt64Ty(ctx)
+#define LLVM_UI64(ctx)      llvm::IntegerType::
 #define LLVM_I8(ctx)       llvm::IntegerType::getInt8Ty(ctx)
 #define LLVM_CONST_I32(ctx, val) llvm::ConstantInt::get(LLVM_I32(ctx), val)
 #define LLVM_CONST_I64(ctx, val) llvm::ConstantInt::get(LLVM_I64(ctx), val)
@@ -178,6 +179,19 @@ findAllBBWithReachableIntegers(llvm::Function &F, ReachableIntegers::Result &Set
     for (auto &BB: F) {
         if (auto set = Set[&BB]; !set.empty()) {
             result.push_back(&BB);
+        }
+    }
+
+    return result;
+}
+
+inline std::vector<llvm::Value*>
+collectReachableIntegersFromPredecessors(llvm::BasicBlock *BB, ReachableIntegers::Result &Set) {
+    std::vector<llvm::Value*> result;
+
+    for (auto p : llvm::predecessors(BB)) {
+        for (auto integer : Set[p]) {
+            result.push_back(integer);
         }
     }
 
