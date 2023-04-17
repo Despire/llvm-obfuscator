@@ -6,6 +6,11 @@
 #include "llvm/Passes/PassPlugin.h"
 #include "llvm/Passes/PassBuilder.h"
 #include "llvm/IR/NoFolder.h"
+#include "llvm/ADT/Statistic.h"
+
+#define DEBUG_TYPE "constant-obfuscation"
+
+STATISTIC(ConstantObfuscationCount, "# of constant integer obfuscations");
 
 llvm::PreservedAnalyses ConstantObfuscation::run(llvm::Function &F, llvm::FunctionAnalysisManager &FAM) {
     bool modified = handleFunction(F, FAM);
@@ -76,6 +81,7 @@ bool ConstantObfuscation::handleFunction(llvm::Function &F, llvm::FunctionAnalys
                         if (auto *replacement = replaceConstant(I, constantInt, Set[&BB]); replacement) {
                             I->setOperand(i, replacement);
                             modified |= true;
+                            ++ConstantObfuscationCount;
                         }
                     }
                 }

@@ -18,6 +18,9 @@ llvm::PreservedAnalyses BogusFlowIntroduceLoop::run(llvm::Function &F, llvm::Fun
 
     for (auto &BB: validBB) {
         modified |= introduceBogusLoop(*BB, FAM);
+        if (modified) {
+            ++BogusFlowIntroduceLoopCount;
+        }
     }
 
     if (modified) {
