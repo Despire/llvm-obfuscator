@@ -5,164 +5,174 @@ target triple = "arm64-apple-macosx12.0.0"
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind readnone ssp willreturn uwtable
 define i32 @_Z8digitSumi(i32 %0) local_unnamed_addr #0 {
-  %2 = icmp eq i32 %0, 0
-  %3 = srem i32 %0, 2
-  %4 = icmp eq i32 %3, 0
-  br i1 %4, label %5, label %6
+  %2 = srem i32 %0, 2
+  %3 = icmp eq i32 %2, 0
+  br i1 %3, label %4, label %39
 
-5:                                                ; preds = %1
-  br label %27
-
-6:                                                ; preds = %25, %1
-  %7 = sub i32 121, 95
-  %8 = add i32 103, 47
-  %9 = mul i32 2, 76
-  %10 = add i32 1, 93
-  %11 = sub i32 123, 115
-  %12 = add i32 92, 42
-  %13 = sdiv i32 125, 65
-  %14 = srem i32 %0, 2
+4:                                                ; preds = %21, %1
+  %5 = sdiv i32 74, 101
+  %6 = icmp eq i32 %0, 0
+  %7 = add i32 94, 72
+  %8 = srem i32 %0, 2
+  %9 = icmp eq i32 %8, 0
+  %10 = mul i32 %2, 2
+  %11 = mul i32 %2, 2
+  %12 = add i32 2, %11
+  %13 = mul i32 %10, %12
+  %14 = srem i32 %13, 4
   %15 = icmp eq i32 %14, 0
-  %16 = and i32 %3, 1
-  %17 = icmp eq i32 %16, 0
-  %18 = mul i32 %3, %3
-  %19 = add i32 %18, %3
-  %20 = mul i32 %19, 3
-  %21 = srem i32 %20, 2
-  %22 = icmp eq i32 %21, 0
-  %23 = or i1 %17, %22
-  br i1 %23, label %24, label %25
+  %16 = mul i32 %2, %2
+  %17 = add i32 %16, %2
+  %18 = srem i32 %17, 2
+  %19 = icmp eq i32 %18, 0
+  %20 = and i1 %15, %19
+  br i1 %20, label %27, label %21
 
-24:                                               ; preds = %6
-  br label %26
+21:                                               ; preds = %4
+  %22 = sub i32 -1739865246, -1739865279
+  %23 = add i32 91, -113
+  %24 = add i32 120, -105
+  %25 = sub i32 0, -78
+  %26 = sdiv i32 104, 89
+  br i1 %20, label %33, label %4
 
-25:                                               ; preds = %6
-  br i1 %23, label %26, label %6
+27:                                               ; preds = %4
+  %28 = sub i32 123, 90
+  %29 = sub i32 91, 113
+  %30 = sub i32 120, 105
+  %31 = add i32 63, 15
+  %32 = sdiv i32 104, 89
+  br label %33
 
-26:                                               ; preds = %25, %24
-  br label %27
+33:                                               ; preds = %21, %27
+  %34 = phi i32 [ %28, %27 ], [ %22, %21 ]
+  %35 = phi i32 [ %29, %27 ], [ %23, %21 ]
+  %36 = phi i32 [ %30, %27 ], [ %24, %21 ]
+  %37 = phi i32 [ %31, %27 ], [ %25, %21 ]
+  %38 = phi i32 [ %32, %27 ], [ %26, %21 ]
+  br label %41
 
-27:                                               ; preds = %26, %5
-  br i1 %2, label %77, label %28
+39:                                               ; preds = %1
+  %40 = icmp eq i32 %0, 0
+  br label %41
 
-28:                                               ; preds = %62, %74, %27
-  %29 = phi i32 [ %31, %74 ], [ 0, %27 ], [ 0, %62 ]
-  %30 = phi i32 [ %32, %74 ], [ %0, %27 ], [ 0, %62 ]
-  %31 = add nuw nsw i32 %29, 1
-  %32 = sdiv i32 %30, 10
-  %33 = srem i32 %0, 2
-  %34 = icmp eq i32 %33, 0
-  br i1 %34, label %35, label %40
+41:                                               ; preds = %39, %33
+  %42 = phi i1 [ %40, %39 ], [ %6, %33 ]
+  br i1 %42, label %89, label %43
 
-35:                                               ; preds = %28
-  %36 = add i32 %30, -264188309
-  %37 = add i32 %36, 9
-  %38 = sub i32 %37, -264188309
-  %39 = icmp ult i32 %38, 19
-  br label %74
+43:                                               ; preds = %63, %88, %41
+  %44 = phi i32 [ %46, %88 ], [ 0, %41 ], [ 0, %63 ]
+  %45 = phi i32 [ %47, %88 ], [ %0, %41 ], [ 0, %63 ]
+  %46 = add nuw nsw i32 %44, 1
+  %47 = sdiv i32 %45, 10
+  %48 = add i32 %45, 9
+  %49 = icmp ult i32 %48, 19
+  %50 = srem i32 %0, 2
+  %51 = icmp eq i32 %50, 0
+  br i1 %51, label %52, label %87
 
-40:                                               ; preds = %28
-  %41 = sdiv i32 72, 122
-  %42 = add i32 %30, 9
-  %43 = sdiv i32 8, 33
-  %44 = icmp ult i32 %42, 19
-  %45 = add i32 72, 102
-  %46 = mul i32 3, 70
-  %47 = srem i32 %3, 2
-  %48 = icmp eq i32 %47, 0
-  %49 = and i32 %3, 1
-  %50 = icmp eq i32 %49, 1
-  %51 = mul i32 %3, %3
-  %52 = add i32 %51, %3
-  %53 = srem i32 %52, 2
-  %54 = icmp eq i32 %53, 0
-  %55 = or i1 %50, %54
-  br i1 %55, label %56, label %62
+52:                                               ; preds = %43
+  %53 = mul i32 27, 55
+  %54 = srem i32 %47, 2
+  %55 = icmp eq i32 %54, 0
+  %56 = and i32 %47, 1
+  %57 = icmp eq i32 %56, 1
+  %58 = mul i32 %47, %47
+  %59 = add i32 %58, %47
+  %60 = srem i32 %59, 2
+  %61 = icmp eq i32 %60, 0
+  %62 = or i1 %57, %61
+  br i1 %62, label %71, label %63
 
-56:                                               ; preds = %40
-  %57 = sub i32 -598233910, -598234001
-  %58 = sub i32 -1166096384, -1166096543
-  %59 = sub i32 1256809535, 1256809436
-  %60 = sdiv i32 93, 22
-  %61 = mul i32 86, 91
-  br label %68
+63:                                               ; preds = %52
+  %64 = sdiv i32 33, 67
+  %65 = mul i32 110, 2
+  %66 = sdiv i32 33, 78
+  %67 = add i32 -1382781549, 1382781667
+  %68 = add i32 20, -38
+  %69 = add i32 30, -80
+  %70 = mul i32 32, 10
+  br i1 %62, label %79, label %43
 
-62:                                               ; preds = %40
-  %63 = add i32 85, 6
-  %64 = add i32 98, 61
-  %65 = add i32 64, 35
-  %66 = sdiv i32 93, 22
-  %67 = mul i32 86, 91
-  br i1 %55, label %68, label %28
+71:                                               ; preds = %52
+  %72 = sdiv i32 33, 67
+  %73 = mul i32 110, 2
+  %74 = sdiv i32 33, 78
+  %75 = sub i32 120, 2
+  %76 = sub i32 20, 38
+  %77 = sub i32 30, 80
+  %78 = mul i32 32, 10
+  br label %79
 
-68:                                               ; preds = %62, %56
-  %69 = phi i32 [ %63, %62 ], [ %57, %56 ]
-  %70 = phi i32 [ %64, %62 ], [ %58, %56 ]
-  %71 = phi i32 [ %65, %62 ], [ %59, %56 ]
-  %72 = phi i32 [ %66, %62 ], [ %60, %56 ]
-  %73 = phi i32 [ %67, %62 ], [ %61, %56 ]
-  br label %74
+79:                                               ; preds = %63, %71
+  %80 = phi i32 [ %72, %71 ], [ %64, %63 ]
+  %81 = phi i32 [ %73, %71 ], [ %65, %63 ]
+  %82 = phi i32 [ %74, %71 ], [ %66, %63 ]
+  %83 = phi i32 [ %75, %71 ], [ %67, %63 ]
+  %84 = phi i32 [ %76, %71 ], [ %68, %63 ]
+  %85 = phi i32 [ %77, %71 ], [ %69, %63 ]
+  %86 = phi i32 [ %78, %71 ], [ %70, %63 ]
+  br label %88
 
-74:                                               ; preds = %68, %35
-  %75 = phi i32 [ %42, %68 ], [ %38, %35 ]
-  %76 = phi i1 [ %44, %68 ], [ %39, %35 ]
-  br i1 %76, label %77, label %28, !llvm.loop !10
+87:                                               ; preds = %43
+  br label %88
 
-77:                                               ; preds = %102, %74, %27
-  %78 = phi i32 [ 0, %27 ], [ %31, %74 ], [ 0, %102 ]
-  %79 = srem i32 %3, 2
-  %80 = icmp eq i32 %79, 0
-  br i1 %80, label %81, label %82
+88:                                               ; preds = %87, %79
+  br i1 %49, label %89, label %43, !llvm.loop !10
 
-81:                                               ; preds = %77
-  br label %118
-
-82:                                               ; preds = %77
-  %83 = mul i32 85, 3
-  %84 = sdiv i32 18, 45
-  %85 = srem i32 %0, 2
-  %86 = icmp eq i32 %85, 0
-  %87 = and i32 %3, 1
-  %88 = icmp eq i32 %87, 1
-  %89 = mul i32 %3, %3
-  %90 = add i32 %89, %3
-  %91 = srem i32 %90, 2
+89:                                               ; preds = %107, %88, %41
+  %90 = phi i32 [ 0, %41 ], [ %46, %88 ], [ 0, %107 ]
+  %91 = srem i32 %0, 2
   %92 = icmp eq i32 %91, 0
-  %93 = or i1 %88, %92
-  br i1 %93, label %94, label %102
+  br i1 %92, label %93, label %94
 
-94:                                               ; preds = %82
-  %95 = mul i32 76, 33
-  %96 = sdiv i32 16, 19
-  %97 = sdiv i32 54, 93
-  %98 = sub i32 87, 106
-  %99 = mul i32 107, 24
-  %100 = sdiv i32 103, 14
-  %101 = sub i32 104, 116
-  br label %110
+93:                                               ; preds = %89
+  br label %128
 
-102:                                              ; preds = %82
-  %103 = mul i32 76, 33
-  %104 = sdiv i32 16, 19
-  %105 = sdiv i32 54, 93
-  %106 = add i32 -333555429, 333555410
-  %107 = mul i32 107, 24
-  %108 = sdiv i32 103, 14
-  %109 = add i32 104, -116
-  br i1 %93, label %110, label %77
+94:                                               ; preds = %89
+  %95 = add i32 80, 116
+  %96 = mul i32 116, 108
+  %97 = srem i32 %2, 2
+  %98 = icmp eq i32 %97, 0
+  %99 = and i32 %91, 1
+  %100 = icmp eq i32 %99, 0
+  %101 = mul i32 %91, %91
+  %102 = add i32 %101, %91
+  %103 = mul i32 %102, 3
+  %104 = srem i32 %103, 2
+  %105 = icmp eq i32 %104, 0
+  %106 = or i1 %100, %105
+  br i1 %106, label %114, label %107
 
-110:                                              ; preds = %102, %94
-  %111 = phi i32 [ %103, %102 ], [ %95, %94 ]
-  %112 = phi i32 [ %104, %102 ], [ %96, %94 ]
-  %113 = phi i32 [ %105, %102 ], [ %97, %94 ]
-  %114 = phi i32 [ %106, %102 ], [ %98, %94 ]
-  %115 = phi i32 [ %107, %102 ], [ %99, %94 ]
-  %116 = phi i32 [ %108, %102 ], [ %100, %94 ]
-  %117 = phi i32 [ %109, %102 ], [ %101, %94 ]
-  br label %118
+107:                                              ; preds = %94
+  %108 = sub i32 84, 22
+  %109 = sdiv i32 102, 63
+  %110 = sub i32 53, 56
+  %111 = mul i32 13, 49
+  %112 = mul i32 108, 110
+  %113 = sdiv i32 33, 27
+  br i1 %106, label %121, label %89
 
-118:                                              ; preds = %110, %81
-  ret i32 %78
+114:                                              ; preds = %94
+  %115 = add i32 84, -22
+  %116 = sdiv i32 102, 63
+  %117 = add i32 1111628117, -1111628120
+  %118 = mul i32 13, 49
+  %119 = mul i32 108, 110
+  %120 = sdiv i32 33, 27
+  br label %121
+
+121:                                              ; preds = %107, %114
+  %122 = phi i32 [ %115, %114 ], [ %108, %107 ]
+  %123 = phi i32 [ %116, %114 ], [ %109, %107 ]
+  %124 = phi i32 [ %117, %114 ], [ %110, %107 ]
+  %125 = phi i32 [ %118, %114 ], [ %111, %107 ]
+  %126 = phi i32 [ %119, %114 ], [ %112, %107 ]
+  %127 = phi i32 [ %120, %114 ], [ %113, %107 ]
+  br label %128
+
+128:                                              ; preds = %121, %93
+  ret i32 %90
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind readnone ssp willreturn uwtable

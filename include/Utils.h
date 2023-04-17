@@ -185,17 +185,15 @@ findAllBBWithReachableIntegers(llvm::Function &F, ReachableIntegers::Result &Set
     return result;
 }
 
-inline std::vector<llvm::Value*>
-collectReachableIntegersFromPredecessors(llvm::BasicBlock *BB, ReachableIntegers::Result &Set) {
-    std::vector<llvm::Value*> result;
-
-    for (auto p : llvm::predecessors(BB)) {
-        for (auto integer : Set[p]) {
-            result.push_back(integer);
-        }
-    }
-
-    return result;
+// https://lemire.me/blog/2017/09/18/computing-the-inverse-of-odd-integers/
+// https://marc-b-reynolds.github.io/math/2017/09/18/ModInverse.html#mjx-eqn%3Arr
+inline uint64_t modularInverseOdd(uint64_t x) {
+    uint64_t y = (3 * x) ^ 2; // 5 bits
+    y = y * (2 - y * x); // 10 bits
+    y = y * (2 - y * x); // 20 bits
+    y = y * (2 - y * x); // 40 bits
+    y = y * (2 - y * x); // 80 bits
+    return y;
 }
 
 #endif //LLVM_OBFUSCATOR_UTILS_H

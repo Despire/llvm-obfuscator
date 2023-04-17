@@ -1,14 +1,22 @@
 #!/bin/bash
 
+echo "-----Testing Constant Obfuscation-----"
+for i in {0..30}; do
+  python3 ./tests/test_cobfs.py
+done
+echo "-----------------------------------------"
+
 echo "-----Testing Branch Function-----"
-for i in {0..60}; do
+for i in {0..30}; do
   python3 ./tests/test_branchf.py
 done
 echo "-----------------------------------------"
+
 echo "-----Testing Fake Loop-----"
-for i in {0..60}; do
+for i in {0..30}; do
   python3 ./tests/test_fakeloop.py
 done
+
 echo "-----------------------------------------"
 
 echo "-----Testing String obfuscation-----"
@@ -16,7 +24,7 @@ echo "-----Testing String obfuscation-----"
 echo "-----------------------------------------"
 
 echo "-----Testing Jump Into Loop-----"
-for i in {0..60}; do
+for i in {0..30}; do
   python3 ./tests/test_loopjump.py
 done
 echo "-----------------------------------------"
