@@ -32,16 +32,16 @@ define i32 @_Z1diPiS_(i32 %0, i32* nocapture %1, i32* nocapture %2) local_unname
   store i32 %17, i32* %2, align 4, !tbaa !10
   %19 = add nuw nsw i32 %16, 1
   %20 = icmp eq i32 %19, %9
-  %21 = and i32 %8, 1
+  %21 = and i32 %9, 1
   %22 = icmp eq i32 %21, 0
-  %23 = mul i32 %8, %8
-  %24 = add i32 %23, %8
+  %23 = mul i32 %9, %9
+  %24 = add i32 %23, %9
   %25 = mul i32 %24, 3
   %26 = srem i32 %25, 2
   %27 = icmp eq i32 %26, 0
-  %28 = and i1 %22, %27
-  %29 = xor i1 %22, %27
-  %30 = or i1 %28, %29
+  %28 = xor i1 %27, true
+  %29 = and i1 %22, %28
+  %30 = add i1 %29, %27
   %31 = xor i1 %20, true
   %32 = or i1 %31, %30
   %33 = xor i1 %20, true

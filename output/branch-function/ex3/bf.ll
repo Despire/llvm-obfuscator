@@ -3,38 +3,38 @@ source_filename = "input/branch-function/ex3/ex3.cpp"
 target datalayout = "e-m:o-i64:64-i128:128-n32:64-S128"
 target triple = "arm64-apple-macosx12.0.0"
 
-@obfsblockAddrLookupTable13185948469323253732 = private global [5 x i8*] zeroinitializer
-@llvm.compiler.used = appending global [3 x i8*] [i8* bitcast (i64 (i64)* @h17192550222967064324 to i8*), i8* bitcast (i8** (i32*)* @bf9484345249352276228 to i8*), i8* bitcast ([5 x i8*]* @obfsblockAddrLookupTable13185948469323253732 to i8*)], section "llvm.metadata"
+@obfsblockAddrLookupTable14958480826306966981 = private global [5 x i8*] zeroinitializer
+@llvm.compiler.used = appending global [3 x i8*] [i8* bitcast (i64 (i64)* @h15219020588629283919 to i8*), i8* bitcast ([5 x i8*]* @obfsblockAddrLookupTable14958480826306966981 to i8*), i8* bitcast (i8** (i32*)* @bf10775500785233090463 to i8*)], section "llvm.metadata"
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind readnone ssp willreturn uwtable
 define i32 @_Z6decideii(i32 %0, i32 %1) local_unnamed_addr #0 {
   %3 = alloca i32, align 4
-  %4 = call i64 @h17192550222967064324(i64 2147483647)
-  %5 = getelementptr [5 x i8*], [5 x i8*]* @obfsblockAddrLookupTable13185948469323253732, i32 0, i64 %4
-  store i8* blockaddress(@_Z6decideii, %76), i8** %5, align 8
-  %6 = call i64 @h17192550222967064324(i64 2147483646)
-  %7 = getelementptr [5 x i8*], [5 x i8*]* @obfsblockAddrLookupTable13185948469323253732, i32 0, i64 %6
-  store i8* blockaddress(@_Z6decideii, %40), i8** %7, align 8
-  %8 = call i64 @h17192550222967064324(i64 2147483645)
-  %9 = getelementptr [5 x i8*], [5 x i8*]* @obfsblockAddrLookupTable13185948469323253732, i32 0, i64 %8
+  %4 = call i64 @h15219020588629283919(i64 1189119174)
+  %5 = getelementptr [5 x i8*], [5 x i8*]* @obfsblockAddrLookupTable14958480826306966981, i32 0, i64 %4
+  store i8* blockaddress(@_Z6decideii, %80), i8** %5, align 8
+  %6 = call i64 @h15219020588629283919(i64 1189119169)
+  %7 = getelementptr [5 x i8*], [5 x i8*]* @obfsblockAddrLookupTable14958480826306966981, i32 0, i64 %6
+  store i8* blockaddress(@_Z6decideii, %59), i8** %7, align 8
+  %8 = call i64 @h15219020588629283919(i64 1189119172)
+  %9 = getelementptr [5 x i8*], [5 x i8*]* @obfsblockAddrLookupTable14958480826306966981, i32 0, i64 %8
   store i8* blockaddress(@_Z6decideii, %34), i8** %9, align 8
-  %10 = call i64 @h17192550222967064324(i64 2147483643)
-  %11 = getelementptr [5 x i8*], [5 x i8*]* @obfsblockAddrLookupTable13185948469323253732, i32 0, i64 %10
-  store i8* blockaddress(@_Z6decideii, %59), i8** %11, align 8
-  %12 = call i64 @h17192550222967064324(i64 2147483644)
-  %13 = getelementptr [5 x i8*], [5 x i8*]* @obfsblockAddrLookupTable13185948469323253732, i32 0, i64 %12
+  %10 = call i64 @h15219020588629283919(i64 1189119175)
+  %11 = getelementptr [5 x i8*], [5 x i8*]* @obfsblockAddrLookupTable14958480826306966981, i32 0, i64 %10
+  store i8* blockaddress(@_Z6decideii, %40), i8** %11, align 8
+  %12 = call i64 @h15219020588629283919(i64 1189119173)
+  %13 = getelementptr [5 x i8*], [5 x i8*]* @obfsblockAddrLookupTable14958480826306966981, i32 0, i64 %12
   store i8* blockaddress(@_Z6decideii, %19), i8** %13, align 8
   %14 = icmp slt i32 %0, %1
-  %15 = select i1 %14, i32 2147483645, i32 2147483644
+  %15 = select i1 %14, i32 1189119172, i32 1189119173
   %16 = xor i32 %15, 1
   store i32 %16, i32* %3, align 4
-  %17 = call i8** @bf9484345249352276228(i32* %3)
+  %17 = call i8** @bf10775500785233090463(i32* %3)
   %18 = load i8*, i8** %17, align 8
   indirectbr i8* %18, [label %19, label %34]
 
 19:                                               ; preds = %19, %2
   %20 = add nsw i32 %1, %0
-  %21 = load i8*, i8** %11, align 8
+  %21 = load i8*, i8** %7, align 8
   %22 = load i8, i8* %21, align 1
   %23 = and i8 %22, 1
   %24 = icmp eq i8 %23, 1
@@ -43,25 +43,25 @@ define i32 @_Z6decideii(i32 %0, i32 %1) local_unnamed_addr #0 {
   %27 = srem i8 %26, 2
   %28 = icmp eq i8 %27, 0
   %29 = or i1 %24, %28
-  %30 = select i1 %29, i32 2147483645, i32 2147483647
-  %31 = xor i32 %30, 2
+  %30 = select i1 %29, i32 1189119173, i32 1189119174
+  %31 = xor i32 %30, 3
   store i32 %31, i32* %3, align 4
-  %32 = call i8** @bf9484345249352276228(i32* %3)
+  %32 = call i8** @bf10775500785233090463(i32* %3)
   %33 = load i8*, i8** %32, align 8
-  indirectbr i8* %33, [label %76, label %19]
+  indirectbr i8* %33, [label %80, label %19]
 
 34:                                               ; preds = %2
   %35 = icmp eq i32 %0, %1
-  %36 = select i1 %35, i32 2147483643, i32 2147483646
-  %37 = xor i32 %36, 5
+  %36 = select i1 %35, i32 1189119169, i32 1189119175
+  %37 = xor i32 %36, 6
   store i32 %37, i32* %3, align 4
-  %38 = call i8** @bf9484345249352276228(i32* %3)
+  %38 = call i8** @bf10775500785233090463(i32* %3)
   %39 = load i8*, i8** %38, align 8
   indirectbr i8* %39, [label %40, label %59]
 
 40:                                               ; preds = %40, %34
   %41 = mul i32 %1, -2
-  %42 = load i8*, i8** %7, align 8
+  %42 = load i8*, i8** %5, align 8
   %43 = load i8, i8* %42, align 1
   %44 = mul i8 %43, 2
   %45 = mul i8 %43, 2
@@ -74,36 +74,40 @@ define i32 @_Z6decideii(i32 %0, i32 %1) local_unnamed_addr #0 {
   %52 = srem i8 %51, 2
   %53 = icmp eq i8 %52, 0
   %54 = and i1 %49, %53
-  %55 = select i1 %54, i32 2147483647, i32 2147483647
-  %56 = xor i32 %55, 0
+  %55 = select i1 %54, i32 1189119169, i32 1189119174
+  %56 = xor i32 %55, 7
   store i32 %56, i32* %3, align 4
-  %57 = call i8** @bf9484345249352276228(i32* %3)
+  %57 = call i8** @bf10775500785233090463(i32* %3)
   %58 = load i8*, i8** %57, align 8
-  indirectbr i8* %58, [label %76, label %40]
+  indirectbr i8* %58, [label %80, label %40]
 
 59:                                               ; preds = %59, %34
   %60 = shl i32 %0, 1
   %61 = sub i32 %60, %1
-  %62 = load i8*, i8** %11, align 8
+  %62 = load i8*, i8** %13, align 8
   %63 = load i8, i8* %62, align 1
-  %64 = and i8 %63, 1
-  %65 = icmp eq i8 %64, 0
-  %66 = mul i8 %63, %63
-  %67 = add i8 %66, %63
-  %68 = mul i8 %67, 3
-  %69 = srem i8 %68, 2
-  %70 = icmp eq i8 %69, 0
-  %71 = or i1 %65, %70
-  %72 = select i1 %71, i32 2147483647, i32 2147483647
-  %73 = xor i32 %72, 0
-  store i32 %73, i32* %3, align 4
-  %74 = call i8** @bf9484345249352276228(i32* %3)
-  %75 = load i8*, i8** %74, align 8
-  indirectbr i8* %75, [label %76, label %59]
+  %64 = mul i8 %63, 2
+  %65 = mul i8 %63, 2
+  %66 = add i8 2, %65
+  %67 = mul i8 %64, %66
+  %68 = srem i8 %67, 4
+  %69 = icmp eq i8 %68, 0
+  %70 = mul i8 %63, %63
+  %71 = mul i8 %70, %63
+  %72 = add i8 %71, %63
+  %73 = srem i8 %72, 2
+  %74 = icmp eq i8 %73, 0
+  %75 = and i1 %69, %74
+  %76 = select i1 %75, i32 1189119172, i32 1189119174
+  %77 = xor i32 %76, 2
+  store i32 %77, i32* %3, align 4
+  %78 = call i8** @bf10775500785233090463(i32* %3)
+  %79 = load i8*, i8** %78, align 8
+  indirectbr i8* %79, [label %80, label %59]
 
-76:                                               ; preds = %59, %40, %19
-  %77 = phi i32 [ %20, %19 ], [ %41, %40 ], [ %61, %59 ]
-  ret i32 %77
+80:                                               ; preds = %59, %40, %19
+  %81 = phi i32 [ %20, %19 ], [ %41, %40 ], [ %61, %59 ]
+  ret i32 %81
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind readnone ssp willreturn uwtable
@@ -113,18 +117,18 @@ define i32 @main(i32 %0, i8** nocapture readnone %1) local_unnamed_addr #0 {
   ret i32 %4
 }
 
-define private i64 @h17192550222967064324(i64 %0) {
+define private i64 @h15219020588629283919(i64 %0) {
   %2 = alloca i32, align 4
-  %3 = xor i64 2147483647, %0
+  %3 = xor i64 1189119173, %0
   ret i64 %3
 }
 
-define private i8** @bf9484345249352276228(i32* %0) {
+define private i8** @bf10775500785233090463(i32* %0) {
   %2 = alloca i32, align 4
   %3 = load i32, i32* %0, align 4
   %4 = zext i32 %3 to i64
-  %5 = call i64 @h17192550222967064324(i64 %4)
-  %6 = getelementptr inbounds [5 x i8*], [5 x i8*]* @obfsblockAddrLookupTable13185948469323253732, i32 0, i64 %5
+  %5 = call i64 @h15219020588629283919(i64 %4)
+  %6 = getelementptr inbounds [5 x i8*], [5 x i8*]* @obfsblockAddrLookupTable14958480826306966981, i32 0, i64 %5
   ret i8** %6
 }
 

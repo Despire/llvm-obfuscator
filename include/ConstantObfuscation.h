@@ -9,7 +9,7 @@
 struct ConstantObfuscation : public llvm::PassInfoMixin<ConstantObfuscation> {
     std::vector<llvm::Constant *> candidates;
 
-    llvm::PreservedAnalyses run(llvm::Function &M, llvm::FunctionAnalysisManager &FAM);
+    llvm::PreservedAnalyses run(llvm::Function &F, llvm::FunctionAnalysisManager &FAM);
 
     llvm::Value *replaceConstant(llvm::Instruction *I, llvm::ConstantInt *ToReplace, llvm::SmallDenseSet<llvm::Value *> &);
 

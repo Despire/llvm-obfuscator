@@ -7,6 +7,9 @@
 #include "llvm/Transforms/Utils/ModuleUtils.h"
 
 llvm::PreservedAnalyses BranchFunction::run(llvm::Module &M, llvm::ModuleAnalysisManager &AM) {
+    std::vector<llvm::Function *> originalFuncs;
+
+    uint64_t defaultBBCount = 0;
     for (auto &F: M) {
         uint64_t curr = 0;
         for (auto &BB: F) {
@@ -14,21 +17,26 @@ llvm::PreservedAnalyses BranchFunction::run(llvm::Module &M, llvm::ModuleAnalysi
                 ++curr;
             }
         }
-        largestSequence = std::max(curr, largestSequence);
+        defaultBBCount = std::max(curr, defaultBBCount);
+        if (!F.isDeclaration()) {
+            originalFuncs.push_back(&F);
+        }
     }
 
-    if (largestSequence == 0) {
+    if (defaultBBCount == 0) {
         return llvm::PreservedAnalyses::all();
     }
 
-    // create a global array with all the basic blocks.
-    auto *arrayTy = llvm::ArrayType::get(
+    createMapFunction(M);
+
+    // create a default global array with all the basic blocks.
+    llvm::ArrayType *arrayTy = llvm::ArrayType::get(
             llvm::IntegerType::getInt8PtrTy(M.getContext()),
-            largestSequence
+            defaultBBCount
     );
 
-    auto *CA = llvm::ConstantArray::get(arrayTy, llvm::ConstantAggregateZero::getNullValue(arrayTy));
-    auto lookupTable = new llvm::GlobalVariable(
+    llvm::Constant *CA = llvm::ConstantArray::get(arrayTy, llvm::ConstantAggregateZero::getNullValue(arrayTy));
+    auto defaultLookupTable = new llvm::GlobalVariable(
             M,
             CA->getType(),
             false,
@@ -37,29 +45,69 @@ llvm::PreservedAnalyses BranchFunction::run(llvm::Module &M, llvm::ModuleAnalysi
             "obfsblockAddrLookupTable" + std::to_string(RandomInt64())
     );
 
-    createMapFunction(M);
-    // create the branch function.
-    createFunction(M, lookupTable);
+    // make the global variable un-deletable even if not used.
+    llvm::appendToCompilerUsed(M, {defaultLookupTable});
+
+    llvm::Function *defaultBranchFunction = createFunction(M, defaultLookupTable);
+
+    // for each function check whether a "local array needs to be created"
+    for (auto F: originalFuncs) {
+        uint64_t blocks = F->size();
+        bool localTable = false;
+
+        for (auto &BB: *F) {
+            for (auto &I: BB) {
+                if (auto *call = llvm::dyn_cast<llvm::CallInst>(&I); call) {
+                    localTable = true;
+                    break;
+                }
+            }
+        }
+
+        if (localTable && blocks > 1) {
+            // create a global array with all the basic blocks.
+            llvm::ArrayType *arrayTy = llvm::ArrayType::get(
+                    llvm::IntegerType::getInt8PtrTy(F->getParent()->getContext()),
+                    blocks
+            );
+
+            llvm::Constant *CA = llvm::ConstantArray::get(arrayTy, llvm::ConstantAggregateZero::getNullValue(arrayTy));
+            auto localLookupTable = new llvm::GlobalVariable(
+                    *F->getParent(),
+                    CA->getType(),
+                    false,
+                    llvm::GlobalVariable::LinkageTypes::PrivateLinkage,
+                    CA,
+                    "obfsblockAddrLookupTable" + std::to_string(RandomInt64())
+            );
+
+            // make the global variable un-deletable even if not used.
+            llvm::appendToCompilerUsed(*F->getParent(), {localLookupTable});
+
+            // the created function only has a single BB thus it will be excluded from the obfuscation.
+            lookupTables[F] = {createFunction(M, localLookupTable), localLookupTable, blocks};
+        } else {
+            lookupTables[F] = {defaultBranchFunction, defaultLookupTable, defaultBBCount};
+        }
+    }
 
     for (auto &F: M) {
         if (F.isDeclaration()) {
             continue;
         }
         // modify each branch instruction in each function.
-        handleFunction(F, lookupTable);
+        handleFunction(F);
     }
-
-    // make the global variable un-deletable even if not used.
-    llvm::appendToCompilerUsed(M, {lookupTable});
 
     return llvm::PreservedAnalyses::none();
 }
 
-void BranchFunction::handleFunction(llvm::Function &F, llvm::GlobalVariable *LookupTable) {
+void BranchFunction::handleFunction(llvm::Function &F) {
+    auto [branchFunction, LookupTable, blockCount] = lookupTables[&F];
     llvm::IRBuilder<> Builder(F.getEntryBlock().getFirstNonPHI());
-    auto *Index = Builder.CreateAlloca(LLVM_I32(F.getContext()));
+    llvm::AllocaInst *Index = Builder.CreateAlloca(LLVM_I32(F.getContext()));
 
-    std::vector<int32_t> order(largestSequence);
+    std::vector<int32_t> order(blockCount);
     std::iota(order.begin(), order.end(), 0);
     std::shuffle(order.begin(), order.end(), GetRandomGenerator());
 
@@ -69,7 +117,7 @@ void BranchFunction::handleFunction(llvm::Function &F, llvm::GlobalVariable *Loo
         if (BB.isEntryBlock()) {
             continue;
         }
-        blockMappings[&BB] = upperLimit ^ order[blockMappings.size()];
+        blockMappings[&BB] = rng ^ order[blockMappings.size()];
     }
 
     // store the block addresses in the table.
@@ -103,7 +151,7 @@ void BranchFunction::handleFunction(llvm::Function &F, llvm::GlobalVariable *Loo
             uint64_t mapping2 = blockMappings[successors[1]];
             uint64_t next = mapping1 ^ mapping2;
 
-            auto *selectInst = Builder.CreateSelect(
+            llvm::Value *selectInst = Builder.CreateSelect(
                     br->getCondition(),
                     LLVM_CONST_I32(F.getContext(), mapping2),
                     LLVM_CONST_I32(F.getContext(), mapping1),
@@ -111,7 +159,7 @@ void BranchFunction::handleFunction(llvm::Function &F, llvm::GlobalVariable *Loo
                     br
             );
 
-            auto *xorResult = Builder.CreateXor(selectInst, LLVM_CONST_I32(F.getContext(), next));
+            llvm::Value *xorResult = Builder.CreateXor(selectInst, LLVM_CONST_I32(F.getContext(), next));
             Builder.CreateStore(xorResult, Index);
         } else {
             successors.push_back(br->getSuccessor(0));
@@ -127,8 +175,8 @@ void BranchFunction::handleFunction(llvm::Function &F, llvm::GlobalVariable *Loo
                 uint64_t next = mapping1 ^ mapping2;
 
                 // create a bogus condition.
-                auto *conditionValue = *RandomElement(GEPS.begin(), GEPS.end());
-                auto *chosenInteger = Builder.CreateLoad(
+                llvm::Value *conditionValue = *RandomElement(GEPS.begin(), GEPS.end());
+                llvm::LoadInst *chosenInteger = Builder.CreateLoad(
                         LLVM_I8(F.getContext()),
                         Builder.CreateLoad(
                                 llvm::IntegerType::getInt8PtrTy(F.getContext()),
@@ -137,9 +185,9 @@ void BranchFunction::handleFunction(llvm::Function &F, llvm::GlobalVariable *Loo
                 );
                 OpaquePredicates predicates;
                 auto pair = predicates.getRandomOpaquelyTruePredicate();
-                auto *cond = (&predicates->*pair.first)(chosenInteger, br);
+                llvm::Value *cond = (&predicates->*pair.first)(chosenInteger, br);
 
-                auto *selectInst = Builder.CreateSelect(
+                llvm::Value *selectInst = Builder.CreateSelect(
                         cond,
                         LLVM_CONST_I32(F.getContext(), mapping2),
                         LLVM_CONST_I32(F.getContext(), mapping1),
@@ -147,14 +195,14 @@ void BranchFunction::handleFunction(llvm::Function &F, llvm::GlobalVariable *Loo
                         br
                 );
 
-                auto *xorResult = Builder.CreateXor(selectInst, LLVM_CONST_I32(F.getContext(), next));
+                llvm::Value *xorResult = Builder.CreateXor(selectInst, LLVM_CONST_I32(F.getContext(), next));
                 Builder.CreateStore(xorResult, Index);
             } else {
                 Builder.CreateStore(LLVM_CONST_I32(F.getContext(), blockMappings[successors[0]]), Index);
             }
         }
 
-        auto indrBr = Builder.CreateIndirectBr(
+        llvm::IndirectBrInst *indrBr = Builder.CreateIndirectBr(
                 Builder.CreateLoad(
                         llvm::BlockAddress::get(&BB)->getType(),
                         Builder.CreateCall(
@@ -172,8 +220,8 @@ void BranchFunction::handleFunction(llvm::Function &F, llvm::GlobalVariable *Loo
     }
 }
 
-void BranchFunction::createFunction(llvm::Module &M, llvm::GlobalVariable *LookupTable) {
-    branchFunction = llvm::Function::Create(
+llvm::Function *BranchFunction::createFunction(llvm::Module &M, llvm::GlobalVariable *LookupTable) {
+    auto *branchFunction = llvm::Function::Create(
             llvm::FunctionType::get(
                     llvm::IntegerType::getInt8PtrTy(M.getContext())->getPointerTo(),
                     {llvm::IntegerType::getInt32PtrTy(M.getContext())},
@@ -184,11 +232,15 @@ void BranchFunction::createFunction(llvm::Module &M, llvm::GlobalVariable *Looku
             M
     );
 
-    auto *entryBlock = llvm::BasicBlock::Create(branchFunction->getContext(), "", branchFunction);
+    llvm::BasicBlock *entryBlock = llvm::BasicBlock::Create(
+            branchFunction->getContext(),
+            "",
+            branchFunction
+    );
 
     llvm::IRBuilder<> Builder(entryBlock);
 
-    auto idx = Builder.CreateCall(
+    llvm::CallInst *idx = Builder.CreateCall(
             mapFunction,
             Builder.CreateZExt(
                     Builder.CreateLoad(
@@ -209,6 +261,7 @@ void BranchFunction::createFunction(llvm::Module &M, llvm::GlobalVariable *Looku
 
     // make the function un-deletable even if not used.
     llvm::appendToCompilerUsed(M, {branchFunction});
+    return branchFunction;
 }
 
 void BranchFunction::createMapFunction(llvm::Module &M) {
@@ -223,15 +276,15 @@ void BranchFunction::createMapFunction(llvm::Module &M) {
             M
     );
 
-    if (largestSequence > upperLimit) {
-        throw std::runtime_error("upperLimit is to small, a function has unexpect large number of basic blocks");
-    }
-
-    auto *entryBlock = llvm::BasicBlock::Create(mapFunction->getContext(), "", mapFunction);
+    llvm::BasicBlock *entryBlock = llvm::BasicBlock::Create(
+            mapFunction->getContext(),
+            "",
+            mapFunction
+    );
 
     llvm::IRBuilder Builder(entryBlock);
     Builder.CreateRet(Builder.CreateXor(
-            LLVM_CONST_I64(mapFunction->getContext(), upperLimit),
+            LLVM_CONST_I64(mapFunction->getContext(), rng),
             mapFunction->getArg(0)
     ));
 

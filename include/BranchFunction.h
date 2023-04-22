@@ -7,18 +7,15 @@
 #include "llvm/Pass.h"
 
 struct BranchFunction : llvm::PassInfoMixin<BranchFunction> {
-    llvm::Function *branchFunction = nullptr;
+    std::unordered_map<llvm::Function *, std::tuple<llvm::Function *, llvm::GlobalVariable *, uint64_t>> lookupTables;
     llvm::Function *mapFunction = nullptr;
-    uint64_t largestSequence = 0;
-    // we just make an assumption the number of BB in the largestSequence isn't going to be larger
-    // than the max value of an i32.
-    int32_t upperLimit = std::numeric_limits<int32_t>::max();
+    int32_t rng = RandomInt64(std::numeric_limits<int32_t>::max());
 
     llvm::PreservedAnalyses run(llvm::Module &M, llvm::ModuleAnalysisManager &AM);
 
-    void handleFunction(llvm::Function &F, llvm::GlobalVariable *LookupTable);
+    void handleFunction(llvm::Function &F);
 
-    void createFunction(llvm::Module &M, llvm::GlobalVariable *LookupTable);
+    llvm::Function *createFunction(llvm::Module &M, llvm::GlobalVariable *LookupTable);
 
     void createMapFunction(llvm::Module &M);
 };

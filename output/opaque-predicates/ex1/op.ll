@@ -7,9 +7,9 @@ target triple = "arm64-apple-macosx12.0.0"
 define i32 @_Z8digitSumi(i32 %0) local_unnamed_addr #0 {
   br label %2
 
-2:                                                ; preds = %48, %1
-  %3 = phi i32 [ %0, %1 ], [ %49, %48 ]
-  %4 = phi i32 [ 0, %1 ], [ %50, %48 ]
+2:                                                ; preds = %60, %1
+  %3 = phi i32 [ %0, %1 ], [ %61, %60 ]
+  %4 = phi i32 [ 0, %1 ], [ %62, %60 ]
   %5 = icmp sgt i32 %3, 0
   %6 = mul i32 %0, 2
   %7 = mul i32 %0, 2
@@ -18,53 +18,65 @@ define i32 @_Z8digitSumi(i32 %0) local_unnamed_addr #0 {
   %10 = srem i32 %9, 4
   %11 = icmp eq i32 %10, 0
   %12 = mul i32 %0, %0
-  %13 = mul i32 %12, %0
-  %14 = add i32 %13, %0
-  %15 = srem i32 %14, 2
-  %16 = icmp eq i32 %15, 0
-  %17 = xor i1 %11, true
-  %18 = or i1 %17, %16
-  %19 = xor i1 %11, true
-  %20 = sub i1 %18, %19
-  %21 = xor i1 %20, true
-  %22 = xor i1 %5, %21
-  %23 = and i1 %22, %5
-  br i1 %23, label %24, label %48
+  %13 = add i32 %12, %0
+  %14 = srem i32 %13, 2
+  %15 = icmp eq i32 %14, 0
+  %16 = xor i1 %15, true
+  %17 = xor i1 %11, %16
+  %18 = and i1 %17, %11
+  %19 = xor i1 %18, true
+  %20 = xor i1 %5, %19
+  %21 = and i1 %20, %5
+  br i1 %21, label %22, label %60
 
-24:                                               ; preds = %24, %2
-  %25 = phi i32 [ %31, %24 ], [ %4, %2 ]
-  %26 = phi i32 [ %28, %24 ], [ %3, %2 ]
-  %27 = freeze i32 %26
-  %28 = sdiv i32 %27, 10
-  %29 = mul i32 %28, 10
-  %30 = sub i32 %27, %29
-  %31 = add nsw i32 %25, %30
-  %32 = icmp sgt i32 %26, 9
-  %33 = and i32 %3, 1
-  %34 = icmp eq i32 %33, 0
-  %35 = mul i32 %3, %3
-  %36 = add i32 %35, %3
-  %37 = mul i32 %36, 3
-  %38 = srem i32 %37, 2
-  %39 = icmp eq i32 %38, 0
-  %40 = xor i1 %39, true
-  %41 = and i1 %34, %40
-  %42 = add i1 %41, %39
-  %43 = xor i1 %32, true
-  %44 = xor i1 %42, true
-  %45 = or i1 %43, %44
-  %46 = xor i1 %45, true
-  %47 = and i1 %46, true
-  br i1 %47, label %24, label %48, !llvm.loop !10
+22:                                               ; preds = %22, %2
+  %23 = phi i32 [ %29, %22 ], [ %4, %2 ]
+  %24 = phi i32 [ %26, %22 ], [ %3, %2 ]
+  %25 = freeze i32 %24
+  %26 = sdiv i32 %25, 10
+  %27 = mul i32 %26, 10
+  %28 = sub i32 %25, %27
+  %29 = add nsw i32 %23, %28
+  %30 = icmp sgt i32 %24, 9
+  %31 = mul i32 %4, 2
+  %32 = mul i32 %4, 2
+  %33 = add i32 2, %32
+  %34 = mul i32 %31, %33
+  %35 = srem i32 %34, 4
+  %36 = icmp eq i32 %35, 0
+  %37 = mul i32 %4, %4
+  %38 = add i32 %37, %4
+  %39 = srem i32 %38, 2
+  %40 = icmp eq i32 %39, 0
+  %41 = xor i1 %36, true
+  %42 = and i1 %41, false
+  %43 = and i1 %36, true
+  %44 = or i1 %42, %43
+  %45 = xor i1 %40, true
+  %46 = and i1 %45, false
+  %47 = and i1 %40, true
+  %48 = or i1 %46, %47
+  %49 = xor i1 %44, %48
+  %50 = xor i1 %36, true
+  %51 = xor i1 %40, true
+  %52 = or i1 %50, %51
+  %53 = xor i1 %52, true
+  %54 = and i1 %53, true
+  %55 = or i1 %49, %54
+  %56 = xor i1 %30, true
+  %57 = or i1 %56, %55
+  %58 = xor i1 %30, true
+  %59 = sub i1 %57, %58
+  br i1 %59, label %22, label %60, !llvm.loop !10
 
-48:                                               ; preds = %24, %2
-  %49 = phi i32 [ %3, %2 ], [ %28, %24 ]
-  %50 = phi i32 [ %4, %2 ], [ %31, %24 ]
-  %51 = icmp eq i32 %49, 0
-  br i1 %51, label %52, label %2, !llvm.loop !13
+60:                                               ; preds = %22, %2
+  %61 = phi i32 [ %3, %2 ], [ %26, %22 ]
+  %62 = phi i32 [ %4, %2 ], [ %29, %22 ]
+  %63 = icmp eq i32 %61, 0
+  br i1 %63, label %64, label %2, !llvm.loop !13
 
-52:                                               ; preds = %48
-  ret i32 %50
+64:                                               ; preds = %60
+  ret i32 %62
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind readnone ssp willreturn uwtable

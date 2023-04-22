@@ -26,30 +26,36 @@ define i32 @_Z8digitSumi(i32 %0) local_unnamed_addr #0 {
   %6 = sdiv i32 %3, 10
   %7 = add i32 %3, 9
   %8 = icmp ult i32 %7, 19
-  %9 = mul i32 %0, 2
-  %10 = mul i32 %0, 2
-  %11 = add i32 2, %10
-  %12 = mul i32 %9, %11
-  %13 = srem i32 %12, 4
-  %14 = icmp eq i32 %13, 0
-  %15 = mul i32 %0, %0
-  %16 = mul i32 %15, %0
-  %17 = add i32 %16, %0
-  %18 = srem i32 %17, 2
-  %19 = icmp eq i32 %18, 0
-  %20 = xor i1 %14, true
-  %21 = xor i1 %19, true
-  %22 = or i1 %20, %21
-  %23 = xor i1 %22, true
-  %24 = and i1 %23, true
-  %25 = xor i1 %8, true
-  %26 = xor i1 %24, true
+  %9 = and i32 %0, 1
+  %10 = icmp eq i32 %9, 0
+  %11 = mul i32 %0, %0
+  %12 = add i32 %11, %0
+  %13 = mul i32 %12, 3
+  %14 = srem i32 %13, 2
+  %15 = icmp eq i32 %14, 0
+  %16 = xor i1 %10, true
+  %17 = and i1 %16, true
+  %18 = and i1 %10, false
+  %19 = or i1 %17, %18
+  %20 = xor i1 %15, true
+  %21 = and i1 %20, true
+  %22 = and i1 %15, false
+  %23 = or i1 %21, %22
+  %24 = xor i1 %19, %23
+  %25 = xor i1 %10, true
+  %26 = xor i1 %15, true
   %27 = or i1 %25, %26
   %28 = xor i1 %27, true
   %29 = and i1 %28, true
-  br i1 %29, label %30, label %2, !llvm.loop !10
+  %30 = or i1 %24, %29
+  %31 = xor i1 %8, true
+  %32 = xor i1 %30, true
+  %33 = or i1 %31, %32
+  %34 = xor i1 %33, true
+  %35 = and i1 %34, true
+  br i1 %35, label %36, label %2, !llvm.loop !10
 
-30:                                               ; preds = %2
+36:                                               ; preds = %2
   ret i32 %5
 }
 

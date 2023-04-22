@@ -11,296 +11,300 @@ target triple = "arm64-apple-macosx12.0.0"
 define void @_Z7displayPKcRfS1_i(i8* nocapture readonly %0, float* nocapture nonnull align 4 dereferenceable(4) %1, float* nocapture nonnull align 4 dereferenceable(4) %2, i32 %3) local_unnamed_addr #0 {
   %5 = srem i32 %3, 2
   %6 = icmp eq i32 %5, 0
-  br i1 %6, label %7, label %40
+  br i1 %6, label %7, label %9
 
-7:                                                ; preds = %22, %4
-  %8 = mul i32 24, 63
-  %9 = call i32 (i8*, ...) @printf(i8* nonnull dereferenceable(1) getelementptr inbounds ([4 x i8], [4 x i8]* @.str, i64 0, i64 0))
-  %10 = srem i32 %5, 2
-  %11 = icmp eq i32 %10, 0
-  %12 = mul i32 %5, %5
-  %13 = add i32 %12, %5
-  %14 = mul i32 %13, 3
-  %15 = srem i32 %14, 2
-  %16 = icmp eq i32 %15, 0
-  %17 = mul i32 %5, %5
-  %18 = add i32 %17, %5
-  %19 = srem i32 %18, 2
-  %20 = icmp eq i32 %19, 0
-  %21 = and i1 %16, %20
-  br i1 %21, label %28, label %22
+7:                                                ; preds = %4
+  %8 = call i32 (i8*, ...) @printf(i8* nonnull dereferenceable(1) getelementptr inbounds ([4 x i8], [4 x i8]* @.str, i64 0, i64 0))
+  br label %51
 
-22:                                               ; preds = %7
-  %23 = mul i32 102, 25
-  %24 = sub i32 94, -73
-  %25 = add i32 -1247927902, 1247927947
-  %26 = sub i32 11, -110
-  %27 = sub i32 1618295088, 1618295054
-  br i1 %21, label %34, label %7
+9:                                                ; preds = %31, %4
+  %10 = add i32 40, 53
+  %11 = call i32 (i8*, ...) @printf(i8* nonnull dereferenceable(1) getelementptr inbounds ([4 x i8], [4 x i8]* @.str, i64 0, i64 0))
+  %12 = srem i32 %3, 2
+  %13 = icmp eq i32 %12, 0
+  %14 = and i32 %3, 1
+  %15 = icmp eq i32 %14, 1
+  %16 = mul i32 %3, %3
+  %17 = add i32 %16, %3
+  %18 = srem i32 %17, 2
+  %19 = icmp eq i32 %18, 0
+  %20 = or i1 %15, %19
+  br i1 %20, label %21, label %31
 
-28:                                               ; preds = %7
-  %29 = mul i32 102, 25
-  %30 = add i32 94, 73
-  %31 = sub i32 79, 34
-  %32 = add i32 11, 110
-  %33 = sub i32 83, 49
-  br label %34
+21:                                               ; preds = %9
+  %22 = mul i32 84, 89
+  %23 = sdiv i32 18, 12
+  %24 = sub i32 49, 107
+  %25 = sdiv i32 38, 32
+  %26 = mul i32 120, 90
+  %27 = sdiv i32 78, 122
+  %28 = sub i32 41, 88
+  %29 = mul i32 18, 122
+  %30 = sdiv i32 29, 38
+  br label %41
 
-34:                                               ; preds = %22, %28
-  %35 = phi i32 [ %29, %28 ], [ %23, %22 ]
-  %36 = phi i32 [ %30, %28 ], [ %24, %22 ]
-  %37 = phi i32 [ %31, %28 ], [ %25, %22 ]
-  %38 = phi i32 [ %32, %28 ], [ %26, %22 ]
-  %39 = phi i32 [ %33, %28 ], [ %27, %22 ]
-  br label %42
+31:                                               ; preds = %9
+  %32 = mul i32 84, 89
+  %33 = sdiv i32 18, 12
+  %34 = add i32 863641006, -863641064
+  %35 = sdiv i32 38, 32
+  %36 = mul i32 120, 90
+  %37 = sdiv i32 78, 122
+  %38 = add i32 41, -88
+  %39 = mul i32 18, 122
+  %40 = sdiv i32 29, 38
+  br i1 %20, label %41, label %9
 
-40:                                               ; preds = %4
-  %41 = call i32 (i8*, ...) @printf(i8* nonnull dereferenceable(1) getelementptr inbounds ([4 x i8], [4 x i8]* @.str, i64 0, i64 0))
-  br label %42
+41:                                               ; preds = %31, %21
+  %42 = phi i32 [ %32, %31 ], [ %22, %21 ]
+  %43 = phi i32 [ %33, %31 ], [ %23, %21 ]
+  %44 = phi i32 [ %34, %31 ], [ %24, %21 ]
+  %45 = phi i32 [ %35, %31 ], [ %25, %21 ]
+  %46 = phi i32 [ %36, %31 ], [ %26, %21 ]
+  %47 = phi i32 [ %37, %31 ], [ %27, %21 ]
+  %48 = phi i32 [ %38, %31 ], [ %28, %21 ]
+  %49 = phi i32 [ %39, %31 ], [ %29, %21 ]
+  %50 = phi i32 [ %40, %31 ], [ %30, %21 ]
+  br label %51
 
-42:                                               ; preds = %40, %34
-  %43 = phi i32 [ %41, %40 ], [ %9, %34 ]
-  br label %83
+51:                                               ; preds = %41, %7
+  %52 = phi i32 [ %11, %41 ], [ %8, %7 ]
+  br label %87
 
-44:                                               ; preds = %58, %222
-  %45 = srem i32 %43, 2
-  %46 = icmp eq i32 %45, 0
-  br i1 %46, label %47, label %48
+53:                                               ; preds = %76, %229
+  %54 = srem i32 %89, 2
+  %55 = icmp eq i32 %54, 0
+  br i1 %55, label %56, label %57
 
-47:                                               ; preds = %44
-  br label %82
+56:                                               ; preds = %53
+  br label %86
 
-48:                                               ; preds = %44
-  %49 = srem i32 %86, 2
-  %50 = icmp eq i32 %49, 0
-  %51 = and i32 %45, 1
-  %52 = icmp eq i32 %51, 1
-  %53 = mul i32 %45, %45
-  %54 = add i32 %53, %45
-  %55 = srem i32 %54, 2
-  %56 = icmp eq i32 %55, 0
-  %57 = or i1 %52, %56
-  br i1 %57, label %66, label %58
+57:                                               ; preds = %53
+  %58 = sub i32 103, 72
+  %59 = mul i32 107, 41
+  %60 = sub i32 42, 43
+  %61 = srem i32 %3, 2
+  %62 = icmp eq i32 %61, 0
+  %63 = and i32 %133, 1
+  %64 = icmp eq i32 %63, 0
+  %65 = mul i32 %133, %133
+  %66 = add i32 %65, %133
+  %67 = mul i32 %66, 3
+  %68 = srem i32 %67, 2
+  %69 = icmp eq i32 %68, 0
+  %70 = or i1 %64, %69
+  br i1 %70, label %71, label %76
 
-58:                                               ; preds = %48
-  %59 = mul i32 90, 9
-  %60 = add i32 4, 50
-  %61 = sub i32 78, 109
-  %62 = sdiv i32 85, 117
-  %63 = sdiv i32 36, 126
-  %64 = sub i32 50, 97
-  %65 = mul i32 43, 6
-  br i1 %57, label %74, label %44
+71:                                               ; preds = %57
+  %72 = mul i32 22, 5
+  %73 = sub i32 118, 8
+  %74 = mul i32 87, 103
+  %75 = sdiv i32 24, 44
+  br label %81
 
-66:                                               ; preds = %48
-  %67 = mul i32 90, 9
-  %68 = add i32 0, 54
-  %69 = add i32 78, -109
-  %70 = sdiv i32 85, 117
-  %71 = sdiv i32 36, 126
-  %72 = add i32 -181625644, 181625597
-  %73 = mul i32 43, 6
-  br label %74
+76:                                               ; preds = %57
+  %77 = mul i32 22, 5
+  %78 = sub i32 507005553, 507005443
+  %79 = mul i32 87, 103
+  %80 = sdiv i32 24, 44
+  br i1 %70, label %81, label %53
 
-74:                                               ; preds = %58, %66
-  %75 = phi i32 [ %67, %66 ], [ %59, %58 ]
-  %76 = phi i32 [ %68, %66 ], [ %60, %58 ]
-  %77 = phi i32 [ %69, %66 ], [ %61, %58 ]
-  %78 = phi i32 [ %70, %66 ], [ %62, %58 ]
-  %79 = phi i32 [ %71, %66 ], [ %63, %58 ]
-  %80 = phi i32 [ %72, %66 ], [ %64, %58 ]
-  %81 = phi i32 [ %73, %66 ], [ %65, %58 ]
-  br label %82
+81:                                               ; preds = %76, %71
+  %82 = phi i32 [ %77, %76 ], [ %72, %71 ]
+  %83 = phi i32 [ %78, %76 ], [ %73, %71 ]
+  %84 = phi i32 [ %79, %76 ], [ %74, %71 ]
+  %85 = phi i32 [ %80, %76 ], [ %75, %71 ]
+  br label %86
 
-82:                                               ; preds = %74, %47
+86:                                               ; preds = %81, %56
   ret void
 
-83:                                               ; preds = %116, %222, %42
-  %84 = phi i64 [ 0, %42 ], [ %223, %222 ], [ 0, %116 ]
-  %85 = trunc i64 %84 to i32
-  %86 = urem i32 %85, 80
-  %87 = icmp eq i32 %86, 0
-  %88 = srem i32 %3, 2
-  %89 = icmp eq i32 %88, 0
-  br i1 %89, label %90, label %91
+87:                                               ; preds = %114, %229, %51
+  %88 = phi i64 [ 0, %51 ], [ %188, %229 ], [ 0, %114 ]
+  %89 = trunc i64 %88 to i32
+  %90 = srem i32 %3, 2
+  %91 = icmp eq i32 %90, 0
+  br i1 %91, label %92, label %129
 
-90:                                               ; preds = %83
-  br label %132
-
-91:                                               ; preds = %83
-  %92 = sdiv i32 66, 58
-  %93 = add i32 117, 40
-  %94 = sdiv i32 47, 119
-  %95 = srem i32 %5, 2
-  %96 = icmp eq i32 %95, 0
-  %97 = mul i32 %5, 2
-  %98 = mul i32 %5, 2
-  %99 = add i32 2, %98
-  %100 = mul i32 %97, %99
-  %101 = srem i32 %100, 4
+92:                                               ; preds = %87
+  %93 = add i32 74, 32
+  %94 = urem i32 %89, 80
+  %95 = sub i32 53, 48
+  %96 = icmp eq i32 %94, 0
+  %97 = sdiv i32 53, 41
+  %98 = add i32 59, 73
+  %99 = sdiv i32 76, 37
+  %100 = sdiv i32 85, 7
+  %101 = srem i32 %89, 2
   %102 = icmp eq i32 %101, 0
-  %103 = mul i32 %5, %5
-  %104 = add i32 %103, %5
-  %105 = srem i32 %104, 2
-  %106 = icmp eq i32 %105, 0
-  %107 = or i1 %102, %106
-  br i1 %107, label %108, label %116
+  %103 = mul i64 %88, 2
+  %104 = mul i64 %88, 2
+  %105 = add i64 2, %104
+  %106 = mul i64 %103, %105
+  %107 = srem i64 %106, 4
+  %108 = icmp eq i64 %107, 0
+  %109 = mul i64 %88, %88
+  %110 = add i64 %109, %88
+  %111 = srem i64 %110, 2
+  %112 = icmp eq i64 %111, 0
+  %113 = or i1 %108, %112
+  br i1 %113, label %119, label %114
 
-108:                                              ; preds = %91
-  %109 = add i32 31, 53
-  %110 = sdiv i32 113, 2
-  %111 = sub i32 107, 88
-  %112 = sdiv i32 113, 92
-  %113 = sub i32 23, 112
-  %114 = add i32 24, 35
-  %115 = mul i32 102, 53
+114:                                              ; preds = %92
+  %115 = mul i32 24, 64
+  %116 = mul i32 93, 22
+  %117 = sdiv i32 20, 70
+  %118 = sdiv i32 109, 35
+  br i1 %113, label %124, label %87
+
+119:                                              ; preds = %92
+  %120 = mul i32 24, 64
+  %121 = mul i32 93, 22
+  %122 = sdiv i32 20, 70
+  %123 = sdiv i32 109, 35
   br label %124
 
-116:                                              ; preds = %91
-  %117 = sub i32 0, -84
-  %118 = sdiv i32 113, 2
-  %119 = add i32 317506557, -317506538
-  %120 = sdiv i32 113, 92
-  %121 = add i32 160374850, -160374939
-  %122 = add i32 0, 59
-  %123 = mul i32 102, 53
-  br i1 %107, label %124, label %83
-
-124:                                              ; preds = %116, %108
-  %125 = phi i32 [ %117, %116 ], [ %109, %108 ]
-  %126 = phi i32 [ %118, %116 ], [ %110, %108 ]
-  %127 = phi i32 [ %119, %116 ], [ %111, %108 ]
-  %128 = phi i32 [ %120, %116 ], [ %112, %108 ]
-  %129 = phi i32 [ %121, %116 ], [ %113, %108 ]
-  %130 = phi i32 [ %122, %116 ], [ %114, %108 ]
-  %131 = phi i32 [ %123, %116 ], [ %115, %108 ]
+124:                                              ; preds = %114, %119
+  %125 = phi i32 [ %120, %119 ], [ %115, %114 ]
+  %126 = phi i32 [ %121, %119 ], [ %116, %114 ]
+  %127 = phi i32 [ %122, %119 ], [ %117, %114 ]
+  %128 = phi i32 [ %123, %119 ], [ %118, %114 ]
   br label %132
 
-132:                                              ; preds = %124, %90
-  br i1 %87, label %173, label %133
+129:                                              ; preds = %87
+  %130 = urem i32 %89, 80
+  %131 = icmp eq i32 %130, 0
+  br label %132
 
-133:                                              ; preds = %158, %132
-  %134 = getelementptr inbounds i8, i8* %0, i64 %84
-  %135 = srem i32 %88, 2
-  %136 = icmp eq i32 %135, 0
-  br i1 %136, label %137, label %140
+132:                                              ; preds = %129, %124
+  %133 = phi i32 [ %130, %129 ], [ %94, %124 ]
+  %134 = phi i1 [ %131, %129 ], [ %96, %124 ]
+  br i1 %134, label %177, label %135
 
-137:                                              ; preds = %133
-  %138 = load i8, i8* %134, align 1, !tbaa !10
-  %139 = sext i8 %138 to i32
-  br label %170
+135:                                              ; preds = %166, %132
+  %136 = getelementptr inbounds i8, i8* %0, i64 %88
+  %137 = srem i32 %89, 2
+  %138 = icmp eq i32 %137, 0
+  br i1 %138, label %139, label %142
 
-140:                                              ; preds = %133
-  %141 = sdiv i32 50, 48
-  %142 = load i8, i8* %134, align 1, !tbaa !10
-  %143 = add i32 31, 121
-  %144 = sext i8 %142 to i32
-  %145 = sub i32 8, 111
-  %146 = sdiv i32 68, 97
-  %147 = sub i32 57, 121
-  %148 = srem i32 %86, 2
-  %149 = icmp eq i32 %148, 0
-  %150 = and i32 %86, 1
-  %151 = icmp eq i32 %150, 0
-  %152 = mul i32 %86, %86
-  %153 = add i32 %152, %86
-  %154 = mul i32 %153, 3
-  %155 = srem i32 %154, 2
+139:                                              ; preds = %135
+  %140 = load i8, i8* %136, align 1, !tbaa !10
+  %141 = sext i8 %140 to i32
+  br label %174
+
+142:                                              ; preds = %135
+  %143 = mul i32 91, 88
+  %144 = load i8, i8* %136, align 1, !tbaa !10
+  %145 = sub i32 36, 13
+  %146 = sext i8 %144 to i32
+  %147 = sdiv i32 59, 13
+  %148 = sdiv i32 80, 45
+  %149 = srem i32 %3, 2
+  %150 = icmp eq i32 %149, 0
+  %151 = mul i32 %52, 2
+  %152 = mul i32 %52, 2
+  %153 = add i32 2, %152
+  %154 = mul i32 %151, %153
+  %155 = srem i32 %154, 4
   %156 = icmp eq i32 %155, 0
-  %157 = or i1 %151, %156
-  br i1 %157, label %162, label %158
+  %157 = mul i32 %52, %52
+  %158 = add i32 %157, %52
+  %159 = srem i32 %158, 2
+  %160 = icmp eq i32 %159, 0
+  %161 = or i1 %156, %160
+  br i1 %161, label %162, label %166
 
-158:                                              ; preds = %140
-  %159 = mul i32 109, 22
-  %160 = mul i32 126, 80
-  %161 = add i32 -2107042854, 2107043017
-  br i1 %157, label %166, label %133
-
-162:                                              ; preds = %140
-  %163 = mul i32 109, 22
-  %164 = mul i32 126, 80
-  %165 = add i32 108, 55
-  br label %166
-
-166:                                              ; preds = %158, %162
-  %167 = phi i32 [ %163, %162 ], [ %159, %158 ]
-  %168 = phi i32 [ %164, %162 ], [ %160, %158 ]
-  %169 = phi i32 [ %165, %162 ], [ %161, %158 ]
+162:                                              ; preds = %142
+  %163 = sdiv i32 116, 18
+  %164 = sdiv i32 72, 119
+  %165 = sdiv i32 14, 95
   br label %170
 
-170:                                              ; preds = %166, %137
-  %171 = phi i8 [ %142, %166 ], [ %138, %137 ]
-  %172 = phi i32 [ %144, %166 ], [ %139, %137 ]
-  br label %173
+166:                                              ; preds = %142
+  %167 = sdiv i32 116, 18
+  %168 = sdiv i32 72, 119
+  %169 = sdiv i32 14, 95
+  br i1 %161, label %170, label %135
 
-173:                                              ; preds = %211, %170, %132
-  %174 = phi i32 [ %172, %170 ], [ 10, %132 ], [ 0, %211 ]
-  %175 = call i32 @putchar(i32 %174)
-  %176 = load float, float* %1, align 4, !tbaa !13
-  %177 = fpext float %176 to double
-  %178 = fadd double %177, 4.000000e-05
-  %179 = fptrunc double %178 to float
-  store float %179, float* %1, align 4, !tbaa !13
-  %180 = load float, float* %2, align 4, !tbaa !13
+170:                                              ; preds = %166, %162
+  %171 = phi i32 [ %167, %166 ], [ %163, %162 ]
+  %172 = phi i32 [ %168, %166 ], [ %164, %162 ]
+  %173 = phi i32 [ %169, %166 ], [ %165, %162 ]
+  br label %174
+
+174:                                              ; preds = %170, %139
+  %175 = phi i8 [ %144, %170 ], [ %140, %139 ]
+  %176 = phi i32 [ %146, %170 ], [ %141, %139 ]
+  br label %177
+
+177:                                              ; preds = %208, %174, %132
+  %178 = phi i32 [ %176, %174 ], [ 10, %132 ], [ 0, %208 ]
+  %179 = call i32 @putchar(i32 %178)
+  %180 = load float, float* %1, align 4, !tbaa !13
   %181 = fpext float %180 to double
-  %182 = fadd double %181, 2.000000e-05
+  %182 = fadd double %181, 4.000000e-05
   %183 = fptrunc double %182 to float
-  %184 = srem i32 %5, 2
-  %185 = icmp eq i32 %184, 0
-  br i1 %185, label %186, label %217
+  store float %183, float* %1, align 4, !tbaa !13
+  %184 = load float, float* %2, align 4, !tbaa !13
+  %185 = fpext float %184 to double
+  %186 = fadd double %185, 2.000000e-05
+  %187 = fptrunc double %186 to float
+  store float %187, float* %2, align 4, !tbaa !13
+  %188 = add nuw nsw i64 %88, 1
+  %189 = icmp eq i64 %188, 1761
+  %190 = srem i64 %88, 2
+  %191 = icmp eq i64 %190, 0
+  br i1 %191, label %192, label %193
 
-186:                                              ; preds = %173
-  %187 = add i32 20, 111
-  store float %183, float* %2, align 4, !tbaa !13
-  %188 = sub i32 122, 84
-  %189 = add nuw nsw i64 %84, 1
-  %190 = sdiv i32 28, 14
-  %191 = icmp eq i64 %189, 1761
-  %192 = mul i32 15, 123
-  %193 = mul i32 53, 39
-  %194 = add i32 38, 59
-  %195 = mul i32 92, 99
-  %196 = mul i32 21, 88
-  %197 = add i32 105, 7
-  %198 = srem i32 %43, 2
-  %199 = icmp eq i32 %198, 0
-  %200 = mul i32 %5, 2
-  %201 = mul i32 %5, 2
-  %202 = add i32 2, %201
-  %203 = mul i32 %200, %202
-  %204 = srem i32 %203, 4
-  %205 = icmp eq i32 %204, 0
-  %206 = mul i32 %5, %5
-  %207 = add i32 %206, %5
-  %208 = srem i32 %207, 2
-  %209 = icmp eq i32 %208, 0
-  %210 = or i1 %205, %209
-  br i1 %210, label %213, label %211
+192:                                              ; preds = %177
+  br label %229
 
-211:                                              ; preds = %186
-  %212 = sdiv i32 64, 38
-  br i1 %210, label %215, label %173
+193:                                              ; preds = %177
+  %194 = sdiv i32 122, 112
+  %195 = sub i32 4, 118
+  %196 = sdiv i32 86, 111
+  %197 = sdiv i32 69, 27
+  %198 = srem i64 %190, 2
+  %199 = icmp eq i64 %198, 0
+  %200 = and i32 %179, 1
+  %201 = icmp eq i32 %200, 0
+  %202 = mul i32 %179, %179
+  %203 = add i32 %202, %179
+  %204 = mul i32 %203, 3
+  %205 = srem i32 %204, 2
+  %206 = icmp eq i32 %205, 0
+  %207 = or i1 %201, %206
+  br i1 %207, label %215, label %208
 
-213:                                              ; preds = %186
-  %214 = sdiv i32 64, 38
-  br label %215
+208:                                              ; preds = %193
+  %209 = add i32 107, 6
+  %210 = add i32 124, 88
+  %211 = add i32 11, 113
+  %212 = mul i32 43, 96
+  %213 = sub i32 11, 89
+  %214 = mul i32 22, 13
+  br i1 %207, label %222, label %177
 
-215:                                              ; preds = %211, %213
-  %216 = phi i32 [ %214, %213 ], [ %212, %211 ]
+215:                                              ; preds = %193
+  %216 = sub i32 315369966, 315369853
+  %217 = add i32 36, 176
+  %218 = add i32 2067416522, -2067416398
+  %219 = mul i32 43, 96
+  %220 = add i32 11, -89
+  %221 = mul i32 22, 13
   br label %222
 
-217:                                              ; preds = %173
-  store float %183, float* %2, align 4, !tbaa !13
-  %218 = sub i64 0, %84
-  %219 = add i64 %218, -1
-  %220 = sub i64 0, %219
-  %221 = icmp eq i64 %220, 1761
-  br label %222
+222:                                              ; preds = %208, %215
+  %223 = phi i32 [ %216, %215 ], [ %209, %208 ]
+  %224 = phi i32 [ %217, %215 ], [ %210, %208 ]
+  %225 = phi i32 [ %218, %215 ], [ %211, %208 ]
+  %226 = phi i32 [ %219, %215 ], [ %212, %208 ]
+  %227 = phi i32 [ %220, %215 ], [ %213, %208 ]
+  %228 = phi i32 [ %221, %215 ], [ %214, %208 ]
+  br label %229
 
-222:                                              ; preds = %217, %215
-  %223 = phi i64 [ %220, %217 ], [ %189, %215 ]
-  %224 = phi i1 [ %221, %217 ], [ %191, %215 ]
-  br i1 %224, label %44, label %83, !llvm.loop !15
+229:                                              ; preds = %222, %192
+  br i1 %189, label %53, label %87, !llvm.loop !15
 }
 
 ; Function Attrs: nofree nounwind
@@ -320,601 +324,548 @@ define void @_Z6renderffiPfPcii(float %0, float %1, i32 %2, float* nocapture %3,
   %8 = sdiv i32 %6, 40
   %9 = sext i32 %2 to i64
   call void @llvm.memset.p0i8.i64(i8* align 1 %4, i8 32, i64 %9, i1 false)
-  %10 = bitcast float* %3 to i8*
-  %11 = shl nsw i64 %9, 2
-  call void @llvm.memset.p0i8.i64(i8* align 4 %10, i8 0, i64 %11, i1 false)
-  %12 = srem i32 %2, 2
-  %13 = icmp eq i32 %12, 0
-  br i1 %13, label %14, label %27
+  %10 = srem i32 %5, 2
+  %11 = icmp eq i32 %10, 0
+  br i1 %11, label %12, label %57
 
-14:                                               ; preds = %7
-  %15 = sitofp i32 %8 to float
-  %16 = sdiv i32 %6, 2
-  %17 = sitofp i32 %16 to float
-  %18 = sdiv i32 %5, 2
-  %19 = add nsw i32 %18, 1
-  %20 = sitofp i32 %19 to float
-  %21 = call fastcc float @_ZL3sinf(float 5.000000e-01) #9
-  %22 = call fastcc float @_ZL3sinf(float %0) #9
-  %23 = call fastcc float @_ZL3cosf(float %0) #9
-  %24 = call fastcc float @_ZL3cosf(float 5.000000e-01) #9
-  %25 = call fastcc float @_ZL3cosf(float %1) #9
-  %26 = call fastcc float @_ZL3sinf(float %1) #9
-  br label %88
-
-27:                                               ; preds = %55, %7
-  %28 = mul i32 30, 25
-  %29 = sitofp i32 %8 to float
-  %30 = sub i32 17, 35
-  %31 = sdiv i32 %6, 2
-  %32 = mul i32 5, 70
-  %33 = sitofp i32 %31 to float
-  %34 = mul i32 45, 100
-  %35 = sdiv i32 %5, 2
-  %36 = mul i32 38, 91
-  %37 = and i32 %35, 1
-  %38 = mul i32 57, 83
-  %39 = or i32 %35, 1
-  %40 = sdiv i32 34, 9
-  %41 = add i32 %37, %39
-  %42 = srem i32 %2, 2
+12:                                               ; preds = %49, %7
+  %13 = sdiv i32 64, 68
+  %14 = bitcast float* %3 to i8*
+  %15 = sdiv i32 116, 102
+  %16 = shl nsw i64 %9, 2
+  %17 = sub i32 29, 17
+  call void @llvm.memset.p0i8.i64(i8* align 4 %14, i8 0, i64 %16, i1 false)
+  %18 = sdiv i32 84, 32
+  %19 = sitofp i32 %8 to float
+  %20 = mul i32 5, 74
+  %21 = sdiv i32 %6, 2
+  %22 = sub i32 75, 99
+  %23 = sitofp i32 %21 to float
+  %24 = mul i32 48, 24
+  %25 = sdiv i32 %5, 2
+  %26 = sub i32 24, 123
+  %27 = add nsw i32 %25, 1
+  %28 = mul i32 120, 76
+  %29 = sitofp i32 %27 to float
+  %30 = call fastcc float @_ZL3sinf(float 5.000000e-01) #9
+  %31 = call fastcc float @_ZL3sinf(float %0) #9
+  %32 = call fastcc float @_ZL3cosf(float %0) #9
+  %33 = srem i64 %9, 2
+  %34 = icmp eq i64 %33, 0
+  %35 = mul i32 %8, %8
+  %36 = add i32 %35, %8
+  %37 = mul i32 %36, 3
+  %38 = srem i32 %37, 2
+  %39 = icmp eq i32 %38, 0
+  %40 = mul i32 %8, %8
+  %41 = add i32 %40, %8
+  %42 = srem i32 %41, 2
   %43 = icmp eq i32 %42, 0
-  %44 = mul i64 %11, 2
-  %45 = mul i64 %11, 2
-  %46 = add i64 2, %45
-  %47 = mul i64 %44, %46
-  %48 = srem i64 %47, 4
-  %49 = icmp eq i64 %48, 0
-  %50 = mul i64 %11, %11
-  %51 = add i64 %50, %11
-  %52 = srem i64 %51, 2
-  %53 = icmp eq i64 %52, 0
-  %54 = and i1 %49, %53
-  br i1 %54, label %66, label %55
+  %44 = and i1 %39, %43
+  br i1 %44, label %45, label %49
 
-55:                                               ; preds = %27
-  %56 = mul i32 51, 21
-  %57 = sitofp i32 %41 to float
-  %58 = add i32 13, 80
-  %59 = call fastcc float @_ZL3sinf(float 5.000000e-01) #9
-  %60 = sdiv i32 108, 113
-  %61 = call fastcc float @_ZL3sinf(float %0) #9
-  %62 = call fastcc float @_ZL3cosf(float %0) #9
-  %63 = call fastcc float @_ZL3cosf(float 5.000000e-01) #9
-  %64 = call fastcc float @_ZL3cosf(float %1) #9
-  %65 = call fastcc float @_ZL3sinf(float %1) #9
-  br i1 %54, label %77, label %27
+45:                                               ; preds = %12
+  %46 = call fastcc float @_ZL3cosf(float 5.000000e-01) #9
+  %47 = call fastcc float @_ZL3cosf(float %1) #9
+  %48 = call fastcc float @_ZL3sinf(float %1) #9
+  br label %53
 
-66:                                               ; preds = %27
-  %67 = mul i32 51, 21
-  %68 = sitofp i32 %41 to float
-  %69 = sub i32 0, -93
-  %70 = call fastcc float @_ZL3sinf(float 5.000000e-01) #9
-  %71 = sdiv i32 108, 113
-  %72 = call fastcc float @_ZL3sinf(float %0) #9
-  %73 = call fastcc float @_ZL3cosf(float %0) #9
-  %74 = call fastcc float @_ZL3cosf(float 5.000000e-01) #9
-  %75 = call fastcc float @_ZL3cosf(float %1) #9
-  %76 = call fastcc float @_ZL3sinf(float %1) #9
-  br label %77
+49:                                               ; preds = %12
+  %50 = call fastcc float @_ZL3cosf(float 5.000000e-01) #9
+  %51 = call fastcc float @_ZL3cosf(float %1) #9
+  %52 = call fastcc float @_ZL3sinf(float %1) #9
+  br i1 %44, label %53, label %12
 
-77:                                               ; preds = %55, %66
-  %78 = phi i32 [ %67, %66 ], [ %56, %55 ]
-  %79 = phi float [ %68, %66 ], [ %57, %55 ]
-  %80 = phi i32 [ %69, %66 ], [ %58, %55 ]
-  %81 = phi float [ %70, %66 ], [ %59, %55 ]
-  %82 = phi i32 [ %71, %66 ], [ %60, %55 ]
-  %83 = phi float [ %72, %66 ], [ %61, %55 ]
-  %84 = phi float [ %73, %66 ], [ %62, %55 ]
-  %85 = phi float [ %74, %66 ], [ %63, %55 ]
-  %86 = phi float [ %75, %66 ], [ %64, %55 ]
-  %87 = phi float [ %76, %66 ], [ %65, %55 ]
-  br label %88
+53:                                               ; preds = %49, %45
+  %54 = phi float [ %50, %49 ], [ %46, %45 ]
+  %55 = phi float [ %51, %49 ], [ %47, %45 ]
+  %56 = phi float [ %52, %49 ], [ %48, %45 ]
+  br label %72
 
-88:                                               ; preds = %77, %14
-  %89 = phi float [ %29, %77 ], [ %15, %14 ]
-  %90 = phi i32 [ %31, %77 ], [ %16, %14 ]
-  %91 = phi float [ %33, %77 ], [ %17, %14 ]
-  %92 = phi i32 [ %35, %77 ], [ %18, %14 ]
-  %93 = phi i32 [ %41, %77 ], [ %19, %14 ]
-  %94 = phi float [ %79, %77 ], [ %20, %14 ]
-  %95 = phi float [ %81, %77 ], [ %21, %14 ]
-  %96 = phi float [ %83, %77 ], [ %22, %14 ]
-  %97 = phi float [ %84, %77 ], [ %23, %14 ]
-  %98 = phi float [ %85, %77 ], [ %24, %14 ]
-  %99 = phi float [ %86, %77 ], [ %25, %14 ]
-  %100 = phi float [ %87, %77 ], [ %26, %14 ]
-  br label %138
+57:                                               ; preds = %7
+  %58 = bitcast float* %3 to i8*
+  %59 = shl nsw i64 %9, 2
+  call void @llvm.memset.p0i8.i64(i8* align 4 %58, i8 0, i64 %59, i1 false)
+  %60 = sitofp i32 %8 to float
+  %61 = sdiv i32 %6, 2
+  %62 = sitofp i32 %61 to float
+  %63 = sdiv i32 %5, 2
+  %64 = sub i32 %63, -1
+  %65 = sitofp i32 %64 to float
+  %66 = call fastcc float @_ZL3sinf(float 5.000000e-01) #9
+  %67 = call fastcc float @_ZL3sinf(float %0) #9
+  %68 = call fastcc float @_ZL3cosf(float %0) #9
+  %69 = call fastcc float @_ZL3cosf(float 5.000000e-01) #9
+  %70 = call fastcc float @_ZL3cosf(float %1) #9
+  %71 = call fastcc float @_ZL3sinf(float %1) #9
+  br label %72
 
-101:                                              ; preds = %122, %512
-  %102 = srem i32 %328, 2
+72:                                               ; preds = %57, %53
+  %73 = phi i8* [ %58, %57 ], [ %14, %53 ]
+  %74 = phi i64 [ %59, %57 ], [ %16, %53 ]
+  %75 = phi float [ %60, %57 ], [ %19, %53 ]
+  %76 = phi i32 [ %61, %57 ], [ %21, %53 ]
+  %77 = phi float [ %62, %57 ], [ %23, %53 ]
+  %78 = phi i32 [ %63, %57 ], [ %25, %53 ]
+  %79 = phi i32 [ %64, %57 ], [ %27, %53 ]
+  %80 = phi float [ %65, %57 ], [ %29, %53 ]
+  %81 = phi float [ %66, %57 ], [ %30, %53 ]
+  %82 = phi float [ %67, %57 ], [ %31, %53 ]
+  %83 = phi float [ %68, %57 ], [ %32, %53 ]
+  %84 = phi float [ %69, %57 ], [ %54, %53 ]
+  %85 = phi float [ %70, %57 ], [ %55, %53 ]
+  %86 = phi float [ %71, %57 ], [ %56, %53 ]
+  br label %115
+
+87:                                               ; preds = %110, %461
+  %88 = srem i32 %6, 2
+  %89 = icmp eq i32 %88, 0
+  br i1 %89, label %90, label %113
+
+90:                                               ; preds = %87
+  %91 = add i32 29, 105
+  %92 = sdiv i32 63, 31
+  %93 = sub i32 124, 37
+  %94 = mul i32 70, 79
+  %95 = add i32 120, 111
+  %96 = add i32 43, 81
+  %97 = sub i32 90, 78
+  %98 = sub i32 62, 85
+  %99 = sub i32 85, 41
+  %100 = srem i32 %314, 2
+  %101 = icmp eq i32 %100, 0
+  %102 = and i32 %10, 1
   %103 = icmp eq i32 %102, 0
-  br i1 %103, label %104, label %105
+  %104 = mul i32 %10, %10
+  %105 = add i32 %104, %10
+  %106 = mul i32 %105, 3
+  %107 = srem i32 %106, 2
+  %108 = icmp eq i32 %107, 0
+  %109 = or i1 %103, %108
+  br i1 %109, label %111, label %110
 
-104:                                              ; preds = %101
-  br label %137
+110:                                              ; preds = %90
+  br i1 %109, label %112, label %87
 
-105:                                              ; preds = %101
-  %106 = mul i32 67, 61
-  %107 = sdiv i32 26, 10
-  %108 = mul i32 96, 101
-  %109 = sub i32 49, 30
-  %110 = srem i32 %12, 2
-  %111 = icmp eq i32 %110, 0
-  %112 = mul i32 %92, %92
-  %113 = add i32 %112, %92
-  %114 = mul i32 %113, 3
-  %115 = srem i32 %114, 2
-  %116 = icmp eq i32 %115, 0
-  %117 = mul i32 %92, %92
-  %118 = add i32 %117, %92
-  %119 = srem i32 %118, 2
-  %120 = icmp eq i32 %119, 0
-  %121 = and i1 %116, %120
-  br i1 %121, label %127, label %122
+111:                                              ; preds = %90
+  br label %112
 
-122:                                              ; preds = %105
-  %123 = mul i32 121, 44
-  %124 = sub i32 62, 38
-  %125 = sub i32 53, 37
-  %126 = sdiv i32 13, 39
-  br i1 %121, label %132, label %101
+112:                                              ; preds = %110, %111
+  br label %114
 
-127:                                              ; preds = %105
-  %128 = mul i32 121, 44
-  %129 = sub i32 668450279, 668450255
-  %130 = sub i32 -7821395, -7821411
-  %131 = sdiv i32 13, 39
-  br label %132
+113:                                              ; preds = %87
+  br label %114
 
-132:                                              ; preds = %122, %127
-  %133 = phi i32 [ %128, %127 ], [ %123, %122 ]
-  %134 = phi i32 [ %129, %127 ], [ %124, %122 ]
-  %135 = phi i32 [ %130, %127 ], [ %125, %122 ]
-  %136 = phi i32 [ %131, %127 ], [ %126, %122 ]
-  br label %137
-
-137:                                              ; preds = %132, %104
+114:                                              ; preds = %113, %112
   ret void
 
-138:                                              ; preds = %251, %512, %88
-  %139 = phi double [ 0.000000e+00, %88 ], [ %515, %512 ], [ 0.000000e+00, %251 ]
-  %140 = phi float [ 0.000000e+00, %88 ], [ %514, %512 ], [ 0.000000e+00, %251 ]
-  %141 = call fastcc float @_ZL3cosf(float %140) #9
-  %142 = call fastcc float @_ZL3sinf(float %140) #9
-  %143 = fadd float %141, %89
-  %144 = fmul float %95, %143
-  %145 = fmul float %144, %97
-  %146 = fmul float %96, %142
-  %147 = fsub float %145, %146
-  %148 = fmul float %96, %144
-  %149 = fmul float %142, %97
-  %150 = fadd float %148, %149
-  %151 = fadd float %150, 5.000000e+00
-  %152 = fdiv float 1.000000e+00, %151
-  %153 = fmul float %143, %98
-  %154 = fmul float %152, 1.500000e+01
-  %155 = fmul float %153, %100
-  %156 = fmul float %147, %99
-  %157 = fsub float %155, %156
-  %158 = fmul float %154, %157
-  %159 = fadd float %158, %94
-  %160 = srem i32 %92, 2
-  %161 = icmp eq i32 %160, 0
-  br i1 %161, label %162, label %190
+115:                                              ; preds = %190, %461, %72
+  %116 = phi double [ 0.000000e+00, %72 ], [ %426, %461 ], [ 0.000000e+00, %190 ]
+  %117 = phi float [ 0.000000e+00, %72 ], [ %425, %461 ], [ 0.000000e+00, %190 ]
+  %118 = call fastcc float @_ZL3cosf(float %117) #9
+  %119 = call fastcc float @_ZL3sinf(float %117) #9
+  %120 = fadd float %118, %75
+  %121 = fmul float %81, %120
+  %122 = fmul float %121, %83
+  %123 = fmul float %82, %119
+  %124 = fsub float %122, %123
+  %125 = fmul float %82, %121
+  %126 = fmul float %119, %83
+  %127 = srem i64 %9, 2
+  %128 = icmp eq i64 %127, 0
+  br i1 %128, label %129, label %242
 
-162:                                              ; preds = %138
-  %163 = fptosi float %159 to i32
-  %164 = fmul float %95, %141
-  %165 = fmul float %164, %97
-  %166 = fsub float %146, %165
-  %167 = fmul float %166, %99
-  %168 = fmul float %164, %96
+129:                                              ; preds = %115
+  %130 = sub i32 7, 98
+  %131 = fadd float %125, %126
+  %132 = sdiv i32 55, 2
+  %133 = fadd float %131, 5.000000e+00
+  %134 = mul i32 62, 102
+  %135 = fdiv float 1.000000e+00, %133
+  %136 = add i32 47, 51
+  %137 = fmul float %120, %84
+  %138 = mul i32 53, 79
+  %139 = fmul float %135, 1.500000e+01
+  %140 = add i32 36, 90
+  %141 = fmul float %137, %86
+  %142 = sub i32 28, 20
+  %143 = fmul float %124, %85
+  %144 = sub i32 18, 122
+  %145 = fsub float %141, %143
+  %146 = sub i32 53, 103
+  %147 = fmul float %139, %145
+  %148 = fadd float %147, %80
+  %149 = fptosi float %148 to i32
+  %150 = fmul float %81, %118
+  %151 = fmul float %150, %83
+  %152 = fsub float %123, %151
+  %153 = srem i64 %74, 2
+  %154 = icmp eq i64 %153, 0
+  %155 = mul i32 %76, 2
+  %156 = mul i32 %76, 2
+  %157 = add i32 2, %156
+  %158 = mul i32 %155, %157
+  %159 = srem i32 %158, 4
+  %160 = icmp eq i32 %159, 0
+  %161 = mul i32 %76, %76
+  %162 = add i32 %161, %76
+  %163 = srem i32 %162, 2
+  %164 = icmp eq i32 %163, 0
+  %165 = or i1 %160, %164
+  br i1 %165, label %166, label %190
+
+166:                                              ; preds = %129
+  %167 = fmul float %152, %85
+  %168 = fmul float %150, %82
   %169 = fsub float %167, %168
-  %170 = fsub float %169, %149
-  %171 = fmul float %141, %98
-  %172 = fmul float %171, %100
+  %170 = fsub float %169, %126
+  %171 = fmul float %118, %84
+  %172 = fmul float %171, %86
   %173 = fsub float %170, %172
   %174 = fmul float %173, 8.000000e+00
-  %175 = fmul float %152, 3.000000e+01
-  %176 = fmul float %153, %99
-  %177 = fmul float %147, %100
+  %175 = fmul float %135, 3.000000e+01
+  %176 = fmul float %137, %85
+  %177 = fmul float %124, %86
   %178 = fadd float %176, %177
   %179 = fmul float %175, %178
-  %180 = fadd float %179, %91
+  %180 = fadd float %179, %77
   %181 = fptosi float %180 to i32
   %182 = fptosi float %174 to i32
-  %183 = icmp slt i32 %163, %5
-  %184 = icmp sgt i32 %163, 0
+  %183 = icmp slt i32 %149, %5
+  %184 = icmp sgt i32 %149, 0
   %185 = and i1 %183, %184
   %186 = icmp sgt i32 %181, 0
   %187 = select i1 %185, i1 %186, i1 false
   %188 = icmp slt i32 %181, %6
   %189 = select i1 %187, i1 %188, i1 false
-  br label %327
+  br label %218
 
-190:                                              ; preds = %138
-  %191 = mul i32 83, 87
-  %192 = fptosi float %159 to i32
-  %193 = srem i32 %2, 2
-  %194 = icmp eq i32 %193, 0
-  %195 = mul i32 %8, %8
-  %196 = add i32 %195, %8
-  %197 = mul i32 %196, 3
-  %198 = srem i32 %197, 2
-  %199 = icmp eq i32 %198, 0
-  %200 = mul i32 %8, %8
-  %201 = add i32 %200, %8
-  %202 = srem i32 %201, 2
-  %203 = icmp eq i32 %202, 0
-  %204 = and i1 %199, %203
-  br i1 %204, label %205, label %251
+190:                                              ; preds = %129
+  %191 = fmul float %152, %85
+  %192 = fmul float %150, %82
+  %193 = fsub float %191, %192
+  %194 = fsub float %193, %126
+  %195 = fmul float %118, %84
+  %196 = fmul float %195, %86
+  %197 = fsub float %194, %196
+  %198 = fmul float %197, 8.000000e+00
+  %199 = fmul float %135, 3.000000e+01
+  %200 = fmul float %137, %85
+  %201 = fmul float %124, %86
+  %202 = fadd float %200, %201
+  %203 = fmul float %199, %202
+  %204 = fadd float %203, %77
+  %205 = fptosi float %204 to i32
+  %206 = fptosi float %198 to i32
+  %207 = icmp slt i32 %149, %5
+  %208 = icmp sgt i32 %149, 0
+  %209 = xor i1 %207, true
+  %210 = xor i1 %208, true
+  %211 = or i1 %209, %210
+  %212 = xor i1 %211, true
+  %213 = and i1 %212, true
+  %214 = icmp sgt i32 %205, 0
+  %215 = select i1 %213, i1 %214, i1 false
+  %216 = icmp slt i32 %205, %6
+  %217 = select i1 %215, i1 %216, i1 false
+  br i1 %165, label %218, label %115
 
-205:                                              ; preds = %190
-  %206 = sub i32 1070730410, 1070730445
-  %207 = fmul float %95, %141
-  %208 = sdiv i32 3, 92
-  %209 = fmul float %207, %97
-  %210 = sdiv i32 62, 13
-  %211 = fsub float %146, %209
-  %212 = sdiv i32 16, 35
-  %213 = fmul float %211, %99
-  %214 = mul i32 108, 101
-  %215 = fmul float %207, %96
-  %216 = add i32 33, -69
-  %217 = fsub float %213, %215
-  %218 = sub i32 111, -42
-  %219 = fsub float %217, %149
-  %220 = add i32 89, 4
-  %221 = fmul float %141, %98
-  %222 = mul i32 58, 80
-  %223 = fmul float %221, %100
-  %224 = fsub float %219, %223
-  %225 = fmul float %224, 8.000000e+00
-  %226 = fmul float %152, 3.000000e+01
-  %227 = fmul float %153, %99
-  %228 = fmul float %147, %100
-  %229 = fadd float %227, %228
-  %230 = fmul float %226, %229
-  %231 = fadd float %230, %91
-  %232 = fptosi float %231 to i32
-  %233 = fptosi float %225 to i32
-  %234 = icmp slt i32 %192, %5
-  %235 = icmp sgt i32 %192, 0
-  %236 = xor i1 %235, true
-  %237 = xor i1 %236, false
-  %238 = xor i1 %234, true
-  %239 = and i1 %238, %237
-  %240 = xor i1 %237, true
-  %241 = and i1 %234, %240
-  %242 = or i1 %239, %241
-  %243 = xor i1 %242, true
-  %244 = or i1 %243, %234
-  %245 = xor i1 %242, true
-  %246 = sub i1 %244, %245
-  %247 = icmp sgt i32 %232, 0
-  %248 = select i1 %246, i1 %247, i1 false
-  %249 = icmp slt i32 %232, %6
-  %250 = select i1 %248, i1 %249, i1 false
-  br label %289
+218:                                              ; preds = %190, %166
+  %219 = phi float [ %191, %190 ], [ %167, %166 ]
+  %220 = phi float [ %192, %190 ], [ %168, %166 ]
+  %221 = phi float [ %193, %190 ], [ %169, %166 ]
+  %222 = phi float [ %194, %190 ], [ %170, %166 ]
+  %223 = phi float [ %195, %190 ], [ %171, %166 ]
+  %224 = phi float [ %196, %190 ], [ %172, %166 ]
+  %225 = phi float [ %197, %190 ], [ %173, %166 ]
+  %226 = phi float [ %198, %190 ], [ %174, %166 ]
+  %227 = phi float [ %199, %190 ], [ %175, %166 ]
+  %228 = phi float [ %200, %190 ], [ %176, %166 ]
+  %229 = phi float [ %201, %190 ], [ %177, %166 ]
+  %230 = phi float [ %202, %190 ], [ %178, %166 ]
+  %231 = phi float [ %203, %190 ], [ %179, %166 ]
+  %232 = phi float [ %204, %190 ], [ %180, %166 ]
+  %233 = phi i32 [ %205, %190 ], [ %181, %166 ]
+  %234 = phi i32 [ %206, %190 ], [ %182, %166 ]
+  %235 = phi i1 [ %207, %190 ], [ %183, %166 ]
+  %236 = phi i1 [ %208, %190 ], [ %184, %166 ]
+  %237 = phi i1 [ %213, %190 ], [ %185, %166 ]
+  %238 = phi i1 [ %214, %190 ], [ %186, %166 ]
+  %239 = phi i1 [ %215, %190 ], [ %187, %166 ]
+  %240 = phi i1 [ %216, %190 ], [ %188, %166 ]
+  %241 = phi i1 [ %217, %190 ], [ %189, %166 ]
+  br label %284
 
-251:                                              ; preds = %190
-  %252 = sub i32 42, 77
-  %253 = fmul float %95, %141
-  %254 = sdiv i32 3, 92
-  %255 = fmul float %253, %97
-  %256 = sdiv i32 62, 13
-  %257 = fsub float %146, %255
-  %258 = sdiv i32 16, 35
-  %259 = fmul float %257, %99
-  %260 = mul i32 108, 101
-  %261 = fmul float %253, %96
-  %262 = sub i32 33, 69
-  %263 = fsub float %259, %261
-  %264 = add i32 111, 42
-  %265 = fsub float %263, %149
-  %266 = add i32 26, 67
-  %267 = fmul float %141, %98
-  %268 = mul i32 58, 80
-  %269 = fmul float %267, %100
-  %270 = fsub float %265, %269
-  %271 = fmul float %270, 8.000000e+00
-  %272 = fmul float %152, 3.000000e+01
-  %273 = fmul float %153, %99
-  %274 = fmul float %147, %100
-  %275 = fadd float %273, %274
-  %276 = fmul float %272, %275
-  %277 = fadd float %276, %91
-  %278 = fptosi float %277 to i32
-  %279 = fptosi float %271 to i32
-  %280 = icmp slt i32 %192, %5
-  %281 = icmp sgt i32 %192, 0
-  %282 = xor i1 %281, true
-  %283 = xor i1 %280, %282
-  %284 = and i1 %283, %280
-  %285 = icmp sgt i32 %278, 0
-  %286 = select i1 %284, i1 %285, i1 false
-  %287 = icmp slt i32 %278, %6
-  %288 = select i1 %286, i1 %287, i1 false
-  br i1 %204, label %289, label %138
+242:                                              ; preds = %115
+  %243 = fadd float %125, %126
+  %244 = fadd float %243, 5.000000e+00
+  %245 = fdiv float 1.000000e+00, %244
+  %246 = fmul float %120, %84
+  %247 = fmul float %245, 1.500000e+01
+  %248 = fmul float %246, %86
+  %249 = fmul float %124, %85
+  %250 = fsub float %248, %249
+  %251 = fmul float %247, %250
+  %252 = fadd float %251, %80
+  %253 = fptosi float %252 to i32
+  %254 = fmul float %81, %118
+  %255 = fmul float %254, %83
+  %256 = fsub float %123, %255
+  %257 = fmul float %256, %85
+  %258 = fmul float %254, %82
+  %259 = fsub float %257, %258
+  %260 = fsub float %259, %126
+  %261 = fmul float %118, %84
+  %262 = fmul float %261, %86
+  %263 = fsub float %260, %262
+  %264 = fmul float %263, 8.000000e+00
+  %265 = fmul float %245, 3.000000e+01
+  %266 = fmul float %246, %85
+  %267 = fmul float %124, %86
+  %268 = fadd float %266, %267
+  %269 = fmul float %265, %268
+  %270 = fadd float %269, %77
+  %271 = fptosi float %270 to i32
+  %272 = fptosi float %264 to i32
+  %273 = icmp slt i32 %253, %5
+  %274 = icmp sgt i32 %253, 0
+  %275 = xor i1 %273, true
+  %276 = xor i1 %274, true
+  %277 = or i1 %275, %276
+  %278 = xor i1 %277, true
+  %279 = and i1 %278, true
+  %280 = icmp sgt i32 %271, 0
+  %281 = select i1 %279, i1 %280, i1 false
+  %282 = icmp slt i32 %271, %6
+  %283 = select i1 %281, i1 %282, i1 false
+  br label %284
 
-289:                                              ; preds = %251, %205
-  %290 = phi i32 [ %252, %251 ], [ %206, %205 ]
-  %291 = phi float [ %253, %251 ], [ %207, %205 ]
-  %292 = phi i32 [ %254, %251 ], [ %208, %205 ]
-  %293 = phi float [ %255, %251 ], [ %209, %205 ]
-  %294 = phi i32 [ %256, %251 ], [ %210, %205 ]
-  %295 = phi float [ %257, %251 ], [ %211, %205 ]
-  %296 = phi i32 [ %258, %251 ], [ %212, %205 ]
-  %297 = phi float [ %259, %251 ], [ %213, %205 ]
-  %298 = phi i32 [ %260, %251 ], [ %214, %205 ]
-  %299 = phi float [ %261, %251 ], [ %215, %205 ]
-  %300 = phi i32 [ %262, %251 ], [ %216, %205 ]
-  %301 = phi float [ %263, %251 ], [ %217, %205 ]
-  %302 = phi i32 [ %264, %251 ], [ %218, %205 ]
-  %303 = phi float [ %265, %251 ], [ %219, %205 ]
-  %304 = phi i32 [ %266, %251 ], [ %220, %205 ]
-  %305 = phi float [ %267, %251 ], [ %221, %205 ]
-  %306 = phi i32 [ %268, %251 ], [ %222, %205 ]
-  %307 = phi float [ %269, %251 ], [ %223, %205 ]
-  %308 = phi float [ %270, %251 ], [ %224, %205 ]
-  %309 = phi float [ %271, %251 ], [ %225, %205 ]
-  %310 = phi float [ %272, %251 ], [ %226, %205 ]
-  %311 = phi float [ %273, %251 ], [ %227, %205 ]
-  %312 = phi float [ %274, %251 ], [ %228, %205 ]
-  %313 = phi float [ %275, %251 ], [ %229, %205 ]
-  %314 = phi float [ %276, %251 ], [ %230, %205 ]
-  %315 = phi float [ %277, %251 ], [ %231, %205 ]
-  %316 = phi i32 [ %278, %251 ], [ %232, %205 ]
-  %317 = phi i32 [ %279, %251 ], [ %233, %205 ]
-  %318 = phi i1 [ %280, %251 ], [ %234, %205 ]
-  %319 = phi i1 [ %281, %251 ], [ %235, %205 ]
-  %320 = phi i1 [ %282, %251 ], [ %237, %205 ]
-  %321 = phi i1 [ %283, %251 ], [ %242, %205 ]
-  %322 = phi i1 [ %284, %251 ], [ %246, %205 ]
-  %323 = phi i1 [ %285, %251 ], [ %247, %205 ]
-  %324 = phi i1 [ %286, %251 ], [ %248, %205 ]
-  %325 = phi i1 [ %287, %251 ], [ %249, %205 ]
-  %326 = phi i1 [ %288, %251 ], [ %250, %205 ]
-  br label %327
+284:                                              ; preds = %242, %218
+  %285 = phi float [ %243, %242 ], [ %131, %218 ]
+  %286 = phi float [ %244, %242 ], [ %133, %218 ]
+  %287 = phi float [ %245, %242 ], [ %135, %218 ]
+  %288 = phi float [ %246, %242 ], [ %137, %218 ]
+  %289 = phi float [ %247, %242 ], [ %139, %218 ]
+  %290 = phi float [ %248, %242 ], [ %141, %218 ]
+  %291 = phi float [ %249, %242 ], [ %143, %218 ]
+  %292 = phi float [ %250, %242 ], [ %145, %218 ]
+  %293 = phi float [ %251, %242 ], [ %147, %218 ]
+  %294 = phi float [ %252, %242 ], [ %148, %218 ]
+  %295 = phi i32 [ %253, %242 ], [ %149, %218 ]
+  %296 = phi float [ %254, %242 ], [ %150, %218 ]
+  %297 = phi float [ %255, %242 ], [ %151, %218 ]
+  %298 = phi float [ %256, %242 ], [ %152, %218 ]
+  %299 = phi float [ %257, %242 ], [ %219, %218 ]
+  %300 = phi float [ %258, %242 ], [ %220, %218 ]
+  %301 = phi float [ %259, %242 ], [ %221, %218 ]
+  %302 = phi float [ %260, %242 ], [ %222, %218 ]
+  %303 = phi float [ %261, %242 ], [ %223, %218 ]
+  %304 = phi float [ %262, %242 ], [ %224, %218 ]
+  %305 = phi float [ %263, %242 ], [ %225, %218 ]
+  %306 = phi float [ %264, %242 ], [ %226, %218 ]
+  %307 = phi float [ %265, %242 ], [ %227, %218 ]
+  %308 = phi float [ %266, %242 ], [ %228, %218 ]
+  %309 = phi float [ %267, %242 ], [ %229, %218 ]
+  %310 = phi float [ %268, %242 ], [ %230, %218 ]
+  %311 = phi float [ %269, %242 ], [ %231, %218 ]
+  %312 = phi float [ %270, %242 ], [ %232, %218 ]
+  %313 = phi i32 [ %271, %242 ], [ %233, %218 ]
+  %314 = phi i32 [ %272, %242 ], [ %234, %218 ]
+  %315 = phi i1 [ %273, %242 ], [ %235, %218 ]
+  %316 = phi i1 [ %274, %242 ], [ %236, %218 ]
+  %317 = phi i1 [ %279, %242 ], [ %237, %218 ]
+  %318 = phi i1 [ %280, %242 ], [ %238, %218 ]
+  %319 = phi i1 [ %281, %242 ], [ %239, %218 ]
+  %320 = phi i1 [ %282, %242 ], [ %240, %218 ]
+  %321 = phi i1 [ %283, %242 ], [ %241, %218 ]
+  br i1 %321, label %322, label %423
 
-327:                                              ; preds = %289, %162
-  %328 = phi i32 [ %192, %289 ], [ %163, %162 ]
-  %329 = phi float [ %291, %289 ], [ %164, %162 ]
-  %330 = phi float [ %293, %289 ], [ %165, %162 ]
-  %331 = phi float [ %295, %289 ], [ %166, %162 ]
-  %332 = phi float [ %297, %289 ], [ %167, %162 ]
-  %333 = phi float [ %299, %289 ], [ %168, %162 ]
-  %334 = phi float [ %301, %289 ], [ %169, %162 ]
-  %335 = phi float [ %303, %289 ], [ %170, %162 ]
-  %336 = phi float [ %305, %289 ], [ %171, %162 ]
-  %337 = phi float [ %307, %289 ], [ %172, %162 ]
-  %338 = phi float [ %308, %289 ], [ %173, %162 ]
-  %339 = phi float [ %309, %289 ], [ %174, %162 ]
-  %340 = phi float [ %310, %289 ], [ %175, %162 ]
-  %341 = phi float [ %311, %289 ], [ %176, %162 ]
-  %342 = phi float [ %312, %289 ], [ %177, %162 ]
-  %343 = phi float [ %313, %289 ], [ %178, %162 ]
-  %344 = phi float [ %314, %289 ], [ %179, %162 ]
-  %345 = phi float [ %315, %289 ], [ %180, %162 ]
-  %346 = phi i32 [ %316, %289 ], [ %181, %162 ]
-  %347 = phi i32 [ %317, %289 ], [ %182, %162 ]
-  %348 = phi i1 [ %318, %289 ], [ %183, %162 ]
-  %349 = phi i1 [ %319, %289 ], [ %184, %162 ]
-  %350 = phi i1 [ %322, %289 ], [ %185, %162 ]
-  %351 = phi i1 [ %323, %289 ], [ %186, %162 ]
-  %352 = phi i1 [ %324, %289 ], [ %187, %162 ]
-  %353 = phi i1 [ %325, %289 ], [ %188, %162 ]
-  %354 = phi i1 [ %326, %289 ], [ %189, %162 ]
-  br i1 %354, label %355, label %476
+322:                                              ; preds = %350, %284
+  %323 = mul nsw i32 %295, %6
+  %324 = add nsw i32 %323, %313
+  %325 = sext i32 %324 to i64
+  %326 = getelementptr inbounds float, float* %3, i64 %325
+  %327 = srem i32 %76, 2
+  %328 = icmp eq i32 %327, 0
+  br i1 %328, label %329, label %362
 
-355:                                              ; preds = %389, %327
-  %356 = mul nsw i32 %328, %6
-  %357 = add nsw i32 %356, %346
-  %358 = sext i32 %357 to i64
-  %359 = getelementptr inbounds float, float* %3, i64 %358
-  %360 = srem i32 %6, 2
-  %361 = icmp eq i32 %360, 0
-  br i1 %361, label %362, label %405
+329:                                              ; preds = %322
+  %330 = sub i32 68, 16
+  %331 = load float, float* %326, align 4, !tbaa !13
+  %332 = mul i32 30, 54
+  %333 = fcmp ogt float %287, %331
+  %334 = mul i32 59, 66
+  %335 = sub i32 24, 57
+  %336 = sdiv i32 49, 120
+  %337 = srem i64 %127, 2
+  %338 = icmp eq i64 %337, 0
+  %339 = mul i64 %127, 2
+  %340 = mul i64 %127, 2
+  %341 = add i64 2, %340
+  %342 = mul i64 %339, %341
+  %343 = srem i64 %342, 4
+  %344 = icmp eq i64 %343, 0
+  %345 = mul i64 %127, %127
+  %346 = add i64 %345, %127
+  %347 = srem i64 %346, 2
+  %348 = icmp eq i64 %347, 0
+  %349 = or i1 %344, %348
+  br i1 %349, label %354, label %350
 
-362:                                              ; preds = %355
-  %363 = sdiv i32 63, 18
-  %364 = load float, float* %359, align 4, !tbaa !13
-  %365 = sdiv i32 60, 82
-  %366 = fcmp ogt float %152, %364
-  %367 = sub i32 39, 17
-  %368 = srem i32 %360, 2
-  %369 = icmp eq i32 %368, 0
-  %370 = mul i32 %160, 2
-  %371 = mul i32 %160, 2
-  %372 = add i32 2, %371
-  %373 = mul i32 %370, %372
-  %374 = srem i32 %373, 4
-  %375 = icmp eq i32 %374, 0
-  %376 = mul i32 %160, %160
-  %377 = add i32 %376, %160
-  %378 = srem i32 %377, 2
-  %379 = icmp eq i32 %378, 0
-  %380 = and i1 %375, %379
-  br i1 %380, label %381, label %389
+350:                                              ; preds = %329
+  %351 = add i32 1313516670, -1313516665
+  %352 = add i32 1902409099, -1902408980
+  %353 = add i32 -990270644, 990270781
+  br i1 %349, label %358, label %322
 
-381:                                              ; preds = %362
-  %382 = mul i32 18, 14
-  %383 = mul i32 116, 92
-  %384 = sdiv i32 13, 55
-  %385 = sdiv i32 101, 43
-  %386 = sdiv i32 13, 45
-  %387 = sub i32 20, 71
-  %388 = sdiv i32 82, 11
-  br label %397
+354:                                              ; preds = %329
+  %355 = sub i32 33, 28
+  %356 = add i32 68, 51
+  %357 = add i32 120, 17
+  br label %358
 
-389:                                              ; preds = %362
-  %390 = mul i32 18, 14
-  %391 = mul i32 116, 92
-  %392 = sdiv i32 13, 55
-  %393 = sdiv i32 101, 43
-  %394 = sdiv i32 13, 45
-  %395 = sub i32 -527679155, -527679104
-  %396 = sdiv i32 82, 11
-  br i1 %380, label %397, label %355
+358:                                              ; preds = %350, %354
+  %359 = phi i32 [ %355, %354 ], [ %351, %350 ]
+  %360 = phi i32 [ %356, %354 ], [ %352, %350 ]
+  %361 = phi i32 [ %357, %354 ], [ %353, %350 ]
+  br label %365
 
-397:                                              ; preds = %389, %381
-  %398 = phi i32 [ %390, %389 ], [ %382, %381 ]
-  %399 = phi i32 [ %391, %389 ], [ %383, %381 ]
-  %400 = phi i32 [ %392, %389 ], [ %384, %381 ]
-  %401 = phi i32 [ %393, %389 ], [ %385, %381 ]
-  %402 = phi i32 [ %394, %389 ], [ %386, %381 ]
-  %403 = phi i32 [ %395, %389 ], [ %387, %381 ]
-  %404 = phi i32 [ %396, %389 ], [ %388, %381 ]
-  br label %408
+362:                                              ; preds = %322
+  %363 = load float, float* %326, align 4, !tbaa !13
+  %364 = fcmp ogt float %287, %363
+  br label %365
 
-405:                                              ; preds = %355
-  %406 = load float, float* %359, align 4, !tbaa !13
-  %407 = fcmp ogt float %152, %406
-  br label %408
+365:                                              ; preds = %362, %358
+  %366 = phi float [ %363, %362 ], [ %331, %358 ]
+  %367 = phi i1 [ %364, %362 ], [ %333, %358 ]
+  br i1 %367, label %368, label %423
 
-408:                                              ; preds = %405, %397
-  %409 = phi float [ %406, %405 ], [ %364, %397 ]
-  %410 = phi i1 [ %407, %405 ], [ %366, %397 ]
-  br i1 %410, label %411, label %476
+368:                                              ; preds = %401, %365
+  %369 = srem i32 %314, 2
+  %370 = icmp eq i32 %369, 0
+  br i1 %370, label %371, label %409
 
-411:                                              ; preds = %448, %408
-  store float %152, float* %359, align 4, !tbaa !13
-  %412 = icmp sgt i32 %347, 0
-  %413 = srem i32 %347, 2
-  %414 = icmp eq i32 %413, 0
-  br i1 %414, label %415, label %421
+371:                                              ; preds = %368
+  %372 = add i32 11, 45
+  store float %287, float* %326, align 4, !tbaa !13
+  %373 = sub i32 121, 0
+  %374 = icmp sgt i32 %314, 0
+  %375 = sub i32 51, 65
+  %376 = select i1 %374, i32 %314, i32 0
+  %377 = mul i32 116, 2
+  %378 = zext i32 %376 to i64
+  %379 = sub i32 45, 91
+  %380 = getelementptr inbounds [13 x i8], [13 x i8]* @.str.1, i64 0, i64 %378
+  %381 = add i32 126, 85
+  %382 = load i8, i8* %380, align 1, !tbaa !10
+  %383 = srem i64 %127, 2
+  %384 = icmp eq i64 %383, 0
+  %385 = mul i32 %369, 2
+  %386 = mul i32 %369, 2
+  %387 = add i32 2, %386
+  %388 = mul i32 %385, %387
+  %389 = srem i32 %388, 4
+  %390 = icmp eq i32 %389, 0
+  %391 = mul i32 %369, %369
+  %392 = mul i32 %391, %369
+  %393 = add i32 %392, %369
+  %394 = srem i32 %393, 2
+  %395 = icmp eq i32 %394, 0
+  %396 = and i1 %390, %395
+  br i1 %396, label %397, label %401
 
-415:                                              ; preds = %411
-  %416 = select i1 %412, i32 %347, i32 0
-  %417 = zext i32 %416 to i64
-  %418 = getelementptr inbounds [13 x i8], [13 x i8]* @.str.1, i64 0, i64 %417
-  %419 = load i8, i8* %418, align 1, !tbaa !10
-  %420 = getelementptr inbounds i8, i8* %4, i64 %358
-  store i8 %419, i8* %420, align 1, !tbaa !10
-  br label %470
+397:                                              ; preds = %371
+  %398 = add i32 72, -56
+  %399 = getelementptr inbounds i8, i8* %4, i64 %325
+  %400 = sub i32 113, -8
+  store i8 %382, i8* %399, align 1, !tbaa !10
+  br label %405
 
-421:                                              ; preds = %411
-  %422 = add i32 51, 72
-  %423 = select i1 %412, i32 %347, i32 0
-  %424 = srem i32 %346, 2
-  %425 = icmp eq i32 %424, 0
-  %426 = mul i32 %6, 2
-  %427 = mul i32 %6, 2
-  %428 = add i32 2, %427
-  %429 = mul i32 %426, %428
-  %430 = srem i32 %429, 4
-  %431 = icmp eq i32 %430, 0
-  %432 = mul i32 %6, %6
-  %433 = add i32 %432, %6
-  %434 = srem i32 %433, 2
-  %435 = icmp eq i32 %434, 0
-  %436 = and i1 %431, %435
-  br i1 %436, label %437, label %448
+401:                                              ; preds = %371
+  %402 = sub i32 72, 56
+  %403 = getelementptr inbounds i8, i8* %4, i64 %325
+  %404 = add i32 113, 8
+  store i8 %382, i8* %403, align 1, !tbaa !10
+  br i1 %396, label %405, label %368
 
-437:                                              ; preds = %421
-  %438 = sdiv i32 21, 95
-  %439 = zext i32 %423 to i64
-  %440 = sdiv i32 9, 40
-  %441 = getelementptr inbounds [13 x i8], [13 x i8]* @.str.1, i64 0, i64 %439
-  %442 = add i32 -1854332491, 1854332533
-  %443 = load i8, i8* %441, align 1, !tbaa !10
-  %444 = mul i32 56, 99
-  %445 = getelementptr inbounds i8, i8* %4, i64 %358
-  %446 = add i32 78, -106
-  store i8 %443, i8* %445, align 1, !tbaa !10
-  %447 = mul i32 104, 118
-  br label %459
+405:                                              ; preds = %401, %397
+  %406 = phi i32 [ %402, %401 ], [ %398, %397 ]
+  %407 = phi i8* [ %403, %401 ], [ %399, %397 ]
+  %408 = phi i32 [ %404, %401 ], [ %400, %397 ]
+  br label %416
 
-448:                                              ; preds = %421
-  %449 = sdiv i32 21, 95
-  %450 = zext i32 %423 to i64
-  %451 = sdiv i32 9, 40
-  %452 = getelementptr inbounds [13 x i8], [13 x i8]* @.str.1, i64 0, i64 %450
-  %453 = sub i32 102, 60
-  %454 = load i8, i8* %452, align 1, !tbaa !10
-  %455 = mul i32 56, 99
-  %456 = getelementptr inbounds i8, i8* %4, i64 %358
-  %457 = sub i32 78, 106
-  store i8 %454, i8* %456, align 1, !tbaa !10
-  %458 = mul i32 104, 118
-  br i1 %436, label %459, label %411
+409:                                              ; preds = %368
+  store float %287, float* %326, align 4, !tbaa !13
+  %410 = icmp sgt i32 %314, 0
+  %411 = select i1 %410, i32 %314, i32 0
+  %412 = zext i32 %411 to i64
+  %413 = getelementptr inbounds [13 x i8], [13 x i8]* @.str.1, i64 0, i64 %412
+  %414 = load i8, i8* %413, align 1, !tbaa !10
+  %415 = getelementptr inbounds i8, i8* %4, i64 %325
+  store i8 %414, i8* %415, align 1, !tbaa !10
+  br label %416
 
-459:                                              ; preds = %448, %437
-  %460 = phi i32 [ %449, %448 ], [ %438, %437 ]
-  %461 = phi i64 [ %450, %448 ], [ %439, %437 ]
-  %462 = phi i32 [ %451, %448 ], [ %440, %437 ]
-  %463 = phi i8* [ %452, %448 ], [ %441, %437 ]
-  %464 = phi i32 [ %453, %448 ], [ %442, %437 ]
-  %465 = phi i8 [ %454, %448 ], [ %443, %437 ]
-  %466 = phi i32 [ %455, %448 ], [ %444, %437 ]
-  %467 = phi i8* [ %456, %448 ], [ %445, %437 ]
-  %468 = phi i32 [ %457, %448 ], [ %446, %437 ]
-  %469 = phi i32 [ %458, %448 ], [ %447, %437 ]
-  br label %470
+416:                                              ; preds = %409, %405
+  %417 = phi i1 [ %410, %409 ], [ %374, %405 ]
+  %418 = phi i32 [ %411, %409 ], [ %376, %405 ]
+  %419 = phi i64 [ %412, %409 ], [ %378, %405 ]
+  %420 = phi i8* [ %413, %409 ], [ %380, %405 ]
+  %421 = phi i8 [ %414, %409 ], [ %382, %405 ]
+  %422 = phi i8* [ %415, %409 ], [ %407, %405 ]
+  br label %423
 
-470:                                              ; preds = %459, %415
-  %471 = phi i32 [ %423, %459 ], [ %416, %415 ]
-  %472 = phi i64 [ %461, %459 ], [ %417, %415 ]
-  %473 = phi i8* [ %463, %459 ], [ %418, %415 ]
-  %474 = phi i8 [ %465, %459 ], [ %419, %415 ]
-  %475 = phi i8* [ %467, %459 ], [ %420, %415 ]
-  br label %476
+423:                                              ; preds = %454, %416, %365, %284
+  %424 = fadd double %116, 7.000000e-02
+  %425 = fptrunc double %424 to float
+  %426 = fpext float %425 to double
+  %427 = fcmp olt double %426, 6.280000e+00
+  %428 = srem i32 %313, 2
+  %429 = icmp eq i32 %428, 0
+  br i1 %429, label %430, label %460
 
-476:                                              ; preds = %498, %470, %408, %327
-  %477 = srem i32 %6, 2
-  %478 = icmp eq i32 %477, 0
-  br i1 %478, label %479, label %507
+430:                                              ; preds = %423
+  %431 = sub i32 102, 62
+  %432 = sub i32 93, 13
+  %433 = sub i32 34, 104
+  %434 = add i32 7, 32
+  %435 = sdiv i32 14, 52
+  %436 = sub i32 85, 80
+  %437 = sdiv i32 62, 36
+  %438 = sdiv i32 55, 103
+  %439 = srem i32 %76, 2
+  %440 = icmp eq i32 %439, 0
+  %441 = mul i32 %314, %314
+  %442 = add i32 %441, %314
+  %443 = mul i32 %442, 3
+  %444 = srem i32 %443, 2
+  %445 = icmp eq i32 %444, 0
+  %446 = mul i32 %314, %314
+  %447 = add i32 %446, %314
+  %448 = srem i32 %447, 2
+  %449 = icmp eq i32 %448, 0
+  %450 = and i1 %445, %449
+  br i1 %450, label %451, label %454
 
-479:                                              ; preds = %476
-  %480 = mul i32 36, 126
-  %481 = fadd double %139, 7.000000e-02
-  %482 = sdiv i32 16, 70
-  %483 = fptrunc double %481 to float
-  %484 = mul i32 26, 75
-  %485 = fpext float %483 to double
-  %486 = add i32 117, 5
-  %487 = fcmp olt double %485, 6.280000e+00
-  %488 = mul i32 112, 0
-  %489 = srem i32 %347, 2
-  %490 = icmp eq i32 %489, 0
-  %491 = and i32 %346, 1
-  %492 = icmp eq i32 %491, 1
-  %493 = mul i32 %346, %346
-  %494 = add i32 %493, %346
-  %495 = srem i32 %494, 2
-  %496 = icmp eq i32 %495, 0
-  %497 = or i1 %492, %496
-  br i1 %497, label %501, label %498
+451:                                              ; preds = %430
+  %452 = sub i32 713489374, 713489387
+  %453 = add i32 88, -58
+  br label %457
 
-498:                                              ; preds = %479
-  %499 = add i32 54, 74
-  %500 = add i32 98, 69
-  br i1 %497, label %504, label %476
+454:                                              ; preds = %430
+  %455 = sub i32 31, 44
+  %456 = sub i32 88, 58
+  br i1 %450, label %457, label %423
 
-501:                                              ; preds = %479
-  %502 = add i32 2147390993, -2147390865
-  %503 = add i32 39, 128
-  br label %504
+457:                                              ; preds = %454, %451
+  %458 = phi i32 [ %455, %454 ], [ %452, %451 ]
+  %459 = phi i32 [ %456, %454 ], [ %453, %451 ]
+  br label %461
 
-504:                                              ; preds = %498, %501
-  %505 = phi i32 [ %502, %501 ], [ %499, %498 ]
-  %506 = phi i32 [ %503, %501 ], [ %500, %498 ]
-  br label %512
+460:                                              ; preds = %423
+  br label %461
 
-507:                                              ; preds = %476
-  %508 = fadd double %139, 7.000000e-02
-  %509 = fptrunc double %508 to float
-  %510 = fpext float %509 to double
-  %511 = fcmp olt double %510, 6.280000e+00
-  br label %512
-
-512:                                              ; preds = %507, %504
-  %513 = phi double [ %508, %507 ], [ %481, %504 ]
-  %514 = phi float [ %509, %507 ], [ %483, %504 ]
-  %515 = phi double [ %510, %507 ], [ %485, %504 ]
-  %516 = phi i1 [ %511, %507 ], [ %487, %504 ]
-  br i1 %516, label %138, label %101, !llvm.loop !18
+461:                                              ; preds = %460, %457
+  br i1 %427, label %115, label %87, !llvm.loop !18
 }
 
 ; Function Attrs: argmemonly nocallback nofree nounwind willreturn writeonly
@@ -950,222 +901,181 @@ define i32 @main() local_unnamed_addr #6 {
   %10 = call i32 (i8*, ...) @printf(i8* nonnull dereferenceable(1) getelementptr inbounds ([5 x i8], [5 x i8]* @.str.2, i64 0, i64 0))
   br label %11
 
-11:                                               ; preds = %40, %48, %0
-  %12 = phi i32 [ 5, %0 ], [ %49, %48 ], [ 0, %40 ]
+11:                                               ; preds = %36, %54, %0
+  %12 = phi i32 [ 5, %0 ], [ %15, %54 ], [ 0, %36 ]
   %13 = load float, float* %1, align 4, !tbaa !13
   %14 = load float, float* %2, align 4, !tbaa !13
-  %15 = srem i32 %10, 2
-  %16 = icmp eq i32 %15, 0
-  br i1 %16, label %17, label %20
-
-17:                                               ; preds = %11
   call void @_Z6renderffiPfPcii(float %13, float %14, i32 1760, float* nonnull %9, i8* nonnull %8, i32 22, i32 80)
   call void @_Z7displayPKcRfS1_i(i8* nonnull %8, float* nonnull align 4 dereferenceable(4) %1, float* nonnull align 4 dereferenceable(4) %2, i32 1)
-  %18 = sub i32 %12, -1
-  %19 = icmp eq i32 %18, 10
-  br label %48
+  %15 = add nuw nsw i32 %12, 1
+  %16 = srem i32 %10, 2
+  %17 = icmp eq i32 %16, 0
+  br i1 %17, label %18, label %20
+
+18:                                               ; preds = %11
+  %19 = icmp eq i32 %15, 10
+  br label %54
 
 20:                                               ; preds = %11
-  %21 = mul i32 1, 55
-  call void @_Z6renderffiPfPcii(float %13, float %14, i32 1760, float* nonnull %9, i8* nonnull %8, i32 22, i32 80)
-  %22 = add i32 17, 4
-  call void @_Z7displayPKcRfS1_i(i8* nonnull %8, float* nonnull align 4 dereferenceable(4) %1, float* nonnull align 4 dereferenceable(4) %2, i32 1)
-  %23 = add i32 51, 6
-  %24 = add nuw nsw i32 %12, 1
-  %25 = mul i32 12, 77
-  %26 = icmp eq i32 %24, 10
-  %27 = srem i32 %10, 2
-  %28 = icmp eq i32 %27, 0
-  %29 = and i32 %12, 1
-  %30 = icmp eq i32 %29, 1
-  %31 = mul i32 %12, %12
-  %32 = add i32 %31, %12
+  %21 = add i32 11, 120
+  %22 = icmp eq i32 %15, 10
+  %23 = sdiv i32 122, 40
+  %24 = mul i32 121, 31
+  %25 = sub i32 107, 59
+  %26 = srem i32 %12, 2
+  %27 = icmp eq i32 %26, 0
+  %28 = and i32 %15, 1
+  %29 = icmp eq i32 %28, 0
+  %30 = mul i32 %15, %15
+  %31 = add i32 %30, %15
+  %32 = mul i32 %31, 3
   %33 = srem i32 %32, 2
   %34 = icmp eq i32 %33, 0
-  %35 = or i1 %30, %34
-  br i1 %35, label %36, label %40
+  %35 = or i1 %29, %34
+  br i1 %35, label %42, label %36
 
 36:                                               ; preds = %20
-  %37 = sub i32 4, 19
-  %38 = add i32 70, 91
-  %39 = mul i32 24, 87
-  br label %44
+  %37 = sdiv i32 84, 94
+  %38 = add i32 1580312340, -1580312373
+  %39 = mul i32 100, 4
+  %40 = sub i32 -1326625364, -1326625455
+  %41 = sub i32 3, -4
+  br i1 %35, label %48, label %11
 
-40:                                               ; preds = %20
-  %41 = add i32 1806594898, -1806594913
-  %42 = add i32 526002691, -526002530
-  %43 = mul i32 24, 87
-  br i1 %35, label %44, label %11
-
-44:                                               ; preds = %40, %36
-  %45 = phi i32 [ %41, %40 ], [ %37, %36 ]
-  %46 = phi i32 [ %42, %40 ], [ %38, %36 ]
-  %47 = phi i32 [ %43, %40 ], [ %39, %36 ]
+42:                                               ; preds = %20
+  %43 = sdiv i32 84, 94
+  %44 = sub i32 50, 83
+  %45 = mul i32 100, 4
+  %46 = sub i32 95, 4
+  %47 = add i32 3, 4
   br label %48
 
-48:                                               ; preds = %44, %17
-  %49 = phi i32 [ %24, %44 ], [ %18, %17 ]
-  %50 = phi i1 [ %26, %44 ], [ %19, %17 ]
-  br i1 %50, label %95, label %11, !llvm.loop !19
+48:                                               ; preds = %36, %42
+  %49 = phi i32 [ %43, %42 ], [ %37, %36 ]
+  %50 = phi i32 [ %44, %42 ], [ %38, %36 ]
+  %51 = phi i32 [ %45, %42 ], [ %39, %36 ]
+  %52 = phi i32 [ %46, %42 ], [ %40, %36 ]
+  %53 = phi i32 [ %47, %42 ], [ %41, %36 ]
+  br label %54
 
-51:                                               ; preds = %70, %167
+54:                                               ; preds = %48, %18
+  %55 = phi i1 [ %22, %48 ], [ %19, %18 ]
+  br i1 %55, label %89, label %11, !llvm.loop !19
+
+56:                                               ; preds = %78, %136
   call void @llvm.stackrestore(i8* %5)
-  %52 = srem i32 %172, 2
-  %53 = icmp eq i32 %52, 0
-  br i1 %53, label %54, label %55
-
-54:                                               ; preds = %51
   call void @llvm.lifetime.end.p0i8(i64 4, i8* nonnull %4) #9
-  call void @llvm.lifetime.end.p0i8(i64 4, i8* nonnull %3) #9
-  br label %94
-
-55:                                               ; preds = %51
-  %56 = sub i32 21, 106
-  %57 = srem i32 %100, 2
+  %57 = srem i32 %95, 2
   %58 = icmp eq i32 %57, 0
-  %59 = mul i32 %172, 2
-  %60 = mul i32 %172, 2
-  %61 = add i32 2, %60
-  %62 = mul i32 %59, %61
-  %63 = srem i32 %62, 4
-  %64 = icmp eq i32 %63, 0
-  %65 = mul i32 %172, %172
-  %66 = add i32 %65, %172
-  %67 = srem i32 %66, 2
-  %68 = icmp eq i32 %67, 0
-  %69 = or i1 %64, %68
-  br i1 %69, label %78, label %70
+  br i1 %58, label %59, label %87
 
-70:                                               ; preds = %55
-  call void @llvm.lifetime.end.p0i8(i64 4, i8* nonnull %4) #9
-  %71 = add i32 84, 70
+59:                                               ; preds = %56
+  %60 = mul i32 7, 10
   call void @llvm.lifetime.end.p0i8(i64 4, i8* nonnull %3) #9
-  %72 = mul i32 106, 52
-  %73 = sdiv i32 69, 112
-  %74 = mul i32 125, 114
-  %75 = sdiv i32 113, 70
-  %76 = add i32 103, 83
-  %77 = sdiv i32 24, 50
-  br i1 %69, label %86, label %51
+  %61 = add i32 121, 44
+  %62 = mul i32 20, 45
+  %63 = sub i32 12, 6
+  %64 = srem i32 %95, 2
+  %65 = icmp eq i32 %64, 0
+  %66 = mul i32 %15, 2
+  %67 = mul i32 %15, 2
+  %68 = add i32 2, %67
+  %69 = mul i32 %66, %68
+  %70 = srem i32 %69, 4
+  %71 = icmp eq i32 %70, 0
+  %72 = mul i32 %15, %15
+  %73 = mul i32 %72, %15
+  %74 = add i32 %73, %15
+  %75 = srem i32 %74, 2
+  %76 = icmp eq i32 %75, 0
+  %77 = and i1 %71, %76
+  br i1 %77, label %81, label %78
 
-78:                                               ; preds = %55
-  call void @llvm.lifetime.end.p0i8(i64 4, i8* nonnull %4) #9
-  %79 = sub i32 0, -154
+78:                                               ; preds = %59
+  %79 = sdiv i32 23, 66
+  %80 = sdiv i32 121, 20
+  br i1 %77, label %84, label %56
+
+81:                                               ; preds = %59
+  %82 = sdiv i32 23, 66
+  %83 = sdiv i32 121, 20
+  br label %84
+
+84:                                               ; preds = %78, %81
+  %85 = phi i32 [ %82, %81 ], [ %79, %78 ]
+  %86 = phi i32 [ %83, %81 ], [ %80, %78 ]
+  br label %88
+
+87:                                               ; preds = %56
   call void @llvm.lifetime.end.p0i8(i64 4, i8* nonnull %3) #9
-  %80 = mul i32 106, 52
-  %81 = sdiv i32 69, 112
-  %82 = mul i32 125, 114
-  %83 = sdiv i32 113, 70
-  %84 = add i32 67, 119
-  %85 = sdiv i32 24, 50
-  br label %86
+  br label %88
 
-86:                                               ; preds = %70, %78
-  %87 = phi i32 [ %79, %78 ], [ %71, %70 ]
-  %88 = phi i32 [ %80, %78 ], [ %72, %70 ]
-  %89 = phi i32 [ %81, %78 ], [ %73, %70 ]
-  %90 = phi i32 [ %82, %78 ], [ %74, %70 ]
-  %91 = phi i32 [ %83, %78 ], [ %75, %70 ]
-  %92 = phi i32 [ %84, %78 ], [ %76, %70 ]
-  %93 = phi i32 [ %85, %78 ], [ %77, %70 ]
-  br label %94
+88:                                               ; preds = %87, %84
+  ret i32 %100
 
-94:                                               ; preds = %86, %54
-  ret i32 %172
+89:                                               ; preds = %127, %136, %54
+  %90 = phi i64 [ %137, %136 ], [ 0, %54 ], [ 0, %127 ]
+  %91 = phi i32 [ %100, %136 ], [ 0, %54 ], [ 0, %127 ]
+  %92 = getelementptr inbounds [1760 x i8], [1760 x i8]* %7, i64 0, i64 %90
+  %93 = load i8, i8* %92, align 1, !tbaa !10
+  %94 = sext i8 %93 to i32
+  %95 = add nsw i32 %91, %94
+  %96 = getelementptr inbounds [1760 x float], [1760 x float]* %6, i64 0, i64 %90
+  %97 = load float, float* %96, align 4, !tbaa !13
+  %98 = sitofp i32 %95 to float
+  %99 = fadd float %97, %98
+  %100 = fptosi float %99 to i32
+  %101 = srem i32 %10, 2
+  %102 = icmp eq i32 %101, 0
+  br i1 %102, label %103, label %133
 
-95:                                               ; preds = %121, %167, %48
-  %96 = phi i64 [ %173, %167 ], [ 0, %48 ], [ 0, %121 ]
-  %97 = phi i32 [ %172, %167 ], [ 0, %48 ], [ 0, %121 ]
-  %98 = getelementptr inbounds [1760 x i8], [1760 x i8]* %7, i64 0, i64 %96
-  %99 = load i8, i8* %98, align 1, !tbaa !10
-  %100 = sext i8 %99 to i32
-  %101 = add nsw i32 %97, %100
-  %102 = srem i32 %10, 2
-  %103 = icmp eq i32 %102, 0
-  br i1 %103, label %104, label %159
+103:                                              ; preds = %89
+  %104 = sdiv i32 66, 104
+  %105 = sub i64 0, %90
+  %106 = add i32 121, 18
+  %107 = add i64 %105, -1
+  %108 = sdiv i32 6, 90
+  %109 = sub i64 0, %107
+  %110 = sdiv i32 116, 66
+  %111 = icmp eq i64 %109, 1760
+  %112 = srem i32 %95, 2
+  %113 = icmp eq i32 %112, 0
+  %114 = mul i32 %101, %101
+  %115 = add i32 %114, %101
+  %116 = mul i32 %115, 3
+  %117 = srem i32 %116, 2
+  %118 = icmp eq i32 %117, 0
+  %119 = mul i32 %101, %101
+  %120 = add i32 %119, %101
+  %121 = srem i32 %120, 2
+  %122 = icmp eq i32 %121, 0
+  %123 = and i1 %118, %122
+  br i1 %123, label %124, label %127
 
-104:                                              ; preds = %95
-  %105 = sdiv i32 41, 36
-  %106 = getelementptr inbounds [1760 x float], [1760 x float]* %6, i64 0, i64 %96
-  %107 = srem i32 %97, 2
-  %108 = icmp eq i32 %107, 0
-  %109 = mul i32 %100, 2
-  %110 = mul i32 %100, 2
-  %111 = add i32 2, %110
-  %112 = mul i32 %109, %111
-  %113 = srem i32 %112, 4
-  %114 = icmp eq i32 %113, 0
-  %115 = mul i32 %100, %100
-  %116 = mul i32 %115, %100
-  %117 = add i32 %116, %100
-  %118 = srem i32 %117, 2
-  %119 = icmp eq i32 %118, 0
-  %120 = and i1 %114, %119
-  br i1 %120, label %135, label %121
+124:                                              ; preds = %103
+  %125 = sdiv i32 113, 43
+  %126 = mul i32 29, 49
+  br label %130
 
-121:                                              ; preds = %104
-  %122 = mul i32 97, 82
-  %123 = load float, float* %106, align 4, !tbaa !13
-  %124 = sub i32 -776898490, -776898532
-  %125 = sitofp i32 %101 to float
-  %126 = mul i32 91, 6
-  %127 = fadd float %123, %125
-  %128 = sdiv i32 85, 73
-  %129 = fptosi float %127 to i32
-  %130 = mul i32 101, 46
-  %131 = sub i64 %96, 615016004498812191
-  %132 = add i64 %131, 1
-  %133 = add i64 %132, 615016004498812191
-  %134 = icmp eq i64 %133, 1760
-  br i1 %120, label %147, label %95
+127:                                              ; preds = %103
+  %128 = sdiv i32 113, 43
+  %129 = mul i32 29, 49
+  br i1 %123, label %130, label %89
 
-135:                                              ; preds = %104
-  %136 = mul i32 97, 82
-  %137 = load float, float* %106, align 4, !tbaa !13
-  %138 = sub i32 70, 28
-  %139 = sitofp i32 %101 to float
-  %140 = mul i32 91, 6
-  %141 = fadd float %137, %139
-  %142 = sdiv i32 85, 73
-  %143 = fptosi float %141 to i32
-  %144 = mul i32 101, 46
-  %145 = add nuw nsw i64 %96, 1
-  %146 = icmp eq i64 %145, 1760
-  br label %147
+130:                                              ; preds = %127, %124
+  %131 = phi i32 [ %128, %127 ], [ %125, %124 ]
+  %132 = phi i32 [ %129, %127 ], [ %126, %124 ]
+  br label %136
 
-147:                                              ; preds = %121, %135
-  %148 = phi i32 [ %136, %135 ], [ %122, %121 ]
-  %149 = phi float [ %137, %135 ], [ %123, %121 ]
-  %150 = phi i32 [ %138, %135 ], [ %124, %121 ]
-  %151 = phi float [ %139, %135 ], [ %125, %121 ]
-  %152 = phi i32 [ %140, %135 ], [ %126, %121 ]
-  %153 = phi float [ %141, %135 ], [ %127, %121 ]
-  %154 = phi i32 [ %142, %135 ], [ %128, %121 ]
-  %155 = phi i32 [ %143, %135 ], [ %129, %121 ]
-  %156 = phi i32 [ %144, %135 ], [ %130, %121 ]
-  %157 = phi i64 [ %145, %135 ], [ %133, %121 ]
-  %158 = phi i1 [ %146, %135 ], [ %134, %121 ]
-  br label %167
+133:                                              ; preds = %89
+  %134 = add nuw nsw i64 %90, 1
+  %135 = icmp eq i64 %134, 1760
+  br label %136
 
-159:                                              ; preds = %95
-  %160 = getelementptr inbounds [1760 x float], [1760 x float]* %6, i64 0, i64 %96
-  %161 = load float, float* %160, align 4, !tbaa !13
-  %162 = sitofp i32 %101 to float
-  %163 = fadd float %161, %162
-  %164 = fptosi float %163 to i32
-  %165 = sub i64 %96, -1
-  %166 = icmp eq i64 %165, 1760
-  br label %167
-
-167:                                              ; preds = %159, %147
-  %168 = phi float* [ %160, %159 ], [ %106, %147 ]
-  %169 = phi float [ %161, %159 ], [ %149, %147 ]
-  %170 = phi float [ %162, %159 ], [ %151, %147 ]
-  %171 = phi float [ %163, %159 ], [ %153, %147 ]
-  %172 = phi i32 [ %164, %159 ], [ %155, %147 ]
-  %173 = phi i64 [ %165, %159 ], [ %157, %147 ]
-  %174 = phi i1 [ %166, %159 ], [ %158, %147 ]
-  br i1 %174, label %51, label %95, !llvm.loop !20
+136:                                              ; preds = %133, %130
+  %137 = phi i64 [ %134, %133 ], [ %109, %130 ]
+  %138 = phi i1 [ %135, %133 ], [ %111, %130 ]
+  br i1 %138, label %56, label %89, !llvm.loop !20
 }
 
 ; Function Attrs: nocallback nofree nosync nounwind willreturn

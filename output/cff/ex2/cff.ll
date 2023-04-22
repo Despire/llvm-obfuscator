@@ -40,11 +40,11 @@ loopStart:                                        ; preds = %loopEnd, %entry
   ]
 
 EntryBasicBlockSplit:                             ; preds = %BogusBasicBlock, %loopStart
-  %9 = getelementptr inbounds [8 x i32], [8 x i32]* %lookupTable, i32 0, i32 4
+  %9 = getelementptr inbounds [8 x i32], [8 x i32]* %lookupTable, i32 0, i32 3
   %10 = load i32, i32* %9, align 4
-  %11 = getelementptr inbounds [8 x i32], [8 x i32]* %lookupTable, i32 0, i32 7
+  %11 = getelementptr inbounds [8 x i32], [8 x i32]* %lookupTable, i32 0, i32 2
   %12 = load i32, i32* %11, align 4
-  %13 = srem i32 %10, %12
+  %13 = sub i32 %10, %12
   store i32 %13, i32* %dispatcher, align 4
   store i32 %0, i32* %.reg2mem3, align 4
   store i32 0, i32* %.reg2mem5, align 4
@@ -60,14 +60,14 @@ EntryBasicBlockSplit:                             ; preds = %BogusBasicBlock, %l
   %18 = icmp ult i32 %17, 19
   %19 = getelementptr inbounds [8 x i32], [8 x i32]* %lookupTable, i32 0, i32 5
   %20 = load i32, i32* %19, align 4
-  %21 = getelementptr inbounds [8 x i32], [8 x i32]* %lookupTable, i32 0, i32 7
+  %21 = getelementptr inbounds [8 x i32], [8 x i32]* %lookupTable, i32 0, i32 3
   %22 = load i32, i32* %21, align 4
-  %23 = srem i32 %20, %22
-  %24 = getelementptr inbounds [8 x i32], [8 x i32]* %lookupTable, i32 0, i32 6
+  %23 = sub i32 %20, %22
+  %24 = getelementptr inbounds [8 x i32], [8 x i32]* %lookupTable, i32 0, i32 4
   %25 = load i32, i32* %24, align 4
-  %26 = getelementptr inbounds [8 x i32], [8 x i32]* %lookupTable, i32 0, i32 5
+  %26 = getelementptr inbounds [8 x i32], [8 x i32]* %lookupTable, i32 0, i32 7
   %27 = load i32, i32* %26, align 4
-  %28 = sub i32 %25, %27
+  %28 = srem i32 %25, %27
   %29 = select i1 %18, i32 %23, i32 %28
   store i32 %29, i32* %dispatcher, align 4
   %.reload2 = load i32, i32* %.reg2mem, align 4

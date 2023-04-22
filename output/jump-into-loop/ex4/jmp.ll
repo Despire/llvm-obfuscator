@@ -15,7 +15,7 @@ define i32 @_Z6decideii(i32 %0, i32 %1) local_unnamed_addr #0 {
   br i1 %9, label %11, label %10
 
 10:                                               ; preds = %2
-  br label %13
+  br label %26
 
 11:                                               ; preds = %2
   br label %13
@@ -23,9 +23,9 @@ define i32 @_Z6decideii(i32 %0, i32 %1) local_unnamed_addr #0 {
 12:                                               ; preds = %13
   unreachable
 
-13:                                               ; preds = %10, %26, %11
-  %14 = phi i32 [ %0, %11 ], [ %27, %26 ], [ 0, %10 ]
-  %15 = phi i32 [ 0, %11 ], [ %28, %26 ], [ 0, %10 ]
+13:                                               ; preds = %26, %11
+  %14 = phi i32 [ %0, %11 ], [ %27, %26 ]
+  %15 = phi i32 [ 0, %11 ], [ %28, %26 ]
   switch i32 %15, label %12 [
     i32 0, label %16
     i32 1, label %21
@@ -47,9 +47,9 @@ define i32 @_Z6decideii(i32 %0, i32 %1) local_unnamed_addr #0 {
   %25 = select i1 %22, i32 3, i32 2
   br label %26
 
-26:                                               ; preds = %29, %21, %16
-  %27 = phi i32 [ %31, %29 ], [ %19, %16 ], [ %24, %21 ]
-  %28 = phi i32 [ 3, %29 ], [ %20, %16 ], [ %25, %21 ]
+26:                                               ; preds = %10, %29, %21, %16
+  %27 = phi i32 [ %31, %29 ], [ %19, %16 ], [ %24, %21 ], [ 0, %10 ]
+  %28 = phi i32 [ 3, %29 ], [ %20, %16 ], [ %25, %21 ], [ 0, %10 ]
   br label %13, !llvm.loop !13
 
 29:                                               ; preds = %13
