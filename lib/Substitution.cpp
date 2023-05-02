@@ -1,7 +1,3 @@
-//
-// Created by Matus Mrekaj on 18/02/2023.
-//
-
 #include "RNG.h"
 #include "cmd-args/Coverage.h"
 #include "Substitution.h"

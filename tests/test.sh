@@ -1,5 +1,10 @@
 #!/bin/bash
 
+echo "-----Testing Block Extraction-----"
+for i in {0..1}; do
+  python3 ./tests/test_bext.py
+done
+echo "-----------------------------------------"
 echo "-----Testing Constant Obfuscation-----"
 for i in {0..10}; do
   python3 ./tests/test_cobfs.py
