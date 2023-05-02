@@ -85,8 +85,8 @@ bool OpaquePredicates::handleOpaquelyTruePredicateWithClone(llvm::BasicBlock &BB
     llvm::IRBuilder Builder(randomInstruction);
 
     // Create Condition (I mod 2 == 0)
-    auto *rem = Builder.CreateSRem(randomInteger, LLVM_CONST_INT(randomInteger->getType(), 2));
-    auto *cond = Builder.CreateICmpEQ(rem, LLVM_CONST_INT(rem->getType(), 0));
+    llvm::Value *rem = Builder.CreateSRem(randomInteger, LLVM_CONST_INT(randomInteger->getType(), 2));
+    llvm::Value *cond = Builder.CreateICmpEQ(rem, LLVM_CONST_INT(rem->getType(), 0));
 
     llvm::Instruction *Then = nullptr;
     llvm::Instruction *Else = nullptr;
@@ -156,7 +156,7 @@ bool OpaquePredicates::handleLoopOpaquelyTruePredicates(llvm::Loop &Loop, Reacha
         modified |= handleLoopOpaquelyTruePredicates(*SL, RI);
     }
 
-    auto *Header = Loop.getHeader();
+    llvm::BasicBlock *Header = Loop.getHeader();
     auto headerRI = RI[Header];
 
     // Update the Header branching condition if exists and there exist reachable integers.
@@ -193,10 +193,10 @@ bool OpaquePredicates::handleLoopOpaquelyTruePredicates(llvm::Loop &Loop, Reacha
             if (auto br = llvm::dyn_cast<llvm::BranchInst>(Loop.getLoopLatch()); br && br->isConditional() &&
                                                                                  !latchRI.empty()) {
                 auto pair = getRandomOpaquelyTruePredicate();
-                auto *predicate = (this->*pair.first)(*RandomElement(latchRI.begin(), latchRI.end()), br);
+                llvm::Value *predicate = (this->*pair.first)(*RandomElement(latchRI.begin(), latchRI.end()), br);
 
                 llvm::IRBuilder<> Builder(br);
-                auto cond = Builder.CreateAnd(br->getCondition(), predicate);
+                llvm::Value *cond = Builder.CreateAnd(br->getCondition(), predicate);
                 br->setCondition(cond);
 
                 Substitution substitution;
@@ -257,10 +257,8 @@ OpaquePredicates::conditionOpaquePredicateOR(
     return Res;
 }
 
-std::pair<
-        OpaquePredicates::OpaquelyTruePredicate,
-        Substitution::SubstitutionHandler
-> OpaquePredicates::getRandomOpaquelyTruePredicate() {
+std::pair<OpaquePredicates::OpaquelyTruePredicate, Substitution::SubstitutionHandler>
+OpaquePredicates::getRandomOpaquelyTruePredicate() {
     if (RandomInt64() % 2) {
         return {
                 OROpaquelyTruePredicates[RandomInt64(OROpaquelyTruePredicatesFuncCount)],

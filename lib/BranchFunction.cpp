@@ -2,9 +2,14 @@
 #include "BranchFunction.h"
 #include "OpaquePredicates.h"
 
+#include "llvm/ADT/Statistic.h"
 #include "llvm/Passes/PassPlugin.h"
 #include "llvm/Passes/PassBuilder.h"
 #include "llvm/Transforms/Utils/ModuleUtils.h"
+
+#define DEBUG_TYPE "branch-function"
+
+STATISTIC(BranchFunctionCount, "# of branch functions obfuscations");
 
 llvm::PreservedAnalyses BranchFunction::run(llvm::Module &M, llvm::ModuleAnalysisManager &AM) {
     std::vector<llvm::Function *> originalFuncs;
@@ -136,7 +141,7 @@ void BranchFunction::handleFunction(llvm::Function &F) {
 
     // Replace with indirect jumps.
     for (auto &BB: F) {
-        auto *br = llvm::dyn_cast<llvm::BranchInst>(BB.getTerminator());
+        llvm::BranchInst *br = llvm::dyn_cast<llvm::BranchInst>(BB.getTerminator());
         if (!br) {
             continue;
         }
@@ -218,10 +223,12 @@ void BranchFunction::handleFunction(llvm::Function &F) {
 
         br->eraseFromParent();
     }
+
+    BranchFunctionCount += blockMappings.size();
 }
 
 llvm::Function *BranchFunction::createFunction(llvm::Module &M, llvm::GlobalVariable *LookupTable) {
-    auto *branchFunction = llvm::Function::Create(
+    llvm::Function *branchFunction = llvm::Function::Create(
             llvm::FunctionType::get(
                     llvm::IntegerType::getInt8PtrTy(M.getContext())->getPointerTo(),
                     {llvm::IntegerType::getInt32PtrTy(M.getContext())},

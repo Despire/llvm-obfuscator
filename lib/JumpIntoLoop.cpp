@@ -32,8 +32,8 @@ llvm::PreservedAnalyses JumpIntoLoop::run(llvm::Function &F, llvm::FunctionAnaly
         auto jumpToLoop = *RandomElement(loops.begin(), loops.end());
 
         // try to insert a new path into the loop if possible.
-        modified |= tryIntroducingNewPath(jumpToLoop, RISet);
-        if (modified) {
+        if (tryIntroducingNewPath(jumpToLoop, RISet)) {
+            modified = true;
             ++JumpIntoLoopCount;
         }
     }

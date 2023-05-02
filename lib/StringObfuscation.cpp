@@ -9,6 +9,12 @@
 #include "llvm/Linker/Linker.h"
 #include "llvm/IR/Module.h"
 
+#include "llvm/ADT/Statistic.h"
+
+#define DEBUG_TYPE "string-obfuscation"
+
+STATISTIC(StringObfuscationCount, "# of performed string obfuscations");
+
 llvm::PreservedAnalyses StringObfuscation::run(llvm::Module &M, llvm::ModuleAnalysisManager &AM) {
     bool changed = runOnModule(M);
     if (changed) {
@@ -18,33 +24,34 @@ llvm::PreservedAnalyses StringObfuscation::run(llvm::Module &M, llvm::ModuleAnal
 }
 
 bool StringObfuscation::runOnModule(llvm::Module &M) {
-    auto &Ctx = M.getContext();
-    std::vector<GlobalStringData> strings;
-
-    for (auto &Global: M.getGlobalList()) {
-        if (!Global.hasInitializer() || Global.hasExternalLinkage()) {
-            continue;
-        }
-
-        if (auto string = llvm::dyn_cast<llvm::ConstantDataArray>(Global.getInitializer()); string) {
-            std::string input = string->getAsString().str();
-            std::string pattern;
-            auto stateMachine = StateMachine();
-            auto data = stateMachine.generate(input, pattern);
-
-            auto *newData = llvm::ConstantDataArray::getString(Ctx, llvm::StringRef(pattern), false);
-            Global.setInitializer(newData);
-            Global.setConstant(false);
-            strings.push_back({std::move(data.first), std::move(data.second), pattern, &Global});
-        }
-    }
-
     std::string funcName;
     if (!createDecodeFunc(M, funcName)) {
         return false;
     }
 
+    llvm::LLVMContext &ctx = M.getContext();
+    std::vector<GlobalStringData> strings;
+
+    for (auto &global: M.getGlobalList()) {
+        if (!global.hasInitializer() || global.hasExternalLinkage()) {
+            continue;
+        }
+
+        if (auto string = llvm::dyn_cast<llvm::ConstantDataArray>(global.getInitializer()); string) {
+            std::string input = string->getAsString().str();
+            std::string pattern;
+            auto stateMachine = StateMachine();
+            auto data = stateMachine.generate(input, pattern);
+
+            llvm::Constant *newData = llvm::ConstantDataArray::getString(ctx, llvm::StringRef(pattern), false);
+            global.setInitializer(newData);
+            global.setConstant(false);
+            strings.push_back({std::move(data.first), std::move(data.second), pattern, &global});
+        }
+    }
+
     createCtor(M, strings, funcName);
+    StringObfuscationCount += strings.size();
     return true;
 }
 
@@ -105,98 +112,98 @@ define void @decode(i8* %0, i32 %1, i8* %2, i32* %3, i8* %4) {
 
 void StringObfuscation::createCtor(llvm::Module &M, std::vector<GlobalStringData> &strings, const std::string &funcName) {
     // Create an array of two elements
-    auto &CTX = M.getContext();
+    llvm::LLVMContext &ctx = M.getContext();
 
     llvm::Function *decodeFunc = M.getFunction(funcName);
     llvm::Function *initFunc = llvm::Function::Create(
-            llvm::FunctionType::get(llvm::Type::getVoidTy(CTX), false),
+            llvm::FunctionType::get(llvm::Type::getVoidTy(ctx), false),
             llvm::Function::InternalLinkage,
             "init" + std::to_string(RandomInt64()),
             M
     );
 
-    llvm::BasicBlock *ReturnBlock = llvm::BasicBlock::Create(CTX, "", initFunc);
-    llvm::ReturnInst::Create(CTX, ReturnBlock);
+    llvm::BasicBlock *returnBlock = llvm::BasicBlock::Create(ctx, "", initFunc);
+    llvm::ReturnInst::Create(ctx, returnBlock);
 
-    llvm::IRBuilder<> Builder(&*initFunc->getEntryBlock().getFirstInsertionPt());
+    llvm::IRBuilder<> builder(&*initFunc->getEntryBlock().getFirstInsertionPt());
     for (auto &globalStrings: strings) {
-        auto outArray = Builder.CreateAlloca(
-                LLVM_I8_ARRAY(CTX, globalStrings.out.size()),
+        llvm::AllocaInst *outArray = builder.CreateAlloca(
+                LLVM_I8_ARRAY(ctx, globalStrings.out.size()),
                 nullptr,
                 "outArray"
         );
         // initialize out array.
         for (std::size_t idx = 0; idx < globalStrings.out.size(); ++idx) {
-            auto *EP = Builder.CreateInBoundsGEP(
-                    LLVM_I8_ARRAY(CTX, globalStrings.out.size()),
+            llvm::Value *EP = builder.CreateInBoundsGEP(
+                    LLVM_I8_ARRAY(ctx, globalStrings.out.size()),
                     outArray,
-                    {LLVM_CONST_I32(CTX, 0), LLVM_CONST_I32(CTX, idx)}
+                    {LLVM_CONST_I32(ctx, 0), LLVM_CONST_I32(ctx, idx)}
             );
-            Builder.CreateStore(LLVM_CONST_I8(CTX, globalStrings.out[idx]), EP);
+            builder.CreateStore(LLVM_CONST_I8(ctx, globalStrings.out[idx]), EP);
         }
 
-        auto nextArray = Builder.CreateAlloca(
-                LLVM_I32_ARRAY(CTX, globalStrings.next.size()),
+        llvm::AllocaInst *nextArray = builder.CreateAlloca(
+                LLVM_I32_ARRAY(ctx, globalStrings.next.size()),
                 nullptr,
                 "nextArray"
         );
         // initialize the next array.
         for (std::size_t idx = 0; idx < globalStrings.next.size(); ++idx) {
-            auto *EP = Builder.CreateInBoundsGEP(
-                    LLVM_I32_ARRAY(CTX, globalStrings.next.size()),
+            llvm::Value *EP = builder.CreateInBoundsGEP(
+                    LLVM_I32_ARRAY(ctx, globalStrings.next.size()),
                     nextArray,
-                    {LLVM_CONST_I32(CTX, 0), LLVM_CONST_I32(CTX, idx)}
+                    {LLVM_CONST_I32(ctx, 0), LLVM_CONST_I32(ctx, idx)}
             );
-            Builder.CreateStore(LLVM_CONST_I32(CTX, globalStrings.next[idx]), EP);
+            builder.CreateStore(LLVM_CONST_I32(ctx, globalStrings.next[idx]), EP);
         }
 
-        auto ptr = Builder.CreateInBoundsGEP(
+        llvm::Value *ptr = builder.CreateInBoundsGEP(
                 globalStrings.ptr->getValueType(),
                 globalStrings.ptr,
-                {LLVM_CONST_I32(CTX, 0), LLVM_CONST_I32(CTX, 0)}
+                {LLVM_CONST_I32(ctx, 0), LLVM_CONST_I32(ctx, 0)}
         );
-        auto nextPtr = Builder.CreateInBoundsGEP(
+        llvm::Value *nextPtr = builder.CreateInBoundsGEP(
                 nextArray->getAllocatedType(),
                 nextArray,
-                {LLVM_CONST_I32(CTX, 0), LLVM_CONST_I32(CTX, 0)}
+                {LLVM_CONST_I32(ctx, 0), LLVM_CONST_I32(ctx, 0)}
         );
-        auto outPtr = Builder.CreateInBoundsGEP(
+        llvm::Value *outPtr = builder.CreateInBoundsGEP(
                 outArray->getAllocatedType(),
                 outArray,
-                {LLVM_CONST_I32(CTX, 0), LLVM_CONST_I32(CTX, 0)}
+                {LLVM_CONST_I32(ctx, 0), LLVM_CONST_I32(ctx, 0)}
         );
 
-        auto call = Builder.CreateCall(decodeFunc, {
+        llvm::CallInst *call = builder.CreateCall(decodeFunc, {
                 ptr,
-                LLVM_CONST_I32(CTX, globalStrings.pattern.size()),
+                LLVM_CONST_I32(ctx, globalStrings.pattern.size()),
                 ptr,
                 nextPtr,
                 outPtr
         });
 
-        ReturnBlock->splitBasicBlock(call, "", true);
+        returnBlock->splitBasicBlock(call, "", true);
     }
 
     std::vector<llvm::Constant *> ctorsArray = {
             llvm::ConstantStruct::getAnon(
                     {
-                            LLVM_CONST_I32(CTX, 65535),
+                            LLVM_CONST_I32(ctx, 65535),
                             initFunc, // void ()*
-                            llvm::Constant::getNullValue(llvm::Type::getInt8PtrTy(CTX)) // i8*
+                            llvm::Constant::getNullValue(llvm::Type::getInt8PtrTy(ctx)) // i8*
                     }
             ),
     };
 
 
-    auto *GV = M.getGlobalVariable("llvm.global_ctors");
+    llvm::GlobalVariable *GV = M.getGlobalVariable("llvm.global_ctors");
     if (!GV) {
         llvm::ArrayType *ctorsArrayType = llvm::ArrayType::get(
                 llvm::StructType::get(
-                        CTX,
+                        ctx,
                         {
-                                llvm::Type::getInt32Ty(CTX), // i32
+                                llvm::Type::getInt32Ty(ctx), // i32
                                 initFunc->getType(), // void ()*
-                                llvm::Type::getInt8PtrTy(CTX) // i8*
+                                llvm::Type::getInt8PtrTy(ctx) // i8*
                         }
                 ),
                 1 // number of elements
@@ -213,15 +220,15 @@ void StringObfuscation::createCtor(llvm::Module &M, std::vector<GlobalStringData
         return;
     }
 
-    auto *CA = llvm::cast<llvm::ConstantArray>(GV->getInitializer());
+    llvm::ConstantArray *CA = llvm::cast<llvm::ConstantArray>(GV->getInitializer());
     for (auto &V: CA->operands()) {
-        auto *CS = llvm::cast<llvm::ConstantStruct>(V);
+        llvm::ConstantStruct *CS = llvm::cast<llvm::ConstantStruct>(V);
         ctorsArray.push_back(CS);
     }
 
     // Create the new array initializer.
-    auto *ATy = llvm::ArrayType::get(CA->getType()->getElementType(), ctorsArray.size());
-    auto *newCA = llvm::ConstantArray::get(ATy, ctorsArray);
+    llvm::ArrayType *ATy = llvm::ArrayType::get(CA->getType()->getElementType(), ctorsArray.size());
+    llvm::Constant *newCA = llvm::ConstantArray::get(ATy, ctorsArray);
 
     // Create the new global and insert it next to the existing list.
     auto *NGV = new llvm::GlobalVariable(

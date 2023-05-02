@@ -42,8 +42,8 @@ llvm::PreservedAnalyses ControlFlowFlattening::run(llvm::Function &F, llvm::Func
 }
 
 bool ControlFlowFlattening::handleLoopSwitchVersion(llvm::Function &F) {
-    auto &CTX = F.getContext();
-    std::vector<llvm::BasicBlock *> FunctionBasicBlocks;
+    llvm::LLVMContext &ctx = F.getContext();
+    std::vector<llvm::BasicBlock *> functionBasicBlocks;
 
     // Collect the BasicBlocks and also check whether they throw an exception.
     // We won't do control flow flattening for exceptions for now.
@@ -52,174 +52,174 @@ bool ControlFlowFlattening::handleLoopSwitchVersion(llvm::Function &F) {
         if (beg.isLandingPad() || llvm::isa<llvm::InvokeInst>(&beg)) {
             return false;
         }
-        FunctionBasicBlocks.emplace_back(&beg);
+        functionBasicBlocks.emplace_back(&beg);
     }
 
-    auto *EntryBasicBlock = FunctionBasicBlocks.front();
-    EntryBasicBlock->setName("entry");
+    llvm::BasicBlock *entryBasicBlock = functionBasicBlocks.front();
+    entryBasicBlock->setName("entry");
 
     // If the EntryBasicBlock doesn't end in unconditional branch (i.e. it has multiple BasicBlocks where
     // control flow can go) we need to split the Block into two.
-    if (llvm::dyn_cast<llvm::BranchInst>(EntryBasicBlock->getTerminator())) {
-        auto LastInst = std::prev(EntryBasicBlock->end());
+    if (llvm::dyn_cast<llvm::BranchInst>(entryBasicBlock->getTerminator())) {
+        auto lastInst = std::prev(entryBasicBlock->end());
         // also take into account the `icmp` instruction that preceeds the `br` instruction.
-        if (LastInst != EntryBasicBlock->begin()) {
-            --LastInst;
+        if (lastInst != entryBasicBlock->begin()) {
+            --lastInst;
         }
 
-        auto *split = EntryBasicBlock->splitBasicBlock(LastInst, "EntryBasicBlockSplit");
-        FunctionBasicBlocks.insert(std::next(FunctionBasicBlocks.begin()), split);
+        llvm::BasicBlock *split = entryBasicBlock->splitBasicBlock(lastInst, "EntryBasicBlockSplit");
+        functionBasicBlocks.insert(std::next(functionBasicBlocks.begin()), split);
     }
 
     // Remove the branch from the FirstBasicBlock as we will insert a switch Statement instead.
     // Note that if we split the BasicBlock this will still point to the first BasicBlock.
-    EntryBasicBlock->getTerminator()->eraseFromParent();
+    entryBasicBlock->getTerminator()->eraseFromParent();
 
     // Start writing at the end of the BasicBlock.
-    llvm::IRBuilder<> Builder(EntryBasicBlock);
+    llvm::IRBuilder<> builder(entryBasicBlock);
 
     // create the switch var and set it to 0.
-    auto *dispatcher = Builder.CreateAlloca(LLVM_I32(CTX), nullptr, "dispatcher");
-    Builder.CreateStore(LLVM_CONST_I32(CTX, 0), dispatcher);
+    llvm::AllocaInst *dispatcher = builder.CreateAlloca(LLVM_I32(ctx), nullptr, "dispatcher");
+    builder.CreateStore(LLVM_CONST_I32(ctx, 0), dispatcher);
 
     // since the switch will be wrapped in an infinite loop create it first.
-    auto *loopStart = llvm::BasicBlock::Create(CTX, "loopStart", &F, EntryBasicBlock);;
-    auto *loopEnd = llvm::BasicBlock::Create(CTX, "loopEnd", &F, EntryBasicBlock);
+    llvm::BasicBlock *loopStart = llvm::BasicBlock::Create(ctx, "loopStart", &F, entryBasicBlock);;
+    llvm::BasicBlock *loopEnd = llvm::BasicBlock::Create(ctx, "loopEnd", &F, entryBasicBlock);
 
     // make the EntryBB first && add a Branch to the start of the loop.
-    EntryBasicBlock->moveBefore(loopStart);
-    Builder.CreateBr(loopStart);
+    entryBasicBlock->moveBefore(loopStart);
+    builder.CreateBr(loopStart);
 
     // continue with setting up the switch inside the loop.
-    Builder.SetInsertPoint(loopStart);
+    builder.SetInsertPoint(loopStart);
 
     // create the switch.
-    auto *loadDispatcherVal = Builder.CreateLoad(dispatcher->getAllocatedType(), dispatcher, "dispatcher");
-    auto *switchStmt = Builder.CreateSwitch(loadDispatcherVal, nullptr);
+    llvm::LoadInst *loadDispatcherVal = builder.CreateLoad(dispatcher->getAllocatedType(), dispatcher, "dispatcher");
+    llvm::SwitchInst *switchStmt = builder.CreateSwitch(loadDispatcherVal, nullptr);
 
     // create default block.
-    auto *defaultSwitchBasicBlock = llvm::BasicBlock::Create(CTX, "defaultSwitchBasicBlock", &F, loopEnd);
+    llvm::BasicBlock *defaultSwitchBasicBlock = llvm::BasicBlock::Create(ctx, "defaultSwitchBasicBlock", &F, loopEnd);
     switchStmt->setDefaultDest(defaultSwitchBasicBlock);
 
     // make it point to the loop end.
-    Builder.SetInsertPoint(defaultSwitchBasicBlock);
-    Builder.CreateBr(loopEnd);
+    builder.SetInsertPoint(defaultSwitchBasicBlock);
+    builder.CreateBr(loopEnd);
 
     // connect the end to the start of the loop.
-    Builder.SetInsertPoint(loopEnd);
-    Builder.CreateBr(loopStart);
+    builder.SetInsertPoint(loopEnd);
+    builder.CreateBr(loopStart);
 
     // we erase the first basic block since its already taken care of and won't
     // be part of the switch.
-    FunctionBasicBlocks.erase(FunctionBasicBlocks.begin());
+    functionBasicBlocks.erase(functionBasicBlocks.begin());
 
     // for each of the original basic blocks put them in the switch
     // we need to do this separately, so we can then reference the cases directly.
-    for (auto &BB: FunctionBasicBlocks) {
-        switchStmt->addCase(LLVM_CONST_I32(CTX, switchStmt->getNumCases()), BB);
+    for (auto &BB: functionBasicBlocks) {
+        switchStmt->addCase(LLVM_CONST_I32(ctx, switchStmt->getNumCases()), BB);
         BB->moveBefore(defaultSwitchBasicBlock);
     }
 
     // Add 1 more case for Bogus operations.
-    auto BogusBB = llvm::BasicBlock::Create(CTX, "BogusBasicBlock", &F);
-    switchStmt->addCase(LLVM_CONST_I32(CTX, switchStmt->getNumCases()), BogusBB);
+    llvm::BasicBlock *BogusBB = llvm::BasicBlock::Create(ctx, "BogusBasicBlock", &F);
+    switchStmt->addCase(LLVM_CONST_I32(ctx, switchStmt->getNumCases()), BogusBB);
     BogusBB->moveBefore(defaultSwitchBasicBlock);
 
     // setup lookup table.
-    constexpr int32_t ExtraNumberCount = 4;
+    constexpr int32_t extraNumberCount = 4;
 
-    Builder.SetInsertPoint(&*EntryBasicBlock->getFirstInsertionPt());
-    auto *LookupTable = Builder.CreateAlloca(
-            LLVM_I32_ARRAY(CTX, switchStmt->getNumCases() + ExtraNumberCount),
+    builder.SetInsertPoint(&*entryBasicBlock->getFirstInsertionPt());
+    llvm::AllocaInst *LookupTable = builder.CreateAlloca(
+            LLVM_I32_ARRAY(ctx, switchStmt->getNumCases() + extraNumberCount),
             nullptr,
             "lookupTable"
     );
 
     // populate the lookup table
     std::vector<int32_t> lookupTableValues;
-    for (int32_t idx = 0; idx < int32_t(switchStmt->getNumCases() + ExtraNumberCount); ++idx) {
-        int32_t val = (idx + 1) - ExtraNumberCount;
+    for (int32_t idx = 0; idx < int32_t(switchStmt->getNumCases() + extraNumberCount); ++idx) {
+        int32_t val = (idx + 1) - extraNumberCount;
         lookupTableValues.push_back(val);
-        auto *EP = Builder.CreateInBoundsGEP(
-                LLVM_I32_ARRAY(CTX, switchStmt->getNumCases() + ExtraNumberCount),
+        llvm::Value *EP = builder.CreateInBoundsGEP(
+                LLVM_I32_ARRAY(ctx, switchStmt->getNumCases() + extraNumberCount),
                 LookupTable,
-                {LLVM_CONST_I32(CTX, 0), LLVM_CONST_I32(CTX, idx)}
+                {LLVM_CONST_I32(ctx, 0), LLVM_CONST_I32(ctx, idx)}
         );
-        Builder.CreateStore(LLVM_CONST_I32(CTX, val), EP);
+        builder.CreateStore(LLVM_CONST_I32(ctx, val), EP);
     }
 
     // insert bogus operations to the BogusBasicBlock.
-    Builder.SetInsertPoint(BogusBB);
+    builder.SetInsertPoint(BogusBB);
     for (std::size_t idx = 0; idx < lookupTableValues.size(); idx += 2) {
-        auto *EP = Builder.CreateInBoundsGEP(
-                LLVM_I32_ARRAY(CTX, switchStmt->getNumCases() + ExtraNumberCount),
+        llvm::Value *EP = builder.CreateInBoundsGEP(
+                LLVM_I32_ARRAY(ctx, switchStmt->getNumCases() + extraNumberCount),
                 LookupTable,
-                {LLVM_CONST_I32(CTX, 0), LLVM_CONST_I32(CTX, idx)}
+                {LLVM_CONST_I32(ctx, 0), LLVM_CONST_I32(ctx, idx)}
         );
 
-        Builder.CreateStore(LLVM_CONST_I32(CTX, idx - 1), EP);
+        builder.CreateStore(LLVM_CONST_I32(ctx, idx - 1), EP);
     }
 
-    Builder.CreateStore(
-            Builder.CreateLoad(
-                    LLVM_I32(CTX),
-                    Builder.CreateInBoundsGEP(
-                            LLVM_I32_ARRAY(CTX, switchStmt->getNumCases() + ExtraNumberCount),
+    builder.CreateStore(
+            builder.CreateLoad(
+                    LLVM_I32(ctx),
+                    builder.CreateInBoundsGEP(
+                            LLVM_I32_ARRAY(ctx, switchStmt->getNumCases() + extraNumberCount),
                             LookupTable,
                             {
-                                    LLVM_CONST_I32(CTX, 0),
-                                    LLVM_CONST_I32(CTX, 0)
+                                    LLVM_CONST_I32(ctx, 0),
+                                    LLVM_CONST_I32(ctx, 0)
                             }
                     )),
             loadDispatcherVal->getPointerOperand()
     );
 
-    Builder.CreateBr(*FunctionBasicBlocks.begin());
+    builder.CreateBr(*functionBasicBlocks.begin());
 
     // Remap the branches and adjust the logic for flattening.
-    for (auto &BB: FunctionBasicBlocks) {
+    for (auto &BB: functionBasicBlocks) {
         if (auto *ret = llvm::dyn_cast<llvm::ReturnInst>(BB->getTerminator()); ret != nullptr) {
             continue;
         }
 
         if (auto *br = llvm::dyn_cast<llvm::BranchInst>(BB->getTerminator()); br != nullptr && br->isConditional()) {
-            auto *conditionTrueBB = br->getSuccessor(0);
-            auto *conditionFalseBB = br->getSuccessor(1);
+            llvm::BasicBlock *conditionTrueBB = br->getSuccessor(0);
+            llvm::BasicBlock *conditionFalseBB = br->getSuccessor(1);
 
-            auto *switchNumberTrue = switchStmt->findCaseDest(conditionTrueBB);
-            auto *switchNumberFalse = switchStmt->findCaseDest(conditionFalseBB);
+            llvm::ConstantInt *switchNumberTrue = switchStmt->findCaseDest(conditionTrueBB);
+            llvm::ConstantInt *switchNumberFalse = switchStmt->findCaseDest(conditionFalseBB);
 
             // since we know that there always will be a case we can use the
             // NULL property to check for a branch to the default case.
 
             if (switchNumberTrue == nullptr) {
-                switchNumberTrue = LLVM_CONST_I32(CTX, switchStmt->getNumCases() - 1);
+                switchNumberTrue = LLVM_CONST_I32(ctx, switchStmt->getNumCases() - 1);
             }
 
             if (switchNumberFalse == nullptr) {
-                switchNumberFalse = LLVM_CONST_I32(CTX, switchStmt->getNumCases() - 1);
+                switchNumberFalse = LLVM_CONST_I32(ctx, switchStmt->getNumCases() - 1);
             }
 
-            Builder.SetInsertPoint(br);
+            builder.SetInsertPoint(br);
 
-            auto *trueVal = (this->*NextHandlers[RandomInt64(ComputingNextHandlerFuncCount)])(
-                    CTX,
-                    Builder,
+            llvm::Value *trueVal = (this->*NextHandlers[RandomInt64(ComputingNextHandlerFuncCount)])(
+                    ctx,
+                    builder,
                     LookupTable,
                     int32_t(switchNumberTrue->getSExtValue()),
                     lookupTableValues
             );
-            auto *falseVal = (this->*NextHandlers[RandomInt64(ComputingNextHandlerFuncCount)])(
-                    CTX,
-                    Builder,
+            llvm::Value *falseVal = (this->*NextHandlers[RandomInt64(ComputingNextHandlerFuncCount)])(
+                    ctx,
+                    builder,
                     LookupTable,
                     int32_t(switchNumberFalse->getSExtValue()),
                     lookupTableValues
             );
 
-            auto *selectInst = Builder.CreateSelect(br->getCondition(), trueVal, falseVal, "", br);
-            Builder.CreateStore(selectInst, loadDispatcherVal->getPointerOperand());
-            Builder.CreateBr(loopEnd);
+            llvm::Value *selectInst = builder.CreateSelect(br->getCondition(), trueVal, falseVal, "", br);
+            builder.CreateStore(selectInst, loadDispatcherVal->getPointerOperand());
+            builder.CreateBr(loopEnd);
 
             br->eraseFromParent();
 
@@ -227,22 +227,22 @@ bool ControlFlowFlattening::handleLoopSwitchVersion(llvm::Function &F) {
         }
 
         if (auto *br = llvm::dyn_cast<llvm::BranchInst>(BB->getTerminator()); br != nullptr && br->isUnconditional()) {
-            auto *switchNumber = switchStmt->findCaseDest(br->getSuccessor(0));
+            llvm::ConstantInt *switchNumber = switchStmt->findCaseDest(br->getSuccessor(0));
             if (switchNumber == nullptr) {
-                switchNumber = LLVM_CONST_I32(CTX, switchStmt->getNumCases() - 1);
+                switchNumber = LLVM_CONST_I32(ctx, switchStmt->getNumCases() - 1);
             }
 
-            Builder.SetInsertPoint(br);
-            auto *Val = (this->*NextHandlers[RandomInt64(ComputingNextHandlerFuncCount)])(
-                    CTX,
-                    Builder,
+            builder.SetInsertPoint(br);
+            llvm::Value *val = (this->*NextHandlers[RandomInt64(ComputingNextHandlerFuncCount)])(
+                    ctx,
+                    builder,
                     LookupTable,
                     int32_t(switchNumber->getSExtValue()),
                     lookupTableValues
             );
 
-            Builder.CreateStore(Val, loadDispatcherVal->getPointerOperand());
-            Builder.CreateBr(loopEnd);
+            builder.CreateStore(val, loadDispatcherVal->getPointerOperand());
+            builder.CreateBr(loopEnd);
 
             br->eraseFromParent();
 
@@ -251,8 +251,8 @@ bool ControlFlowFlattening::handleLoopSwitchVersion(llvm::Function &F) {
     }
 
     // fixup instructions referenced in multiple blocks.
-    for (auto &Inst: findAllInstructionUsedInMultipleBlocks(F)) {
-        llvm::DemoteRegToStack(*Inst);
+    for (auto &inst: findAllInstructionUsedInMultipleBlocks(F)) {
+        llvm::DemoteRegToStack(*inst);
     }
 
     assert(findAllInstructionUsedInMultipleBlocks(F).empty() &&
@@ -260,8 +260,8 @@ bool ControlFlowFlattening::handleLoopSwitchVersion(llvm::Function &F) {
 
     // fixup PHI nodes reference in basic blocks after the reconstruction
     // of the control flow.
-    for (auto &PHINode: findAllPHINodes(F)) {
-        llvm::DemotePHIToStack(PHINode);
+    for (auto &phiNode: findAllPHINodes(F)) {
+        llvm::DemotePHIToStack(phiNode);
     }
 
     assert(findAllPHINodes(F).empty() && "leftover PHI nodes in basic blocks");
@@ -271,22 +271,22 @@ bool ControlFlowFlattening::handleLoopSwitchVersion(llvm::Function &F) {
 
 std::vector<llvm::Instruction *>
 ControlFlowFlattening::findAllInstructionUsedInMultipleBlocks(llvm::Function &F) const {
-    auto *EntryBasicBlock = &*F.begin();
+    llvm::BasicBlock *EntryBasicBlock = &*F.begin();
     std::vector<llvm::Instruction *> usedOutside;
 
     // fixup instrunction referenced in multiple blocks.
     for (auto &BB: F) {
-        for (auto &Inst: BB) {
+        for (auto &inst: BB) {
             // in the entry block there will be a bunch of stack allocation using alloca
             // that are referenced in multiple blocks thus we need to ignore those when
             // filtering.
-            if (llvm::isa<llvm::AllocaInst>(Inst) && Inst.getParent() == EntryBasicBlock) {
+            if (llvm::isa<llvm::AllocaInst>(&inst) && inst.getParent() == EntryBasicBlock) {
                 continue;
             }
 
             // check if used outside the current block.
-            if (Inst.isUsedOutsideOfBlock(&BB)) {
-                usedOutside.push_back(&Inst);
+            if (inst.isUsedOutsideOfBlock(&BB)) {
+                usedOutside.push_back(&inst);
             }
         }
     }
@@ -298,9 +298,9 @@ std::vector<llvm::PHINode *> ControlFlowFlattening::findAllPHINodes(llvm::Functi
     std::vector<llvm::PHINode *> nodes;
 
     for (auto &BB: F) {
-        for (auto &Inst: BB) {
-            if (llvm::isa<llvm::PHINode>(&Inst)) {
-                nodes.push_back(llvm::cast<llvm::PHINode>(&Inst));
+        for (auto &inst: BB) {
+            if (llvm::isa<llvm::PHINode>(&inst)) {
+                nodes.push_back(llvm::cast<llvm::PHINode>(&inst));
             }
         }
     }
@@ -309,8 +309,8 @@ std::vector<llvm::PHINode *> ControlFlowFlattening::findAllPHINodes(llvm::Functi
 }
 
 bool ControlFlowFlattening::handleJumpTableVersion(llvm::Function &F) {
-    auto &CTX = F.getContext();
-    std::vector<llvm::BasicBlock *> FunctionBasicBlocks;
+    llvm::LLVMContext &ctx = F.getContext();
+    std::vector<llvm::BasicBlock *> functionBasicBlocks;
 
     // Collect the BasicBlocks and also check whether they throw an exception.
     // We won't do control flow flattening for exceptions for now.
@@ -319,10 +319,10 @@ bool ControlFlowFlattening::handleJumpTableVersion(llvm::Function &F) {
         if (beg.isLandingPad() || llvm::isa<llvm::InvokeInst>(&beg)) {
             return false;
         }
-        FunctionBasicBlocks.emplace_back(&beg);
+        functionBasicBlocks.emplace_back(&beg);
     }
 
-    auto *EntryBasicBlock = FunctionBasicBlocks.front();
+    llvm::BasicBlock *EntryBasicBlock = functionBasicBlocks.front();
     EntryBasicBlock->setName("entry");
 
     // If the EntryBasicBlock doesn't end in unconditional branch (i.e. it has multiple BasicBlocks where
@@ -334,64 +334,64 @@ bool ControlFlowFlattening::handleJumpTableVersion(llvm::Function &F) {
             --LastInst;
         }
 
-        auto *split = EntryBasicBlock->splitBasicBlock(LastInst, "EntryBasicBlockSplit");
-        FunctionBasicBlocks.insert(std::next(FunctionBasicBlocks.begin()), split);
+        llvm::BasicBlock *split = EntryBasicBlock->splitBasicBlock(LastInst, "EntryBasicBlockSplit");
+        functionBasicBlocks.insert(std::next(functionBasicBlocks.begin()), split);
     }
 
     // remove the entry block from the list of function blocks.
-    FunctionBasicBlocks.erase(FunctionBasicBlocks.begin());
+    functionBasicBlocks.erase(functionBasicBlocks.begin());
 
     // Add BogusBasicBlock to add confusion.
-    auto BogusBasicBlock = llvm::BasicBlock::Create(CTX, "BogusBasciBlock", &F);
-    BogusBasicBlock->moveAfter(EntryBasicBlock);
+    llvm::BasicBlock *bogusBasicBlock = llvm::BasicBlock::Create(ctx, "BogusBasciBlock", &F);
+    bogusBasicBlock->moveAfter(EntryBasicBlock);
 
-    llvm::IRBuilder<> Builder(BogusBasicBlock);
-    Builder.CreateBr(*FunctionBasicBlocks.begin());
+    llvm::IRBuilder<> builder(bogusBasicBlock);
+    builder.CreateBr(*functionBasicBlocks.begin());
 
-    FunctionBasicBlocks.insert(FunctionBasicBlocks.begin(), BogusBasicBlock);
+    functionBasicBlocks.insert(functionBasicBlocks.begin(), bogusBasicBlock);
 
     // collect the addresses of all basic blocks expect the entry.
-    std::vector<llvm::BlockAddress *> BlockAddresses;
-    for (auto &BB: FunctionBasicBlocks) {
-        BlockAddresses.push_back(llvm::BlockAddress::get(BB));
+    std::vector<llvm::BlockAddress *> blockAddresses;
+    for (auto &BB: functionBasicBlocks) {
+        blockAddresses.push_back(llvm::BlockAddress::get(BB));
     }
 
-    Builder.SetInsertPoint(&*EntryBasicBlock->getFirstInsertionPt());
+    builder.SetInsertPoint(&*EntryBasicBlock->getFirstInsertionPt());
 
     // Create Jump Table.
-    auto BlockAddressTyp = (*BlockAddresses.begin())->getType();
-    auto JumpTableSize = LLVM_CONST_I32(CTX, BlockAddresses.size());
-    auto *JumpTable = Builder.CreateAlloca(BlockAddressTyp, JumpTableSize, "JumpTable");
+    llvm::Type *blockAddressTyp = (*blockAddresses.begin())->getType();
+    llvm::ConstantInt *jumpTableSize = LLVM_CONST_I32(ctx, blockAddresses.size());
+    llvm::AllocaInst *JumpTable = builder.CreateAlloca(blockAddressTyp, jumpTableSize, "JumpTable");
 
     // Populate the JumpTable with the label addresses
     std::unordered_map<std::string, llvm::Value *> namesToEps;
-    for (std::size_t i = 0; i < BlockAddresses.size(); i++) {
-        auto *Index = LLVM_CONST_I32(CTX, i);
-        auto *EP = Builder.CreateGEP(BlockAddressTyp, JumpTable, Index);
-        Builder.CreateStore(BlockAddresses[i], EP);
+    for (std::size_t i = 0; i < blockAddresses.size(); i++) {
+        llvm::ConstantInt *index = LLVM_CONST_I32(ctx, i);
+        llvm::Value *EP = builder.CreateGEP(blockAddressTyp, JumpTable, index);
+        builder.CreateStore(blockAddresses[i], EP);
 
         // store the element Ptr for later use.
-        if (!BlockAddresses[i]->getBasicBlock()->hasName()) {
-            BlockAddresses[i]->getBasicBlock()->setName(std::to_string(i));
+        if (!blockAddresses[i]->getBasicBlock()->hasName()) {
+            blockAddresses[i]->getBasicBlock()->setName(std::to_string(i));
         }
-        namesToEps.insert({BlockAddresses[i]->getBasicBlock()->getName().str(), EP});
+        namesToEps.insert({blockAddresses[i]->getBasicBlock()->getName().str(), EP});
     }
 
     // For each Basic block update the Branch instructions.
-    for (auto &BB: FunctionBasicBlocks) {
+    for (auto &BB: functionBasicBlocks) {
         if (auto *ret = llvm::dyn_cast<llvm::ReturnInst>(BB->getTerminator()); ret != nullptr) {
             continue;
         }
 
         if (auto *br = llvm::dyn_cast<llvm::BranchInst>(BB->getTerminator()); br != nullptr && br->isConditional()) {
-            auto *conditionTrueBB = br->getSuccessor(0);
-            auto *conditionFalseBB = br->getSuccessor(1);
+            llvm::BasicBlock *conditionTrueBB = br->getSuccessor(0);
+            llvm::BasicBlock *conditionFalseBB = br->getSuccessor(1);
 
-            auto *jumpAddressTrue = namesToEps.find(conditionTrueBB->getName().str())->second;
-            auto *jumpAddressFalse = namesToEps.find(conditionFalseBB->getName().str())->second;
+            llvm::Value *jumpAddressTrue = namesToEps.find(conditionTrueBB->getName().str())->second;
+            llvm::Value *jumpAddressFalse = namesToEps.find(conditionFalseBB->getName().str())->second;
 
-            Builder.SetInsertPoint(br);
-            auto *selectInst = Builder.CreateSelect(
+            builder.SetInsertPoint(br);
+            llvm::Value *selectInst = builder.CreateSelect(
                     br->getCondition(),
                     jumpAddressTrue,
                     jumpAddressFalse,
@@ -399,10 +399,10 @@ bool ControlFlowFlattening::handleJumpTableVersion(llvm::Function &F) {
                     br
             );
 
-            Builder.SetInsertPoint(br);
+            builder.SetInsertPoint(br);
 
-            auto *ibr = Builder.CreateIndirectBr(Builder.CreateLoad(BlockAddressTyp, selectInst));
-            for (auto &BB: FunctionBasicBlocks) {
+            llvm::IndirectBrInst *ibr = builder.CreateIndirectBr(builder.CreateLoad(blockAddressTyp, selectInst));
+            for (auto &BB: functionBasicBlocks) {
                 ibr->addDestination(BB);
             }
 
@@ -412,12 +412,12 @@ bool ControlFlowFlattening::handleJumpTableVersion(llvm::Function &F) {
         }
 
         if (auto *br = llvm::dyn_cast<llvm::BranchInst>(BB->getTerminator()); br != nullptr && br->isUnconditional()) {
-            auto *jumpAddress = namesToEps.find(br->getSuccessor(0)->getName().str())->second;
+            llvm::Value *jumpAddress = namesToEps.find(br->getSuccessor(0)->getName().str())->second;
 
-            Builder.SetInsertPoint(br);
+            builder.SetInsertPoint(br);
 
-            auto *ibr = Builder.CreateIndirectBr(Builder.CreateLoad(BlockAddressTyp, jumpAddress));
-            for (auto &BB: FunctionBasicBlocks) {
+            llvm::IndirectBrInst *ibr = builder.CreateIndirectBr(builder.CreateLoad(blockAddressTyp, jumpAddress));
+            for (auto &BB: functionBasicBlocks) {
                 ibr->addDestination(BB);
             }
 
@@ -428,29 +428,29 @@ bool ControlFlowFlattening::handleJumpTableVersion(llvm::Function &F) {
     }
 
     // Finish with the EntryBlock.
-    Builder.SetInsertPoint(&*EntryBasicBlock->getTerminator());
-    auto *jumpAddres = namesToEps.find(EntryBasicBlock->getTerminator()->getSuccessor(0)->getName().str())->second;
-    auto *ibr = Builder.CreateIndirectBr(Builder.CreateLoad(BlockAddressTyp, jumpAddres));
-    for (auto &BB: FunctionBasicBlocks) {
+    builder.SetInsertPoint(&*EntryBasicBlock->getTerminator());
+    llvm::Value *jumpAddres = namesToEps.find(EntryBasicBlock->getTerminator()->getSuccessor(0)->getName().str())->second;
+    llvm::IndirectBrInst *ibr = builder.CreateIndirectBr(builder.CreateLoad(blockAddressTyp, jumpAddres));
+    for (auto &BB: functionBasicBlocks) {
         ibr->addDestination(BB);
     }
 
     EntryBasicBlock->getTerminator()->eraseFromParent();
 
     // Add confusion to the bogus block.
-    Builder.SetInsertPoint(&*BogusBasicBlock->getFirstInsertionPt());
+    builder.SetInsertPoint(&*bogusBasicBlock->getFirstInsertionPt());
 
     // Insert Bogus operations.
-    std::shuffle(BlockAddresses.begin(), BlockAddresses.end(), GetRandomGenerator());
-    for (std::size_t i = 0; i < BlockAddresses.size(); i += 2) {
-        auto *Index = LLVM_CONST_I32(CTX, i);
-        auto *EP = Builder.CreateGEP(BlockAddressTyp, JumpTable, Index);
-        Builder.CreateStore(BlockAddresses[i], EP);
+    std::shuffle(blockAddresses.begin(), blockAddresses.end(), GetRandomGenerator());
+    for (std::size_t i = 0; i < blockAddresses.size(); i += 2) {
+        llvm::ConstantInt *Index = LLVM_CONST_I32(ctx, i);
+        llvm::Value *EP = builder.CreateGEP(blockAddressTyp, JumpTable, Index);
+        builder.CreateStore(blockAddresses[i], EP);
     }
 
     // fixup instructions referenced in multiple blocks.
-    for (auto &Inst: findAllInstructionUsedInMultipleBlocks(F)) {
-        llvm::DemoteRegToStack(*Inst);
+    for (auto &inst: findAllInstructionUsedInMultipleBlocks(F)) {
+        llvm::DemoteRegToStack(*inst);
     }
 
     assert(findAllInstructionUsedInMultipleBlocks(F).empty() &&
@@ -458,8 +458,8 @@ bool ControlFlowFlattening::handleJumpTableVersion(llvm::Function &F) {
 
     // fixup PHI nodes reference in basic blocks after the reconstruction
     // of the control flow.
-    for (auto &PHINode: findAllPHINodes(F)) {
-        llvm::DemotePHIToStack(PHINode);
+    for (auto &phiNode: findAllPHINodes(F)) {
+        llvm::DemotePHIToStack(phiNode);
     }
 
     assert(findAllPHINodes(F).empty() && "leftover PHI nodes in basic blocks");
@@ -490,7 +490,7 @@ llvm::Value *ControlFlowFlattening::handleComputingNextSubtraction(
 ) {
     auto indices = calculateDispatcherValueSubtraction(n, arr);
 
-    auto *left = Builder.CreateLoad(
+    llvm::LoadInst *left = Builder.CreateLoad(
             LLVM_I32(CTX),
             Builder.CreateInBoundsGEP(
                     LLVM_I32_ARRAY(CTX, arr.size()),
@@ -502,7 +502,7 @@ llvm::Value *ControlFlowFlattening::handleComputingNextSubtraction(
             )
     );
 
-    auto *right = Builder.CreateLoad(
+    llvm::LoadInst *right = Builder.CreateLoad(
             LLVM_I32(CTX),
             Builder.CreateInBoundsGEP(
                     LLVM_I32_ARRAY(CTX, arr.size()),
@@ -519,7 +519,7 @@ llvm::Value *ControlFlowFlattening::handleComputingNextSubtraction(
 
 std::pair<int32_t, int32_t>
 ControlFlowFlattening::calculateDispatcherValueAddition(int32_t switchNumber, std::vector<int32_t> &arr) const {
-    std::unordered_map<int32_t, int32_t> indices;
+    std::unordered_map < int32_t, int32_t > indices;
 
     int32_t left = 0;
     int32_t right = 0;
@@ -548,7 +548,7 @@ ControlFlowFlattening::handleComputingNextAddition(
 ) {
     auto indices = calculateDispatcherValueAddition(n, arr);
 
-    auto *left = Builder.CreateLoad(
+    llvm::LoadInst *left = Builder.CreateLoad(
             LLVM_I32(CTX),
             Builder.CreateInBoundsGEP(
                     LLVM_I32_ARRAY(CTX, arr.size()),
@@ -560,7 +560,7 @@ ControlFlowFlattening::handleComputingNextAddition(
             )
     );
 
-    auto *right = Builder.CreateLoad(
+    llvm::LoadInst *right = Builder.CreateLoad(
             LLVM_I32(CTX),
             Builder.CreateInBoundsGEP(
                     LLVM_I32_ARRAY(CTX, arr.size()),
@@ -605,7 +605,7 @@ ControlFlowFlattening::handleComputingNextMod(
 ) {
     auto indices = calculateDispatcherValueMod(n, arr);
 
-    auto *left = Builder.CreateLoad(
+    llvm::LoadInst *left = Builder.CreateLoad(
             LLVM_I32(CTX),
             Builder.CreateInBoundsGEP(
                     LLVM_I32_ARRAY(CTX, arr.size()),
@@ -617,7 +617,7 @@ ControlFlowFlattening::handleComputingNextMod(
             )
     );
 
-    auto *right = Builder.CreateLoad(
+    llvm::LoadInst *right = Builder.CreateLoad(
             LLVM_I32(CTX),
             Builder.CreateInBoundsGEP(
                     LLVM_I32_ARRAY(CTX, arr.size()),

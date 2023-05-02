@@ -139,10 +139,12 @@ void CallObfuscation::handleFunction(llvm::Function &F) {
 
         llvm::ReplaceInstWithInst(call, newCall);
     }
+
+    CallObfuscationCount += calls.size();
 }
 
 llvm::Function *CallObfuscation::createFunction(llvm::Module &M, llvm::GlobalVariable *LookupTable) {
-    auto *lookupFunction = llvm::Function::Create(
+    llvm::Function *lookupFunction = llvm::Function::Create(
             llvm::FunctionType::get(
                     llvm::IntegerType::getInt8PtrTy(M.getContext())->getPointerTo(),
                     {llvm::IntegerType::getInt64PtrTy(M.getContext())},
@@ -159,19 +161,19 @@ llvm::Function *CallObfuscation::createFunction(llvm::Module &M, llvm::GlobalVar
             lookupFunction
     );
 
-    llvm::IRBuilder<> Builder(entryBlock);
+    llvm::IRBuilder<> builder(entryBlock);
 
-    llvm::CallInst *idx = Builder.CreateCall(
+    llvm::CallInst *idx = builder.CreateCall(
             mapFunction,
-            Builder.CreateZExt(
-                    Builder.CreateLoad(
+            builder.CreateZExt(
+                    builder.CreateLoad(
                             LLVM_I64(lookupFunction->getContext()), lookupFunction->getArg(0)
                     ),
                     LLVM_I64(lookupFunction->getContext())
             )
     );
 
-    Builder.CreateRet(Builder.CreateInBoundsGEP(
+    builder.CreateRet(builder.CreateInBoundsGEP(
             LookupTable->getValueType(),
             LookupTable,
             {

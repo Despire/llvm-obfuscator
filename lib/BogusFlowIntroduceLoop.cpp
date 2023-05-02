@@ -17,9 +17,9 @@ llvm::PreservedAnalyses BogusFlowIntroduceLoop::run(llvm::Function &F, llvm::Fun
     std::vector<llvm::BasicBlock *> validBB = findAllBBWithReachableIntegers(F, RISet);
 
     for (auto &BB: validBB) {
-        modified |= introduceBogusLoop(*BB, FAM);
-        if (modified) {
+        if (introduceBogusLoop(*BB, FAM)) {
             ++BogusFlowIntroduceLoopCount;
+            modified = true;
         }
     }
 
@@ -38,7 +38,7 @@ bool BogusFlowIntroduceLoop::introduceBogusLoop(llvm::BasicBlock &BB, llvm::Func
 
     // chose one block at random to which the loop will be added.
     uint64_t successor = RandomInt64(int64_t(BB.getTerminator()->getNumSuccessors()));
-    auto *chosenBlock = BB.getTerminator()->getSuccessor(successor);
+    llvm::BasicBlock *chosenBlock = BB.getTerminator()->getSuccessor(successor);
 
     // add some bogus operations.
     addBogusOperations(chosenBlock);
@@ -55,20 +55,20 @@ bool BogusFlowIntroduceLoop::introduceBogusLoop(llvm::BasicBlock &BB, llvm::Func
     successor = RandomInt64(int64_t(chosenBlock->getTerminator()->getNumSuccessors()));
 
     // make sure that the loop part doesn't get executed by changing the condition.
-    auto *br = llvm::cast<llvm::BranchInst>(chosenBlock->getTerminator());
+    llvm::BranchInst *br = llvm::cast<llvm::BranchInst>(chosenBlock->getTerminator());
 
     auto pair = predicates.getRandomOpaquelyTruePredicate();
-    auto *cond = (&predicates->*pair.first)(*RandomElement(RI.begin(), RI.end()), br);
+    llvm::Value *cond = (&predicates->*pair.first)(*RandomElement(RI.begin(), RI.end()), br);
     br->setCondition(cond);
 
     // the condition always is true thus the loop part needs to be false branch.
-    auto *loopLatch = chosenBlock->getTerminator()->getSuccessor(successor);
+    llvm::BasicBlock *loopLatch = chosenBlock->getTerminator()->getSuccessor(successor);
 
     if (br->getSuccessor(0) == loopLatch) {
         br->swapSuccessors();
     }
 
-    auto *replaceCond = chosenBlock->getTerminator()->clone();
+    llvm::Instruction *replaceCond = chosenBlock->getTerminator()->clone();
     replaceCond->setSuccessor(0, loopLatch->getTerminator()->getSuccessor(0));
 
     replaceCond->insertBefore(loopLatch->getTerminator());

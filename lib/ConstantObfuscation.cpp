@@ -25,7 +25,7 @@ llvm::Value *ConstantObfuscation::replaceConstant(
         llvm::ConstantInt *ToReplace,
         llvm::SmallDenseSet<llvm::Value *> &integers
 ) {
-    auto &ctx = I->getParent()->getContext();
+    llvm::LLVMContext &ctx = I->getParent()->getContext();
 
     // cache the type, to retype it again when we're done.
     llvm::Type *typ = ToReplace->getType();
@@ -42,8 +42,8 @@ llvm::Value *ConstantObfuscation::replaceConstant(
     uint64_t odd = RandomInt64(0, std::numeric_limits<uint64_t>::max() / 2);
     odd = odd * 2 + 1;
 
-    auto *lhs = generateSequence(I, LLVM_CONST_I64(ctx, odd), integers);
-    auto *rhs = generateSequence(I, LLVM_CONST_I64(ctx, modularInverseOdd(odd) * originalValue), integers);
+    llvm::Value *lhs = generateSequence(I, LLVM_CONST_I64(ctx, odd), integers);
+    llvm::Value *rhs = generateSequence(I, LLVM_CONST_I64(ctx, modularInverseOdd(odd) * originalValue), integers);
 
     llvm::IRBuilder<llvm::NoFolder> Builder(I);
     return Builder.CreateIntCast(Builder.CreateMul(lhs, rhs), typ, true);
@@ -98,8 +98,8 @@ ConstantObfuscation::generateSequence(
         llvm::Value *From,
         llvm::SmallDenseSet<llvm::Value *> &integers
 ) {
-    auto &ctx = InsertBefore->getParent()->getContext();
-    llvm::IRBuilder<llvm::NoFolder> Builder(InsertBefore);
+    llvm::LLVMContext &ctx = InsertBefore->getParent()->getContext();
+    llvm::IRBuilder<llvm::NoFolder> builder(InsertBefore);
     std::vector<llvm::Value *> operations{From};
 
     Substitution substitution;
@@ -110,7 +110,7 @@ ConstantObfuscation::generateSequence(
     uint64_t sequenceLength = 2 + RandomInt64(2); // [2..3]
     for (std::size_t i = 0; i < sequenceLength; i++) {
         llvm::Value *elem = *RandomElement(integers.begin(), integers.end());
-        llvm::Value *castElem = Builder.CreateIntCast(elem, LLVM_I64(ctx), true);
+        llvm::Value *castElem = builder.CreateIntCast(elem, LLVM_I64(ctx), true);
         uint64_t rng = RandomInt64();
 
         llvm::Value *op = nullptr;
@@ -118,8 +118,8 @@ ConstantObfuscation::generateSequence(
 
         switch (RandomInt64(3)) {
             case 0: {
-                op = Builder.CreateAnd(castElem, LLVM_CONST_I64(ctx, rng));
-                op2 = Builder.CreateAnd(LLVM_CONST_I64(ctx, rng), castElem);
+                op = builder.CreateAnd(castElem, LLVM_CONST_I64(ctx, rng));
+                op2 = builder.CreateAnd(LLVM_CONST_I64(ctx, rng), castElem);
 
                 auto iter = llvm::cast<llvm::BinaryOperator>(op2)->getIterator();
                 (&substitution->*substitution.ANDHandlers[RandomInt64(ANDSubstitutionFuncCount)])(
@@ -132,8 +132,8 @@ ConstantObfuscation::generateSequence(
                 break;
             }
             case 1: {
-                op = Builder.CreateOr(castElem, LLVM_CONST_I64(ctx, rng));
-                op2 = Builder.CreateOr(LLVM_CONST_I64(ctx, rng), castElem);
+                op = builder.CreateOr(castElem, LLVM_CONST_I64(ctx, rng));
+                op2 = builder.CreateOr(LLVM_CONST_I64(ctx, rng), castElem);
 
                 auto iter = llvm::cast<llvm::BinaryOperator>(op2)->getIterator();
                 (&substitution->*substitution.ORHandlers[RandomInt64(ORSubstitutionFuncCount)])(
@@ -146,8 +146,8 @@ ConstantObfuscation::generateSequence(
                 break;
             }
             case 2: {
-                op = Builder.CreateAdd(castElem, LLVM_CONST_I64(ctx, rng));
-                op2 = Builder.CreateAdd(LLVM_CONST_I64(ctx, rng), castElem);
+                op = builder.CreateAdd(castElem, LLVM_CONST_I64(ctx, rng));
+                op2 = builder.CreateAdd(LLVM_CONST_I64(ctx, rng), castElem);
 
                 auto iter = llvm::cast<llvm::BinaryOperator>(op2)->getIterator();
                 (&substitution->*substitution.AddHandlers[RandomInt64(AdditionSubstitionFuncCount)])(
@@ -170,7 +170,7 @@ ConstantObfuscation::generateSequence(
     // xor all operations and return the result.
     llvm::Value *result = *operations.begin();
     for (auto beg = ++operations.begin(); beg != operations.end(); ++beg) {
-        result = Builder.CreateXor(result, *beg);
+        result = builder.CreateXor(result, *beg);
     }
 
     return result;
