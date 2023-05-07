@@ -43,8 +43,7 @@ message("LLVM STATUS:
     Definitions ${LLVM_DEFINITIONS}
     Includes    ${LLVM_INCLUDE_DIRS}
     Libraries   ${LLVM_LIBRARY_DIRS}
-    Targets     ${LLVM_TARGETS_TO_BUILD}"
-        )
+    Targets     ${LLVM_TARGETS_TO_BUILD}")
 
 include_directories(SYSTEM ${LLVM_INCLUDE_DIRS})
 link_directories(${LLVM_LIBRARY_DIRS})

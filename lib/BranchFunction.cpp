@@ -239,6 +239,8 @@ llvm::Function *BranchFunction::createFunction(llvm::Module &M, llvm::GlobalVari
             M
     );
 
+    branchFunction->addFnAttr(llvm::Attribute::NoInline);
+
     llvm::BasicBlock *entryBlock = llvm::BasicBlock::Create(
             branchFunction->getContext(),
             "",
@@ -282,6 +284,8 @@ void BranchFunction::createMapFunction(llvm::Module &M) {
             "h" + std::to_string(RandomInt64()),
             M
     );
+
+    mapFunction->addFnAttr(llvm::Attribute::NoInline);
 
     llvm::BasicBlock *entryBlock = llvm::BasicBlock::Create(
             mapFunction->getContext(),

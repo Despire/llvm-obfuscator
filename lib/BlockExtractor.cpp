@@ -103,7 +103,6 @@ bool BlockExtractor::handleFunction(llvm::Function &F) {
 }
 
 //------------------------------------------------------
-
 //               Registration of the Plugin
 //------------------------------------------------------
 llvm::PassPluginLibraryInfo getBlockExtractorPluginInfo() {

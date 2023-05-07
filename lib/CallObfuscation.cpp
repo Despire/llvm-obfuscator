@@ -155,6 +155,8 @@ llvm::Function *CallObfuscation::createFunction(llvm::Module &M, llvm::GlobalVar
             M
     );
 
+    lookupFunction->addFnAttr(llvm::Attribute::NoInline);
+
     llvm::BasicBlock *entryBlock = llvm::BasicBlock::Create(
             lookupFunction->getContext(),
             "",
@@ -198,6 +200,9 @@ void CallObfuscation::createMapFunction(llvm::Module &M) {
             "m" + std::to_string(RandomInt64()),
             M
     );
+
+    mapFunction->addFnAttr(llvm::Attribute::NoInline);
+
 
     llvm::BasicBlock *entryBlock = llvm::BasicBlock::Create(
             mapFunction->getContext(),

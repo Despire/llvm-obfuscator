@@ -1,5 +1,9 @@
 #!/bin/bash
 
+echo "-----Testing Merge Funcs-----"
+for i in {0..1}; do
+  python3 ./tests/test_mergef.py
+done
 echo "-----Testing Block Extraction-----"
 for i in {0..1}; do
   python3 ./tests/test_bext.py

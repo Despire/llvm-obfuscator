@@ -10,6 +10,7 @@ set(LLVM_OBFUSCATOR_PLUGINS
         ConstantObfuscation
         CallObfuscation
         BlockExtractor
+        MergeFuncs
 )
 
 set(Substitution_SOURCES Substitution.cpp cmd-args/Coverage.cpp)
@@ -23,6 +24,7 @@ set(BranchFunction_SOURCES BranchFunction.cpp)
 set(ConstantObfuscation_SOURCES ConstantObfuscation.cpp)
 set(CallObfuscation_SOURCES CallObfuscation.cpp)
 set(BlockExtractor_SOURCES BlockExtractor.cpp cmd-args/Coverage.cpp)
+set(MergeFuncs_SOURCES MergeFuncs.cpp cmd-args/Coverage.cpp)
 
 foreach (plugin ${LLVM_OBFUSCATOR_PLUGINS})
     add_library(${plugin} SHARED ${${plugin}_SOURCES})
