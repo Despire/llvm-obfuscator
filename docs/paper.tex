@@ -1,0 +1,33 @@
+\documentclass[fontsize=11pt,twocolumn]{article}
+
+\usepackage{setspace}
+\onehalfspacing
+
+\usepackage{pdfpages}
+\usepackage[
+    backend=bibtex,
+    sortcites=true,
+    sorting=ynt,
+    abbreviate=false,
+    style=numeric,
+    citestyle=numeric,
+    isbn=true,
+    url=false,
+    doi=false]{biblatex}
+\addbibresource{bibliography.bib}
+
+\title{\textbf{Code Obfuscation with LLVM}}
+\author{Matus Mrekaj}
+\date{21 May 2023}
+
+\begin{document}
+\maketitle
+
+\textbf{\input{abstract.tex}}
+\input{01.tex}
+
+\begin{spacing}{1}
+    \printbibliography
+\end{spacing}
+
+\end{document}
