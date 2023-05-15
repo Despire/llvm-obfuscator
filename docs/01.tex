@@ -1,7 +1,42 @@
-\section{Software security}
+\section{Computer Security}
 
-talk about software security cryptography, then transition to code obfuscation, static and dynamic obfuscation
-talk about binaries how can they be exploited etc...
+When we talk about computer security, we most often talk about how to secure our data and communications from being read by a malicious actor.
+This could be achieved by having a secret key shared between two parties that a third party does not know, this branch of security is known as cryptography.
+
+Computer security is a vast topic in itself and has many branches that focus on different areas.
+While cryptography addresses the problem of secure communication and encryption of data, 
+it is based on the fundamental assumption that the secret key is securely stored.
+
+Consider this scenario, you have a software product packaged in a binary and you decide to distribute it to 
+your customers who paid for it. These binaries may contain secrets that you don't want anyone else
+to have except the customer who paid for your product. These secrets may be keys, unique identification
+numbers or anything that you consider confidential. These secrets that are distributed with the binary
+are then used when communicating with you.
+
+What happens when a 3rd party gets hold of one or more of the binaries and decide to re-distribute
+them, perhaps with a cheaper price, some changes to the features etc. The malicious actor can do whatever
+he wants as there is no limit as to what can and can't be done when he gets hold of the binary. This is 
+where Surreptitious software can be useful.
+
+\subsection{Surreptitious software}
+
+Surreptitious software is a term that describes a branch of computer security that works with techniques
+from many branches of computer security, namely cryptography, watermarking, reverse engineering, steganography
+and compilers \cite{serr-soft}.
+
+You may be wondering how we could have avoided the scenario just described using these techniques.
+Watermarking could be used to track illegal copies, tamperproofing could be used to prevent tampering with the binary,
+obfuscation could be used to protect algorithms.
+
+As with cryptography, where the secret keys used have different lifetimes and will not prevent a third party from reading the data forever,
+Surreptitious Software does not guarantee that these techniques will work forever or be broken. 
+The goal is to slow down the malicious actor so that breaking these algorithms takes more time than they are willing to invest and potentially give up \cite{serr-soft-2}.
+
+You may be asking yourself why would you want to store secrets in your binary that could be exploited. There is no
+judgement to this question, whatever the case is its good to know what can be used to improve the security when such
+a use cases arises.
+
+\subsubsection{Examples of Surreptitious software}
 
 \section{Code Obfuscation}
 \subsection{Related work}
@@ -9,4 +44,13 @@ talk about how there are old versions that use LLVM 3.0 or 4.0 etc...
 talk about existing solutions.
 \subsection{Writing Code Obfuscator with LLVM}
 talk about LLVM how it works what it is and how code obfuscation can be achieved with it.
+
+
+
+
+\section{My Contribution}
+
+Nothing novel is implemented, the goal of this work was to implement common obfuscation techniques which were
+based on chapter 4 of the book ... name of book ... with some adjustmens. Also part of the goal was to
+revision implement them for newer LLVM versions 15.0
 
