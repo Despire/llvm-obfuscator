@@ -51,9 +51,12 @@ bool OpaquePredicates::handleOpaquelyTruePredicate(llvm::BasicBlock &BB, llvm::F
     auto randomInstruction = RandomNonPHIInstruction(BB);
     LLVM_DEBUG(llvm::dbgs() << "selected instruction to split on: " << *randomInstruction << '\n');
 
+    auto randomInteger = RandomElement(RI.begin(), RI.end());
+    LLVM_DEBUG(llvm::dbgs() << "choosing integer for condition: " << **randomInteger << '\n');
+
     // select a random condition.
     auto pair = getRandomOpaquelyTruePredicate();
-    auto *cond = (this->*pair.first)(*RandomElement(RI.begin(), RI.end()), randomInstruction);
+    auto *cond = (this->*pair.first)(*randomInteger, randomInstruction);
 
     LLVM_DEBUG(llvm::dbgs() << "condition for evaluating the next block: " << *cond << '\n');
 
@@ -64,7 +67,7 @@ bool OpaquePredicates::handleOpaquelyTruePredicate(llvm::BasicBlock &BB, llvm::F
     Substitution substitution;
 
     // obfuscate the condition.
-    auto Inst = llvm::dyn_cast<llvm::Instruction>(cond);
+    auto Inst = llvm::cast<llvm::Instruction>(cond);
     auto Iter = Inst->getIterator();
     (substitution.*pair.second)(BB, llvm::dyn_cast<llvm::BinaryOperator>(Iter), Iter);
 

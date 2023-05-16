@@ -1,6 +1,7 @@
 #include "Utils.h"
 #include "ConstantObfuscation.h"
 #include "Substitution.h"
+#include "cmd-args/Coverage.h"
 
 #include "llvm/IR/Constants.h"
 #include "llvm/Passes/PassPlugin.h"
@@ -11,6 +12,14 @@
 #define DEBUG_TYPE "constant-obfuscation"
 
 STATISTIC(ConstantObfuscationCount, "# of constant integer obfuscations");
+
+static llvm::cl::opt<Coverage, false, CoverageParser> constObfsCoverage{
+    "cobfs-coverage",
+    llvm::cl::desc("applies integer literal obfuscation on <coverage> percentage of literals"),
+    llvm::cl::value_desc("cobfs-coverage"),
+    llvm::cl::init(0.35),
+    llvm::cl::Optional
+};
 
 llvm::PreservedAnalyses ConstantObfuscation::run(llvm::Function &F, llvm::FunctionAnalysisManager &FAM) {
     bool modified = handleFunction(F, FAM);
@@ -54,6 +63,9 @@ bool ConstantObfuscation::handleFunction(llvm::Function &F, llvm::FunctionAnalys
 
     auto &Set = FAM.getResult<ReachableIntegers>(F);
 
+    auto generator = GetRandomGenerator();
+    std::uniform_real_distribution<std::float_t> uniformDist(0.0, 1.0);
+
     for (auto &BB: F) {
         for (auto beg = BB.getFirstInsertionPt(); beg != BB.end(); ++beg) {
             llvm::Instruction *I = &*beg;
@@ -78,6 +90,9 @@ bool ConstantObfuscation::handleFunction(llvm::Function &F, llvm::FunctionAnalys
                 // check for constant ints and replace them.
                 if (auto *constantInt = llvm::dyn_cast<llvm::ConstantInt>(I->getOperand(i)); constantInt) {
                     if (!Set[&BB].empty()) {
+                        if (uniformDist(generator) > constObfsCoverage.getValue()) {
+                            continue;
+                        }
                         if (auto *replacement = replaceConstant(I, constantInt, Set[&BB]); replacement) {
                             I->setOperand(i, replacement);
                             modified |= true;

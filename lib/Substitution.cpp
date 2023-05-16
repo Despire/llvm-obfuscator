@@ -59,7 +59,7 @@ bool Substitution::handleBasicBlock(llvm::BasicBlock &BB) {
             case llvm::Instruction::Add: {
                 ++AdditionSubstitutionCount;
                 bool done = false;
-                if (BO->getType()->getIntegerBitWidth() == 8) {
+                if (BO->getType()->isIntegerTy(8)) {
                     auto rng = RandomInt64(AdditionSubstitionFuncCount + 1);  // +1 for the special 8bit substitution
                     if (rng >= AdditionSubstitionFuncCount) {
                         modified |= handle8BitAddition(BB, BO, beg);

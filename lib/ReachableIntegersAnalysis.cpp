@@ -32,12 +32,6 @@ ReachableIntegers::Result ReachableIntegers::run(llvm::Function &F, llvm::Functi
         }
     }
 
-    for (auto &Global: F.getParent()->getGlobalList()) {
-        if (Global.getValueType()->isIntegerTy() && Global.getType()->getIntegerBitWidth() >= 8) {
-            entryList.insert(&Global);
-        }
-    }
-
     // travers the Control flow graph from root.
     std::vector<llvm::DomTreeNodeBase<llvm::BasicBlock> *> queue;
     queue.push_back(tree.getRootNode());
