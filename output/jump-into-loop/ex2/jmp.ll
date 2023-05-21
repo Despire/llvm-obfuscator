@@ -19,57 +19,105 @@ define i32 @_Z8digitSumi(i32 %0) local_unnamed_addr #0 {
   call void @_Z4testv()
   %2 = add i32 %0, 9
   %3 = icmp ult i32 %2, 19
-  br i1 %3, label %35, label %.preheader
+  br i1 %3, label %79, label %.preheader
 
 .preheader:                                       ; preds = %1
-  %4 = mul i32 %0, %0
-  %5 = add i32 %4, %0
-  %6 = mul i32 %5, 3
-  %7 = srem i32 %6, 2
-  %8 = icmp eq i32 %7, 0
-  %9 = mul i32 %0, %0
-  %10 = add i32 %9, %0
-  %11 = srem i32 %10, 2
-  %12 = icmp eq i32 %11, 0
-  %13 = and i1 %8, %12
-  br i1 %13, label %15, label %14
-
-14:                                               ; preds = %.preheader
-  br label %27
+  %4 = mul i32 %0, 2
+  %5 = mul i32 %0, 2
+  %6 = add i32 2, %5
+  %7 = mul i32 %4, %6
+  %8 = srem i32 %7, 4
+  %9 = icmp eq i32 %8, 0
+  %10 = mul i32 %0, %0
+  %11 = add i32 %10, %0
+  %12 = srem i32 %11, 2
+  %13 = icmp eq i32 %12, 0
+  %14 = and i1 %9, %13
+  br i1 %14, label %16, label %15
 
 15:                                               ; preds = %.preheader
-  br label %16
+  br label %31
 
-16:                                               ; preds = %15, %27
-  %17 = phi i32 [ %32, %27 ], [ 1, %15 ]
-  %18 = phi i32 [ %31, %27 ], [ %0, %15 ]
-  %19 = phi i32 [ %28, %27 ], [ 0, %15 ]
-  %20 = sdiv i32 %18, 10
-  %21 = add i32 %18, 19
-  %22 = icmp ult i32 %21, 10
-  %23 = select i1 %22, i32 %17, i32 %19
-  %24 = select i1 %22, i32 1, i32 %19
-  %25 = add nsw i32 %24, %20
-  %26 = icmp eq i32 %25, 5
-  br i1 %26, label %.loopexit, label %27
+16:                                               ; preds = %.preheader
+  br label %17
 
-27:                                               ; preds = %14, %16
-  %28 = phi i32 [ %23, %16 ], [ 0, %14 ]
-  %29 = phi i32 [ %25, %16 ], [ 0, %14 ]
-  %30 = shl nsw i32 %28, 1
-  %31 = add nsw i32 %29, %30
-  %32 = add nsw i32 %28, 1
-  %33 = add i32 %31, 9
-  %34 = icmp ult i32 %33, 19
-  br i1 %34, label %.loopexit, label %16, !llvm.loop !10
+17:                                               ; preds = %31, %16, %73
+  %18 = phi i32 [ %76, %73 ], [ 1, %16 ], [ 0, %31 ]
+  %19 = phi i32 [ %75, %73 ], [ %0, %16 ], [ 0, %31 ]
+  %20 = phi i32 [ %69, %73 ], [ 0, %16 ], [ 0, %31 ]
+  %21 = mul i32 %2, %2
+  %22 = add i32 %21, %2
+  %23 = mul i32 %22, 3
+  %24 = srem i32 %23, 2
+  %25 = icmp eq i32 %24, 0
+  %26 = mul i32 %2, %2
+  %27 = add i32 %26, %2
+  %28 = srem i32 %27, 2
+  %29 = icmp eq i32 %28, 0
+  %30 = and i1 %25, %29
+  br i1 %30, label %65, label %31
 
-.loopexit:                                        ; preds = %16, %27
-  %.ph = phi i32 [ %23, %16 ], [ %32, %27 ]
-  br label %35
+31:                                               ; preds = %15, %31, %17
+  %32 = sdiv i32 94, 5
+  %33 = mul i32 74, 3
+  %34 = add i32 97, 2
+  %35 = sdiv i32 89, 63
+  %36 = mul i32 59, 54
+  %37 = sdiv i32 29, 29
+  %38 = add i32 53, 82
+  %39 = sub i32 22, 110
+  %40 = sdiv i32 81, 47
+  %41 = add i32 %34, 109
+  %42 = sub i32 %40, 55
+  %43 = sub i32 %38, 68
+  %44 = sdiv i32 %37, 48
+  %45 = sub i32 %34, 102
+  %46 = sub i32 %36, 24
+  %47 = add i32 %39, 19
+  %48 = mul i32 %37, 5
+  %49 = add i32 0, %41
+  %50 = add i32 %49, %42
+  %51 = add i32 %50, %43
+  %52 = add i32 %51, %44
+  %53 = add i32 %52, %45
+  %54 = add i32 %53, %46
+  %55 = add i32 %54, %47
+  %56 = add i32 %55, %48
+  %57 = and i32 %56, 1
+  %58 = icmp eq i32 %57, 0
+  %59 = mul i32 %56, %56
+  %60 = add i32 %59, %56
+  %61 = mul i32 %60, 3
+  %62 = srem i32 %61, 2
+  %63 = icmp eq i32 %62, 0
+  %64 = or i1 %58, %63
+  br i1 %64, label %17, label %31
 
-35:                                               ; preds = %.loopexit, %1
-  %36 = phi i32 [ 1, %1 ], [ %.ph, %.loopexit ]
-  ret i32 %36
+65:                                               ; preds = %17
+  %66 = sdiv i32 %19, 10
+  %67 = add i32 %19, 19
+  %68 = icmp ult i32 %67, 10
+  %69 = select i1 %68, i32 %18, i32 %20
+  %70 = select i1 %68, i32 1, i32 %20
+  %71 = add nsw i32 %70, %66
+  %72 = icmp eq i32 %71, 5
+  br i1 %72, label %.loopexit, label %73
+
+73:                                               ; preds = %65
+  %74 = shl nsw i32 %69, 1
+  %75 = add nsw i32 %71, %74
+  %76 = add nsw i32 %69, 1
+  %77 = add i32 %75, 9
+  %78 = icmp ult i32 %77, 19
+  br i1 %78, label %.loopexit, label %17, !llvm.loop !10
+
+.loopexit:                                        ; preds = %65, %73
+  %.ph = phi i32 [ %69, %65 ], [ %76, %73 ]
+  br label %79
+
+79:                                               ; preds = %.loopexit, %1
+  %80 = phi i32 [ 1, %1 ], [ %.ph, %.loopexit ]
+  ret i32 %80
 }
 
 ; Function Attrs: mustprogress nofree norecurse nounwind ssp uwtable

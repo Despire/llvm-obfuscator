@@ -12,13 +12,7 @@
 
 struct JumpIntoLoop : public llvm::PassInfoMixin<JumpIntoLoop> {
     llvm::PreservedAnalyses run(llvm::Function &F, llvm::FunctionAnalysisManager &);
-
-    bool tryIntroducingNewPath(llvm::Loop *TopLevelLoop, ReachableIntegers::Result &Set);
-
-    std::unordered_map<llvm::BasicBlock *, llvm::ValueToValueMapTy>
-    findAllPrecedingInstructionInALoop(llvm::BasicBlock &BB, llvm::Loop &Loop);
-
-    std::vector<llvm::BasicBlock *> traverseLoopInOrder(llvm::Loop &Loop);
+    bool tryIntroducingNewPath(llvm::Function &F, llvm::Loop *TopLevelLoop, ReachableIntegers::Result &Set);
 };
 
 #endif //LLVM_OBFUSCATOR_JUMPINTOLOOP_H

@@ -17,7 +17,7 @@ static llvm::cl::opt<Coverage, false, CoverageParser> constObfsCoverage{
     "cobfs-coverage",
     llvm::cl::desc("applies integer literal obfuscation on <coverage> percentage of literals"),
     llvm::cl::value_desc("cobfs-coverage"),
-    llvm::cl::init(0.35),
+    llvm::cl::init(0.15),
     llvm::cl::Optional
 };
 

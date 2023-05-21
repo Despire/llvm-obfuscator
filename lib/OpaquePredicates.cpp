@@ -3,6 +3,7 @@
 
 #include "Utils.h"
 #include "OpaquePredicates.h"
+#include "cmd-args/Coverage.h"
 
 #include "llvm/ADT/Statistic.h"
 #include "llvm/Passes/PassPlugin.h"
@@ -15,6 +16,14 @@
 
 STATISTIC(BogusFlowBlockSplitCount, "# of performed block splitting");
 
+static llvm::cl::opt<Coverage, false, CoverageParser> constOpCoverage{
+        "op-coverage",
+        llvm::cl::desc("applies opaque predicate obfuscation on <coverage> percentage of basic blocks"),
+        llvm::cl::value_desc("op-coverage"),
+        llvm::cl::init(0.20),
+        llvm::cl::Optional
+};
+
 llvm::PreservedAnalyses OpaquePredicates::run(llvm::Function &F, llvm::FunctionAnalysisManager &FAM) {
     bool modified = false;
 
@@ -24,13 +33,23 @@ llvm::PreservedAnalyses OpaquePredicates::run(llvm::Function &F, llvm::FunctionA
 
     std::vector<llvm::BasicBlock *> validBB = findAllBBWithReachableIntegers(F, RISet);
 
+    auto generator = GetRandomGenerator();
+    std::uniform_real_distribution<std::float_t> uniformDist(0.0, 1.0);
+
     // add opaque predicates to loop conditionals.
     for (auto &L: LoopInfo) {
+        if (uniformDist(generator) > constOpCoverage.getValue()) {
+            continue;
+        }
+
         modified |= handleLoopOpaquelyTruePredicates(*L, RISet);
     }
 
     // Create bogus flow by splitting a block and inserting new BasicBlocks based on some opaque predicates.
     for (auto &BB: validBB) {
+        if (uniformDist(generator) > constOpCoverage.getValue()) {
+            continue;
+        }
         if ((this->*OpaquePredicateHandlers[RandomInt64(OpaquePredicateFuncCount)])(*BB, FAM)) {
             modified |= true;
             ++BogusFlowBlockSplitCount;
@@ -62,7 +81,7 @@ bool OpaquePredicates::handleOpaquelyTruePredicate(llvm::BasicBlock &BB, llvm::F
 
     // split block and insert bogus operation.
     auto newBB = llvm::SplitBlockAndInsertIfThen(cond, randomInstruction, false);
-    addBogusOperations(newBB->getParent());
+    addBogusOperations(newBB->getParent(), (*randomInteger)->getType());
 
     Substitution substitution;
 

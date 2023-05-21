@@ -40,14 +40,6 @@ inline Iter RandomElement(Iter start, Iter end) {
     return RandomElementRNG(start, end, rng);
 }
 
-inline int64_t numOfPredecessors(llvm::BasicBlock *BB) {
-    int64_t count = 0;
-    for (auto p: predecessors(BB)) {
-        ++count;
-    }
-    return count;
-}
-
 template<typename LLVMTypeWithOperands>
 inline bool checkIfInstructionInOperand(llvm::Instruction *ToCheck, LLVMTypeWithOperands *I) {
     for (auto &O: I->operands()) {
@@ -56,15 +48,6 @@ inline bool checkIfInstructionInOperand(llvm::Instruction *ToCheck, LLVMTypeWith
         }
     }
     return false;
-}
-
-inline llvm::PHINode *existsPhiThatContainInstruction(llvm::Instruction *I, llvm::BasicBlock &BB) {
-    for (auto &PHI: BB.phis()) {
-        if (checkIfInstructionInOperand(I, &PHI)) {
-            return &PHI;
-        }
-    }
-    return nullptr;
 }
 
 inline llvm::Instruction *RandomNonPHIInstruction(llvm::BasicBlock &BB) {
@@ -134,7 +117,8 @@ inline void findDeepestInnerLoop(llvm::Loop *Loop, llvm::Loop *&CurrentLevel) {
 }
 
 
-inline void addBogusOperations(llvm::BasicBlock *BB) {
+inline std::vector<llvm::Instruction*> addBogusOperations(llvm::BasicBlock *BB, llvm::Type *Typ) {
+    std::vector<llvm::Instruction*> out;
     std::mt19937_64 gen = GetRandomGenerator();
     std::uniform_int_distribution dist(6, 10);
 
@@ -144,24 +128,24 @@ inline void addBogusOperations(llvm::BasicBlock *BB) {
     auto end = BB->getTerminator()->getIterator();
 
     for (int64_t i = 0; i < instructionCount; ++i) {
-        auto *left = LLVM_CONST_I32(BB->getContext(), RandomInt64(std::numeric_limits<std::int8_t>::max()));
-        auto *right = LLVM_CONST_I32(BB->getContext(), RandomInt64(std::numeric_limits<std::int8_t>::max()));
+        auto *left = LLVM_CONST_INT(Typ, RandomInt64(std::numeric_limits<std::int8_t>::max()));
+        auto *right = LLVM_CONST_INT(Typ, RandomInt64(std::numeric_limits<std::int8_t>::max()));
 
         switch (RandomInt64() % 4) {
             case 0: {
-                llvm::BinaryOperator::CreateAdd(left, right, "", &*beg);
+                out.push_back(llvm::BinaryOperator::CreateAdd(left, right, "", &*beg));
                 break;
             }
             case 1: {
-                llvm::BinaryOperator::CreateSub(left, right, "", &*beg);
+                out.push_back(llvm::BinaryOperator::CreateSub(left, right, "", &*beg));
                 break;
             }
             case 2: {
-                llvm::BinaryOperator::CreateMul(left, right, "", &*beg);
+                out.push_back(llvm::BinaryOperator::CreateMul(left, right, "", &*beg));
                 break;
             }
             case 3: {
-                llvm::BinaryOperator::CreateSDiv(left, right, "", &*beg);
+                out.push_back(llvm::BinaryOperator::CreateSDiv(left, right, "", &*beg));
                 break;
             }
         }
@@ -170,6 +154,43 @@ inline void addBogusOperations(llvm::BasicBlock *BB) {
             beg = std::next(beg);
         }
     }
+    return out;
+}
+
+inline std::vector<llvm::Instruction*> addBogusOperationsWithEnvironment(llvm::BasicBlock *BB,  std::vector<llvm::Instruction*> &&environment) {
+    std::vector<llvm::Instruction*> out;
+    std::mt19937_64 gen = GetRandomGenerator();
+    std::uniform_int_distribution dist(6, 10);
+
+    int64_t instructionCount = dist(gen);
+
+    auto end = BB->getTerminator()->getIterator();
+
+    for (int64_t i = 0; i < instructionCount; ++i) {
+        llvm::Instruction *left = *RandomElement(environment.begin(), environment.end());
+        auto *right = LLVM_CONST_INT(left->getType(), RandomInt64(std::numeric_limits<std::int8_t>::max()));
+
+        switch (RandomInt64() % 4) {
+            case 0: {
+                out.push_back(llvm::BinaryOperator::CreateAdd(left, right, "", &*end));
+                break;
+            }
+            case 1: {
+                out.push_back(llvm::BinaryOperator::CreateSub(left, right, "", &*end));
+                break;
+            }
+            case 2: {
+                out.push_back(llvm::BinaryOperator::CreateMul(left, right, "", &*end));
+                break;
+            }
+            case 3: {
+                out.push_back(llvm::BinaryOperator::CreateSDiv(left, right, "", &*end));
+                break;
+            }
+        }
+    }
+
+    return out;
 }
 
 inline std::vector<llvm::BasicBlock *>

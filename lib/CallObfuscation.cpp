@@ -150,7 +150,7 @@ llvm::Function *CallObfuscation::createFunction(llvm::Module &M, llvm::GlobalVar
                     {llvm::IntegerType::getInt64PtrTy(M.getContext())},
                     false
             ),
-            llvm::Function::LinkageTypes::PrivateLinkage,
+            llvm::Function::LinkageTypes::InternalLinkage,
             "lk" + std::to_string(RandomInt64()),
             M
     );
@@ -196,7 +196,7 @@ void CallObfuscation::createMapFunction(llvm::Module &M) {
                     {llvm::IntegerType::getInt64Ty(M.getContext())},
                     false
             ),
-            llvm::Function::LinkageTypes::PrivateLinkage,
+            llvm::Function::LinkageTypes::InternalLinkage,
             "m" + std::to_string(RandomInt64()),
             M
     );

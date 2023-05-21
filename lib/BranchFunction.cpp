@@ -234,7 +234,7 @@ llvm::Function *BranchFunction::createFunction(llvm::Module &M, llvm::GlobalVari
                     {llvm::IntegerType::getInt32PtrTy(M.getContext())},
                     false
             ),
-            llvm::Function::LinkageTypes::PrivateLinkage,
+            llvm::Function::LinkageTypes::InternalLinkage,
             "bf" + std::to_string(RandomInt64()),
             M
     );
@@ -280,7 +280,7 @@ void BranchFunction::createMapFunction(llvm::Module &M) {
                     {llvm::IntegerType::getInt64Ty(M.getContext())},
                     false
             ),
-            llvm::Function::LinkageTypes::PrivateLinkage,
+            llvm::Function::LinkageTypes::InternalLinkage,
             "h" + std::to_string(RandomInt64()),
             M
     );

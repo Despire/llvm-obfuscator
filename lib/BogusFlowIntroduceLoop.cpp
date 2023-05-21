@@ -1,6 +1,7 @@
 #include "Utils.h"
 #include "BogusFlowIntroduceLoop.h"
 #include "OpaquePredicates.h"
+#include "cmd-args/Coverage.h"
 
 #include "llvm/Passes/PassPlugin.h"
 #include "llvm/Passes/PassBuilder.h"
@@ -10,13 +11,28 @@
 
 STATISTIC(BogusFlowIntroduceLoopCount, "# of performed bogus loop insertions");
 
+static llvm::cl::opt<Coverage, false, CoverageParser> constBloopCoverage{
+        "bloop-coverage",
+        llvm::cl::desc("applies fake loop obfuscation on <coverage> percentage of basic blocks"),
+        llvm::cl::value_desc("bloop-coverage"),
+        llvm::cl::init(0.25),
+        llvm::cl::Optional
+};
+
 llvm::PreservedAnalyses BogusFlowIntroduceLoop::run(llvm::Function &F, llvm::FunctionAnalysisManager &FAM) {
     bool modified = false;
     // Collect all Basic Blocks for which there are reachable integers.
     auto &RISet = FAM.getResult<ReachableIntegers>(F);
     std::vector<llvm::BasicBlock *> validBB = findAllBBWithReachableIntegers(F, RISet);
 
+    auto generator = GetRandomGenerator();
+    std::uniform_real_distribution<std::float_t > uniformDist(0.0, 1.0);
+
     for (auto &BB: validBB) {
+        if (uniformDist(generator) > constBloopCoverage.getValue()) {
+            continue;
+        }
+
         if (introduceBogusLoop(*BB, FAM)) {
             ++BogusFlowIntroduceLoopCount;
             modified = true;
@@ -41,7 +57,7 @@ bool BogusFlowIntroduceLoop::introduceBogusLoop(llvm::BasicBlock &BB, llvm::Func
     llvm::BasicBlock *chosenBlock = BB.getTerminator()->getSuccessor(successor);
 
     // add some bogus operations.
-    addBogusOperations(chosenBlock);
+    addBogusOperations(chosenBlock, LLVM_I64(BB.getContext()));
 
     // performer the same operation a second time on that block.
     if (!predicates.handleOpaquelyTruePredicateWithClone(*chosenBlock, FAM)) {

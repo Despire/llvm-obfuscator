@@ -29,12 +29,12 @@ define i32 @_Z1diPiS_(i32 %0, i32* nocapture %1, i32* nocapture %2) local_unname
   br i1 %20, label %22, label %21
 
 21:                                               ; preds = %7
-  br label %28
+  br label %42
 
 22:                                               ; preds = %7
   br label %28
 
-.loopexit:                                        ; preds = %28
+.loopexit:                                        ; preds = %79
   br label %23
 
 23:                                               ; preds = %.loopexit, %5
@@ -44,15 +44,68 @@ define i32 @_Z1diPiS_(i32 %0, i32* nocapture %1, i32* nocapture %2) local_unname
   %27 = add nsw i32 %26, %24
   ret i32 %27
 
-28:                                               ; preds = %21, %28, %22
-  %29 = phi i32 [ %32, %28 ], [ 0, %22 ], [ 0, %21 ]
+28:                                               ; preds = %42, %79, %22
+  %29 = phi i32 [ %81, %79 ], [ 0, %22 ], [ 0, %42 ]
   %30 = load i32, i32* %1, align 4, !tbaa !10
-  %31 = add nsw i32 %30, 1
-  store i32 %31, i32* %1, align 4, !tbaa !10
+  %31 = mul i32 %0, 2
+  %32 = mul i32 %0, 2
+  %33 = add i32 2, %32
+  %34 = mul i32 %31, %33
+  %35 = srem i32 %34, 4
+  %36 = icmp eq i32 %35, 0
+  %37 = mul i32 %0, %0
+  %38 = add i32 %37, %0
+  %39 = srem i32 %38, 2
+  %40 = icmp eq i32 %39, 0
+  %41 = or i1 %36, %40
+  br i1 %41, label %79, label %42
+
+42:                                               ; preds = %21, %42, %28
+  %43 = add i32 82, 100
+  %44 = sdiv i32 58, 60
+  %45 = mul i32 15, 4
+  %46 = add i32 41, 94
+  %47 = mul i32 15, 122
+  %48 = sdiv i32 8, 85
+  %49 = sdiv i32 %45, 125
+  %50 = sub i32 %44, 80
+  %51 = mul i32 %48, 125
+  %52 = sub i32 %44, 42
+  %53 = add i32 %45, 109
+  %54 = sub i32 %45, 112
+  %55 = mul i32 %47, 124
+  %56 = add i32 %48, 75
+  %57 = mul i32 %43, 89
+  %58 = sdiv i32 %46, 121
+  %59 = add i32 0, %49
+  %60 = add i32 %59, %50
+  %61 = add i32 %60, %51
+  %62 = add i32 %61, %52
+  %63 = add i32 %62, %53
+  %64 = add i32 %63, %54
+  %65 = add i32 %64, %55
+  %66 = add i32 %65, %56
+  %67 = add i32 %66, %57
+  %68 = add i32 %67, %58
+  %69 = mul i32 %68, %68
+  %70 = add i32 %69, %68
+  %71 = mul i32 %70, 3
+  %72 = srem i32 %71, 2
+  %73 = icmp eq i32 %72, 0
+  %74 = mul i32 %68, %68
+  %75 = add i32 %74, %68
+  %76 = srem i32 %75, 2
+  %77 = icmp eq i32 %76, 0
+  %78 = and i1 %73, %77
+  br i1 %78, label %28, label %42
+
+79:                                               ; preds = %28
+  %80 = add nsw i32 %30, 1
+  store i32 %80, i32* %1, align 4, !tbaa !10
   store i32 %30, i32* %2, align 4, !tbaa !10
-  %32 = add nuw nsw i32 %29, 1
-  %33 = icmp eq i32 %32, %9
-  br i1 %33, label %.loopexit, label %28, !llvm.loop !14
+  %81 = add nuw nsw i32 %29, 1
+  %82 = icmp eq i32 %81, %9
+  br i1 %82, label %.loopexit, label %28, !llvm.loop !14
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind readnone ssp willreturn uwtable

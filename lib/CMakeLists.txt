@@ -15,11 +15,11 @@ set(LLVM_OBFUSCATOR_PLUGINS
 
 set(Substitution_SOURCES Substitution.cpp cmd-args/Coverage.cpp)
 set(ControlFlowFlattening_SOURCES ControlFlowFlattening.cpp)
-set(BogusFlowOpaquePredicates_SOURCES OpaquePredicates.cpp)
+set(BogusFlowOpaquePredicates_SOURCES OpaquePredicates.cpp cmd-args/Coverage.cpp)
 set(BogusFlowJumpIntoLoop_SOURCES JumpIntoLoop.cpp)
 set(ReachableIntegers_SOURCES ReachableIntegersAnalysis.cpp)
 set(StringObfuscation_SOURCES StringObfuscation.cpp)
-set(BogusFlowIntroduceLoop_SOURCES BogusFlowIntroduceLoop.cpp)
+set(BogusFlowIntroduceLoop_SOURCES BogusFlowIntroduceLoop.cpp cmd-args/Coverage.cpp)
 set(BranchFunction_SOURCES BranchFunction.cpp)
 set(ConstantObfuscation_SOURCES ConstantObfuscation.cpp cmd-args/Coverage.cpp)
 set(CallObfuscation_SOURCES CallObfuscation.cpp)

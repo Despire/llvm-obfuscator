@@ -45,6 +45,9 @@ bool BlockExtractor::runOnModule(llvm::Module &M) {
         if (F->isDeclaration()) {
             continue;
         }
+        if (F->size() < 2) {
+            continue;
+        }
 
         if (handleFunction(*F)) {
             modified = true;
@@ -86,6 +89,9 @@ bool BlockExtractor::handleFunction(llvm::Function &F) {
     // since the blocks were okay for extracting in the first place
     // we don't need to check for the condition after splitting the block.
     for (auto *extractedFunc: extractedFuncs) {
+        if (extractedFunc->size() < 2)  {
+            continue;
+        }
         auto *block = &*(++extractedFunc->begin());
         if (block->size() >= splitLimit) {
             auto beg = block->getFirstInsertionPt();
