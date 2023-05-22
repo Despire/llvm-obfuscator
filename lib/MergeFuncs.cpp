@@ -6,12 +6,21 @@
 #include "llvm/Passes/PassPlugin.h"
 #include "llvm/Passes/PassBuilder.h"
 #include "llvm/Transforms/Utils/Cloning.h"
+#include "llvm/IR/Metadata.h"
 
 #include <unordered_map>
 
 #define DEBUG_TYPE "blocks-extracted"
 
 STATISTIC(MergeFuncsCount, "# of performed functions merging");
+
+static llvm::cl::opt<Coverage, false, CoverageParser> constMergefCoverage{
+        "mergef-coverage",
+        llvm::cl::desc("applies merge function obfuscation on <coverage> percentage of function in a module"),
+        llvm::cl::value_desc("mergef-coverage"),
+        llvm::cl::init(0.40),
+        llvm::cl::Optional
+};
 
 llvm::PreservedAnalyses MergeFuncs::run(llvm::Module &M, llvm::ModuleAnalysisManager &) {
     bool modified = runOnModule(M);
@@ -24,6 +33,9 @@ llvm::PreservedAnalyses MergeFuncs::run(llvm::Module &M, llvm::ModuleAnalysisMan
 bool MergeFuncs::runOnModule(llvm::Module &M) {
     std::vector<llvm::Function *> functionsToMerge;
 
+    auto generator = GetRandomGenerator();
+    std::uniform_real_distribution<std::float_t > uniformDist(0.0, 1.0);
+
     for (auto &F: M) {
         if (F.isVarArg() || F.isDeclaration() || F.isIntrinsic() || F.getReturnType()->isVoidTy()) {
             continue;
@@ -31,8 +43,15 @@ bool MergeFuncs::runOnModule(llvm::Module &M) {
 
         llvm::GlobalValue::LinkageTypes typ = F.getLinkage();
         if (typ == llvm::GlobalValue::LinkageTypes::InternalLinkage) {
+            if (uniformDist(generator) > constMergefCoverage.getValue()) {
+                continue;
+            }
             functionsToMerge.push_back(&F);
         }
+    }
+
+    if (functionsToMerge.size() < 2) {
+        return false;
     }
 
     mergeFuncs(M, functionsToMerge);
@@ -210,9 +229,10 @@ void MergeFuncs::mergeFuncs(llvm::Module &M, std::vector<llvm::Function *> &func
             }
         }
         if (canDeleteFunc) {
-            func->eraseFromParent();
+            // do nothing for the deletion keep the old function.
         }
     }
+
 }
 
 //------------------------------------------------------

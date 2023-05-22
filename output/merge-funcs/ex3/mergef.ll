@@ -10,9 +10,9 @@ target triple = "arm64-apple-macosx12.0.0"
 %union.anon = type { %"struct.std::__1::basic_string<char>::__long" }
 %"struct.std::__1::basic_string<char>::__long" = type { i8*, i64, i64 }
 %"class.std::__1::__wrap_iter" = type { i8* }
-%"class.std::__1::__basic_string_common" = type { i8 }
 %"struct.std::__1::basic_string<char>::__short" = type { [23 x i8], %struct.anon }
 %struct.anon = type { i8 }
+%"class.std::__1::__basic_string_common" = type { i8 }
 
 @_ZN2HH2ttE = local_unnamed_addr global i32 10, align 4
 @.str = private unnamed_addr constant [3 x i8] c"15\00", align 1
@@ -24,69 +24,83 @@ define i32 @main(i32 %0, i8** nocapture readnone %1) local_unnamed_addr #0 perso
   %4 = alloca %"class.std::__1::basic_string", align 8
   %5 = alloca %"class.std::__1::basic_string", align 8
   %6 = bitcast %"class.std::__1::basic_string"* %3 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 24, i8* nonnull %6) #19
+  call void @llvm.lifetime.start.p0i8(i64 24, i8* nonnull %6) #25
   %7 = alloca %"class.std::__1::basic_string"*, align 8
-  call void @"10609409609005196873"(i32 33, i64 0, i8** null, i64 0, i8** null, i64 0, i8** null, i64 0, i64* null, %"class.std::__1::basic_string"* null, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, i64 0, i64* null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, %"class.std::__1::basic_string"** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, %"class.std::__1::basic_string"* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i64* null, i32 0, i32* null, %"class.std::__1::__wrap_iter"* null, i8* null, %"class.std::__1::__wrap_iter"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8* null, %"class.std::__1::__wrap_iter"** null, %"class.std::__1::__wrap_iter"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8** null, i64 0, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i1* null, %"class.std::__1::basic_string"* null, i32* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* %3, i8* getelementptr inbounds ([3 x i8], [3 x i8]* @.str, i64 0, i64 0), %"class.std::__1::basic_string"** %7, %"class.std::__1::basic_string"* null, i64* null, i32 0, i32* null)
+  call void @"1902169642944650922"(i32 13, i64 0, i8** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, i32* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::__wrap_iter"* null, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i64* null, i64 0, i8** null, %"class.std::__1::basic_string"* %3, i8* getelementptr inbounds ([3 x i8], [3 x i8]* @.str, i64 0, i64 0), %"class.std::__1::basic_string"** %7, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, i64 0, i8** null, i32 0, i32* null)
   %8 = load %"class.std::__1::basic_string"*, %"class.std::__1::basic_string"** %7, align 8
-  %9 = alloca i8*, align 8
-  call void @"10609409609005196873"(i32 13, i64 0, i8** null, i64 0, i8** null, i64 0, i8** null, i64 0, i64* null, %"class.std::__1::basic_string"* null, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, i64 0, i64* null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, %"class.std::__1::basic_string"** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, %"class.std::__1::basic_string"* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* %3, i8** %9, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i64* null, i32 0, i32* null, %"class.std::__1::__wrap_iter"* null, i8* null, %"class.std::__1::__wrap_iter"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8* null, %"class.std::__1::__wrap_iter"** null, %"class.std::__1::__wrap_iter"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8** null, i64 0, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i1* null, %"class.std::__1::basic_string"* null, i32* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i64* null, i32 0, i32* null)
-  %10 = load i8*, i8** %9, align 8
-  %11 = call i32 @atoi(i8* %10)
-  %12 = call %"class.std::__1::basic_string"* @_ZNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEED1Ev(%"class.std::__1::basic_string"* nonnull %3) #19
-  call void @llvm.lifetime.end.p0i8(i64 24, i8* nonnull %6) #19
-  %13 = call i32 @_ZN2HH8digitSumEi(i32 13)
-  %14 = bitcast %"class.std::__1::basic_string"* %4 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 24, i8* nonnull %14) #19
-  %15 = bitcast %"class.std::__1::basic_string"* %5 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 24, i8* nonnull %15) #19
-  %16 = alloca %"class.std::__1::basic_string"*, align 8
-  call void @"10609409609005196873"(i32 33, i64 0, i8** null, i64 0, i8** null, i64 0, i8** null, i64 0, i64* null, %"class.std::__1::basic_string"* null, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, i64 0, i64* null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, %"class.std::__1::basic_string"** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, %"class.std::__1::basic_string"* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i64* null, i32 0, i32* null, %"class.std::__1::__wrap_iter"* null, i8* null, %"class.std::__1::__wrap_iter"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8* null, %"class.std::__1::__wrap_iter"** null, %"class.std::__1::__wrap_iter"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8** null, i64 0, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i1* null, %"class.std::__1::basic_string"* null, i32* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* %5, i8* getelementptr inbounds ([4 x i8], [4 x i8]* @.str.2, i64 0, i64 0), %"class.std::__1::basic_string"** %16, %"class.std::__1::basic_string"* null, i64* null, i32 0, i32* null)
-  %17 = load %"class.std::__1::basic_string"*, %"class.std::__1::basic_string"** %16, align 8
+  %9 = call fastcc i8* @_ZNKSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE5c_strEv(%"class.std::__1::basic_string"* nonnull %3) #25
+  %10 = call i32 @atoi(i8* %9)
+  %11 = call %"class.std::__1::basic_string"* @_ZNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEED1Ev(%"class.std::__1::basic_string"* nonnull %3) #25
+  call void @llvm.lifetime.end.p0i8(i64 24, i8* nonnull %6) #25
+  %12 = call i32 @_ZN2HH8digitSumEi(i32 13)
+  %13 = bitcast %"class.std::__1::basic_string"* %4 to i8*
+  call void @llvm.lifetime.start.p0i8(i64 24, i8* nonnull %13) #25
+  %14 = bitcast %"class.std::__1::basic_string"* %5 to i8*
+  call void @llvm.lifetime.start.p0i8(i64 24, i8* nonnull %14) #25
+  %15 = alloca %"class.std::__1::basic_string"*, align 8
+  call void @"1902169642944650922"(i32 13, i64 0, i8** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, i32* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::__wrap_iter"* null, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i64* null, i64 0, i8** null, %"class.std::__1::basic_string"* %5, i8* getelementptr inbounds ([4 x i8], [4 x i8]* @.str.2, i64 0, i64 0), %"class.std::__1::basic_string"** %15, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, i64 0, i8** null, i32 0, i32* null)
+  %16 = load %"class.std::__1::basic_string"*, %"class.std::__1::basic_string"** %15, align 8
   invoke fastcc void @_ZL9stringMulRKNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEE(%"class.std::__1::basic_string"* nonnull sret(%"class.std::__1::basic_string") align 8 %4, %"class.std::__1::basic_string"* nonnull align 8 dereferenceable(24) %5)
-          to label %18 unwind label %32
+          to label %17 unwind label %30
 
-18:                                               ; preds = %2
-  %19 = alloca i32, align 4
-  call void @"10609409609005196873"(i32 35, i64 0, i8** null, i64 0, i8** null, i64 0, i8** null, i64 0, i64* null, %"class.std::__1::basic_string"* null, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, i64 0, i64* null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, %"class.std::__1::basic_string"** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, %"class.std::__1::basic_string"* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i64* null, i32 0, i32* null, %"class.std::__1::__wrap_iter"* null, i8* null, %"class.std::__1::__wrap_iter"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8* null, %"class.std::__1::__wrap_iter"** null, %"class.std::__1::__wrap_iter"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8** null, i64 0, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i1* null, %"class.std::__1::basic_string"* null, i32* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i64* null, i32 %11, i32* %19)
-  %20 = load i32, i32* %19, align 4
-  %21 = alloca i32, align 4
-  call void @"10609409609005196873"(i32 31, i64 0, i8** null, i64 0, i8** null, i64 0, i8** null, i64 0, i64* null, %"class.std::__1::basic_string"* null, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, i64 0, i64* null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, %"class.std::__1::basic_string"** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, %"class.std::__1::basic_string"* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i64* null, i32 0, i32* null, %"class.std::__1::__wrap_iter"* null, i8* null, %"class.std::__1::__wrap_iter"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8* null, %"class.std::__1::__wrap_iter"** null, %"class.std::__1::__wrap_iter"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8** null, i64 0, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i1* null, %"class.std::__1::basic_string"* %4, i32* %21, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i64* null, i32 0, i32* null)
-  %22 = load i32, i32* %21, align 4
-  %23 = alloca i32, align 4
-  call void @"10609409609005196873"(i32 35, i64 0, i8** null, i64 0, i8** null, i64 0, i8** null, i64 0, i64* null, %"class.std::__1::basic_string"* null, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, i64 0, i64* null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, %"class.std::__1::basic_string"** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, %"class.std::__1::basic_string"* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i64* null, i32 0, i32* null, %"class.std::__1::__wrap_iter"* null, i8* null, %"class.std::__1::__wrap_iter"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8* null, %"class.std::__1::__wrap_iter"** null, %"class.std::__1::__wrap_iter"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8** null, i64 0, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i1* null, %"class.std::__1::basic_string"* null, i32* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i64* null, i32 %22, i32* %23)
-  %24 = load i32, i32* %23, align 4
-  %25 = call %"class.std::__1::basic_string"* @_ZNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEED1Ev(%"class.std::__1::basic_string"* nonnull %4) #19
-  %26 = call %"class.std::__1::basic_string"* @_ZNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEED1Ev(%"class.std::__1::basic_string"* nonnull %5) #19
-  call void @llvm.lifetime.end.p0i8(i64 24, i8* nonnull %15) #19
-  call void @llvm.lifetime.end.p0i8(i64 24, i8* nonnull %14) #19
-  %27 = add nsw i32 %20, %13
-  %28 = add nsw i32 %27, %24
-  %29 = alloca i32, align 4
-  call void @"10609409609005196873"(i32 16, i64 0, i8** null, i64 0, i8** null, i64 0, i8** null, i64 0, i64* null, %"class.std::__1::basic_string"* null, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, i64 0, i64* null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, %"class.std::__1::basic_string"** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, %"class.std::__1::basic_string"* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i64* null, i32 %28, i32* %29, %"class.std::__1::__wrap_iter"* null, i8* null, %"class.std::__1::__wrap_iter"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8* null, %"class.std::__1::__wrap_iter"** null, %"class.std::__1::__wrap_iter"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8** null, i64 0, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i1* null, %"class.std::__1::basic_string"* null, i32* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i64* null, i32 0, i32* null)
-  %30 = load i32, i32* %29, align 4
-  %31 = add nsw i32 %30, %28
-  ret i32 %31
+17:                                               ; preds = %2
+  %18 = alloca i32, align 4
+  call void @"1902169642944650922"(i32 16, i64 0, i8** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, i32* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::__wrap_iter"* null, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i64* null, i64 0, i8** null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, i64 0, i8** null, i32 %10, i32* %18)
+  %19 = load i32, i32* %18, align 4
+  %20 = alloca i32, align 4
+  call void @"1902169642944650922"(i32 3, i64 0, i8** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* %4, i32* %20, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::__wrap_iter"* null, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i64* null, i64 0, i8** null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, i64 0, i8** null, i32 0, i32* null)
+  %21 = load i32, i32* %20, align 4
+  %22 = alloca i32, align 4
+  call void @"1902169642944650922"(i32 16, i64 0, i8** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, i32* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::__wrap_iter"* null, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i64* null, i64 0, i8** null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, i64 0, i8** null, i32 %21, i32* %22)
+  %23 = load i32, i32* %22, align 4
+  %24 = call %"class.std::__1::basic_string"* @_ZNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEED1Ev(%"class.std::__1::basic_string"* nonnull %4) #25
+  %25 = call %"class.std::__1::basic_string"* @_ZNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEED1Ev(%"class.std::__1::basic_string"* nonnull %5) #25
+  call void @llvm.lifetime.end.p0i8(i64 24, i8* nonnull %14) #25
+  call void @llvm.lifetime.end.p0i8(i64 24, i8* nonnull %13) #25
+  %26 = add nsw i32 %19, %12
+  %27 = add nsw i32 %26, %23
+  %28 = call fastcc i32 @_ZL9singletoni(i32 %27)
+  %29 = add nsw i32 %28, %27
+  ret i32 %29
 
-32:                                               ; preds = %2
-  %33 = landingpad { i8*, i32 }
+30:                                               ; preds = %2
+  %31 = landingpad { i8*, i32 }
           cleanup
-  %34 = call %"class.std::__1::basic_string"* @_ZNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEED1Ev(%"class.std::__1::basic_string"* nonnull %5) #19
-  call void @llvm.lifetime.end.p0i8(i64 24, i8* nonnull %15) #19
-  call void @llvm.lifetime.end.p0i8(i64 24, i8* nonnull %14) #19
-  resume { i8*, i32 } %33
+  %32 = call %"class.std::__1::basic_string"* @_ZNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEED1Ev(%"class.std::__1::basic_string"* nonnull %5) #25
+  call void @llvm.lifetime.end.p0i8(i64 24, i8* nonnull %14) #25
+  call void @llvm.lifetime.end.p0i8(i64 24, i8* nonnull %13) #25
+  resume { i8*, i32 } %31
 }
 
 ; Function Attrs: argmemonly nocallback nofree nosync nounwind willreturn
 declare void @llvm.lifetime.start.p0i8(i64 immarg, i8* nocapture) #1
 
+; Function Attrs: mustprogress nofree norecurse nosync nounwind readnone ssp willreturn uwtable
+define internal fastcc i32 @_ZL8digitSumi(i32 %0) unnamed_addr #2 {
+  %2 = shl nsw i32 %0, 1
+  ret i32 %2
+}
+
 ; Function Attrs: mustprogress nofree nounwind readonly willreturn
-declare i32 @atoi(i8* nocapture) local_unnamed_addr #2
+declare i32 @atoi(i8* nocapture) local_unnamed_addr #3
+
+; Function Attrs: norecurse ssp uwtable
+define internal fastcc %"class.std::__1::basic_string"* @_ZNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEC1IDnEEPKc(%"class.std::__1::basic_string"* returned %0, i8* %1) unnamed_addr #4 align 2 {
+  %3 = call fastcc %"class.std::__1::basic_string"* @_ZNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEC2IDnEEPKc(%"class.std::__1::basic_string"* %0, i8* %1)
+  ret %"class.std::__1::basic_string"* %0
+}
+
+; Function Attrs: mustprogress nofree norecurse nosync nounwind readonly ssp willreturn uwtable
+define internal fastcc i8* @_ZNKSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE5c_strEv(%"class.std::__1::basic_string"* readonly %0) unnamed_addr #5 align 2 {
+  %2 = call fastcc i8* @_ZNKSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE4dataEv(%"class.std::__1::basic_string"* %0) #25
+  ret i8* %2
+}
 
 declare i32 @__gxx_personality_v0(...)
 
 ; Function Attrs: inlinehint nounwind ssp uwtable
-define available_externally %"class.std::__1::basic_string"* @_ZNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEED1Ev(%"class.std::__1::basic_string"* returned %0) unnamed_addr #3 align 2 {
-  %2 = call %"class.std::__1::basic_string"* @_ZNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEED2Ev(%"class.std::__1::basic_string"* %0) #19
+define available_externally %"class.std::__1::basic_string"* @_ZNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEED1Ev(%"class.std::__1::basic_string"* returned %0) unnamed_addr #6 align 2 {
+  %2 = call %"class.std::__1::basic_string"* @_ZNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEED2Ev(%"class.std::__1::basic_string"* %0) #25
   ret %"class.std::__1::basic_string"* %0
 }
 
@@ -94,152 +108,412 @@ define available_externally %"class.std::__1::basic_string"* @_ZNSt3__112basic_s
 declare void @llvm.lifetime.end.p0i8(i64 immarg, i8* nocapture) #1
 
 ; Function Attrs: mustprogress nounwind ssp uwtable
-define linkonce_odr i32 @_ZN2HH8digitSumEi(i32 %0) local_unnamed_addr #4 align 2 {
+define linkonce_odr i32 @_ZN2HH8digitSumEi(i32 %0) local_unnamed_addr #7 align 2 {
   %2 = shl nsw i32 %0, 1
   %3 = load i32, i32* @_ZN2HH2ttE, align 4, !tbaa !10
   %4 = mul nsw i32 %2, %3
   ret i32 %4
 }
 
+; Function Attrs: mustprogress nofree norecurse nosync nounwind ssp uwtable
+define internal fastcc i32 @_ZL9stringSumRKNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEE(%"class.std::__1::basic_string"* nonnull align 8 dereferenceable(24) %0) unnamed_addr #8 {
+  %2 = alloca %"class.std::__1::__wrap_iter", align 8
+  %3 = alloca %"class.std::__1::__wrap_iter", align 8
+  %4 = bitcast %"class.std::__1::__wrap_iter"* %2 to i8*
+  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %4) #25
+  %5 = alloca i64, align 8
+  call void @"1902169642944650922"(i32 11, i64 0, i8** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, i32* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::__wrap_iter"* null, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* %0, i64* %5, i64 0, i8** null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, i64 0, i8** null, i32 0, i32* null)
+  %6 = load i64, i64* %5, align 8
+  %7 = getelementptr inbounds %"class.std::__1::__wrap_iter", %"class.std::__1::__wrap_iter"* %2, i64 0, i32 0
+  %8 = inttoptr i64 %6 to i8*
+  store i8* %8, i8** %7, align 8
+  %9 = bitcast %"class.std::__1::__wrap_iter"* %3 to i8*
+  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %9) #25
+  %10 = alloca i64, align 8
+  call void @"1902169642944650922"(i32 10, i64 0, i8** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, i32* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::__wrap_iter"* null, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* %0, i64* %10, %"class.std::__1::basic_string"* null, i64* null, i64 0, i8** null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, i64 0, i8** null, i32 0, i32* null)
+  %11 = load i64, i64* %10, align 8
+  %12 = getelementptr inbounds %"class.std::__1::__wrap_iter", %"class.std::__1::__wrap_iter"* %3, i64 0, i32 0
+  %13 = inttoptr i64 %11 to i8*
+  store i8* %13, i8** %12, align 8
+  %14 = call fastcc zeroext i1 @_ZNSt3__1neIPKcEEbRKNS_11__wrap_iterIT_EES7_(%"class.std::__1::__wrap_iter"* nonnull align 8 dereferenceable(8) %2, %"class.std::__1::__wrap_iter"* nonnull align 8 dereferenceable(8) %3) #25
+  br i1 %14, label %17, label %15
+
+15:                                               ; preds = %17, %1
+  %16 = phi i32 [ 0, %1 ], [ %23, %17 ]
+  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %9) #25
+  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %4) #25
+  ret i32 %16
+
+17:                                               ; preds = %17, %1
+  %18 = phi i32 [ %23, %17 ], [ 0, %1 ]
+  %19 = alloca i8*, align 8
+  call void @"1902169642944650922"(i32 8, i64 0, i8** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, i32* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::__wrap_iter"* %2, i8** %19, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i64* null, i64 0, i8** null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, i64 0, i8** null, i32 0, i32* null)
+  %20 = load i8*, i8** %19, align 8
+  %21 = load i8, i8* %20, align 1, !tbaa !14
+  %22 = sext i8 %21 to i32
+  %23 = add nsw i32 %18, %22
+  call fastcc void @_ZNSt3__111__wrap_iterIPKcEppEv(%"class.std::__1::__wrap_iter"* nonnull %2) #25
+  %24 = call fastcc zeroext i1 @_ZNSt3__1neIPKcEEbRKNS_11__wrap_iterIT_EES7_(%"class.std::__1::__wrap_iter"* nonnull align 8 dereferenceable(8) %2, %"class.std::__1::__wrap_iter"* nonnull align 8 dereferenceable(8) %3) #25
+  br i1 %24, label %17, label %15, !llvm.loop !15
+}
+
 ; Function Attrs: mustprogress norecurse ssp uwtable
 define internal fastcc void @_ZL9stringMulRKNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEE(%"class.std::__1::basic_string"* noalias sret(%"class.std::__1::basic_string") align 8 %0, %"class.std::__1::basic_string"* nonnull align 8 dereferenceable(24) %1) unnamed_addr #0 personality i8* bitcast (i32 (...)* @__gxx_personality_v0 to i8*) {
   %3 = alloca %"class.std::__1::__wrap_iter", align 8
   %4 = alloca %"class.std::__1::__wrap_iter", align 8
-  %5 = alloca %"class.std::__1::basic_string"*, align 8
-  call void @"10609409609005196873"(i32 10, i64 0, i8** null, i64 0, i8** null, i64 0, i8** null, i64 0, i64* null, %"class.std::__1::basic_string"* null, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, i64 0, i64* null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, %"class.std::__1::basic_string"** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, %"class.std::__1::basic_string"* %0, %"class.std::__1::basic_string"** %5, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i64* null, i32 0, i32* null, %"class.std::__1::__wrap_iter"* null, i8* null, %"class.std::__1::__wrap_iter"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8* null, %"class.std::__1::__wrap_iter"** null, %"class.std::__1::__wrap_iter"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8** null, i64 0, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i1* null, %"class.std::__1::basic_string"* null, i32* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i64* null, i32 0, i32* null)
-  %6 = load %"class.std::__1::basic_string"*, %"class.std::__1::basic_string"** %5, align 8
-  %7 = bitcast %"class.std::__1::__wrap_iter"* %3 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %7) #19
-  %8 = alloca i64, align 8
-  call void @"10609409609005196873"(i32 34, i64 0, i8** null, i64 0, i8** null, i64 0, i8** null, i64 0, i64* null, %"class.std::__1::basic_string"* null, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, i64 0, i64* null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, %"class.std::__1::basic_string"** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, %"class.std::__1::basic_string"* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i64* null, i32 0, i32* null, %"class.std::__1::__wrap_iter"* null, i8* null, %"class.std::__1::__wrap_iter"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8* null, %"class.std::__1::__wrap_iter"** null, %"class.std::__1::__wrap_iter"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8** null, i64 0, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i1* null, %"class.std::__1::basic_string"* null, i32* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* %1, i64* %8, i32 0, i32* null)
-  %9 = load i64, i64* %8, align 8
-  %10 = getelementptr inbounds %"class.std::__1::__wrap_iter", %"class.std::__1::__wrap_iter"* %3, i64 0, i32 0
-  %11 = inttoptr i64 %9 to i8*
-  store i8* %11, i8** %10, align 8
-  %12 = bitcast %"class.std::__1::__wrap_iter"* %4 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %12) #19
-  %13 = alloca i64, align 8
-  call void @"10609409609005196873"(i32 28, i64 0, i8** null, i64 0, i8** null, i64 0, i8** null, i64 0, i64* null, %"class.std::__1::basic_string"* null, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, i64 0, i64* null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, %"class.std::__1::basic_string"** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, %"class.std::__1::basic_string"* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i64* null, i32 0, i32* null, %"class.std::__1::__wrap_iter"* null, i8* null, %"class.std::__1::__wrap_iter"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8* null, %"class.std::__1::__wrap_iter"** null, %"class.std::__1::__wrap_iter"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8** null, i64 0, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, %"class.std::__1::basic_string"* %1, i64* %13, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i1* null, %"class.std::__1::basic_string"* null, i32* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i64* null, i32 0, i32* null)
-  %14 = load i64, i64* %13, align 8
-  %15 = getelementptr inbounds %"class.std::__1::__wrap_iter", %"class.std::__1::__wrap_iter"* %4, i64 0, i32 0
-  %16 = inttoptr i64 %14 to i8*
-  store i8* %16, i8** %15, align 8
-  %17 = alloca i1, align 1
-  call void @"10609409609005196873"(i32 27, i64 0, i8** null, i64 0, i8** null, i64 0, i8** null, i64 0, i64* null, %"class.std::__1::basic_string"* null, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, i64 0, i64* null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, %"class.std::__1::basic_string"** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, %"class.std::__1::basic_string"* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i64* null, i32 0, i32* null, %"class.std::__1::__wrap_iter"* null, i8* null, %"class.std::__1::__wrap_iter"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8* null, %"class.std::__1::__wrap_iter"** null, %"class.std::__1::__wrap_iter"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8** null, i64 0, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* %3, %"class.std::__1::__wrap_iter"* %4, i1* %17, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i1* null, %"class.std::__1::basic_string"* null, i32* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i64* null, i32 0, i32* null)
-  %18 = load i1, i1* %17, align 1
-  br i1 %18, label %20, label %19
+  %5 = call fastcc %"class.std::__1::basic_string"* @_ZNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEC1Ev(%"class.std::__1::basic_string"* %0) #25
+  %6 = bitcast %"class.std::__1::__wrap_iter"* %3 to i8*
+  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %6) #25
+  %7 = alloca i64, align 8
+  call void @"1902169642944650922"(i32 11, i64 0, i8** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, i32* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::__wrap_iter"* null, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* %1, i64* %7, i64 0, i8** null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, i64 0, i8** null, i32 0, i32* null)
+  %8 = load i64, i64* %7, align 8
+  %9 = getelementptr inbounds %"class.std::__1::__wrap_iter", %"class.std::__1::__wrap_iter"* %3, i64 0, i32 0
+  %10 = inttoptr i64 %8 to i8*
+  store i8* %10, i8** %9, align 8
+  %11 = bitcast %"class.std::__1::__wrap_iter"* %4 to i8*
+  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %11) #25
+  %12 = alloca i64, align 8
+  call void @"1902169642944650922"(i32 10, i64 0, i8** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, i32* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::__wrap_iter"* null, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* %1, i64* %12, %"class.std::__1::basic_string"* null, i64* null, i64 0, i8** null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, i64 0, i8** null, i32 0, i32* null)
+  %13 = load i64, i64* %12, align 8
+  %14 = getelementptr inbounds %"class.std::__1::__wrap_iter", %"class.std::__1::__wrap_iter"* %4, i64 0, i32 0
+  %15 = inttoptr i64 %13 to i8*
+  store i8* %15, i8** %14, align 8
+  %16 = call fastcc zeroext i1 @_ZNSt3__1neIPKcEEbRKNS_11__wrap_iterIT_EES7_(%"class.std::__1::__wrap_iter"* nonnull align 8 dereferenceable(8) %3, %"class.std::__1::__wrap_iter"* nonnull align 8 dereferenceable(8) %4) #25
+  br i1 %16, label %18, label %17
 
-19:                                               ; preds = %25, %2
-  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %12) #19
-  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %7) #19
+17:                                               ; preds = %23, %2
+  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %11) #25
+  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %6) #25
   ret void
 
-20:                                               ; preds = %25, %2
-  %21 = alloca i8*, align 8
-  call void @"10609409609005196873"(i32 20, i64 0, i8** null, i64 0, i8** null, i64 0, i8** null, i64 0, i64* null, %"class.std::__1::basic_string"* null, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, i64 0, i64* null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, %"class.std::__1::basic_string"** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, %"class.std::__1::basic_string"* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i64* null, i32 0, i32* null, %"class.std::__1::__wrap_iter"* null, i8* null, %"class.std::__1::__wrap_iter"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8* null, %"class.std::__1::__wrap_iter"** null, %"class.std::__1::__wrap_iter"* %3, i8** %21, %"class.std::__1::__wrap_iter"* null, i8** null, i64 0, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i1* null, %"class.std::__1::basic_string"* null, i32* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i64* null, i32 0, i32* null)
-  %22 = load i8*, i8** %21, align 8
-  %23 = load i8, i8* %22, align 1, !tbaa !14
-  %24 = shl i8 %23, 1
-  invoke void @_ZNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE9push_backEc(%"class.std::__1::basic_string"* %0, i8 signext %24)
-          to label %25 unwind label %28
+18:                                               ; preds = %23, %2
+  %19 = alloca i8*, align 8
+  call void @"1902169642944650922"(i32 8, i64 0, i8** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, i32* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::__wrap_iter"* %3, i8** %19, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i64* null, i64 0, i8** null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, i64 0, i8** null, i32 0, i32* null)
+  %20 = load i8*, i8** %19, align 8
+  %21 = load i8, i8* %20, align 1, !tbaa !14
+  %22 = shl i8 %21, 1
+  invoke void @_ZNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE9push_backEc(%"class.std::__1::basic_string"* %0, i8 signext %22)
+          to label %23 unwind label %25
 
-25:                                               ; preds = %20
-  call fastcc void @_ZNSt3__111__wrap_iterIPKcEppEv(%"class.std::__1::__wrap_iter"* nonnull %3) #19
-  %26 = alloca i1, align 1
-  call void @"10609409609005196873"(i32 27, i64 0, i8** null, i64 0, i8** null, i64 0, i8** null, i64 0, i64* null, %"class.std::__1::basic_string"* null, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, i64 0, i64* null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, %"class.std::__1::basic_string"** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, %"class.std::__1::basic_string"* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i64* null, i32 0, i32* null, %"class.std::__1::__wrap_iter"* null, i8* null, %"class.std::__1::__wrap_iter"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8* null, %"class.std::__1::__wrap_iter"** null, %"class.std::__1::__wrap_iter"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8** null, i64 0, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* %3, %"class.std::__1::__wrap_iter"* %4, i1* %26, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i1* null, %"class.std::__1::basic_string"* null, i32* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i64* null, i32 0, i32* null)
-  %27 = load i1, i1* %26, align 1
-  br i1 %27, label %20, label %19, !llvm.loop !15
+23:                                               ; preds = %18
+  call fastcc void @_ZNSt3__111__wrap_iterIPKcEppEv(%"class.std::__1::__wrap_iter"* nonnull %3) #25
+  %24 = call fastcc zeroext i1 @_ZNSt3__1neIPKcEEbRKNS_11__wrap_iterIT_EES7_(%"class.std::__1::__wrap_iter"* nonnull align 8 dereferenceable(8) %3, %"class.std::__1::__wrap_iter"* nonnull align 8 dereferenceable(8) %4) #25
+  br i1 %24, label %18, label %17, !llvm.loop !17
 
-28:                                               ; preds = %20
-  %29 = landingpad { i8*, i32 }
+25:                                               ; preds = %18
+  %26 = landingpad { i8*, i32 }
           cleanup
-  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %12) #19
-  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %7) #19
-  %30 = call %"class.std::__1::basic_string"* @_ZNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEED1Ev(%"class.std::__1::basic_string"* %0) #19
-  resume { i8*, i32 } %29
+  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %11) #25
+  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %6) #25
+  %27 = call %"class.std::__1::basic_string"* @_ZNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEED1Ev(%"class.std::__1::basic_string"* %0) #25
+  resume { i8*, i32 } %26
+}
+
+; Function Attrs: mustprogress nofree norecurse nosync nounwind readnone ssp willreturn uwtable
+define internal fastcc i32 @_ZL9singletoni(i32 %0) unnamed_addr #2 {
+  %2 = shl nsw i32 %0, 1
+  ret i32 %2
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind ssp willreturn uwtable
-define internal fastcc void @_ZNSt3__111__wrap_iterIPKcEppEv(%"class.std::__1::__wrap_iter"* nocapture %0) unnamed_addr #5 align 2 {
+define internal fastcc i64 @_ZNKSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE5beginEv(%"class.std::__1::basic_string"* %0) unnamed_addr #9 align 2 {
+  %2 = alloca %"class.std::__1::__wrap_iter", align 8
+  %3 = alloca i8*, align 8
+  call void @"1902169642944650922"(i32 6, i64 0, i8** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, i32* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8** null, %"class.std::__1::basic_string"* %0, i8** %3, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::__wrap_iter"* null, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i64* null, i64 0, i8** null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, i64 0, i8** null, i32 0, i32* null)
+  %4 = load i8*, i8** %3, align 8
+  %5 = call fastcc %"class.std::__1::__wrap_iter"* @_ZNSt3__111__wrap_iterIPKcEC1ES2_(%"class.std::__1::__wrap_iter"* nonnull %2, i8* %4) #25
+  %6 = getelementptr inbounds %"class.std::__1::__wrap_iter", %"class.std::__1::__wrap_iter"* %2, i64 0, i32 0
+  %7 = load i8*, i8** %6, align 8
+  %8 = ptrtoint i8* %7 to i64
+  ret i64 %8
+}
+
+; Function Attrs: mustprogress nofree norecurse nosync nounwind ssp willreturn uwtable
+define internal fastcc i64 @_ZNKSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE3endEv(%"class.std::__1::basic_string"* %0) unnamed_addr #9 align 2 {
+  %2 = alloca %"class.std::__1::__wrap_iter", align 8
+  %3 = alloca i8*, align 8
+  call void @"1902169642944650922"(i32 6, i64 0, i8** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, i32* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8** null, %"class.std::__1::basic_string"* %0, i8** %3, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::__wrap_iter"* null, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i64* null, i64 0, i8** null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, i64 0, i8** null, i32 0, i32* null)
+  %4 = load i8*, i8** %3, align 8
+  %5 = alloca i64, align 8
+  call void @"1902169642944650922"(i32 7, i64 0, i8** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, i32* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* %0, i64* %5, %"class.std::__1::__wrap_iter"* null, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i64* null, i64 0, i8** null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, i64 0, i8** null, i32 0, i32* null)
+  %6 = load i64, i64* %5, align 8
+  %7 = getelementptr inbounds i8, i8* %4, i64 %6
+  %8 = call fastcc %"class.std::__1::__wrap_iter"* @_ZNSt3__111__wrap_iterIPKcEC1ES2_(%"class.std::__1::__wrap_iter"* nonnull %2, i8* %7) #25
+  %9 = getelementptr inbounds %"class.std::__1::__wrap_iter", %"class.std::__1::__wrap_iter"* %2, i64 0, i32 0
+  %10 = load i8*, i8** %9, align 8
+  %11 = ptrtoint i8* %10 to i64
+  ret i64 %11
+}
+
+; Function Attrs: mustprogress nofree norecurse nosync nounwind readonly ssp willreturn uwtable
+define internal fastcc zeroext i1 @_ZNSt3__1neIPKcEEbRKNS_11__wrap_iterIT_EES7_(%"class.std::__1::__wrap_iter"* nocapture nonnull readonly align 8 dereferenceable(8) %0, %"class.std::__1::__wrap_iter"* nocapture nonnull readonly align 8 dereferenceable(8) %1) unnamed_addr #5 {
+  %3 = alloca i1, align 1
+  call void @"1902169642944650922"(i32 14, i64 0, i8** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, i32* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::__wrap_iter"* null, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i64* null, i64 0, i8** null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::__wrap_iter"* %0, %"class.std::__1::__wrap_iter"* %1, i1* %3, i64 0, i8** null, i32 0, i32* null)
+  %4 = load i1, i1* %3, align 1
+  %5 = xor i1 %4, true
+  ret i1 %5
+}
+
+; Function Attrs: mustprogress nofree norecurse nosync nounwind readonly ssp willreturn uwtable
+define internal fastcc nonnull align 1 dereferenceable(1) i8* @_ZNKSt3__111__wrap_iterIPKcEdeEv(%"class.std::__1::__wrap_iter"* nocapture readonly %0) unnamed_addr #5 align 2 {
   %2 = getelementptr inbounds %"class.std::__1::__wrap_iter", %"class.std::__1::__wrap_iter"* %0, i64 0, i32 0
-  %3 = load i8*, i8** %2, align 8, !tbaa !17
+  %3 = load i8*, i8** %2, align 8, !tbaa !18
+  ret i8* %3
+}
+
+; Function Attrs: mustprogress nofree norecurse nosync nounwind ssp willreturn uwtable
+define internal fastcc void @_ZNSt3__111__wrap_iterIPKcEppEv(%"class.std::__1::__wrap_iter"* nocapture %0) unnamed_addr #9 align 2 {
+  %2 = getelementptr inbounds %"class.std::__1::__wrap_iter", %"class.std::__1::__wrap_iter"* %0, i64 0, i32 0
+  %3 = load i8*, i8** %2, align 8, !tbaa !18
   %4 = getelementptr inbounds i8, i8* %3, i64 1
-  store i8* %4, i8** %2, align 8, !tbaa !17
+  store i8* %4, i8** %2, align 8, !tbaa !18
   ret void
 }
 
-declare void @_ZNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE9push_backEc(%"class.std::__1::basic_string"*, i8 signext) local_unnamed_addr #6
+; Function Attrs: mustprogress nofree norecurse nosync nounwind readonly ssp willreturn uwtable
+define internal fastcc i8* @_ZNKSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE13__get_pointerEv(%"class.std::__1::basic_string"* %0) unnamed_addr #5 align 2 {
+  %2 = call fastcc zeroext i1 @_ZNKSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE9__is_longEv(%"class.std::__1::basic_string"* %0) #25
+  br i1 %2, label %3, label %5
+
+3:                                                ; preds = %1
+  %4 = call fastcc i8* @_ZNKSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE18__get_long_pointerEv(%"class.std::__1::basic_string"* %0) #25
+  br label %8
+
+5:                                                ; preds = %1
+  %6 = alloca i8*, align 8
+  call void @"1902169642944650922"(i32 4, i64 0, i8** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, i32* null, %"class.std::__1::basic_string"* %0, i8** %6, %"class.std::__1::__wrap_iter"* null, i8** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::__wrap_iter"* null, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i64* null, i64 0, i8** null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, i64 0, i8** null, i32 0, i32* null)
+  %7 = load i8*, i8** %6, align 8
+  br label %8
+
+8:                                                ; preds = %5, %3
+  %9 = phi i8* [ %4, %3 ], [ %7, %5 ]
+  ret i8* %9
+}
+
+; Function Attrs: mustprogress nofree norecurse nosync nounwind ssp willreturn writeonly uwtable
+define internal fastcc %"class.std::__1::__wrap_iter"* @_ZNSt3__111__wrap_iterIPKcEC1ES2_(%"class.std::__1::__wrap_iter"* returned %0, i8* %1) unnamed_addr #10 align 2 {
+  %3 = call fastcc %"class.std::__1::__wrap_iter"* @_ZNSt3__111__wrap_iterIPKcEC2ES2_(%"class.std::__1::__wrap_iter"* %0, i8* %1) #25
+  ret %"class.std::__1::__wrap_iter"* %0
+}
+
+; Function Attrs: mustprogress nofree norecurse nosync nounwind readonly ssp willreturn uwtable
+define internal fastcc zeroext i1 @_ZNKSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE9__is_longEv(%"class.std::__1::basic_string"* readonly %0) unnamed_addr #5 align 2 {
+  %2 = getelementptr inbounds %"class.std::__1::basic_string", %"class.std::__1::basic_string"* %0, i64 0, i32 0
+  %3 = call fastcc nonnull align 8 dereferenceable(24) %"struct.std::__1::basic_string<char>::__rep"* @_ZNKSt3__117__compressed_pairINS_12basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE5__repES5_E5firstEv(%"class.std::__1::__compressed_pair"* %2) #25
+  %4 = bitcast %"struct.std::__1::basic_string<char>::__rep"* %3 to %"struct.std::__1::basic_string<char>::__short"*
+  %5 = getelementptr inbounds %"struct.std::__1::basic_string<char>::__short", %"struct.std::__1::basic_string<char>::__short"* %4, i64 0, i32 1, i32 0
+  %6 = load i8, i8* %5, align 1, !tbaa !14
+  %7 = icmp slt i8 %6, 0
+  ret i1 %7
+}
+
+; Function Attrs: mustprogress nofree norecurse nosync nounwind readonly ssp willreturn uwtable
+define internal fastcc i8* @_ZNKSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE18__get_long_pointerEv(%"class.std::__1::basic_string"* readonly %0) unnamed_addr #5 align 2 {
+  %2 = getelementptr inbounds %"class.std::__1::basic_string", %"class.std::__1::basic_string"* %0, i64 0, i32 0
+  %3 = call fastcc nonnull align 8 dereferenceable(24) %"struct.std::__1::basic_string<char>::__rep"* @_ZNKSt3__117__compressed_pairINS_12basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE5__repES5_E5firstEv(%"class.std::__1::__compressed_pair"* %2) #25
+  %4 = getelementptr inbounds %"struct.std::__1::basic_string<char>::__rep", %"struct.std::__1::basic_string<char>::__rep"* %3, i64 0, i32 0, i32 0, i32 0
+  %5 = load i8*, i8** %4, align 8, !tbaa !14
+  ret i8* %5
+}
+
+; Function Attrs: mustprogress nofree norecurse nosync nounwind readnone ssp willreturn uwtable
+define internal fastcc nonnull i8* @_ZNKSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE19__get_short_pointerEv(%"class.std::__1::basic_string"* readnone %0) unnamed_addr #2 align 2 {
+  %2 = getelementptr inbounds %"class.std::__1::basic_string", %"class.std::__1::basic_string"* %0, i64 0, i32 0
+  %3 = call fastcc nonnull align 8 dereferenceable(24) %"struct.std::__1::basic_string<char>::__rep"* @_ZNKSt3__117__compressed_pairINS_12basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE5__repES5_E5firstEv(%"class.std::__1::__compressed_pair"* %2) #25
+  %4 = bitcast %"struct.std::__1::basic_string<char>::__rep"* %3 to i8*
+  ret i8* %4
+}
+
+; Function Attrs: mustprogress nofree norecurse nosync nounwind readnone ssp willreturn uwtable
+define internal fastcc nonnull align 8 dereferenceable(24) %"struct.std::__1::basic_string<char>::__rep"* @_ZNKSt3__117__compressed_pairINS_12basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE5__repES5_E5firstEv(%"class.std::__1::__compressed_pair"* readnone %0) unnamed_addr #2 align 2 {
+  %2 = getelementptr %"class.std::__1::__compressed_pair", %"class.std::__1::__compressed_pair"* %0, i64 0, i32 0
+  %3 = alloca %"struct.std::__1::basic_string<char>::__rep"*, align 8
+  call void @"1902169642944650922"(i32 9, i64 0, i8** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, i32* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::__wrap_iter"* null, i8** null, %"struct.std::__1::__compressed_pair_elem"* %2, %"struct.std::__1::basic_string<char>::__rep"** %3, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i64* null, i64 0, i8** null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, i64 0, i8** null, i32 0, i32* null)
+  %4 = load %"struct.std::__1::basic_string<char>::__rep"*, %"struct.std::__1::basic_string<char>::__rep"** %3, align 8
+  ret %"struct.std::__1::basic_string<char>::__rep"* %4
+}
+
+; Function Attrs: mustprogress nofree norecurse nosync nounwind readnone ssp willreturn uwtable
+define internal fastcc nonnull align 8 dereferenceable(24) %"struct.std::__1::basic_string<char>::__rep"* @_ZNKSt3__122__compressed_pair_elemINS_12basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE5__repELi0ELb0EE5__getEv(%"struct.std::__1::__compressed_pair_elem"* readnone %0) unnamed_addr #2 align 2 {
+  %2 = getelementptr inbounds %"struct.std::__1::__compressed_pair_elem", %"struct.std::__1::__compressed_pair_elem"* %0, i64 0, i32 0
+  ret %"struct.std::__1::basic_string<char>::__rep"* %2
+}
+
+; Function Attrs: mustprogress nofree norecurse nosync nounwind ssp willreturn writeonly uwtable
+define internal fastcc %"class.std::__1::__wrap_iter"* @_ZNSt3__111__wrap_iterIPKcEC2ES2_(%"class.std::__1::__wrap_iter"* returned %0, i8* %1) unnamed_addr #10 align 2 {
+  %3 = getelementptr inbounds %"class.std::__1::__wrap_iter", %"class.std::__1::__wrap_iter"* %0, i64 0, i32 0
+  store i8* %1, i8** %3, align 8, !tbaa !18
+  ret %"class.std::__1::__wrap_iter"* %0
+}
+
+; Function Attrs: mustprogress nofree norecurse nosync nounwind readonly ssp willreturn uwtable
+define internal fastcc i64 @_ZNKSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE4sizeEv(%"class.std::__1::basic_string"* %0) unnamed_addr #5 align 2 {
+  %2 = call fastcc zeroext i1 @_ZNKSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE9__is_longEv(%"class.std::__1::basic_string"* %0) #25
+  br i1 %2, label %3, label %5
+
+3:                                                ; preds = %1
+  %4 = call fastcc i64 @_ZNKSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE15__get_long_sizeEv(%"class.std::__1::basic_string"* %0) #25
+  br label %7
+
+5:                                                ; preds = %1
+  %6 = call fastcc i64 @_ZNKSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE16__get_short_sizeEv(%"class.std::__1::basic_string"* %0) #25
+  br label %7
+
+7:                                                ; preds = %5, %3
+  %8 = phi i64 [ %4, %3 ], [ %6, %5 ]
+  ret i64 %8
+}
+
+; Function Attrs: mustprogress nofree norecurse nosync nounwind readonly ssp willreturn uwtable
+define internal fastcc i64 @_ZNKSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE15__get_long_sizeEv(%"class.std::__1::basic_string"* readonly %0) unnamed_addr #5 align 2 {
+  %2 = getelementptr inbounds %"class.std::__1::basic_string", %"class.std::__1::basic_string"* %0, i64 0, i32 0
+  %3 = call fastcc nonnull align 8 dereferenceable(24) %"struct.std::__1::basic_string<char>::__rep"* @_ZNKSt3__117__compressed_pairINS_12basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE5__repES5_E5firstEv(%"class.std::__1::__compressed_pair"* %2) #25
+  %4 = getelementptr inbounds %"struct.std::__1::basic_string<char>::__rep", %"struct.std::__1::basic_string<char>::__rep"* %3, i64 0, i32 0, i32 0, i32 1
+  %5 = load i64, i64* %4, align 8, !tbaa !14
+  ret i64 %5
+}
+
+; Function Attrs: mustprogress nofree norecurse nosync nounwind readonly ssp willreturn uwtable
+define internal fastcc i64 @_ZNKSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE16__get_short_sizeEv(%"class.std::__1::basic_string"* readonly %0) unnamed_addr #5 align 2 {
+  %2 = getelementptr inbounds %"class.std::__1::basic_string", %"class.std::__1::basic_string"* %0, i64 0, i32 0
+  %3 = call fastcc nonnull align 8 dereferenceable(24) %"struct.std::__1::basic_string<char>::__rep"* @_ZNKSt3__117__compressed_pairINS_12basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE5__repES5_E5firstEv(%"class.std::__1::__compressed_pair"* %2) #25
+  %4 = bitcast %"struct.std::__1::basic_string<char>::__rep"* %3 to %"struct.std::__1::basic_string<char>::__short"*
+  %5 = getelementptr inbounds %"struct.std::__1::basic_string<char>::__short", %"struct.std::__1::basic_string<char>::__short"* %4, i64 0, i32 1, i32 0
+  %6 = load i8, i8* %5, align 1, !tbaa !14
+  %7 = zext i8 %6 to i64
+  ret i64 %7
+}
+
+; Function Attrs: mustprogress nofree norecurse nosync nounwind readonly ssp willreturn uwtable
+define internal fastcc zeroext i1 @_ZNSt3__1eqIPKcEEbRKNS_11__wrap_iterIT_EES7_(%"class.std::__1::__wrap_iter"* nocapture nonnull readonly align 8 dereferenceable(8) %0, %"class.std::__1::__wrap_iter"* nocapture nonnull readonly align 8 dereferenceable(8) %1) unnamed_addr #5 {
+  %3 = alloca i8*, align 8
+  call void @"1902169642944650922"(i32 5, i64 0, i8** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, i32* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* %0, i8** %3, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::__wrap_iter"* null, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i64* null, i64 0, i8** null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, i64 0, i8** null, i32 0, i32* null)
+  %4 = load i8*, i8** %3, align 8
+  %5 = alloca i8*, align 8
+  call void @"1902169642944650922"(i32 5, i64 0, i8** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, i32* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* %1, i8** %5, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::__wrap_iter"* null, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i64* null, i64 0, i8** null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, i64 0, i8** null, i32 0, i32* null)
+  %6 = load i8*, i8** %5, align 8
+  %7 = icmp eq i8* %4, %6
+  ret i1 %7
+}
+
+; Function Attrs: mustprogress nofree norecurse nosync nounwind readonly ssp willreturn uwtable
+define internal fastcc i8* @_ZNKSt3__111__wrap_iterIPKcE4baseEv(%"class.std::__1::__wrap_iter"* nocapture readonly %0) unnamed_addr #5 align 2 {
+  %2 = getelementptr inbounds %"class.std::__1::__wrap_iter", %"class.std::__1::__wrap_iter"* %0, i64 0, i32 0
+  %3 = load i8*, i8** %2, align 8, !tbaa !18
+  ret i8* %3
+}
+
+; Function Attrs: inlinehint nofree norecurse nosync nounwind ssp writeonly uwtable
+define internal fastcc %"class.std::__1::basic_string"* @_ZNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEC1Ev(%"class.std::__1::basic_string"* returned %0) unnamed_addr #11 align 2 {
+  %2 = call fastcc %"class.std::__1::basic_string"* @_ZNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEC2Ev(%"class.std::__1::basic_string"* %0) #25
+  ret %"class.std::__1::basic_string"* %0
+}
+
+declare void @_ZNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE9push_backEc(%"class.std::__1::basic_string"*, i8 signext) local_unnamed_addr #12
+
+; Function Attrs: inlinehint nofree norecurse nosync nounwind ssp writeonly uwtable
+define internal fastcc %"class.std::__1::basic_string"* @_ZNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEC2Ev(%"class.std::__1::basic_string"* returned %0) unnamed_addr #11 align 2 personality i8* bitcast (i32 (...)* @__gxx_personality_v0 to i8*) {
+  call fastcc void @_ZNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE6__zeroEv(%"class.std::__1::basic_string"* %0) #25
+  ret %"class.std::__1::basic_string"* %0
+}
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind ssp writeonly uwtable
-define internal fastcc void @_ZNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE6__zeroEv(%"class.std::__1::basic_string"* %0) unnamed_addr #7 align 2 {
+define internal fastcc void @_ZNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE6__zeroEv(%"class.std::__1::basic_string"* %0) unnamed_addr #13 align 2 {
   %2 = getelementptr inbounds %"class.std::__1::basic_string", %"class.std::__1::basic_string"* %0, i64 0, i32 0
   %3 = alloca %"struct.std::__1::basic_string<char>::__rep"*, align 8
-  call void @"10609409609005196873"(i32 7, i64 0, i8** null, i64 0, i8** null, i64 0, i8** null, i64 0, i64* null, %"class.std::__1::basic_string"* null, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, i64 0, i64* null, %"class.std::__1::__compressed_pair"* %2, %"struct.std::__1::basic_string<char>::__rep"** %3, %"class.std::__1::basic_string"* null, %"class.std::__1::basic_string"** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, %"class.std::__1::basic_string"* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i64* null, i32 0, i32* null, %"class.std::__1::__wrap_iter"* null, i8* null, %"class.std::__1::__wrap_iter"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8* null, %"class.std::__1::__wrap_iter"** null, %"class.std::__1::__wrap_iter"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8** null, i64 0, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i1* null, %"class.std::__1::basic_string"* null, i32* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i64* null, i32 0, i32* null)
+  call void @"1902169642944650922"(i32 2, i64 0, i8** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__compressed_pair"* %2, %"struct.std::__1::basic_string<char>::__rep"** %3, %"class.std::__1::basic_string"* null, i32* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::__wrap_iter"* null, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i64* null, i64 0, i8** null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, i64 0, i8** null, i32 0, i32* null)
   %4 = load %"struct.std::__1::basic_string<char>::__rep"*, %"struct.std::__1::basic_string<char>::__rep"** %3, align 8
   %5 = bitcast %"struct.std::__1::basic_string<char>::__rep"* %4 to i8*
   call void @llvm.memset.p0i8.i64(i8* noundef nonnull align 8 dereferenceable(24) %5, i8 0, i64 24, i1 false)
   ret void
 }
 
+; Function Attrs: mustprogress nofree norecurse nosync nounwind readnone ssp willreturn uwtable
+define internal fastcc nonnull align 8 dereferenceable(24) %"struct.std::__1::basic_string<char>::__rep"* @_ZNSt3__117__compressed_pairINS_12basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE5__repES5_E5firstEv(%"class.std::__1::__compressed_pair"* readnone %0) unnamed_addr #2 align 2 {
+  %2 = getelementptr %"class.std::__1::__compressed_pair", %"class.std::__1::__compressed_pair"* %0, i64 0, i32 0
+  %3 = call fastcc nonnull align 8 dereferenceable(24) %"struct.std::__1::basic_string<char>::__rep"* @_ZNSt3__122__compressed_pair_elemINS_12basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE5__repELi0ELb0EE5__getEv(%"struct.std::__1::__compressed_pair_elem"* %2) #25
+  ret %"struct.std::__1::basic_string<char>::__rep"* %3
+}
+
+; Function Attrs: mustprogress nofree norecurse nosync nounwind readnone ssp willreturn uwtable
+define internal fastcc nonnull align 8 dereferenceable(24) %"struct.std::__1::basic_string<char>::__rep"* @_ZNSt3__122__compressed_pair_elemINS_12basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE5__repELi0ELb0EE5__getEv(%"struct.std::__1::__compressed_pair_elem"* readnone %0) unnamed_addr #2 align 2 {
+  %2 = getelementptr inbounds %"struct.std::__1::__compressed_pair_elem", %"struct.std::__1::__compressed_pair_elem"* %0, i64 0, i32 0
+  ret %"struct.std::__1::basic_string<char>::__rep"* %2
+}
+
 ; Function Attrs: inlinehint nounwind ssp uwtable
-define available_externally %"class.std::__1::basic_string"* @_ZNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEED2Ev(%"class.std::__1::basic_string"* returned %0) unnamed_addr #3 align 2 {
-  %2 = alloca i1, align 1
-  call void @"10609409609005196873"(i32 30, i64 0, i8** null, i64 0, i8** null, i64 0, i8** null, i64 0, i64* null, %"class.std::__1::basic_string"* null, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, i64 0, i64* null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, %"class.std::__1::basic_string"** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, %"class.std::__1::basic_string"* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i64* null, i32 0, i32* null, %"class.std::__1::__wrap_iter"* null, i8* null, %"class.std::__1::__wrap_iter"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8* null, %"class.std::__1::__wrap_iter"** null, %"class.std::__1::__wrap_iter"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8** null, i64 0, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* %0, i1* %2, %"class.std::__1::basic_string"* null, i32* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i64* null, i32 0, i32* null)
-  %3 = load i1, i1* %2, align 1
-  br i1 %3, label %4, label %7
+define available_externally %"class.std::__1::basic_string"* @_ZNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEED2Ev(%"class.std::__1::basic_string"* returned %0) unnamed_addr #6 align 2 {
+  %2 = call fastcc zeroext i1 @_ZNKSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE9__is_longEv(%"class.std::__1::basic_string"* %0) #25
+  br i1 %2, label %3, label %5
 
-4:                                                ; preds = %1
-  %5 = alloca i8*, align 8
-  call void @"10609409609005196873"(i32 4, i64 0, i8** null, i64 0, i8** null, i64 0, i8** null, i64 0, i64* null, %"class.std::__1::basic_string"* %0, i8** %5, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, i64 0, i64* null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, %"class.std::__1::basic_string"** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, %"class.std::__1::basic_string"* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i64* null, i32 0, i32* null, %"class.std::__1::__wrap_iter"* null, i8* null, %"class.std::__1::__wrap_iter"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8* null, %"class.std::__1::__wrap_iter"** null, %"class.std::__1::__wrap_iter"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8** null, i64 0, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i1* null, %"class.std::__1::basic_string"* null, i32* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i64* null, i32 0, i32* null)
-  %6 = load i8*, i8** %5, align 8
-  call fastcc void @_ZNSt3__116allocator_traitsINS_9allocatorIcEEE10deallocateERS2_Pcm(i8* %6) #19
-  br label %7
+3:                                                ; preds = %1
+  %4 = call fastcc i8* @_ZNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE18__get_long_pointerEv(%"class.std::__1::basic_string"* %0) #25
+  call fastcc void @_ZNSt3__116allocator_traitsINS_9allocatorIcEEE10deallocateERS2_Pcm(i8* %4) #25
+  br label %5
 
-7:                                                ; preds = %4, %1
+5:                                                ; preds = %3, %1
   ret %"class.std::__1::basic_string"* %0
 }
 
 ; Function Attrs: mustprogress nounwind ssp uwtable
-define internal fastcc void @_ZNSt3__116allocator_traitsINS_9allocatorIcEEE10deallocateERS2_Pcm(i8* %0) unnamed_addr #4 align 2 {
-  call fastcc void @_ZNSt3__19allocatorIcE10deallocateEPcm(i8* %0) #19
+define internal fastcc void @_ZNSt3__116allocator_traitsINS_9allocatorIcEEE10deallocateERS2_Pcm(i8* %0) unnamed_addr #7 align 2 {
+  call fastcc void @_ZNSt3__19allocatorIcE10deallocateEPcm(i8* %0) #25
   ret void
 }
 
+; Function Attrs: mustprogress nofree norecurse nosync nounwind readonly ssp willreturn uwtable
+define internal fastcc i8* @_ZNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE18__get_long_pointerEv(%"class.std::__1::basic_string"* readonly %0) unnamed_addr #5 align 2 {
+  %2 = getelementptr inbounds %"class.std::__1::basic_string", %"class.std::__1::basic_string"* %0, i64 0, i32 0
+  %3 = alloca %"struct.std::__1::basic_string<char>::__rep"*, align 8
+  call void @"1902169642944650922"(i32 2, i64 0, i8** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__compressed_pair"* %2, %"struct.std::__1::basic_string<char>::__rep"** %3, %"class.std::__1::basic_string"* null, i32* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::__wrap_iter"* null, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i64* null, i64 0, i8** null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, i64 0, i8** null, i32 0, i32* null)
+  %4 = load %"struct.std::__1::basic_string<char>::__rep"*, %"struct.std::__1::basic_string<char>::__rep"** %3, align 8
+  %5 = getelementptr inbounds %"struct.std::__1::basic_string<char>::__rep", %"struct.std::__1::basic_string<char>::__rep"* %4, i64 0, i32 0, i32 0, i32 0
+  %6 = load i8*, i8** %5, align 8, !tbaa !14
+  ret i8* %6
+}
+
 ; Function Attrs: mustprogress nounwind ssp uwtable
-define internal fastcc void @_ZNSt3__19allocatorIcE10deallocateEPcm(i8* %0) unnamed_addr #4 align 2 personality i8* bitcast (i32 (...)* @__gxx_personality_v0 to i8*) {
+define internal fastcc void @_ZNSt3__19allocatorIcE10deallocateEPcm(i8* %0) unnamed_addr #7 align 2 personality i8* bitcast (i32 (...)* @__gxx_personality_v0 to i8*) {
   call fastcc void @_ZNSt3__1L19__libcpp_deallocateEPvmm(i8* %0)
   ret void
 }
 
 ; Function Attrs: inlinehint mustprogress nounwind ssp uwtable
-define internal fastcc void @_ZNSt3__1L19__libcpp_deallocateEPvmm(i8* %0) unnamed_addr #8 {
+define internal fastcc void @_ZNSt3__1L19__libcpp_deallocateEPvmm(i8* %0) unnamed_addr #14 {
   call fastcc void @_ZNSt3__1L27__do_deallocate_handle_sizeIJEEEvPvmDpT_(i8* %0)
   ret void
 }
 
 ; Function Attrs: mustprogress nounwind ssp uwtable
-define internal fastcc void @_ZNSt3__1L27__do_deallocate_handle_sizeIJEEEvPvmDpT_(i8* %0) unnamed_addr #4 {
+define internal fastcc void @_ZNSt3__1L27__do_deallocate_handle_sizeIJEEEvPvmDpT_(i8* %0) unnamed_addr #7 {
   call fastcc void @_ZNSt3__1L24__libcpp_operator_deleteIJPvEEEvDpT_(i8* %0)
   ret void
 }
 
 ; Function Attrs: mustprogress nounwind ssp uwtable
-define internal fastcc void @_ZNSt3__1L24__libcpp_operator_deleteIJPvEEEvDpT_(i8* %0) unnamed_addr #4 {
-  call void @_ZdlPv(i8* %0) #20
+define internal fastcc void @_ZNSt3__1L24__libcpp_operator_deleteIJPvEEEvDpT_(i8* %0) unnamed_addr #7 {
+  call void @_ZdlPv(i8* %0) #26
   ret void
 }
 
 ; Function Attrs: nobuiltin nounwind
-declare void @_ZdlPv(i8*) local_unnamed_addr #9
+declare void @_ZdlPv(i8*) local_unnamed_addr #15
+
+; Function Attrs: norecurse ssp uwtable
+define internal fastcc %"class.std::__1::basic_string"* @_ZNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEC2IDnEEPKc(%"class.std::__1::basic_string"* returned %0, i8* %1) unnamed_addr #4 align 2 {
+  %3 = call i64 @_ZNSt3__111char_traitsIcE6lengthEPKc(i8* %1) #25
+  call void @_ZNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE6__initEPKcm(%"class.std::__1::basic_string"* %0, i8* %1, i64 %3)
+  ret %"class.std::__1::basic_string"* %0
+}
 
 ; Function Attrs: inlinehint mustprogress ssp uwtable
-define available_externally void @_ZNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE6__initEPKcm(%"class.std::__1::basic_string"* %0, i8* %1, i64 %2) local_unnamed_addr #10 align 2 {
+define available_externally void @_ZNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE6__initEPKcm(%"class.std::__1::basic_string"* %0, i8* %1, i64 %2) local_unnamed_addr #16 align 2 {
   %4 = alloca i8, align 1
   %5 = icmp ugt i64 %2, -17
   br i1 %5, label %6, label %7
 
 6:                                                ; preds = %3
-  call fastcc void @_ZNKSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE20__throw_length_errorEv(%"class.std::__1::basic_string"* %0) #21
+  call fastcc void @_ZNKSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE20__throw_length_errorEv(%"class.std::__1::basic_string"* %0) #27
   unreachable
 
 7:                                                ; preds = %3
@@ -247,55 +521,51 @@ define available_externally void @_ZNSt3__112basic_stringIcNS_11char_traitsIcEEN
   br i1 %8, label %9, label %12
 
 9:                                                ; preds = %7
-  call fastcc void @_ZNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE16__set_short_sizeEm(%"class.std::__1::basic_string"* %0, i64 %2) #19
+  call fastcc void @_ZNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE16__set_short_sizeEm(%"class.std::__1::basic_string"* %0, i64 %2) #25
   %10 = alloca i8*, align 8
-  call void @"10609409609005196873"(i32 11, i64 0, i8** null, i64 0, i8** null, i64 0, i8** null, i64 0, i64* null, %"class.std::__1::basic_string"* null, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, i64 0, i64* null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, %"class.std::__1::basic_string"** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, %"class.std::__1::basic_string"* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* %0, i8** %10, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i64* null, i32 0, i32* null, %"class.std::__1::__wrap_iter"* null, i8* null, %"class.std::__1::__wrap_iter"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8* null, %"class.std::__1::__wrap_iter"** null, %"class.std::__1::__wrap_iter"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8** null, i64 0, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i1* null, %"class.std::__1::basic_string"* null, i32* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i64* null, i32 0, i32* null)
+  call void @"1902169642944650922"(i32 1, i64 0, i8** null, %"class.std::__1::basic_string"* %0, i8** %10, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, i32* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::__wrap_iter"* null, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i64* null, i64 0, i8** null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, i64 0, i8** null, i32 0, i32* null)
   %11 = load i8*, i8** %10, align 8
-  br label %18
+  br label %16
 
 12:                                               ; preds = %7
-  %13 = alloca i64, align 8
-  call void @"10609409609005196873"(i32 6, i64 0, i8** null, i64 0, i8** null, i64 0, i8** null, i64 0, i64* null, %"class.std::__1::basic_string"* null, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, i64 %2, i64* %13, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, %"class.std::__1::basic_string"** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, %"class.std::__1::basic_string"* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i64* null, i32 0, i32* null, %"class.std::__1::__wrap_iter"* null, i8* null, %"class.std::__1::__wrap_iter"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8* null, %"class.std::__1::__wrap_iter"** null, %"class.std::__1::__wrap_iter"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8** null, i64 0, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i1* null, %"class.std::__1::basic_string"* null, i32* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i64* null, i32 0, i32* null)
-  %14 = load i64, i64* %13, align 8
-  %15 = add i64 %14, 1
-  %16 = alloca i8*, align 8
-  call void @"10609409609005196873"(i32 22, i64 0, i8** null, i64 0, i8** null, i64 0, i8** null, i64 0, i64* null, %"class.std::__1::basic_string"* null, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, i64 0, i64* null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, %"class.std::__1::basic_string"** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, %"class.std::__1::basic_string"* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i64* null, i32 0, i32* null, %"class.std::__1::__wrap_iter"* null, i8* null, %"class.std::__1::__wrap_iter"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8* null, %"class.std::__1::__wrap_iter"** null, %"class.std::__1::__wrap_iter"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8** null, i64 %15, i8** %16, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i1* null, %"class.std::__1::basic_string"* null, i32* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i64* null, i32 0, i32* null)
-  %17 = load i8*, i8** %16, align 8
-  call fastcc void @_ZNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE18__set_long_pointerEPc(%"class.std::__1::basic_string"* %0, i8* nonnull %17) #19
-  call fastcc void @_ZNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE14__set_long_capEm(%"class.std::__1::basic_string"* %0, i64 %15) #19
-  call fastcc void @_ZNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE15__set_long_sizeEm(%"class.std::__1::basic_string"* %0, i64 %2) #19
-  br label %18
+  %13 = call fastcc i64 @_ZNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE11__recommendEm(i64 %2) #25
+  %14 = add i64 %13, 1
+  %15 = call fastcc i8* @_ZNSt3__116allocator_traitsINS_9allocatorIcEEE8allocateERS2_m(i64 %14)
+  call fastcc void @_ZNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE18__set_long_pointerEPc(%"class.std::__1::basic_string"* %0, i8* nonnull %15) #25
+  call fastcc void @_ZNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE14__set_long_capEm(%"class.std::__1::basic_string"* %0, i64 %14) #25
+  call fastcc void @_ZNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE15__set_long_sizeEm(%"class.std::__1::basic_string"* %0, i64 %2) #25
+  br label %16
 
-18:                                               ; preds = %12, %9
-  %19 = phi i8* [ %11, %9 ], [ %17, %12 ]
-  %20 = call i8* @_ZNSt3__111char_traitsIcE4copyEPcPKcm(i8* nonnull %19, i8* %1, i64 %2) #19
-  %21 = getelementptr inbounds i8, i8* %19, i64 %2
-  call void @llvm.lifetime.start.p0i8(i64 1, i8* nonnull %4) #19
+16:                                               ; preds = %12, %9
+  %17 = phi i8* [ %11, %9 ], [ %15, %12 ]
+  %18 = call i8* @_ZNSt3__111char_traitsIcE4copyEPcPKcm(i8* nonnull %17, i8* %1, i64 %2) #25
+  %19 = getelementptr inbounds i8, i8* %17, i64 %2
+  call void @llvm.lifetime.start.p0i8(i64 1, i8* nonnull %4) #25
   store i8 0, i8* %4, align 1, !tbaa !14
-  call void @_ZNSt3__111char_traitsIcE6assignERcRKc(i8* nonnull align 1 dereferenceable(1) %21, i8* nonnull align 1 dereferenceable(1) %4) #19
-  call void @llvm.lifetime.end.p0i8(i64 1, i8* nonnull %4) #19
+  call void @_ZNSt3__111char_traitsIcE6assignERcRKc(i8* nonnull align 1 dereferenceable(1) %19, i8* nonnull align 1 dereferenceable(1) %4) #25
+  call void @llvm.lifetime.end.p0i8(i64 1, i8* nonnull %4) #25
   ret void
 }
 
 ; Function Attrs: inlinehint mustprogress nounwind ssp uwtable
-define linkonce_odr i64 @_ZNSt3__111char_traitsIcE6lengthEPKc(i8* %0) local_unnamed_addr #8 align 2 {
-  %2 = call i64 @strlen(i8* noundef nonnull dereferenceable(1) %0) #19
+define linkonce_odr i64 @_ZNSt3__111char_traitsIcE6lengthEPKc(i8* %0) local_unnamed_addr #14 align 2 {
+  %2 = call i64 @strlen(i8* noundef nonnull dereferenceable(1) %0) #25
   ret i64 %2
 }
 
 ; Function Attrs: mustprogress noreturn ssp uwtable
-define internal fastcc void @_ZNKSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE20__throw_length_errorEv(%"class.std::__1::basic_string"* %0) unnamed_addr #11 align 2 {
+define internal fastcc void @_ZNKSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE20__throw_length_errorEv(%"class.std::__1::basic_string"* %0) unnamed_addr #17 align 2 {
   %2 = bitcast %"class.std::__1::basic_string"* %0 to %"class.std::__1::__basic_string_common"*
-  call void @_ZNKSt3__121__basic_string_commonILb1EE20__throw_length_errorEv(%"class.std::__1::__basic_string_common"* %2) #21
+  call void @_ZNKSt3__121__basic_string_commonILb1EE20__throw_length_errorEv(%"class.std::__1::__basic_string_common"* %2) #27
   unreachable
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind ssp willreturn writeonly uwtable
-define internal fastcc void @_ZNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE16__set_short_sizeEm(%"class.std::__1::basic_string"* %0, i64 %1) unnamed_addr #12 align 2 {
+define internal fastcc void @_ZNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE16__set_short_sizeEm(%"class.std::__1::basic_string"* %0, i64 %1) unnamed_addr #10 align 2 {
   %3 = trunc i64 %1 to i8
   %4 = getelementptr inbounds %"class.std::__1::basic_string", %"class.std::__1::basic_string"* %0, i64 0, i32 0
   %5 = alloca %"struct.std::__1::basic_string<char>::__rep"*, align 8
-  call void @"10609409609005196873"(i32 7, i64 0, i8** null, i64 0, i8** null, i64 0, i8** null, i64 0, i64* null, %"class.std::__1::basic_string"* null, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, i64 0, i64* null, %"class.std::__1::__compressed_pair"* %4, %"struct.std::__1::basic_string<char>::__rep"** %5, %"class.std::__1::basic_string"* null, %"class.std::__1::basic_string"** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, %"class.std::__1::basic_string"* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i64* null, i32 0, i32* null, %"class.std::__1::__wrap_iter"* null, i8* null, %"class.std::__1::__wrap_iter"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8* null, %"class.std::__1::__wrap_iter"** null, %"class.std::__1::__wrap_iter"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8** null, i64 0, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i1* null, %"class.std::__1::basic_string"* null, i32* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i64* null, i32 0, i32* null)
+  call void @"1902169642944650922"(i32 2, i64 0, i8** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__compressed_pair"* %4, %"struct.std::__1::basic_string<char>::__rep"** %5, %"class.std::__1::basic_string"* null, i32* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::__wrap_iter"* null, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i64* null, i64 0, i8** null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, i64 0, i8** null, i32 0, i32* null)
   %6 = load %"struct.std::__1::basic_string<char>::__rep"*, %"struct.std::__1::basic_string<char>::__rep"** %5, align 8
   %7 = bitcast %"struct.std::__1::basic_string<char>::__rep"* %6 to %"struct.std::__1::basic_string<char>::__short"*
   %8 = getelementptr inbounds %"struct.std::__1::basic_string<char>::__short", %"struct.std::__1::basic_string<char>::__short"* %7, i64 0, i32 1, i32 0
@@ -303,11 +573,39 @@ define internal fastcc void @_ZNSt3__112basic_stringIcNS_11char_traitsIcEENS_9al
   ret void
 }
 
+; Function Attrs: mustprogress nofree norecurse nosync nounwind readnone ssp willreturn uwtable
+define internal fastcc nonnull i8* @_ZNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE19__get_short_pointerEv(%"class.std::__1::basic_string"* readnone %0) unnamed_addr #2 align 2 {
+  %2 = getelementptr inbounds %"class.std::__1::basic_string", %"class.std::__1::basic_string"* %0, i64 0, i32 0
+  %3 = alloca %"struct.std::__1::basic_string<char>::__rep"*, align 8
+  call void @"1902169642944650922"(i32 2, i64 0, i8** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__compressed_pair"* %2, %"struct.std::__1::basic_string<char>::__rep"** %3, %"class.std::__1::basic_string"* null, i32* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::__wrap_iter"* null, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i64* null, i64 0, i8** null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, i64 0, i8** null, i32 0, i32* null)
+  %4 = load %"struct.std::__1::basic_string<char>::__rep"*, %"struct.std::__1::basic_string<char>::__rep"** %3, align 8
+  %5 = bitcast %"struct.std::__1::basic_string<char>::__rep"* %4 to i8*
+  ret i8* %5
+}
+
+; Function Attrs: mustprogress nofree norecurse nosync nounwind readnone ssp willreturn uwtable
+define internal fastcc i64 @_ZNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE11__recommendEm(i64 %0) unnamed_addr #2 align 2 {
+  %2 = add i64 %0, 1
+  %3 = call fastcc i64 @_ZNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE10__align_itILm16EEEmm(i64 %2) #25
+  %4 = add i64 %3, -1
+  %5 = icmp eq i64 %4, 23
+  %6 = select i1 %5, i64 %3, i64 %4
+  ret i64 %6
+}
+
+; Function Attrs: mustprogress ssp uwtable
+define internal fastcc noalias nonnull i8* @_ZNSt3__116allocator_traitsINS_9allocatorIcEEE8allocateERS2_m(i64 %0) unnamed_addr #18 align 2 {
+  %2 = alloca i8*, align 8
+  call void @"1902169642944650922"(i32 15, i64 0, i8** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, i32* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::__wrap_iter"* null, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i64* null, i64 0, i8** null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, i64 %0, i8** %2, i32 0, i32* null)
+  %3 = load i8*, i8** %2, align 8
+  ret i8* %3
+}
+
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind ssp willreturn writeonly uwtable
-define internal fastcc void @_ZNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE18__set_long_pointerEPc(%"class.std::__1::basic_string"* %0, i8* %1) unnamed_addr #12 align 2 {
+define internal fastcc void @_ZNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE18__set_long_pointerEPc(%"class.std::__1::basic_string"* %0, i8* %1) unnamed_addr #10 align 2 {
   %3 = getelementptr inbounds %"class.std::__1::basic_string", %"class.std::__1::basic_string"* %0, i64 0, i32 0
   %4 = alloca %"struct.std::__1::basic_string<char>::__rep"*, align 8
-  call void @"10609409609005196873"(i32 7, i64 0, i8** null, i64 0, i8** null, i64 0, i8** null, i64 0, i64* null, %"class.std::__1::basic_string"* null, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, i64 0, i64* null, %"class.std::__1::__compressed_pair"* %3, %"struct.std::__1::basic_string<char>::__rep"** %4, %"class.std::__1::basic_string"* null, %"class.std::__1::basic_string"** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, %"class.std::__1::basic_string"* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i64* null, i32 0, i32* null, %"class.std::__1::__wrap_iter"* null, i8* null, %"class.std::__1::__wrap_iter"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8* null, %"class.std::__1::__wrap_iter"** null, %"class.std::__1::__wrap_iter"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8** null, i64 0, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i1* null, %"class.std::__1::basic_string"* null, i32* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i64* null, i32 0, i32* null)
+  call void @"1902169642944650922"(i32 2, i64 0, i8** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__compressed_pair"* %3, %"struct.std::__1::basic_string<char>::__rep"** %4, %"class.std::__1::basic_string"* null, i32* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::__wrap_iter"* null, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i64* null, i64 0, i8** null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, i64 0, i8** null, i32 0, i32* null)
   %5 = load %"struct.std::__1::basic_string<char>::__rep"*, %"struct.std::__1::basic_string<char>::__rep"** %4, align 8
   %6 = getelementptr inbounds %"struct.std::__1::basic_string<char>::__rep", %"struct.std::__1::basic_string<char>::__rep"* %5, i64 0, i32 0, i32 0, i32 0
   store i8* %1, i8** %6, align 8, !tbaa !14
@@ -315,11 +613,11 @@ define internal fastcc void @_ZNSt3__112basic_stringIcNS_11char_traitsIcEENS_9al
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind ssp willreturn writeonly uwtable
-define internal fastcc void @_ZNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE14__set_long_capEm(%"class.std::__1::basic_string"* %0, i64 %1) unnamed_addr #12 align 2 {
+define internal fastcc void @_ZNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE14__set_long_capEm(%"class.std::__1::basic_string"* %0, i64 %1) unnamed_addr #10 align 2 {
   %3 = or i64 %1, -9223372036854775808
   %4 = getelementptr inbounds %"class.std::__1::basic_string", %"class.std::__1::basic_string"* %0, i64 0, i32 0
   %5 = alloca %"struct.std::__1::basic_string<char>::__rep"*, align 8
-  call void @"10609409609005196873"(i32 7, i64 0, i8** null, i64 0, i8** null, i64 0, i8** null, i64 0, i64* null, %"class.std::__1::basic_string"* null, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, i64 0, i64* null, %"class.std::__1::__compressed_pair"* %4, %"struct.std::__1::basic_string<char>::__rep"** %5, %"class.std::__1::basic_string"* null, %"class.std::__1::basic_string"** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, %"class.std::__1::basic_string"* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i64* null, i32 0, i32* null, %"class.std::__1::__wrap_iter"* null, i8* null, %"class.std::__1::__wrap_iter"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8* null, %"class.std::__1::__wrap_iter"** null, %"class.std::__1::__wrap_iter"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8** null, i64 0, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i1* null, %"class.std::__1::basic_string"* null, i32* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i64* null, i32 0, i32* null)
+  call void @"1902169642944650922"(i32 2, i64 0, i8** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__compressed_pair"* %4, %"struct.std::__1::basic_string<char>::__rep"** %5, %"class.std::__1::basic_string"* null, i32* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::__wrap_iter"* null, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i64* null, i64 0, i8** null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, i64 0, i8** null, i32 0, i32* null)
   %6 = load %"struct.std::__1::basic_string<char>::__rep"*, %"struct.std::__1::basic_string<char>::__rep"** %5, align 8
   %7 = getelementptr inbounds %"struct.std::__1::basic_string<char>::__rep", %"struct.std::__1::basic_string<char>::__rep"* %6, i64 0, i32 0, i32 0, i32 2
   store i64 %3, i64* %7, align 8, !tbaa !14
@@ -327,10 +625,10 @@ define internal fastcc void @_ZNSt3__112basic_stringIcNS_11char_traitsIcEENS_9al
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind ssp willreturn writeonly uwtable
-define internal fastcc void @_ZNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE15__set_long_sizeEm(%"class.std::__1::basic_string"* %0, i64 %1) unnamed_addr #12 align 2 {
+define internal fastcc void @_ZNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE15__set_long_sizeEm(%"class.std::__1::basic_string"* %0, i64 %1) unnamed_addr #10 align 2 {
   %3 = getelementptr inbounds %"class.std::__1::basic_string", %"class.std::__1::basic_string"* %0, i64 0, i32 0
   %4 = alloca %"struct.std::__1::basic_string<char>::__rep"*, align 8
-  call void @"10609409609005196873"(i32 7, i64 0, i8** null, i64 0, i8** null, i64 0, i8** null, i64 0, i64* null, %"class.std::__1::basic_string"* null, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, i64 0, i64* null, %"class.std::__1::__compressed_pair"* %3, %"struct.std::__1::basic_string<char>::__rep"** %4, %"class.std::__1::basic_string"* null, %"class.std::__1::basic_string"** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, %"class.std::__1::basic_string"* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i64* null, i32 0, i32* null, %"class.std::__1::__wrap_iter"* null, i8* null, %"class.std::__1::__wrap_iter"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8* null, %"class.std::__1::__wrap_iter"** null, %"class.std::__1::__wrap_iter"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8** null, i64 0, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i1* null, %"class.std::__1::basic_string"* null, i32* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i64* null, i32 0, i32* null)
+  call void @"1902169642944650922"(i32 2, i64 0, i8** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__compressed_pair"* %3, %"struct.std::__1::basic_string<char>::__rep"** %4, %"class.std::__1::basic_string"* null, i32* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::__wrap_iter"* null, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i64* null, i64 0, i8** null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, i64 0, i8** null, i32 0, i32* null)
   %5 = load %"struct.std::__1::basic_string<char>::__rep"*, %"struct.std::__1::basic_string<char>::__rep"** %4, align 8
   %6 = getelementptr inbounds %"struct.std::__1::basic_string<char>::__rep", %"struct.std::__1::basic_string<char>::__rep"* %5, i64 0, i32 0, i32 0, i32 1
   store i64 %1, i64* %6, align 8, !tbaa !14
@@ -338,7 +636,7 @@ define internal fastcc void @_ZNSt3__112basic_stringIcNS_11char_traitsIcEENS_9al
 }
 
 ; Function Attrs: inlinehint mustprogress nounwind ssp uwtable
-define linkonce_odr i8* @_ZNSt3__111char_traitsIcE4copyEPcPKcm(i8* %0, i8* %1, i64 %2) local_unnamed_addr #8 align 2 {
+define linkonce_odr i8* @_ZNSt3__111char_traitsIcE4copyEPcPKcm(i8* %0, i8* %1, i64 %2) local_unnamed_addr #14 align 2 {
   %4 = icmp eq i64 %2, 0
   br i1 %4, label %6, label %5
 
@@ -351,451 +649,302 @@ define linkonce_odr i8* @_ZNSt3__111char_traitsIcE4copyEPcPKcm(i8* %0, i8* %1, i
 }
 
 ; Function Attrs: inlinehint mustprogress nounwind ssp uwtable
-define linkonce_odr void @_ZNSt3__111char_traitsIcE6assignERcRKc(i8* nonnull align 1 dereferenceable(1) %0, i8* nonnull align 1 dereferenceable(1) %1) local_unnamed_addr #8 align 2 {
+define linkonce_odr void @_ZNSt3__111char_traitsIcE6assignERcRKc(i8* nonnull align 1 dereferenceable(1) %0, i8* nonnull align 1 dereferenceable(1) %1) local_unnamed_addr #14 align 2 {
   %3 = load i8, i8* %1, align 1, !tbaa !14
   store i8 %3, i8* %0, align 1, !tbaa !14
   ret void
 }
 
 ; Function Attrs: noreturn
-declare void @_ZNKSt3__121__basic_string_commonILb1EE20__throw_length_errorEv(%"class.std::__1::__basic_string_common"*) local_unnamed_addr #13
+declare void @_ZNKSt3__121__basic_string_commonILb1EE20__throw_length_errorEv(%"class.std::__1::__basic_string_common"*) local_unnamed_addr #19
+
+; Function Attrs: mustprogress nofree norecurse nosync nounwind readnone ssp willreturn uwtable
+define internal fastcc i64 @_ZNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE10__align_itILm16EEEmm(i64 %0) unnamed_addr #2 align 2 {
+  %2 = add i64 %0, 15
+  %3 = and i64 %2, -16
+  ret i64 %3
+}
+
+; Function Attrs: mustprogress ssp uwtable
+define internal fastcc noalias nonnull i8* @_ZNSt3__19allocatorIcE8allocateEm(i64 %0) unnamed_addr #18 align 2 {
+  %2 = alloca i8*, align 8
+  call void @"1902169642944650922"(i32 12, i64 0, i8** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, i32* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::__wrap_iter"* null, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i64* null, i64 %0, i8** %2, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, i64 0, i8** null, i32 0, i32* null)
+  %3 = load i8*, i8** %2, align 8
+  ret i8* %3
+}
+
+; Function Attrs: inlinehint mustprogress ssp uwtable
+define internal fastcc noalias nonnull i8* @_ZNSt3__1L17__libcpp_allocateEmm(i64 %0) unnamed_addr #16 {
+  %2 = alloca i8*, align 8
+  call void @"1902169642944650922"(i32 0, i64 %0, i8** %2, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, i32* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::__wrap_iter"* null, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i64* null, i64 0, i8** null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, i64 0, i8** null, i32 0, i32* null)
+  %3 = load i8*, i8** %2, align 8
+  ret i8* %3
+}
+
+; Function Attrs: mustprogress ssp uwtable
+define internal fastcc noalias nonnull i8* @_ZNSt3__1L21__libcpp_operator_newIJmEEEPvDpT_(i64 %0) unnamed_addr #18 {
+  %2 = call noalias nonnull i8* @_Znwm(i64 %0) #28
+  ret i8* %2
+}
 
 ; Function Attrs: nobuiltin allocsize(0)
-declare nonnull i8* @_Znwm(i64) local_unnamed_addr #14
+declare nonnull i8* @_Znwm(i64) local_unnamed_addr #20
 
 ; Function Attrs: argmemonly nocallback nofree nounwind willreturn
-declare void @llvm.memcpy.p0i8.p0i8.i64(i8* noalias nocapture writeonly, i8* noalias nocapture readonly, i64, i1 immarg) #15
+declare void @llvm.memcpy.p0i8.p0i8.i64(i8* noalias nocapture writeonly, i8* noalias nocapture readonly, i64, i1 immarg) #21
 
 ; Function Attrs: argmemonly mustprogress nofree nounwind readonly willreturn
-declare i64 @strlen(i8* nocapture) local_unnamed_addr #16
+declare i64 @strlen(i8* nocapture) local_unnamed_addr #22
+
+; Function Attrs: mustprogress nofree norecurse nosync nounwind readonly ssp willreturn uwtable
+define internal fastcc i8* @_ZNKSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE4dataEv(%"class.std::__1::basic_string"* readonly %0) unnamed_addr #5 align 2 {
+  %2 = alloca i8*, align 8
+  call void @"1902169642944650922"(i32 6, i64 0, i8** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, i32* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8** null, %"class.std::__1::basic_string"* %0, i8** %2, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::__wrap_iter"* null, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i64* null, i64 0, i8** null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, i64 0, i8** null, i32 0, i32* null)
+  %3 = load i8*, i8** %2, align 8
+  ret i8* %3
+}
 
 ; Function Attrs: argmemonly nocallback nofree nounwind willreturn writeonly
-declare void @llvm.memset.p0i8.i64(i8* nocapture writeonly, i8, i64, i1 immarg) #17
+declare void @llvm.memset.p0i8.i64(i8* nocapture writeonly, i8, i64, i1 immarg) #23
 
-define internal fastcc void @"10609409609005196873"(i32 %0, i64 %1, i8** %2, i64 %3, i8** %4, i64 %5, i8** %6, i64 %7, i64* %8, %"class.std::__1::basic_string"* %9, i8** %10, %"struct.std::__1::__compressed_pair_elem"* %11, %"struct.std::__1::basic_string<char>::__rep"** %12, i64 %13, i64* %14, %"class.std::__1::__compressed_pair"* %15, %"struct.std::__1::basic_string<char>::__rep"** %16, %"class.std::__1::basic_string"* %17, %"class.std::__1::basic_string"** %18, %"class.std::__1::__wrap_iter"* %19, %"class.std::__1::__wrap_iter"* %20, i1* %21, %"class.std::__1::basic_string"* %22, %"class.std::__1::basic_string"** %23, %"class.std::__1::basic_string"* %24, i8** %25, %"class.std::__1::basic_string"* %26, i64* %27, %"class.std::__1::basic_string"* %28, i8** %29, %"class.std::__1::basic_string"* %30, i64* %31, %"class.std::__1::basic_string"* %32, i64* %33, i32 %34, i32* %35, %"class.std::__1::__wrap_iter"* %36, i8* %37, %"class.std::__1::__wrap_iter"** %38, %"class.std::__1::basic_string"* %39, i8** %40, %"class.std::__1::__wrap_iter"* %41, i8* %42, %"class.std::__1::__wrap_iter"** %43, %"class.std::__1::__wrap_iter"* %44, i8** %45, %"class.std::__1::__wrap_iter"* %46, i8** %47, i64 %48, i8** %49, %"struct.std::__1::__compressed_pair_elem"* %50, %"struct.std::__1::basic_string<char>::__rep"** %51, %"class.std::__1::__compressed_pair"* %52, %"struct.std::__1::basic_string<char>::__rep"** %53, %"class.std::__1::basic_string"* %54, i8** %55, %"class.std::__1::basic_string"* %56, i8** %57, %"class.std::__1::__wrap_iter"* %58, %"class.std::__1::__wrap_iter"* %59, i1* %60, %"class.std::__1::basic_string"* %61, i64* %62, %"class.std::__1::basic_string"* %63, i8* %64, %"class.std::__1::basic_string"** %65, %"class.std::__1::basic_string"* %66, i1* %67, %"class.std::__1::basic_string"* %68, i32* %69, %"class.std::__1::basic_string"* %70, i8** %71, %"class.std::__1::basic_string"* %72, i8* %73, %"class.std::__1::basic_string"** %74, %"class.std::__1::basic_string"* %75, i64* %76, i32 %77, i32* %78) unnamed_addr #18 personality i8* bitcast (i32 (...)* @__gxx_personality_v0 to i8*) {
-  switch i32 %0, label %80 [
-    i32 0, label %81
-    i32 1, label %83
-    i32 2, label %86
-    i32 3, label %89
-    i32 4, label %92
-    i32 5, label %98
-    i32 6, label %100
-    i32 7, label %107
-    i32 8, label %111
-    i32 9, label %112
-    i32 10, label %118
-    i32 11, label %121
-    i32 12, label %126
-    i32 13, label %134
-    i32 14, label %137
-    i32 15, label %143
-    i32 16, label %154
-    i32 17, label %156
-    i32 18, label %158
-    i32 19, label %169
-    i32 20, label %172
-    i32 21, label %175
-    i32 22, label %178
-    i32 23, label %181
-    i32 24, label %183
-    i32 25, label %187
-    i32 26, label %190
-    i32 27, label %196
-    i32 28, label %200
-    i32 29, label %212
-    i32 30, label %214
-    i32 31, label %222
-    i32 32, label %248
-    i32 33, label %253
-    i32 34, label %256
-    i32 35, label %265
+define internal fastcc void @"1902169642944650922"(i32 %0, i64 %1, i8** %2, %"class.std::__1::basic_string"* %3, i8** %4, %"class.std::__1::__compressed_pair"* %5, %"struct.std::__1::basic_string<char>::__rep"** %6, %"class.std::__1::basic_string"* %7, i32* %8, %"class.std::__1::basic_string"* %9, i8** %10, %"class.std::__1::__wrap_iter"* %11, i8** %12, %"class.std::__1::basic_string"* %13, i8** %14, %"class.std::__1::basic_string"* %15, i64* %16, %"class.std::__1::__wrap_iter"* %17, i8** %18, %"struct.std::__1::__compressed_pair_elem"* %19, %"struct.std::__1::basic_string<char>::__rep"** %20, %"class.std::__1::basic_string"* %21, i64* %22, %"class.std::__1::basic_string"* %23, i64* %24, i64 %25, i8** %26, %"class.std::__1::basic_string"* %27, i8* %28, %"class.std::__1::basic_string"** %29, %"class.std::__1::__wrap_iter"* %30, %"class.std::__1::__wrap_iter"* %31, i1* %32, i64 %33, i8** %34, i32 %35, i32* %36) unnamed_addr #24 {
+  switch i32 %0, label %38 [
+    i32 0, label %39
+    i32 1, label %41
+    i32 2, label %46
+    i32 3, label %49
+    i32 4, label %73
+    i32 5, label %77
+    i32 6, label %80
+    i32 7, label %89
+    i32 8, label %97
+    i32 9, label %100
+    i32 10, label %102
+    i32 11, label %113
+    i32 12, label %121
+    i32 13, label %124
+    i32 14, label %126
+    i32 15, label %132
+    i32 16, label %135
   ]
 
-80:                                               ; preds = %79
+38:                                               ; preds = %37
   ret void
 
-81:                                               ; preds = %79
-  %82 = call noalias nonnull i8* @_Znwm(i64 %1) #22
-  store i8* %82, i8** %2, align 8
+39:                                               ; preds = %37
+  %40 = call noalias nonnull i8* @_Znwm(i64 %1) #28
+  store i8* %40, i8** %2, align 8
   ret void
 
-83:                                               ; preds = %79
-  %84 = alloca i8*, align 8
-  call void @"10609409609005196873"(i32 0, i64 %3, i8** %84, i64 0, i8** null, i64 0, i8** null, i64 0, i64* null, %"class.std::__1::basic_string"* null, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, i64 0, i64* null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, %"class.std::__1::basic_string"** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, %"class.std::__1::basic_string"* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i64* null, i32 0, i32* null, %"class.std::__1::__wrap_iter"* null, i8* null, %"class.std::__1::__wrap_iter"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8* null, %"class.std::__1::__wrap_iter"** null, %"class.std::__1::__wrap_iter"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8** null, i64 0, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i1* null, %"class.std::__1::basic_string"* null, i32* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i64* null, i32 0, i32* null)
-  %85 = load i8*, i8** %84, align 8
-  store i8* %85, i8** %4, align 8
+41:                                               ; preds = %37
+  %42 = getelementptr inbounds %"class.std::__1::basic_string", %"class.std::__1::basic_string"* %3, i64 0, i32 0
+  %43 = alloca %"struct.std::__1::basic_string<char>::__rep"*, align 8
+  call void @"1902169642944650922"(i32 2, i64 0, i8** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__compressed_pair"* %42, %"struct.std::__1::basic_string<char>::__rep"** %43, %"class.std::__1::basic_string"* null, i32* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::__wrap_iter"* null, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i64* null, i64 0, i8** null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, i64 0, i8** null, i32 0, i32* null)
+  %44 = load %"struct.std::__1::basic_string<char>::__rep"*, %"struct.std::__1::basic_string<char>::__rep"** %43, align 8
+  %45 = bitcast %"struct.std::__1::basic_string<char>::__rep"* %44 to i8*
+  store i8* %45, i8** %4, align 8
   ret void
 
-86:                                               ; preds = %79
-  %87 = alloca i8*, align 8
-  call void @"10609409609005196873"(i32 1, i64 0, i8** null, i64 %5, i8** %87, i64 0, i8** null, i64 0, i64* null, %"class.std::__1::basic_string"* null, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, i64 0, i64* null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, %"class.std::__1::basic_string"** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, %"class.std::__1::basic_string"* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i64* null, i32 0, i32* null, %"class.std::__1::__wrap_iter"* null, i8* null, %"class.std::__1::__wrap_iter"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8* null, %"class.std::__1::__wrap_iter"** null, %"class.std::__1::__wrap_iter"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8** null, i64 0, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i1* null, %"class.std::__1::basic_string"* null, i32* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i64* null, i32 0, i32* null)
-  %88 = load i8*, i8** %87, align 8
-  store i8* %88, i8** %6, align 8
+46:                                               ; preds = %37
+  %47 = getelementptr %"class.std::__1::__compressed_pair", %"class.std::__1::__compressed_pair"* %5, i64 0, i32 0
+  %48 = call fastcc nonnull align 8 dereferenceable(24) %"struct.std::__1::basic_string<char>::__rep"* @_ZNSt3__122__compressed_pair_elemINS_12basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE5__repELi0ELb0EE5__getEv(%"struct.std::__1::__compressed_pair_elem"* %47) #25
+  store %"struct.std::__1::basic_string<char>::__rep"* %48, %"struct.std::__1::basic_string<char>::__rep"** %6, align 8
   ret void
 
-89:                                               ; preds = %79
-  %90 = add i64 %7, 15
-  %91 = and i64 %90, -16
-  store i64 %91, i64* %8, align 8
+49:                                               ; preds = %37
+  %50 = alloca %"class.std::__1::__wrap_iter", align 8
+  %51 = alloca %"class.std::__1::__wrap_iter", align 8
+  %52 = bitcast %"class.std::__1::__wrap_iter"* %50 to i8*
+  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %52) #25
+  %53 = alloca i64, align 8
+  call void @"1902169642944650922"(i32 11, i64 0, i8** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, i32* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::__wrap_iter"* null, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* %7, i64* %53, i64 0, i8** null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, i64 0, i8** null, i32 0, i32* null)
+  %54 = load i64, i64* %53, align 8
+  %55 = getelementptr inbounds %"class.std::__1::__wrap_iter", %"class.std::__1::__wrap_iter"* %50, i64 0, i32 0
+  %56 = inttoptr i64 %54 to i8*
+  store i8* %56, i8** %55, align 8
+  %57 = bitcast %"class.std::__1::__wrap_iter"* %51 to i8*
+  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %57) #25
+  %58 = alloca i64, align 8
+  call void @"1902169642944650922"(i32 10, i64 0, i8** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, i32* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::__wrap_iter"* null, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* %7, i64* %58, %"class.std::__1::basic_string"* null, i64* null, i64 0, i8** null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, i64 0, i8** null, i32 0, i32* null)
+  %59 = load i64, i64* %58, align 8
+  %60 = getelementptr inbounds %"class.std::__1::__wrap_iter", %"class.std::__1::__wrap_iter"* %51, i64 0, i32 0
+  %61 = inttoptr i64 %59 to i8*
+  store i8* %61, i8** %60, align 8
+  %62 = call fastcc zeroext i1 @_ZNSt3__1neIPKcEEbRKNS_11__wrap_iterIT_EES7_(%"class.std::__1::__wrap_iter"* nonnull align 8 dereferenceable(8) %50, %"class.std::__1::__wrap_iter"* nonnull align 8 dereferenceable(8) %51) #25
+  br i1 %62, label %65, label %63
+
+63:                                               ; preds = %65, %49
+  %64 = phi i32 [ 0, %49 ], [ %71, %65 ]
+  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %57) #25
+  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %52) #25
+  store i32 %64, i32* %8, align 4
   ret void
 
-92:                                               ; preds = %79
-  %93 = getelementptr inbounds %"class.std::__1::basic_string", %"class.std::__1::basic_string"* %9, i64 0, i32 0
-  %94 = alloca %"struct.std::__1::basic_string<char>::__rep"*, align 8
-  call void @"10609409609005196873"(i32 7, i64 0, i8** null, i64 0, i8** null, i64 0, i8** null, i64 0, i64* null, %"class.std::__1::basic_string"* null, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, i64 0, i64* null, %"class.std::__1::__compressed_pair"* %93, %"struct.std::__1::basic_string<char>::__rep"** %94, %"class.std::__1::basic_string"* null, %"class.std::__1::basic_string"** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, %"class.std::__1::basic_string"* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i64* null, i32 0, i32* null, %"class.std::__1::__wrap_iter"* null, i8* null, %"class.std::__1::__wrap_iter"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8* null, %"class.std::__1::__wrap_iter"** null, %"class.std::__1::__wrap_iter"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8** null, i64 0, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i1* null, %"class.std::__1::basic_string"* null, i32* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i64* null, i32 0, i32* null)
-  %95 = load %"struct.std::__1::basic_string<char>::__rep"*, %"struct.std::__1::basic_string<char>::__rep"** %94, align 8
-  %96 = getelementptr inbounds %"struct.std::__1::basic_string<char>::__rep", %"struct.std::__1::basic_string<char>::__rep"* %95, i64 0, i32 0, i32 0, i32 0
-  %97 = load i8*, i8** %96, align 8, !tbaa !14
-  store i8* %97, i8** %10, align 8
+65:                                               ; preds = %65, %49
+  %66 = phi i32 [ %71, %65 ], [ 0, %49 ]
+  %67 = alloca i8*, align 8
+  call void @"1902169642944650922"(i32 8, i64 0, i8** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, i32* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::__wrap_iter"* %50, i8** %67, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i64* null, i64 0, i8** null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, i64 0, i8** null, i32 0, i32* null)
+  %68 = load i8*, i8** %67, align 8
+  %69 = load i8, i8* %68, align 1, !tbaa !14
+  %70 = sext i8 %69 to i32
+  %71 = add nsw i32 %66, %70
+  call fastcc void @_ZNSt3__111__wrap_iterIPKcEppEv(%"class.std::__1::__wrap_iter"* nonnull %50) #25
+  %72 = call fastcc zeroext i1 @_ZNSt3__1neIPKcEEbRKNS_11__wrap_iterIT_EES7_(%"class.std::__1::__wrap_iter"* nonnull align 8 dereferenceable(8) %50, %"class.std::__1::__wrap_iter"* nonnull align 8 dereferenceable(8) %51) #25
+  br i1 %72, label %65, label %63, !llvm.loop !15
+
+73:                                               ; preds = %37
+  %74 = getelementptr inbounds %"class.std::__1::basic_string", %"class.std::__1::basic_string"* %9, i64 0, i32 0
+  %75 = call fastcc nonnull align 8 dereferenceable(24) %"struct.std::__1::basic_string<char>::__rep"* @_ZNKSt3__117__compressed_pairINS_12basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE5__repES5_E5firstEv(%"class.std::__1::__compressed_pair"* %74) #25
+  %76 = bitcast %"struct.std::__1::basic_string<char>::__rep"* %75 to i8*
+  store i8* %76, i8** %10, align 8
   ret void
 
-98:                                               ; preds = %79
-  %99 = getelementptr inbounds %"struct.std::__1::__compressed_pair_elem", %"struct.std::__1::__compressed_pair_elem"* %11, i64 0, i32 0
-  store %"struct.std::__1::basic_string<char>::__rep"* %99, %"struct.std::__1::basic_string<char>::__rep"** %12, align 8
+77:                                               ; preds = %37
+  %78 = getelementptr inbounds %"class.std::__1::__wrap_iter", %"class.std::__1::__wrap_iter"* %11, i64 0, i32 0
+  %79 = load i8*, i8** %78, align 8, !tbaa !18
+  store i8* %79, i8** %12, align 8
   ret void
 
-100:                                              ; preds = %79
-  %101 = add i64 %13, 1
-  %102 = alloca i64, align 8
-  call void @"10609409609005196873"(i32 3, i64 0, i8** null, i64 0, i8** null, i64 0, i8** null, i64 %101, i64* %102, %"class.std::__1::basic_string"* null, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, i64 0, i64* null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, %"class.std::__1::basic_string"** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, %"class.std::__1::basic_string"* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i64* null, i32 0, i32* null, %"class.std::__1::__wrap_iter"* null, i8* null, %"class.std::__1::__wrap_iter"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8* null, %"class.std::__1::__wrap_iter"** null, %"class.std::__1::__wrap_iter"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8** null, i64 0, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i1* null, %"class.std::__1::basic_string"* null, i32* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i64* null, i32 0, i32* null)
-  %103 = load i64, i64* %102, align 8
-  %104 = add i64 %103, -1
-  %105 = icmp eq i64 %104, 23
-  %106 = select i1 %105, i64 %103, i64 %104
-  store i64 %106, i64* %14, align 8
+80:                                               ; preds = %37
+  %81 = call fastcc zeroext i1 @_ZNKSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE9__is_longEv(%"class.std::__1::basic_string"* %13) #25
+  br i1 %81, label %82, label %84
+
+82:                                               ; preds = %80
+  %83 = call fastcc i8* @_ZNKSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE18__get_long_pointerEv(%"class.std::__1::basic_string"* %13) #25
+  br label %87
+
+84:                                               ; preds = %80
+  %85 = alloca i8*, align 8
+  call void @"1902169642944650922"(i32 4, i64 0, i8** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, i32* null, %"class.std::__1::basic_string"* %13, i8** %85, %"class.std::__1::__wrap_iter"* null, i8** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::__wrap_iter"* null, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i64* null, i64 0, i8** null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, i64 0, i8** null, i32 0, i32* null)
+  %86 = load i8*, i8** %85, align 8
+  br label %87
+
+87:                                               ; preds = %84, %82
+  %88 = phi i8* [ %83, %82 ], [ %86, %84 ]
+  store i8* %88, i8** %14, align 8
   ret void
 
-107:                                              ; preds = %79
-  %108 = getelementptr %"class.std::__1::__compressed_pair", %"class.std::__1::__compressed_pair"* %15, i64 0, i32 0
-  %109 = alloca %"struct.std::__1::basic_string<char>::__rep"*, align 8
-  call void @"10609409609005196873"(i32 5, i64 0, i8** null, i64 0, i8** null, i64 0, i8** null, i64 0, i64* null, %"class.std::__1::basic_string"* null, i8** null, %"struct.std::__1::__compressed_pair_elem"* %108, %"struct.std::__1::basic_string<char>::__rep"** %109, i64 0, i64* null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, %"class.std::__1::basic_string"** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, %"class.std::__1::basic_string"* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i64* null, i32 0, i32* null, %"class.std::__1::__wrap_iter"* null, i8* null, %"class.std::__1::__wrap_iter"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8* null, %"class.std::__1::__wrap_iter"** null, %"class.std::__1::__wrap_iter"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8** null, i64 0, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i1* null, %"class.std::__1::basic_string"* null, i32* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i64* null, i32 0, i32* null)
-  %110 = load %"struct.std::__1::basic_string<char>::__rep"*, %"struct.std::__1::basic_string<char>::__rep"** %109, align 8
-  store %"struct.std::__1::basic_string<char>::__rep"* %110, %"struct.std::__1::basic_string<char>::__rep"** %16, align 8
+89:                                               ; preds = %37
+  %90 = call fastcc zeroext i1 @_ZNKSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE9__is_longEv(%"class.std::__1::basic_string"* %15) #25
+  br i1 %90, label %91, label %93
+
+91:                                               ; preds = %89
+  %92 = call fastcc i64 @_ZNKSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE15__get_long_sizeEv(%"class.std::__1::basic_string"* %15) #25
+  br label %95
+
+93:                                               ; preds = %89
+  %94 = call fastcc i64 @_ZNKSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE16__get_short_sizeEv(%"class.std::__1::basic_string"* %15) #25
+  br label %95
+
+95:                                               ; preds = %93, %91
+  %96 = phi i64 [ %92, %91 ], [ %94, %93 ]
+  store i64 %96, i64* %16, align 8
   ret void
 
-111:                                              ; preds = %79
-  call fastcc void @_ZNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE6__zeroEv(%"class.std::__1::basic_string"* %17) #19
-  store %"class.std::__1::basic_string"* %17, %"class.std::__1::basic_string"** %18, align 8
+97:                                               ; preds = %37
+  %98 = getelementptr inbounds %"class.std::__1::__wrap_iter", %"class.std::__1::__wrap_iter"* %17, i64 0, i32 0
+  %99 = load i8*, i8** %98, align 8, !tbaa !18
+  store i8* %99, i8** %18, align 8
   ret void
 
-112:                                              ; preds = %79
-  %113 = alloca i8*, align 8
-  call void @"10609409609005196873"(i32 21, i64 0, i8** null, i64 0, i8** null, i64 0, i8** null, i64 0, i64* null, %"class.std::__1::basic_string"* null, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, i64 0, i64* null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, %"class.std::__1::basic_string"** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, %"class.std::__1::basic_string"* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i64* null, i32 0, i32* null, %"class.std::__1::__wrap_iter"* null, i8* null, %"class.std::__1::__wrap_iter"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8* null, %"class.std::__1::__wrap_iter"** null, %"class.std::__1::__wrap_iter"* null, i8** null, %"class.std::__1::__wrap_iter"* %19, i8** %113, i64 0, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i1* null, %"class.std::__1::basic_string"* null, i32* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i64* null, i32 0, i32* null)
-  %114 = load i8*, i8** %113, align 8
+100:                                              ; preds = %37
+  %101 = getelementptr inbounds %"struct.std::__1::__compressed_pair_elem", %"struct.std::__1::__compressed_pair_elem"* %19, i64 0, i32 0
+  store %"struct.std::__1::basic_string<char>::__rep"* %101, %"struct.std::__1::basic_string<char>::__rep"** %20, align 8
+  ret void
+
+102:                                              ; preds = %37
+  %103 = alloca %"class.std::__1::__wrap_iter", align 8
+  %104 = alloca i8*, align 8
+  call void @"1902169642944650922"(i32 6, i64 0, i8** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, i32* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8** null, %"class.std::__1::basic_string"* %21, i8** %104, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::__wrap_iter"* null, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i64* null, i64 0, i8** null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, i64 0, i8** null, i32 0, i32* null)
+  %105 = load i8*, i8** %104, align 8
+  %106 = alloca i64, align 8
+  call void @"1902169642944650922"(i32 7, i64 0, i8** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, i32* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* %21, i64* %106, %"class.std::__1::__wrap_iter"* null, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i64* null, i64 0, i8** null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, i64 0, i8** null, i32 0, i32* null)
+  %107 = load i64, i64* %106, align 8
+  %108 = getelementptr inbounds i8, i8* %105, i64 %107
+  %109 = call fastcc %"class.std::__1::__wrap_iter"* @_ZNSt3__111__wrap_iterIPKcEC1ES2_(%"class.std::__1::__wrap_iter"* nonnull %103, i8* %108) #25
+  %110 = getelementptr inbounds %"class.std::__1::__wrap_iter", %"class.std::__1::__wrap_iter"* %103, i64 0, i32 0
+  %111 = load i8*, i8** %110, align 8
+  %112 = ptrtoint i8* %111 to i64
+  store i64 %112, i64* %22, align 8
+  ret void
+
+113:                                              ; preds = %37
+  %114 = alloca %"class.std::__1::__wrap_iter", align 8
   %115 = alloca i8*, align 8
-  call void @"10609409609005196873"(i32 21, i64 0, i8** null, i64 0, i8** null, i64 0, i8** null, i64 0, i64* null, %"class.std::__1::basic_string"* null, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, i64 0, i64* null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, %"class.std::__1::basic_string"** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, %"class.std::__1::basic_string"* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i64* null, i32 0, i32* null, %"class.std::__1::__wrap_iter"* null, i8* null, %"class.std::__1::__wrap_iter"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8* null, %"class.std::__1::__wrap_iter"** null, %"class.std::__1::__wrap_iter"* null, i8** null, %"class.std::__1::__wrap_iter"* %20, i8** %115, i64 0, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i1* null, %"class.std::__1::basic_string"* null, i32* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i64* null, i32 0, i32* null)
+  call void @"1902169642944650922"(i32 6, i64 0, i8** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, i32* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8** null, %"class.std::__1::basic_string"* %23, i8** %115, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::__wrap_iter"* null, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i64* null, i64 0, i8** null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, i64 0, i8** null, i32 0, i32* null)
   %116 = load i8*, i8** %115, align 8
-  %117 = icmp eq i8* %114, %116
-  store i1 %117, i1* %21, align 1
+  %117 = call fastcc %"class.std::__1::__wrap_iter"* @_ZNSt3__111__wrap_iterIPKcEC1ES2_(%"class.std::__1::__wrap_iter"* nonnull %114, i8* %116) #25
+  %118 = getelementptr inbounds %"class.std::__1::__wrap_iter", %"class.std::__1::__wrap_iter"* %114, i64 0, i32 0
+  %119 = load i8*, i8** %118, align 8
+  %120 = ptrtoint i8* %119 to i64
+  store i64 %120, i64* %24, align 8
   ret void
 
-118:                                              ; preds = %79
-  %119 = alloca %"class.std::__1::basic_string"*, align 8
-  call void @"10609409609005196873"(i32 8, i64 0, i8** null, i64 0, i8** null, i64 0, i8** null, i64 0, i64* null, %"class.std::__1::basic_string"* null, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, i64 0, i64* null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* %22, %"class.std::__1::basic_string"** %119, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, %"class.std::__1::basic_string"* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i64* null, i32 0, i32* null, %"class.std::__1::__wrap_iter"* null, i8* null, %"class.std::__1::__wrap_iter"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8* null, %"class.std::__1::__wrap_iter"** null, %"class.std::__1::__wrap_iter"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8** null, i64 0, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i1* null, %"class.std::__1::basic_string"* null, i32* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i64* null, i32 0, i32* null)
-  %120 = load %"class.std::__1::basic_string"*, %"class.std::__1::basic_string"** %119, align 8
-  store %"class.std::__1::basic_string"* %22, %"class.std::__1::basic_string"** %23, align 8
+121:                                              ; preds = %37
+  %122 = alloca i8*, align 8
+  call void @"1902169642944650922"(i32 0, i64 %25, i8** %122, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, i32* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::__wrap_iter"* null, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i64* null, i64 0, i8** null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, i64 0, i8** null, i32 0, i32* null)
+  %123 = load i8*, i8** %122, align 8
+  store i8* %123, i8** %26, align 8
   ret void
 
-121:                                              ; preds = %79
-  %122 = getelementptr inbounds %"class.std::__1::basic_string", %"class.std::__1::basic_string"* %24, i64 0, i32 0
-  %123 = alloca %"struct.std::__1::basic_string<char>::__rep"*, align 8
-  call void @"10609409609005196873"(i32 7, i64 0, i8** null, i64 0, i8** null, i64 0, i8** null, i64 0, i64* null, %"class.std::__1::basic_string"* null, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, i64 0, i64* null, %"class.std::__1::__compressed_pair"* %122, %"struct.std::__1::basic_string<char>::__rep"** %123, %"class.std::__1::basic_string"* null, %"class.std::__1::basic_string"** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, %"class.std::__1::basic_string"* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i64* null, i32 0, i32* null, %"class.std::__1::__wrap_iter"* null, i8* null, %"class.std::__1::__wrap_iter"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8* null, %"class.std::__1::__wrap_iter"** null, %"class.std::__1::__wrap_iter"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8** null, i64 0, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i1* null, %"class.std::__1::basic_string"* null, i32* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i64* null, i32 0, i32* null)
-  %124 = load %"struct.std::__1::basic_string<char>::__rep"*, %"struct.std::__1::basic_string<char>::__rep"** %123, align 8
-  %125 = bitcast %"struct.std::__1::basic_string<char>::__rep"* %124 to i8*
-  store i8* %125, i8** %25, align 8
+124:                                              ; preds = %37
+  %125 = call fastcc %"class.std::__1::basic_string"* @_ZNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEC2IDnEEPKc(%"class.std::__1::basic_string"* %27, i8* %28)
+  store %"class.std::__1::basic_string"* %27, %"class.std::__1::basic_string"** %29, align 8
   ret void
 
-126:                                              ; preds = %79
-  %127 = getelementptr inbounds %"class.std::__1::basic_string", %"class.std::__1::basic_string"* %26, i64 0, i32 0
-  %128 = alloca %"struct.std::__1::basic_string<char>::__rep"*, align 8
-  call void @"10609409609005196873"(i32 24, i64 0, i8** null, i64 0, i8** null, i64 0, i8** null, i64 0, i64* null, %"class.std::__1::basic_string"* null, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, i64 0, i64* null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, %"class.std::__1::basic_string"** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, %"class.std::__1::basic_string"* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i64* null, i32 0, i32* null, %"class.std::__1::__wrap_iter"* null, i8* null, %"class.std::__1::__wrap_iter"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8* null, %"class.std::__1::__wrap_iter"** null, %"class.std::__1::__wrap_iter"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8** null, i64 0, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::__compressed_pair"* %127, %"struct.std::__1::basic_string<char>::__rep"** %128, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i1* null, %"class.std::__1::basic_string"* null, i32* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i64* null, i32 0, i32* null)
-  %129 = load %"struct.std::__1::basic_string<char>::__rep"*, %"struct.std::__1::basic_string<char>::__rep"** %128, align 8
-  %130 = bitcast %"struct.std::__1::basic_string<char>::__rep"* %129 to %"struct.std::__1::basic_string<char>::__short"*
-  %131 = getelementptr inbounds %"struct.std::__1::basic_string<char>::__short", %"struct.std::__1::basic_string<char>::__short"* %130, i64 0, i32 1, i32 0
-  %132 = load i8, i8* %131, align 1, !tbaa !14
-  %133 = zext i8 %132 to i64
-  store i64 %133, i64* %27, align 8
+126:                                              ; preds = %37
+  %127 = alloca i8*, align 8
+  call void @"1902169642944650922"(i32 5, i64 0, i8** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, i32* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* %30, i8** %127, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::__wrap_iter"* null, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i64* null, i64 0, i8** null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, i64 0, i8** null, i32 0, i32* null)
+  %128 = load i8*, i8** %127, align 8
+  %129 = alloca i8*, align 8
+  call void @"1902169642944650922"(i32 5, i64 0, i8** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, i32* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* %31, i8** %129, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::__wrap_iter"* null, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i64* null, i64 0, i8** null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, i64 0, i8** null, i32 0, i32* null)
+  %130 = load i8*, i8** %129, align 8
+  %131 = icmp eq i8* %128, %130
+  store i1 %131, i1* %32, align 1
   ret void
 
-134:                                              ; preds = %79
-  %135 = alloca i8*, align 8
-  call void @"10609409609005196873"(i32 25, i64 0, i8** null, i64 0, i8** null, i64 0, i8** null, i64 0, i64* null, %"class.std::__1::basic_string"* null, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, i64 0, i64* null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, %"class.std::__1::basic_string"** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, %"class.std::__1::basic_string"* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i64* null, i32 0, i32* null, %"class.std::__1::__wrap_iter"* null, i8* null, %"class.std::__1::__wrap_iter"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8* null, %"class.std::__1::__wrap_iter"** null, %"class.std::__1::__wrap_iter"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8** null, i64 0, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* %28, i8** %135, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i1* null, %"class.std::__1::basic_string"* null, i32* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i64* null, i32 0, i32* null)
-  %136 = load i8*, i8** %135, align 8
-  store i8* %136, i8** %29, align 8
+132:                                              ; preds = %37
+  %133 = alloca i8*, align 8
+  call void @"1902169642944650922"(i32 12, i64 0, i8** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, i32* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::__wrap_iter"* null, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i64* null, i64 %33, i8** %133, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, i64 0, i8** null, i32 0, i32* null)
+  %134 = load i8*, i8** %133, align 8
+  store i8* %134, i8** %34, align 8
   ret void
 
-137:                                              ; preds = %79
-  %138 = getelementptr inbounds %"class.std::__1::basic_string", %"class.std::__1::basic_string"* %30, i64 0, i32 0
-  %139 = alloca %"struct.std::__1::basic_string<char>::__rep"*, align 8
-  call void @"10609409609005196873"(i32 24, i64 0, i8** null, i64 0, i8** null, i64 0, i8** null, i64 0, i64* null, %"class.std::__1::basic_string"* null, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, i64 0, i64* null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, %"class.std::__1::basic_string"** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, %"class.std::__1::basic_string"* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i64* null, i32 0, i32* null, %"class.std::__1::__wrap_iter"* null, i8* null, %"class.std::__1::__wrap_iter"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8* null, %"class.std::__1::__wrap_iter"** null, %"class.std::__1::__wrap_iter"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8** null, i64 0, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::__compressed_pair"* %138, %"struct.std::__1::basic_string<char>::__rep"** %139, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i1* null, %"class.std::__1::basic_string"* null, i32* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i64* null, i32 0, i32* null)
-  %140 = load %"struct.std::__1::basic_string<char>::__rep"*, %"struct.std::__1::basic_string<char>::__rep"** %139, align 8
-  %141 = getelementptr inbounds %"struct.std::__1::basic_string<char>::__rep", %"struct.std::__1::basic_string<char>::__rep"* %140, i64 0, i32 0, i32 0, i32 1
-  %142 = load i64, i64* %141, align 8, !tbaa !14
-  store i64 %142, i64* %31, align 8
-  ret void
-
-143:                                              ; preds = %79
-  %144 = alloca i1, align 1
-  call void @"10609409609005196873"(i32 30, i64 0, i8** null, i64 0, i8** null, i64 0, i8** null, i64 0, i64* null, %"class.std::__1::basic_string"* null, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, i64 0, i64* null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, %"class.std::__1::basic_string"** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, %"class.std::__1::basic_string"* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i64* null, i32 0, i32* null, %"class.std::__1::__wrap_iter"* null, i8* null, %"class.std::__1::__wrap_iter"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8* null, %"class.std::__1::__wrap_iter"** null, %"class.std::__1::__wrap_iter"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8** null, i64 0, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* %32, i1* %144, %"class.std::__1::basic_string"* null, i32* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i64* null, i32 0, i32* null)
-  %145 = load i1, i1* %144, align 1
-  br i1 %145, label %146, label %149
-
-146:                                              ; preds = %143
-  %147 = alloca i64, align 8
-  call void @"10609409609005196873"(i32 14, i64 0, i8** null, i64 0, i8** null, i64 0, i8** null, i64 0, i64* null, %"class.std::__1::basic_string"* null, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, i64 0, i64* null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, %"class.std::__1::basic_string"** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, %"class.std::__1::basic_string"* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* %32, i64* %147, %"class.std::__1::basic_string"* null, i64* null, i32 0, i32* null, %"class.std::__1::__wrap_iter"* null, i8* null, %"class.std::__1::__wrap_iter"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8* null, %"class.std::__1::__wrap_iter"** null, %"class.std::__1::__wrap_iter"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8** null, i64 0, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i1* null, %"class.std::__1::basic_string"* null, i32* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i64* null, i32 0, i32* null)
-  %148 = load i64, i64* %147, align 8
-  br label %152
-
-149:                                              ; preds = %143
-  %150 = alloca i64, align 8
-  call void @"10609409609005196873"(i32 12, i64 0, i8** null, i64 0, i8** null, i64 0, i8** null, i64 0, i64* null, %"class.std::__1::basic_string"* null, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, i64 0, i64* null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, %"class.std::__1::basic_string"** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, %"class.std::__1::basic_string"* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* %32, i64* %150, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i64* null, i32 0, i32* null, %"class.std::__1::__wrap_iter"* null, i8* null, %"class.std::__1::__wrap_iter"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8* null, %"class.std::__1::__wrap_iter"** null, %"class.std::__1::__wrap_iter"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8** null, i64 0, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i1* null, %"class.std::__1::basic_string"* null, i32* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i64* null, i32 0, i32* null)
-  %151 = load i64, i64* %150, align 8
-  br label %152
-
-152:                                              ; preds = %149, %146
-  %153 = phi i64 [ %148, %146 ], [ %151, %149 ]
-  store i64 %153, i64* %33, align 8
-  ret void
-
-154:                                              ; preds = %79
-  %155 = shl nsw i32 %34, 1
-  store i32 %155, i32* %35, align 4
-  ret void
-
-156:                                              ; preds = %79
-  %157 = getelementptr inbounds %"class.std::__1::__wrap_iter", %"class.std::__1::__wrap_iter"* %36, i64 0, i32 0
-  store i8* %37, i8** %157, align 8, !tbaa !17
-  store %"class.std::__1::__wrap_iter"* %36, %"class.std::__1::__wrap_iter"** %38, align 8
-  ret void
-
-158:                                              ; preds = %79
-  %159 = alloca i1, align 1
-  call void @"10609409609005196873"(i32 30, i64 0, i8** null, i64 0, i8** null, i64 0, i8** null, i64 0, i64* null, %"class.std::__1::basic_string"* null, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, i64 0, i64* null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, %"class.std::__1::basic_string"** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, %"class.std::__1::basic_string"* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i64* null, i32 0, i32* null, %"class.std::__1::__wrap_iter"* null, i8* null, %"class.std::__1::__wrap_iter"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8* null, %"class.std::__1::__wrap_iter"** null, %"class.std::__1::__wrap_iter"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8** null, i64 0, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* %39, i1* %159, %"class.std::__1::basic_string"* null, i32* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i64* null, i32 0, i32* null)
-  %160 = load i1, i1* %159, align 1
-  br i1 %160, label %161, label %164
-
-161:                                              ; preds = %158
-  %162 = alloca i8*, align 8
-  call void @"10609409609005196873"(i32 26, i64 0, i8** null, i64 0, i8** null, i64 0, i8** null, i64 0, i64* null, %"class.std::__1::basic_string"* null, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, i64 0, i64* null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, %"class.std::__1::basic_string"** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, %"class.std::__1::basic_string"* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i64* null, i32 0, i32* null, %"class.std::__1::__wrap_iter"* null, i8* null, %"class.std::__1::__wrap_iter"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8* null, %"class.std::__1::__wrap_iter"** null, %"class.std::__1::__wrap_iter"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8** null, i64 0, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* %39, i8** %162, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i1* null, %"class.std::__1::basic_string"* null, i32* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i64* null, i32 0, i32* null)
-  %163 = load i8*, i8** %162, align 8
-  br label %167
-
-164:                                              ; preds = %158
-  %165 = alloca i8*, align 8
-  call void @"10609409609005196873"(i32 32, i64 0, i8** null, i64 0, i8** null, i64 0, i8** null, i64 0, i64* null, %"class.std::__1::basic_string"* null, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, i64 0, i64* null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, %"class.std::__1::basic_string"** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, %"class.std::__1::basic_string"* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i64* null, i32 0, i32* null, %"class.std::__1::__wrap_iter"* null, i8* null, %"class.std::__1::__wrap_iter"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8* null, %"class.std::__1::__wrap_iter"** null, %"class.std::__1::__wrap_iter"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8** null, i64 0, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i1* null, %"class.std::__1::basic_string"* null, i32* null, %"class.std::__1::basic_string"* %39, i8** %165, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i64* null, i32 0, i32* null)
-  %166 = load i8*, i8** %165, align 8
-  br label %167
-
-167:                                              ; preds = %164, %161
-  %168 = phi i8* [ %163, %161 ], [ %166, %164 ]
-  store i8* %168, i8** %40, align 8
-  ret void
-
-169:                                              ; preds = %79
-  %170 = alloca %"class.std::__1::__wrap_iter"*, align 8
-  call void @"10609409609005196873"(i32 17, i64 0, i8** null, i64 0, i8** null, i64 0, i8** null, i64 0, i64* null, %"class.std::__1::basic_string"* null, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, i64 0, i64* null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, %"class.std::__1::basic_string"** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, %"class.std::__1::basic_string"* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i64* null, i32 0, i32* null, %"class.std::__1::__wrap_iter"* %41, i8* %42, %"class.std::__1::__wrap_iter"** %170, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8* null, %"class.std::__1::__wrap_iter"** null, %"class.std::__1::__wrap_iter"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8** null, i64 0, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i1* null, %"class.std::__1::basic_string"* null, i32* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i64* null, i32 0, i32* null)
-  %171 = load %"class.std::__1::__wrap_iter"*, %"class.std::__1::__wrap_iter"** %170, align 8
-  store %"class.std::__1::__wrap_iter"* %41, %"class.std::__1::__wrap_iter"** %43, align 8
-  ret void
-
-172:                                              ; preds = %79
-  %173 = getelementptr inbounds %"class.std::__1::__wrap_iter", %"class.std::__1::__wrap_iter"* %44, i64 0, i32 0
-  %174 = load i8*, i8** %173, align 8, !tbaa !17
-  store i8* %174, i8** %45, align 8
-  ret void
-
-175:                                              ; preds = %79
-  %176 = getelementptr inbounds %"class.std::__1::__wrap_iter", %"class.std::__1::__wrap_iter"* %46, i64 0, i32 0
-  %177 = load i8*, i8** %176, align 8, !tbaa !17
-  store i8* %177, i8** %47, align 8
-  ret void
-
-178:                                              ; preds = %79
-  %179 = alloca i8*, align 8
-  call void @"10609409609005196873"(i32 2, i64 0, i8** null, i64 0, i8** null, i64 %48, i8** %179, i64 0, i64* null, %"class.std::__1::basic_string"* null, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, i64 0, i64* null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, %"class.std::__1::basic_string"** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, %"class.std::__1::basic_string"* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i64* null, i32 0, i32* null, %"class.std::__1::__wrap_iter"* null, i8* null, %"class.std::__1::__wrap_iter"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8* null, %"class.std::__1::__wrap_iter"** null, %"class.std::__1::__wrap_iter"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8** null, i64 0, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i1* null, %"class.std::__1::basic_string"* null, i32* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i64* null, i32 0, i32* null)
-  %180 = load i8*, i8** %179, align 8
-  store i8* %180, i8** %49, align 8
-  ret void
-
-181:                                              ; preds = %79
-  %182 = getelementptr inbounds %"struct.std::__1::__compressed_pair_elem", %"struct.std::__1::__compressed_pair_elem"* %50, i64 0, i32 0
-  store %"struct.std::__1::basic_string<char>::__rep"* %182, %"struct.std::__1::basic_string<char>::__rep"** %51, align 8
-  ret void
-
-183:                                              ; preds = %79
-  %184 = getelementptr %"class.std::__1::__compressed_pair", %"class.std::__1::__compressed_pair"* %52, i64 0, i32 0
-  %185 = alloca %"struct.std::__1::basic_string<char>::__rep"*, align 8
-  call void @"10609409609005196873"(i32 23, i64 0, i8** null, i64 0, i8** null, i64 0, i8** null, i64 0, i64* null, %"class.std::__1::basic_string"* null, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, i64 0, i64* null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, %"class.std::__1::basic_string"** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, %"class.std::__1::basic_string"* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i64* null, i32 0, i32* null, %"class.std::__1::__wrap_iter"* null, i8* null, %"class.std::__1::__wrap_iter"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8* null, %"class.std::__1::__wrap_iter"** null, %"class.std::__1::__wrap_iter"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8** null, i64 0, i8** null, %"struct.std::__1::__compressed_pair_elem"* %184, %"struct.std::__1::basic_string<char>::__rep"** %185, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i1* null, %"class.std::__1::basic_string"* null, i32* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i64* null, i32 0, i32* null)
-  %186 = load %"struct.std::__1::basic_string<char>::__rep"*, %"struct.std::__1::basic_string<char>::__rep"** %185, align 8
-  store %"struct.std::__1::basic_string<char>::__rep"* %186, %"struct.std::__1::basic_string<char>::__rep"** %53, align 8
-  ret void
-
-187:                                              ; preds = %79
-  %188 = alloca i8*, align 8
-  call void @"10609409609005196873"(i32 18, i64 0, i8** null, i64 0, i8** null, i64 0, i8** null, i64 0, i64* null, %"class.std::__1::basic_string"* null, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, i64 0, i64* null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, %"class.std::__1::basic_string"** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, %"class.std::__1::basic_string"* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i64* null, i32 0, i32* null, %"class.std::__1::__wrap_iter"* null, i8* null, %"class.std::__1::__wrap_iter"** null, %"class.std::__1::basic_string"* %54, i8** %188, %"class.std::__1::__wrap_iter"* null, i8* null, %"class.std::__1::__wrap_iter"** null, %"class.std::__1::__wrap_iter"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8** null, i64 0, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i1* null, %"class.std::__1::basic_string"* null, i32* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i64* null, i32 0, i32* null)
-  %189 = load i8*, i8** %188, align 8
-  store i8* %189, i8** %55, align 8
-  ret void
-
-190:                                              ; preds = %79
-  %191 = getelementptr inbounds %"class.std::__1::basic_string", %"class.std::__1::basic_string"* %56, i64 0, i32 0
-  %192 = alloca %"struct.std::__1::basic_string<char>::__rep"*, align 8
-  call void @"10609409609005196873"(i32 24, i64 0, i8** null, i64 0, i8** null, i64 0, i8** null, i64 0, i64* null, %"class.std::__1::basic_string"* null, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, i64 0, i64* null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, %"class.std::__1::basic_string"** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, %"class.std::__1::basic_string"* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i64* null, i32 0, i32* null, %"class.std::__1::__wrap_iter"* null, i8* null, %"class.std::__1::__wrap_iter"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8* null, %"class.std::__1::__wrap_iter"** null, %"class.std::__1::__wrap_iter"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8** null, i64 0, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::__compressed_pair"* %191, %"struct.std::__1::basic_string<char>::__rep"** %192, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i1* null, %"class.std::__1::basic_string"* null, i32* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i64* null, i32 0, i32* null)
-  %193 = load %"struct.std::__1::basic_string<char>::__rep"*, %"struct.std::__1::basic_string<char>::__rep"** %192, align 8
-  %194 = getelementptr inbounds %"struct.std::__1::basic_string<char>::__rep", %"struct.std::__1::basic_string<char>::__rep"* %193, i64 0, i32 0, i32 0, i32 0
-  %195 = load i8*, i8** %194, align 8, !tbaa !14
-  store i8* %195, i8** %57, align 8
-  ret void
-
-196:                                              ; preds = %79
-  %197 = alloca i1, align 1
-  call void @"10609409609005196873"(i32 9, i64 0, i8** null, i64 0, i8** null, i64 0, i8** null, i64 0, i64* null, %"class.std::__1::basic_string"* null, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, i64 0, i64* null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, %"class.std::__1::basic_string"** null, %"class.std::__1::__wrap_iter"* %58, %"class.std::__1::__wrap_iter"* %59, i1* %197, %"class.std::__1::basic_string"* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i64* null, i32 0, i32* null, %"class.std::__1::__wrap_iter"* null, i8* null, %"class.std::__1::__wrap_iter"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8* null, %"class.std::__1::__wrap_iter"** null, %"class.std::__1::__wrap_iter"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8** null, i64 0, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i1* null, %"class.std::__1::basic_string"* null, i32* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i64* null, i32 0, i32* null)
-  %198 = load i1, i1* %197, align 1
-  %199 = xor i1 %198, true
-  store i1 %199, i1* %60, align 1
-  ret void
-
-200:                                              ; preds = %79
-  %201 = alloca %"class.std::__1::__wrap_iter", align 8
-  %202 = alloca i8*, align 8
-  call void @"10609409609005196873"(i32 18, i64 0, i8** null, i64 0, i8** null, i64 0, i8** null, i64 0, i64* null, %"class.std::__1::basic_string"* null, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, i64 0, i64* null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, %"class.std::__1::basic_string"** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, %"class.std::__1::basic_string"* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i64* null, i32 0, i32* null, %"class.std::__1::__wrap_iter"* null, i8* null, %"class.std::__1::__wrap_iter"** null, %"class.std::__1::basic_string"* %61, i8** %202, %"class.std::__1::__wrap_iter"* null, i8* null, %"class.std::__1::__wrap_iter"** null, %"class.std::__1::__wrap_iter"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8** null, i64 0, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i1* null, %"class.std::__1::basic_string"* null, i32* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i64* null, i32 0, i32* null)
-  %203 = load i8*, i8** %202, align 8
-  %204 = alloca i64, align 8
-  call void @"10609409609005196873"(i32 15, i64 0, i8** null, i64 0, i8** null, i64 0, i8** null, i64 0, i64* null, %"class.std::__1::basic_string"* null, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, i64 0, i64* null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, %"class.std::__1::basic_string"** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, %"class.std::__1::basic_string"* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* %61, i64* %204, i32 0, i32* null, %"class.std::__1::__wrap_iter"* null, i8* null, %"class.std::__1::__wrap_iter"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8* null, %"class.std::__1::__wrap_iter"** null, %"class.std::__1::__wrap_iter"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8** null, i64 0, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i1* null, %"class.std::__1::basic_string"* null, i32* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i64* null, i32 0, i32* null)
-  %205 = load i64, i64* %204, align 8
-  %206 = getelementptr inbounds i8, i8* %203, i64 %205
-  %207 = alloca %"class.std::__1::__wrap_iter"*, align 8
-  call void @"10609409609005196873"(i32 19, i64 0, i8** null, i64 0, i8** null, i64 0, i8** null, i64 0, i64* null, %"class.std::__1::basic_string"* null, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, i64 0, i64* null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, %"class.std::__1::basic_string"** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, %"class.std::__1::basic_string"* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i64* null, i32 0, i32* null, %"class.std::__1::__wrap_iter"* null, i8* null, %"class.std::__1::__wrap_iter"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* %201, i8* %206, %"class.std::__1::__wrap_iter"** %207, %"class.std::__1::__wrap_iter"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8** null, i64 0, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i1* null, %"class.std::__1::basic_string"* null, i32* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i64* null, i32 0, i32* null)
-  %208 = load %"class.std::__1::__wrap_iter"*, %"class.std::__1::__wrap_iter"** %207, align 8
-  %209 = getelementptr inbounds %"class.std::__1::__wrap_iter", %"class.std::__1::__wrap_iter"* %201, i64 0, i32 0
-  %210 = load i8*, i8** %209, align 8
-  %211 = ptrtoint i8* %210 to i64
-  store i64 %211, i64* %62, align 8
-  ret void
-
-212:                                              ; preds = %79
-  %213 = call i64 @_ZNSt3__111char_traitsIcE6lengthEPKc(i8* %64) #19
-  call void @_ZNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE6__initEPKcm(%"class.std::__1::basic_string"* %63, i8* %64, i64 %213)
-  store %"class.std::__1::basic_string"* %63, %"class.std::__1::basic_string"** %65, align 8
-  ret void
-
-214:                                              ; preds = %79
-  %215 = getelementptr inbounds %"class.std::__1::basic_string", %"class.std::__1::basic_string"* %66, i64 0, i32 0
-  %216 = alloca %"struct.std::__1::basic_string<char>::__rep"*, align 8
-  call void @"10609409609005196873"(i32 24, i64 0, i8** null, i64 0, i8** null, i64 0, i8** null, i64 0, i64* null, %"class.std::__1::basic_string"* null, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, i64 0, i64* null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, %"class.std::__1::basic_string"** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, %"class.std::__1::basic_string"* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i64* null, i32 0, i32* null, %"class.std::__1::__wrap_iter"* null, i8* null, %"class.std::__1::__wrap_iter"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8* null, %"class.std::__1::__wrap_iter"** null, %"class.std::__1::__wrap_iter"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8** null, i64 0, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::__compressed_pair"* %215, %"struct.std::__1::basic_string<char>::__rep"** %216, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i1* null, %"class.std::__1::basic_string"* null, i32* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i64* null, i32 0, i32* null)
-  %217 = load %"struct.std::__1::basic_string<char>::__rep"*, %"struct.std::__1::basic_string<char>::__rep"** %216, align 8
-  %218 = bitcast %"struct.std::__1::basic_string<char>::__rep"* %217 to %"struct.std::__1::basic_string<char>::__short"*
-  %219 = getelementptr inbounds %"struct.std::__1::basic_string<char>::__short", %"struct.std::__1::basic_string<char>::__short"* %218, i64 0, i32 1, i32 0
-  %220 = load i8, i8* %219, align 1, !tbaa !14
-  %221 = icmp slt i8 %220, 0
-  store i1 %221, i1* %67, align 1
-  ret void
-
-222:                                              ; preds = %79
-  %223 = alloca %"class.std::__1::__wrap_iter", align 8
-  %224 = alloca %"class.std::__1::__wrap_iter", align 8
-  %225 = bitcast %"class.std::__1::__wrap_iter"* %223 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %225) #19
-  %226 = alloca i64, align 8
-  call void @"10609409609005196873"(i32 34, i64 0, i8** null, i64 0, i8** null, i64 0, i8** null, i64 0, i64* null, %"class.std::__1::basic_string"* null, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, i64 0, i64* null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, %"class.std::__1::basic_string"** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, %"class.std::__1::basic_string"* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i64* null, i32 0, i32* null, %"class.std::__1::__wrap_iter"* null, i8* null, %"class.std::__1::__wrap_iter"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8* null, %"class.std::__1::__wrap_iter"** null, %"class.std::__1::__wrap_iter"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8** null, i64 0, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i1* null, %"class.std::__1::basic_string"* null, i32* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* %68, i64* %226, i32 0, i32* null)
-  %227 = load i64, i64* %226, align 8
-  %228 = getelementptr inbounds %"class.std::__1::__wrap_iter", %"class.std::__1::__wrap_iter"* %223, i64 0, i32 0
-  %229 = inttoptr i64 %227 to i8*
-  store i8* %229, i8** %228, align 8
-  %230 = bitcast %"class.std::__1::__wrap_iter"* %224 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %230) #19
-  %231 = alloca i64, align 8
-  call void @"10609409609005196873"(i32 28, i64 0, i8** null, i64 0, i8** null, i64 0, i8** null, i64 0, i64* null, %"class.std::__1::basic_string"* null, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, i64 0, i64* null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, %"class.std::__1::basic_string"** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, %"class.std::__1::basic_string"* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i64* null, i32 0, i32* null, %"class.std::__1::__wrap_iter"* null, i8* null, %"class.std::__1::__wrap_iter"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8* null, %"class.std::__1::__wrap_iter"** null, %"class.std::__1::__wrap_iter"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8** null, i64 0, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, %"class.std::__1::basic_string"* %68, i64* %231, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i1* null, %"class.std::__1::basic_string"* null, i32* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i64* null, i32 0, i32* null)
-  %232 = load i64, i64* %231, align 8
-  %233 = getelementptr inbounds %"class.std::__1::__wrap_iter", %"class.std::__1::__wrap_iter"* %224, i64 0, i32 0
-  %234 = inttoptr i64 %232 to i8*
-  store i8* %234, i8** %233, align 8
-  %235 = alloca i1, align 1
-  call void @"10609409609005196873"(i32 27, i64 0, i8** null, i64 0, i8** null, i64 0, i8** null, i64 0, i64* null, %"class.std::__1::basic_string"* null, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, i64 0, i64* null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, %"class.std::__1::basic_string"** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, %"class.std::__1::basic_string"* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i64* null, i32 0, i32* null, %"class.std::__1::__wrap_iter"* null, i8* null, %"class.std::__1::__wrap_iter"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8* null, %"class.std::__1::__wrap_iter"** null, %"class.std::__1::__wrap_iter"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8** null, i64 0, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* %223, %"class.std::__1::__wrap_iter"* %224, i1* %235, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i1* null, %"class.std::__1::basic_string"* null, i32* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i64* null, i32 0, i32* null)
-  %236 = load i1, i1* %235, align 1
-  br i1 %236, label %239, label %237
-
-237:                                              ; preds = %239, %222
-  %238 = phi i32 [ 0, %222 ], [ %245, %239 ]
-  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %230) #19
-  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %225) #19
-  store i32 %238, i32* %69, align 4
-  ret void
-
-239:                                              ; preds = %239, %222
-  %240 = phi i32 [ %245, %239 ], [ 0, %222 ]
-  %241 = alloca i8*, align 8
-  call void @"10609409609005196873"(i32 20, i64 0, i8** null, i64 0, i8** null, i64 0, i8** null, i64 0, i64* null, %"class.std::__1::basic_string"* null, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, i64 0, i64* null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, %"class.std::__1::basic_string"** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, %"class.std::__1::basic_string"* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i64* null, i32 0, i32* null, %"class.std::__1::__wrap_iter"* null, i8* null, %"class.std::__1::__wrap_iter"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8* null, %"class.std::__1::__wrap_iter"** null, %"class.std::__1::__wrap_iter"* %223, i8** %241, %"class.std::__1::__wrap_iter"* null, i8** null, i64 0, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i1* null, %"class.std::__1::basic_string"* null, i32* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i64* null, i32 0, i32* null)
-  %242 = load i8*, i8** %241, align 8
-  %243 = load i8, i8* %242, align 1, !tbaa !14
-  %244 = sext i8 %243 to i32
-  %245 = add nsw i32 %240, %244
-  call fastcc void @_ZNSt3__111__wrap_iterIPKcEppEv(%"class.std::__1::__wrap_iter"* nonnull %223) #19
-  %246 = alloca i1, align 1
-  call void @"10609409609005196873"(i32 27, i64 0, i8** null, i64 0, i8** null, i64 0, i8** null, i64 0, i64* null, %"class.std::__1::basic_string"* null, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, i64 0, i64* null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, %"class.std::__1::basic_string"** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, %"class.std::__1::basic_string"* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i64* null, i32 0, i32* null, %"class.std::__1::__wrap_iter"* null, i8* null, %"class.std::__1::__wrap_iter"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8* null, %"class.std::__1::__wrap_iter"** null, %"class.std::__1::__wrap_iter"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8** null, i64 0, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* %223, %"class.std::__1::__wrap_iter"* %224, i1* %246, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i1* null, %"class.std::__1::basic_string"* null, i32* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i64* null, i32 0, i32* null)
-  %247 = load i1, i1* %246, align 1
-  br i1 %247, label %239, label %237, !llvm.loop !20
-
-248:                                              ; preds = %79
-  %249 = getelementptr inbounds %"class.std::__1::basic_string", %"class.std::__1::basic_string"* %70, i64 0, i32 0
-  %250 = alloca %"struct.std::__1::basic_string<char>::__rep"*, align 8
-  call void @"10609409609005196873"(i32 24, i64 0, i8** null, i64 0, i8** null, i64 0, i8** null, i64 0, i64* null, %"class.std::__1::basic_string"* null, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, i64 0, i64* null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, %"class.std::__1::basic_string"** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, %"class.std::__1::basic_string"* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i64* null, i32 0, i32* null, %"class.std::__1::__wrap_iter"* null, i8* null, %"class.std::__1::__wrap_iter"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8* null, %"class.std::__1::__wrap_iter"** null, %"class.std::__1::__wrap_iter"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8** null, i64 0, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::__compressed_pair"* %249, %"struct.std::__1::basic_string<char>::__rep"** %250, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i1* null, %"class.std::__1::basic_string"* null, i32* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i64* null, i32 0, i32* null)
-  %251 = load %"struct.std::__1::basic_string<char>::__rep"*, %"struct.std::__1::basic_string<char>::__rep"** %250, align 8
-  %252 = bitcast %"struct.std::__1::basic_string<char>::__rep"* %251 to i8*
-  store i8* %252, i8** %71, align 8
-  ret void
-
-253:                                              ; preds = %79
-  %254 = alloca %"class.std::__1::basic_string"*, align 8
-  call void @"10609409609005196873"(i32 29, i64 0, i8** null, i64 0, i8** null, i64 0, i8** null, i64 0, i64* null, %"class.std::__1::basic_string"* null, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, i64 0, i64* null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, %"class.std::__1::basic_string"** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, %"class.std::__1::basic_string"* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i64* null, i32 0, i32* null, %"class.std::__1::__wrap_iter"* null, i8* null, %"class.std::__1::__wrap_iter"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8* null, %"class.std::__1::__wrap_iter"** null, %"class.std::__1::__wrap_iter"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8** null, i64 0, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* %72, i8* %73, %"class.std::__1::basic_string"** %254, %"class.std::__1::basic_string"* null, i1* null, %"class.std::__1::basic_string"* null, i32* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i64* null, i32 0, i32* null)
-  %255 = load %"class.std::__1::basic_string"*, %"class.std::__1::basic_string"** %254, align 8
-  store %"class.std::__1::basic_string"* %72, %"class.std::__1::basic_string"** %74, align 8
-  ret void
-
-256:                                              ; preds = %79
-  %257 = alloca %"class.std::__1::__wrap_iter", align 8
-  %258 = alloca i8*, align 8
-  call void @"10609409609005196873"(i32 18, i64 0, i8** null, i64 0, i8** null, i64 0, i8** null, i64 0, i64* null, %"class.std::__1::basic_string"* null, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, i64 0, i64* null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, %"class.std::__1::basic_string"** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, %"class.std::__1::basic_string"* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i64* null, i32 0, i32* null, %"class.std::__1::__wrap_iter"* null, i8* null, %"class.std::__1::__wrap_iter"** null, %"class.std::__1::basic_string"* %75, i8** %258, %"class.std::__1::__wrap_iter"* null, i8* null, %"class.std::__1::__wrap_iter"** null, %"class.std::__1::__wrap_iter"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8** null, i64 0, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i1* null, %"class.std::__1::basic_string"* null, i32* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i64* null, i32 0, i32* null)
-  %259 = load i8*, i8** %258, align 8
-  %260 = alloca %"class.std::__1::__wrap_iter"*, align 8
-  call void @"10609409609005196873"(i32 19, i64 0, i8** null, i64 0, i8** null, i64 0, i8** null, i64 0, i64* null, %"class.std::__1::basic_string"* null, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, i64 0, i64* null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, %"class.std::__1::basic_string"** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, %"class.std::__1::basic_string"* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i64* null, i32 0, i32* null, %"class.std::__1::__wrap_iter"* null, i8* null, %"class.std::__1::__wrap_iter"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* %257, i8* %259, %"class.std::__1::__wrap_iter"** %260, %"class.std::__1::__wrap_iter"* null, i8** null, %"class.std::__1::__wrap_iter"* null, i8** null, i64 0, i8** null, %"struct.std::__1::__compressed_pair_elem"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::__compressed_pair"* null, %"struct.std::__1::basic_string<char>::__rep"** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::__wrap_iter"* null, %"class.std::__1::__wrap_iter"* null, i1* null, %"class.std::__1::basic_string"* null, i64* null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i1* null, %"class.std::__1::basic_string"* null, i32* null, %"class.std::__1::basic_string"* null, i8** null, %"class.std::__1::basic_string"* null, i8* null, %"class.std::__1::basic_string"** null, %"class.std::__1::basic_string"* null, i64* null, i32 0, i32* null)
-  %261 = load %"class.std::__1::__wrap_iter"*, %"class.std::__1::__wrap_iter"** %260, align 8
-  %262 = getelementptr inbounds %"class.std::__1::__wrap_iter", %"class.std::__1::__wrap_iter"* %257, i64 0, i32 0
-  %263 = load i8*, i8** %262, align 8
-  %264 = ptrtoint i8* %263 to i64
-  store i64 %264, i64* %76, align 8
-  ret void
-
-265:                                              ; preds = %79
-  %266 = shl nsw i32 %77, 1
-  store i32 %266, i32* %78, align 4
+135:                                              ; preds = %37
+  %136 = shl nsw i32 %35, 1
+  store i32 %136, i32* %36, align 4
   ret void
 }
 
 attributes #0 = { mustprogress norecurse ssp uwtable "frame-pointer"="non-leaf" "min-legal-vector-width"="0" "no-trapping-math"="true" "probe-stack"="__chkstk_darwin" "stack-protector-buffer-size"="8" "target-cpu"="apple-m1" "target-features"="+aes,+crc,+crypto,+dotprod,+fp-armv8,+fp16fml,+fullfp16,+lse,+neon,+ras,+rcpc,+rdm,+sha2,+sha3,+sm4,+v8.5a,+zcm,+zcz" }
 attributes #1 = { argmemonly nocallback nofree nosync nounwind willreturn }
-attributes #2 = { mustprogress nofree nounwind readonly willreturn "frame-pointer"="non-leaf" "no-trapping-math"="true" "probe-stack"="__chkstk_darwin" "stack-protector-buffer-size"="8" "target-cpu"="apple-m1" "target-features"="+aes,+crc,+crypto,+dotprod,+fp-armv8,+fp16fml,+fullfp16,+lse,+neon,+ras,+rcpc,+rdm,+sha2,+sha3,+sm4,+v8.5a,+zcm,+zcz" }
-attributes #3 = { inlinehint nounwind ssp uwtable "frame-pointer"="non-leaf" "min-legal-vector-width"="0" "no-trapping-math"="true" "probe-stack"="__chkstk_darwin" "stack-protector-buffer-size"="8" "target-cpu"="apple-m1" "target-features"="+aes,+crc,+crypto,+dotprod,+fp-armv8,+fp16fml,+fullfp16,+lse,+neon,+ras,+rcpc,+rdm,+sha2,+sha3,+sm4,+v8.5a,+zcm,+zcz" }
-attributes #4 = { mustprogress nounwind ssp uwtable "frame-pointer"="non-leaf" "min-legal-vector-width"="0" "no-trapping-math"="true" "probe-stack"="__chkstk_darwin" "stack-protector-buffer-size"="8" "target-cpu"="apple-m1" "target-features"="+aes,+crc,+crypto,+dotprod,+fp-armv8,+fp16fml,+fullfp16,+lse,+neon,+ras,+rcpc,+rdm,+sha2,+sha3,+sm4,+v8.5a,+zcm,+zcz" }
-attributes #5 = { mustprogress nofree norecurse nosync nounwind ssp willreturn uwtable "frame-pointer"="non-leaf" "min-legal-vector-width"="0" "no-trapping-math"="true" "probe-stack"="__chkstk_darwin" "stack-protector-buffer-size"="8" "target-cpu"="apple-m1" "target-features"="+aes,+crc,+crypto,+dotprod,+fp-armv8,+fp16fml,+fullfp16,+lse,+neon,+ras,+rcpc,+rdm,+sha2,+sha3,+sm4,+v8.5a,+zcm,+zcz" }
-attributes #6 = { "frame-pointer"="non-leaf" "no-trapping-math"="true" "probe-stack"="__chkstk_darwin" "stack-protector-buffer-size"="8" "target-cpu"="apple-m1" "target-features"="+aes,+crc,+crypto,+dotprod,+fp-armv8,+fp16fml,+fullfp16,+lse,+neon,+ras,+rcpc,+rdm,+sha2,+sha3,+sm4,+v8.5a,+zcm,+zcz" }
-attributes #7 = { mustprogress nofree norecurse nosync nounwind ssp writeonly uwtable "frame-pointer"="non-leaf" "min-legal-vector-width"="0" "no-trapping-math"="true" "probe-stack"="__chkstk_darwin" "stack-protector-buffer-size"="8" "target-cpu"="apple-m1" "target-features"="+aes,+crc,+crypto,+dotprod,+fp-armv8,+fp16fml,+fullfp16,+lse,+neon,+ras,+rcpc,+rdm,+sha2,+sha3,+sm4,+v8.5a,+zcm,+zcz" }
-attributes #8 = { inlinehint mustprogress nounwind ssp uwtable "frame-pointer"="non-leaf" "min-legal-vector-width"="0" "no-trapping-math"="true" "probe-stack"="__chkstk_darwin" "stack-protector-buffer-size"="8" "target-cpu"="apple-m1" "target-features"="+aes,+crc,+crypto,+dotprod,+fp-armv8,+fp16fml,+fullfp16,+lse,+neon,+ras,+rcpc,+rdm,+sha2,+sha3,+sm4,+v8.5a,+zcm,+zcz" }
-attributes #9 = { nobuiltin nounwind "frame-pointer"="non-leaf" "no-trapping-math"="true" "probe-stack"="__chkstk_darwin" "stack-protector-buffer-size"="8" "target-cpu"="apple-m1" "target-features"="+aes,+crc,+crypto,+dotprod,+fp-armv8,+fp16fml,+fullfp16,+lse,+neon,+ras,+rcpc,+rdm,+sha2,+sha3,+sm4,+v8.5a,+zcm,+zcz" }
-attributes #10 = { inlinehint mustprogress ssp uwtable "frame-pointer"="non-leaf" "min-legal-vector-width"="0" "no-trapping-math"="true" "probe-stack"="__chkstk_darwin" "stack-protector-buffer-size"="8" "target-cpu"="apple-m1" "target-features"="+aes,+crc,+crypto,+dotprod,+fp-armv8,+fp16fml,+fullfp16,+lse,+neon,+ras,+rcpc,+rdm,+sha2,+sha3,+sm4,+v8.5a,+zcm,+zcz" }
-attributes #11 = { mustprogress noreturn ssp uwtable "frame-pointer"="non-leaf" "min-legal-vector-width"="0" "no-trapping-math"="true" "probe-stack"="__chkstk_darwin" "stack-protector-buffer-size"="8" "target-cpu"="apple-m1" "target-features"="+aes,+crc,+crypto,+dotprod,+fp-armv8,+fp16fml,+fullfp16,+lse,+neon,+ras,+rcpc,+rdm,+sha2,+sha3,+sm4,+v8.5a,+zcm,+zcz" }
-attributes #12 = { mustprogress nofree norecurse nosync nounwind ssp willreturn writeonly uwtable "frame-pointer"="non-leaf" "min-legal-vector-width"="0" "no-trapping-math"="true" "probe-stack"="__chkstk_darwin" "stack-protector-buffer-size"="8" "target-cpu"="apple-m1" "target-features"="+aes,+crc,+crypto,+dotprod,+fp-armv8,+fp16fml,+fullfp16,+lse,+neon,+ras,+rcpc,+rdm,+sha2,+sha3,+sm4,+v8.5a,+zcm,+zcz" }
-attributes #13 = { noreturn "frame-pointer"="non-leaf" "no-trapping-math"="true" "probe-stack"="__chkstk_darwin" "stack-protector-buffer-size"="8" "target-cpu"="apple-m1" "target-features"="+aes,+crc,+crypto,+dotprod,+fp-armv8,+fp16fml,+fullfp16,+lse,+neon,+ras,+rcpc,+rdm,+sha2,+sha3,+sm4,+v8.5a,+zcm,+zcz" }
-attributes #14 = { nobuiltin allocsize(0) "frame-pointer"="non-leaf" "no-trapping-math"="true" "probe-stack"="__chkstk_darwin" "stack-protector-buffer-size"="8" "target-cpu"="apple-m1" "target-features"="+aes,+crc,+crypto,+dotprod,+fp-armv8,+fp16fml,+fullfp16,+lse,+neon,+ras,+rcpc,+rdm,+sha2,+sha3,+sm4,+v8.5a,+zcm,+zcz" }
-attributes #15 = { argmemonly nocallback nofree nounwind willreturn }
-attributes #16 = { argmemonly mustprogress nofree nounwind readonly willreturn "frame-pointer"="non-leaf" "no-trapping-math"="true" "probe-stack"="__chkstk_darwin" "stack-protector-buffer-size"="8" "target-cpu"="apple-m1" "target-features"="+aes,+crc,+crypto,+dotprod,+fp-armv8,+fp16fml,+fullfp16,+lse,+neon,+ras,+rcpc,+rdm,+sha2,+sha3,+sm4,+v8.5a,+zcm,+zcz" }
-attributes #17 = { argmemonly nocallback nofree nounwind willreturn writeonly }
-attributes #18 = { "frame-pointer"="non-leaf" "min-legal-vector-width"="0" "no-trapping-math"="true" "probe-stack"="__chkstk_darwin" "stack-protector-buffer-size"="8" "target-cpu"="apple-m1" "target-features"="+aes,+crc,+crypto,+dotprod,+fp-armv8,+fp16fml,+fullfp16,+lse,+neon,+ras,+rcpc,+rdm,+sha2,+sha3,+sm4,+v8.5a,+zcm,+zcz" }
-attributes #19 = { nounwind }
-attributes #20 = { builtin nounwind }
-attributes #21 = { noreturn }
-attributes #22 = { builtin allocsize(0) }
+attributes #2 = { mustprogress nofree norecurse nosync nounwind readnone ssp willreturn uwtable "frame-pointer"="non-leaf" "min-legal-vector-width"="0" "no-trapping-math"="true" "probe-stack"="__chkstk_darwin" "stack-protector-buffer-size"="8" "target-cpu"="apple-m1" "target-features"="+aes,+crc,+crypto,+dotprod,+fp-armv8,+fp16fml,+fullfp16,+lse,+neon,+ras,+rcpc,+rdm,+sha2,+sha3,+sm4,+v8.5a,+zcm,+zcz" }
+attributes #3 = { mustprogress nofree nounwind readonly willreturn "frame-pointer"="non-leaf" "no-trapping-math"="true" "probe-stack"="__chkstk_darwin" "stack-protector-buffer-size"="8" "target-cpu"="apple-m1" "target-features"="+aes,+crc,+crypto,+dotprod,+fp-armv8,+fp16fml,+fullfp16,+lse,+neon,+ras,+rcpc,+rdm,+sha2,+sha3,+sm4,+v8.5a,+zcm,+zcz" }
+attributes #4 = { norecurse ssp uwtable "frame-pointer"="non-leaf" "min-legal-vector-width"="0" "no-trapping-math"="true" "probe-stack"="__chkstk_darwin" "stack-protector-buffer-size"="8" "target-cpu"="apple-m1" "target-features"="+aes,+crc,+crypto,+dotprod,+fp-armv8,+fp16fml,+fullfp16,+lse,+neon,+ras,+rcpc,+rdm,+sha2,+sha3,+sm4,+v8.5a,+zcm,+zcz" }
+attributes #5 = { mustprogress nofree norecurse nosync nounwind readonly ssp willreturn uwtable "frame-pointer"="non-leaf" "min-legal-vector-width"="0" "no-trapping-math"="true" "probe-stack"="__chkstk_darwin" "stack-protector-buffer-size"="8" "target-cpu"="apple-m1" "target-features"="+aes,+crc,+crypto,+dotprod,+fp-armv8,+fp16fml,+fullfp16,+lse,+neon,+ras,+rcpc,+rdm,+sha2,+sha3,+sm4,+v8.5a,+zcm,+zcz" }
+attributes #6 = { inlinehint nounwind ssp uwtable "frame-pointer"="non-leaf" "min-legal-vector-width"="0" "no-trapping-math"="true" "probe-stack"="__chkstk_darwin" "stack-protector-buffer-size"="8" "target-cpu"="apple-m1" "target-features"="+aes,+crc,+crypto,+dotprod,+fp-armv8,+fp16fml,+fullfp16,+lse,+neon,+ras,+rcpc,+rdm,+sha2,+sha3,+sm4,+v8.5a,+zcm,+zcz" }
+attributes #7 = { mustprogress nounwind ssp uwtable "frame-pointer"="non-leaf" "min-legal-vector-width"="0" "no-trapping-math"="true" "probe-stack"="__chkstk_darwin" "stack-protector-buffer-size"="8" "target-cpu"="apple-m1" "target-features"="+aes,+crc,+crypto,+dotprod,+fp-armv8,+fp16fml,+fullfp16,+lse,+neon,+ras,+rcpc,+rdm,+sha2,+sha3,+sm4,+v8.5a,+zcm,+zcz" }
+attributes #8 = { mustprogress nofree norecurse nosync nounwind ssp uwtable "frame-pointer"="non-leaf" "min-legal-vector-width"="0" "no-trapping-math"="true" "probe-stack"="__chkstk_darwin" "stack-protector-buffer-size"="8" "target-cpu"="apple-m1" "target-features"="+aes,+crc,+crypto,+dotprod,+fp-armv8,+fp16fml,+fullfp16,+lse,+neon,+ras,+rcpc,+rdm,+sha2,+sha3,+sm4,+v8.5a,+zcm,+zcz" }
+attributes #9 = { mustprogress nofree norecurse nosync nounwind ssp willreturn uwtable "frame-pointer"="non-leaf" "min-legal-vector-width"="0" "no-trapping-math"="true" "probe-stack"="__chkstk_darwin" "stack-protector-buffer-size"="8" "target-cpu"="apple-m1" "target-features"="+aes,+crc,+crypto,+dotprod,+fp-armv8,+fp16fml,+fullfp16,+lse,+neon,+ras,+rcpc,+rdm,+sha2,+sha3,+sm4,+v8.5a,+zcm,+zcz" }
+attributes #10 = { mustprogress nofree norecurse nosync nounwind ssp willreturn writeonly uwtable "frame-pointer"="non-leaf" "min-legal-vector-width"="0" "no-trapping-math"="true" "probe-stack"="__chkstk_darwin" "stack-protector-buffer-size"="8" "target-cpu"="apple-m1" "target-features"="+aes,+crc,+crypto,+dotprod,+fp-armv8,+fp16fml,+fullfp16,+lse,+neon,+ras,+rcpc,+rdm,+sha2,+sha3,+sm4,+v8.5a,+zcm,+zcz" }
+attributes #11 = { inlinehint nofree norecurse nosync nounwind ssp writeonly uwtable "frame-pointer"="non-leaf" "min-legal-vector-width"="0" "no-trapping-math"="true" "probe-stack"="__chkstk_darwin" "stack-protector-buffer-size"="8" "target-cpu"="apple-m1" "target-features"="+aes,+crc,+crypto,+dotprod,+fp-armv8,+fp16fml,+fullfp16,+lse,+neon,+ras,+rcpc,+rdm,+sha2,+sha3,+sm4,+v8.5a,+zcm,+zcz" }
+attributes #12 = { "frame-pointer"="non-leaf" "no-trapping-math"="true" "probe-stack"="__chkstk_darwin" "stack-protector-buffer-size"="8" "target-cpu"="apple-m1" "target-features"="+aes,+crc,+crypto,+dotprod,+fp-armv8,+fp16fml,+fullfp16,+lse,+neon,+ras,+rcpc,+rdm,+sha2,+sha3,+sm4,+v8.5a,+zcm,+zcz" }
+attributes #13 = { mustprogress nofree norecurse nosync nounwind ssp writeonly uwtable "frame-pointer"="non-leaf" "min-legal-vector-width"="0" "no-trapping-math"="true" "probe-stack"="__chkstk_darwin" "stack-protector-buffer-size"="8" "target-cpu"="apple-m1" "target-features"="+aes,+crc,+crypto,+dotprod,+fp-armv8,+fp16fml,+fullfp16,+lse,+neon,+ras,+rcpc,+rdm,+sha2,+sha3,+sm4,+v8.5a,+zcm,+zcz" }
+attributes #14 = { inlinehint mustprogress nounwind ssp uwtable "frame-pointer"="non-leaf" "min-legal-vector-width"="0" "no-trapping-math"="true" "probe-stack"="__chkstk_darwin" "stack-protector-buffer-size"="8" "target-cpu"="apple-m1" "target-features"="+aes,+crc,+crypto,+dotprod,+fp-armv8,+fp16fml,+fullfp16,+lse,+neon,+ras,+rcpc,+rdm,+sha2,+sha3,+sm4,+v8.5a,+zcm,+zcz" }
+attributes #15 = { nobuiltin nounwind "frame-pointer"="non-leaf" "no-trapping-math"="true" "probe-stack"="__chkstk_darwin" "stack-protector-buffer-size"="8" "target-cpu"="apple-m1" "target-features"="+aes,+crc,+crypto,+dotprod,+fp-armv8,+fp16fml,+fullfp16,+lse,+neon,+ras,+rcpc,+rdm,+sha2,+sha3,+sm4,+v8.5a,+zcm,+zcz" }
+attributes #16 = { inlinehint mustprogress ssp uwtable "frame-pointer"="non-leaf" "min-legal-vector-width"="0" "no-trapping-math"="true" "probe-stack"="__chkstk_darwin" "stack-protector-buffer-size"="8" "target-cpu"="apple-m1" "target-features"="+aes,+crc,+crypto,+dotprod,+fp-armv8,+fp16fml,+fullfp16,+lse,+neon,+ras,+rcpc,+rdm,+sha2,+sha3,+sm4,+v8.5a,+zcm,+zcz" }
+attributes #17 = { mustprogress noreturn ssp uwtable "frame-pointer"="non-leaf" "min-legal-vector-width"="0" "no-trapping-math"="true" "probe-stack"="__chkstk_darwin" "stack-protector-buffer-size"="8" "target-cpu"="apple-m1" "target-features"="+aes,+crc,+crypto,+dotprod,+fp-armv8,+fp16fml,+fullfp16,+lse,+neon,+ras,+rcpc,+rdm,+sha2,+sha3,+sm4,+v8.5a,+zcm,+zcz" }
+attributes #18 = { mustprogress ssp uwtable "frame-pointer"="non-leaf" "min-legal-vector-width"="0" "no-trapping-math"="true" "probe-stack"="__chkstk_darwin" "stack-protector-buffer-size"="8" "target-cpu"="apple-m1" "target-features"="+aes,+crc,+crypto,+dotprod,+fp-armv8,+fp16fml,+fullfp16,+lse,+neon,+ras,+rcpc,+rdm,+sha2,+sha3,+sm4,+v8.5a,+zcm,+zcz" }
+attributes #19 = { noreturn "frame-pointer"="non-leaf" "no-trapping-math"="true" "probe-stack"="__chkstk_darwin" "stack-protector-buffer-size"="8" "target-cpu"="apple-m1" "target-features"="+aes,+crc,+crypto,+dotprod,+fp-armv8,+fp16fml,+fullfp16,+lse,+neon,+ras,+rcpc,+rdm,+sha2,+sha3,+sm4,+v8.5a,+zcm,+zcz" }
+attributes #20 = { nobuiltin allocsize(0) "frame-pointer"="non-leaf" "no-trapping-math"="true" "probe-stack"="__chkstk_darwin" "stack-protector-buffer-size"="8" "target-cpu"="apple-m1" "target-features"="+aes,+crc,+crypto,+dotprod,+fp-armv8,+fp16fml,+fullfp16,+lse,+neon,+ras,+rcpc,+rdm,+sha2,+sha3,+sm4,+v8.5a,+zcm,+zcz" }
+attributes #21 = { argmemonly nocallback nofree nounwind willreturn }
+attributes #22 = { argmemonly mustprogress nofree nounwind readonly willreturn "frame-pointer"="non-leaf" "no-trapping-math"="true" "probe-stack"="__chkstk_darwin" "stack-protector-buffer-size"="8" "target-cpu"="apple-m1" "target-features"="+aes,+crc,+crypto,+dotprod,+fp-armv8,+fp16fml,+fullfp16,+lse,+neon,+ras,+rcpc,+rdm,+sha2,+sha3,+sm4,+v8.5a,+zcm,+zcz" }
+attributes #23 = { argmemonly nocallback nofree nounwind willreturn writeonly }
+attributes #24 = { "frame-pointer"="non-leaf" "min-legal-vector-width"="0" "no-trapping-math"="true" "probe-stack"="__chkstk_darwin" "stack-protector-buffer-size"="8" "target-cpu"="apple-m1" "target-features"="+aes,+crc,+crypto,+dotprod,+fp-armv8,+fp16fml,+fullfp16,+lse,+neon,+ras,+rcpc,+rdm,+sha2,+sha3,+sm4,+v8.5a,+zcm,+zcz" }
+attributes #25 = { nounwind }
+attributes #26 = { builtin nounwind }
+attributes #27 = { noreturn }
+attributes #28 = { builtin allocsize(0) }
 
 !llvm.module.flags = !{!0, !1, !2, !3, !4, !5, !6, !7, !8}
 !llvm.ident = !{!9}
@@ -817,7 +966,7 @@ attributes #22 = { builtin allocsize(0) }
 !14 = !{!12, !12, i64 0}
 !15 = distinct !{!15, !16}
 !16 = !{!"llvm.loop.unroll.disable"}
-!17 = !{!18, !19, i64 0}
-!18 = !{!"_ZTSNSt3__111__wrap_iterIPKcEE", !19, i64 0}
-!19 = !{!"any pointer", !12, i64 0}
-!20 = distinct !{!20, !16}
+!17 = distinct !{!17, !16}
+!18 = !{!19, !20, i64 0}
+!19 = !{!"_ZTSNSt3__111__wrap_iterIPKcEE", !20, i64 0}
+!20 = !{!"any pointer", !12, i64 0}

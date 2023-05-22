@@ -94,9 +94,9 @@ define i32 @clear(i8* %0, i64 %1, float* %2, i64 %3) local_unnamed_addr #1 {
   br i1 %11, label %14, label %12
 
 12:                                               ; preds = %8
-  call void @llvm.memset.p0i8.i64(i8* noundef nonnull align 1 dereferenceable(1760) %0, i8 32, i64 1760, i1 false) #10
+  call void @llvm.memset.p0i8.i64(i8* noundef nonnull align 1 dereferenceable(1760) %0, i8 32, i64 1760, i1 false) #11
   %13 = bitcast float* %2 to i8*
-  call void @llvm.memset.p0i8.i64(i8* noundef nonnull align 1 dereferenceable(7040) %13, i8 0, i64 7040, i1 false) #10
+  call void @llvm.memset.p0i8.i64(i8* noundef nonnull align 1 dereferenceable(7040) %13, i8 0, i64 7040, i1 false) #11
   br label %14
 
 14:                                               ; preds = %12, %8, %4
@@ -111,35 +111,35 @@ define i32 @main() local_unnamed_addr #4 {
   %3 = alloca [1760 x float], align 4
   %4 = alloca [1760 x i8], align 1
   %5 = bitcast float* %1 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 4, i8* nonnull %5) #10
+  call void @llvm.lifetime.start.p0i8(i64 4, i8* nonnull %5) #11
   store float 0.000000e+00, float* %1, align 4, !tbaa !10
   %6 = bitcast float* %2 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 4, i8* nonnull %6) #10
+  call void @llvm.lifetime.start.p0i8(i64 4, i8* nonnull %6) #11
   store float 0.000000e+00, float* %2, align 4, !tbaa !10
   %7 = bitcast [1760 x float]* %3 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 7040, i8* nonnull %7) #10
+  call void @llvm.lifetime.start.p0i8(i64 7040, i8* nonnull %7) #11
   %8 = getelementptr inbounds [1760 x i8], [1760 x i8]* %4, i64 0, i64 0
-  call void @llvm.lifetime.start.p0i8(i64 1760, i8* nonnull %8) #10
+  call void @llvm.lifetime.start.p0i8(i64 1760, i8* nonnull %8) #11
   %9 = call i32 (i8*, ...) @printf(i8* nonnull dereferenceable(1) getelementptr inbounds ([5 x i8], [5 x i8]* @.str.1, i64 0, i64 0))
   %10 = getelementptr inbounds [1760 x float], [1760 x float]* %3, i64 0, i64 0
   %11 = alloca i32, align 4
-  call void @"10326168725417349201"(i32 1, float 0.000000e+00, float* null, float* null, i8* null, float* null, i32* null, float* %1, float* %2, i8* %8, float* %10, i32* %11)
+  call void @"9692062751272519078"(i32 1, float 0.000000e+00, float* null, float* null, i8* null, float* null, i32* null, float* %1, float* %2, i8* %8, float* %10, i32* %11)
   %12 = load i32, i32* %11, align 4
   %13 = icmp eq i32 %12, 0
   br i1 %13, label %16, label %14
 
 14:                                               ; preds = %16, %0
   %15 = phi i32 [ %12, %0 ], [ %18, %16 ]
-  call void @llvm.lifetime.end.p0i8(i64 1760, i8* nonnull %8) #10
-  call void @llvm.lifetime.end.p0i8(i64 7040, i8* nonnull %7) #10
-  call void @llvm.lifetime.end.p0i8(i64 4, i8* nonnull %6) #10
-  call void @llvm.lifetime.end.p0i8(i64 4, i8* nonnull %5) #10
+  call void @llvm.lifetime.end.p0i8(i64 1760, i8* nonnull %8) #11
+  call void @llvm.lifetime.end.p0i8(i64 7040, i8* nonnull %7) #11
+  call void @llvm.lifetime.end.p0i8(i64 4, i8* nonnull %6) #11
+  call void @llvm.lifetime.end.p0i8(i64 4, i8* nonnull %5) #11
   ret i32 %15
 
 16:                                               ; preds = %16, %0
   call fastcc void @wait()
   %17 = alloca i32, align 4
-  call void @"10326168725417349201"(i32 1, float 0.000000e+00, float* null, float* null, i8* null, float* null, i32* null, float* %1, float* %2, i8* %8, float* %10, i32* %17)
+  call void @"9692062751272519078"(i32 1, float 0.000000e+00, float* null, float* null, i8* null, float* null, i32* null, float* %1, float* %2, i8* %8, float* %10, i32* %17)
   %18 = load i32, i32* %17, align 4
   %19 = icmp eq i32 %18, 0
   br i1 %19, label %16, label %14, !llvm.loop !18
@@ -148,24 +148,30 @@ define i32 @main() local_unnamed_addr #4 {
 ; Function Attrs: nofree nounwind
 declare noundef i32 @printf(i8* nocapture noundef readonly, ...) local_unnamed_addr #3
 
+; Function Attrs: nofree noinline nounwind ssp uwtable
+declare dso_local fastcc i32 @main_loop(float*, float*, i8*, float*) unnamed_addr #1
+
 ; Function Attrs: noinline nounwind ssp uwtable
 define internal fastcc void @wait() unnamed_addr #5 {
-  %1 = call i32 @"\01_usleep"(i32 30000) #10
+  %1 = call i32 @"\01_usleep"(i32 30000) #11
   ret void
 }
 
-; Function Attrs: nocallback nofree nosync nounwind readnone speculatable willreturn
-declare double @llvm.sin.f64(double) #6
+; Function Attrs: nofree noinline nosync nounwind ssp uwtable
+declare dso_local fastcc i32 @inner_loop(float, float* readonly, float* readonly, i8*, float*) unnamed_addr #6
 
 ; Function Attrs: nocallback nofree nosync nounwind readnone speculatable willreturn
-declare double @llvm.cos.f64(double) #6
+declare double @llvm.sin.f64(double) #7
 
-declare i32 @"\01_usleep"(i32) local_unnamed_addr #7
+; Function Attrs: nocallback nofree nosync nounwind readnone speculatable willreturn
+declare double @llvm.cos.f64(double) #7
+
+declare i32 @"\01_usleep"(i32) local_unnamed_addr #8
 
 ; Function Attrs: argmemonly nocallback nofree nounwind willreturn writeonly
-declare void @llvm.memset.p0i8.i64(i8* nocapture writeonly, i8, i64, i1 immarg) #8
+declare void @llvm.memset.p0i8.i64(i8* nocapture writeonly, i8, i64, i1 immarg) #9
 
-define internal fastcc void @"10326168725417349201"(i32 %0, float %1, float* %2, float* %3, i8* %4, float* %5, i32* %6, float* %7, float* %8, i8* %9, float* %10, i32* %11) unnamed_addr #9 {
+define internal fastcc void @"9692062751272519078"(i32 %0, float %1, float* %2, float* %3, i8* %4, float* %5, i32* %6, float* %7, float* %8, i8* %9, float* %10, i32* %11) unnamed_addr #10 {
   switch i32 %0, label %13 [
     i32 0, label %14
     i32 1, label %111
@@ -295,14 +301,14 @@ define internal fastcc void @"10326168725417349201"(i32 %0, float %1, float* %2,
 
 114:                                              ; preds = %111
   %115 = alloca i32, align 4
-  call void @"10326168725417349201"(i32 0, float 0.000000e+00, float* %7, float* %8, i8* %9, float* %10, i32* %115, float* null, float* null, i8* null, float* null, i32* null)
+  call void @"9692062751272519078"(i32 0, float 0.000000e+00, float* %7, float* %8, i8* %9, float* %10, i32* %115, float* null, float* null, i8* null, float* null, i32* null)
   %116 = load i32, i32* %115, align 4
   %117 = icmp eq i32 %116, 0
   br i1 %117, label %122, label %129
 
 118:                                              ; preds = %122
   %119 = alloca i32, align 4
-  call void @"10326168725417349201"(i32 0, float %126, float* %7, float* %8, i8* %9, float* %10, i32* %119, float* null, float* null, i8* null, float* null, i32* null)
+  call void @"9692062751272519078"(i32 0, float %126, float* %7, float* %8, i8* %9, float* %10, i32* %119, float* null, float* null, i8* null, float* null, i32* null)
   %120 = load i32, i32* %119, align 4
   %121 = icmp eq i32 %120, 0
   br i1 %121, label %122, label %129, !llvm.loop !22
@@ -338,11 +344,12 @@ attributes #2 = { argmemonly nocallback nofree nosync nounwind willreturn }
 attributes #3 = { nofree nounwind "frame-pointer"="non-leaf" "no-trapping-math"="true" "probe-stack"="__chkstk_darwin" "stack-protector-buffer-size"="8" "target-cpu"="apple-m1" "target-features"="+aes,+crc,+crypto,+dotprod,+fp-armv8,+fp16fml,+fullfp16,+lse,+neon,+ras,+rcpc,+rdm,+sha2,+sha3,+sm4,+v8.5a,+zcm,+zcz" }
 attributes #4 = { nounwind ssp uwtable "frame-pointer"="non-leaf" "min-legal-vector-width"="0" "no-trapping-math"="true" "probe-stack"="__chkstk_darwin" "stack-protector-buffer-size"="8" "target-cpu"="apple-m1" "target-features"="+aes,+crc,+crypto,+dotprod,+fp-armv8,+fp16fml,+fullfp16,+lse,+neon,+ras,+rcpc,+rdm,+sha2,+sha3,+sm4,+v8.5a,+zcm,+zcz" }
 attributes #5 = { noinline nounwind ssp uwtable "frame-pointer"="non-leaf" "min-legal-vector-width"="0" "no-trapping-math"="true" "probe-stack"="__chkstk_darwin" "stack-protector-buffer-size"="8" "target-cpu"="apple-m1" "target-features"="+aes,+crc,+crypto,+dotprod,+fp-armv8,+fp16fml,+fullfp16,+lse,+neon,+ras,+rcpc,+rdm,+sha2,+sha3,+sm4,+v8.5a,+zcm,+zcz" }
-attributes #6 = { nocallback nofree nosync nounwind readnone speculatable willreturn }
-attributes #7 = { "frame-pointer"="non-leaf" "no-trapping-math"="true" "probe-stack"="__chkstk_darwin" "stack-protector-buffer-size"="8" "target-cpu"="apple-m1" "target-features"="+aes,+crc,+crypto,+dotprod,+fp-armv8,+fp16fml,+fullfp16,+lse,+neon,+ras,+rcpc,+rdm,+sha2,+sha3,+sm4,+v8.5a,+zcm,+zcz" }
-attributes #8 = { argmemonly nocallback nofree nounwind willreturn writeonly }
-attributes #9 = { "frame-pointer"="non-leaf" "min-legal-vector-width"="0" "no-trapping-math"="true" "probe-stack"="__chkstk_darwin" "stack-protector-buffer-size"="8" "target-cpu"="apple-m1" "target-features"="+aes,+crc,+crypto,+dotprod,+fp-armv8,+fp16fml,+fullfp16,+lse,+neon,+ras,+rcpc,+rdm,+sha2,+sha3,+sm4,+v8.5a,+zcm,+zcz" }
-attributes #10 = { nounwind }
+attributes #6 = { nofree noinline nosync nounwind ssp uwtable "frame-pointer"="non-leaf" "min-legal-vector-width"="0" "no-trapping-math"="true" "probe-stack"="__chkstk_darwin" "stack-protector-buffer-size"="8" "target-cpu"="apple-m1" "target-features"="+aes,+crc,+crypto,+dotprod,+fp-armv8,+fp16fml,+fullfp16,+lse,+neon,+ras,+rcpc,+rdm,+sha2,+sha3,+sm4,+v8.5a,+zcm,+zcz" }
+attributes #7 = { nocallback nofree nosync nounwind readnone speculatable willreturn }
+attributes #8 = { "frame-pointer"="non-leaf" "no-trapping-math"="true" "probe-stack"="__chkstk_darwin" "stack-protector-buffer-size"="8" "target-cpu"="apple-m1" "target-features"="+aes,+crc,+crypto,+dotprod,+fp-armv8,+fp16fml,+fullfp16,+lse,+neon,+ras,+rcpc,+rdm,+sha2,+sha3,+sm4,+v8.5a,+zcm,+zcz" }
+attributes #9 = { argmemonly nocallback nofree nounwind willreturn writeonly }
+attributes #10 = { "frame-pointer"="non-leaf" "min-legal-vector-width"="0" "no-trapping-math"="true" "probe-stack"="__chkstk_darwin" "stack-protector-buffer-size"="8" "target-cpu"="apple-m1" "target-features"="+aes,+crc,+crypto,+dotprod,+fp-armv8,+fp16fml,+fullfp16,+lse,+neon,+ras,+rcpc,+rdm,+sha2,+sha3,+sm4,+v8.5a,+zcm,+zcz" }
+attributes #11 = { nounwind }
 
 !llvm.module.flags = !{!0, !1, !2, !3, !4, !5, !6, !7, !8}
 !llvm.ident = !{!9}

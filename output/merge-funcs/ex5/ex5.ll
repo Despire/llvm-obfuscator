@@ -1,5 +1,5 @@
-; ModuleID = 'input/branch-function/ex3/ex3.cpp'
-source_filename = "input/branch-function/ex3/ex3.cpp"
+; ModuleID = 'input/merge-funcs/ex5/ex5.cpp'
+source_filename = "input/merge-funcs/ex5/ex5.cpp"
 target datalayout = "e-m:o-i64:64-i128:128-n32:64-S128"
 target triple = "arm64-apple-macosx12.0.0"
 
