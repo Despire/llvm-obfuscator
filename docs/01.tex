@@ -1,7 +1,7 @@
 \section{Computer Security}
 
 When we talk about computer security, we most often talk about how to secure our data and communications from being read by a malicious actor.
-This could be achieved by having a secret key shared between two parties that a third party does not know, this branch of security is known as cryptography.
+This could be achieved by having a secret key shared between two parties that the third party does not know, this branch of security is known as cryptography.
 
 Computer security is a vast topic in itself and has many branches that focus on different areas.
 While cryptography addresses the problem of secure communication and encryption of data, 
@@ -30,7 +30,7 @@ obfuscation could be used to protect algorithms.
 
 As with cryptography, where the secret keys used have different lifetimes and will not prevent a third party from reading the data forever,
 Surreptitious Software does not guarantee that these techniques will work forever or be broken. 
-The goal is to slow down the malicious actor so that breaking these algorithms takes more time than they are willing to invest and potentially give up \cite{serr-soft-2}.
+The goal is to slow down the malicious actor so that breaking these algorithms takes more time than they are willing to invest and potentially give up \cite{serr-soft}.
 
 You may be asking yourself why would you want to store secrets in your binary that could be exploited. There is no
 judgement to this question, whatever the case is its good to know what can be used to improve the security when such
@@ -38,19 +38,15 @@ a use cases arises.
 
 \subsubsection{Examples of Surreptitious software}
 
-\section{Code Obfuscation}
-\subsection{Related work}
-talk about how there are old versions that use LLVM 3.0 or 4.0 etc...
-talk about existing solutions.
-\subsection{Writing Code Obfuscator with LLVM}
-talk about LLVM how it works what it is and how code obfuscation can be achieved with it.
+A quick glance at the following website https://patents.google.com/ with keywords, watermarking, obfuscation, tamperproofing etc... will tell us which companies use Surreptitious software.
+For example, Microsoft Inc. owns several patents related to obfuscation, watermarking \cite{ms-patent01},
+Apple Inc. owns patents on obfuscation \cite{apple-patent01}, and there are many more such examples.
+
+These are only those that are public publicly accessbile, The use-cases for Surreptitious software can range from simply
+protecting Games from being cracked to protecting Military equipment \cite{serr-soft}.
 
 
 
 
-\section{My Contribution}
 
-Nothing novel is implemented, the goal of this work was to implement common obfuscation techniques which were
-based on chapter 4 of the book ... name of book ... with some adjustmens. Also part of the goal was to
-revision implement them for newer LLVM versions 15.0
 
