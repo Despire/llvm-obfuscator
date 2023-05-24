@@ -318,7 +318,7 @@ The implementation of this would be a bit tricky at the IR level in LLVM, as the
 I've thus opted out and modified the implementation.
 
 For every function an array will be created where the addresses of each basic block within that function will be stored.
-Then, two "branch functions" will be generated that calculate the return address based on the provided arg.
+Then, two "branch functions" will be generated that calculate the return address based on the provided argument.
 
 \lstset{language=C++} % Set the language to C
 \lstset{basicstyle=\ttfamily} % Set the basic style as monospaced
@@ -476,8 +476,8 @@ int f(int64 n) {
 
 \subsection{Control Flow Flattening}
 
-This transformation pass implements two solutions for control flow flattening. The first is based on of \cite{ollvm} also
-described in Chapter 4.3.2 of \cite{ss-chpt4}, using a switch to decide which block within the switch statement should be executed next.
+This transformation pass implements two solutions for control flow flattening. The first is based on of Chapter 4.3.2 from \cite{ss-chpt4} also
+described in \cite{ollvm}, using a switch to decide which block within the switch statement should be executed next.
 
 The second is purely based on indirect branching, using aliasing to obfuscate the control flow.
 
