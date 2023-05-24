@@ -1,0 +1,42 @@
+\section{Code Obfuscation}
+
+In this paper, the focus was only on part of Surreptitious software for making static analysis of a program harder, namely code obfuscation.
+Several obfuscation methods were implemented as LLVM \footnote{LLVM is a set of compiler and toolchain technologies \url{https://llvm.org/}}
+transformation passes.
+
+The obfuscation passes work on the IR level in LLVM, this allows for the transformations to be language independent.
+Any language that has an implementation for the LLVM frontend namely Ada, C, C++, D, Delphi, Fortran, Haskell, Julia, Objective-C, Rust, and Swift
+should theoretically work with the transformation passes, it may be the case that some of these languages use LLVM constructs
+which weren't considered when implementing the passes and thus may break. The passes were tested with C, C++.
+
+Further, we also achieve platform independence as the modified IR code can then be passed to the LLVM backends, such as x86, PowerPC, ARM, and SPARC,
+to then generate code for the given type of CPU \cite{llvm-backend}.
+
+\subsection{Related work}
+
+There are many commercial available code obfuscators, such as Tigress, that support various languages. From the open-source scene
+the more known one is \textit{ollvm} which is described in \cite{ollvm}, Since it ended with LLVM version 4.0 other projects started, \cite{Hikari1, Hikari2, YANSOllvm}
+that were build upon the codebase and added new transformation passes.
+
+\subsection{My Contribution}
+
+The aim was to implement common obfuscation methods, with some modifications, which are described in \cite{ss-chpt4}.
+The LLVM passes were implemented for LLVM v15.0.7, which was the stable version at the time of start of the implementation.
+
+The following methods were implemented
+
+\begin{enumerate}
+  \setlength\itemsep{0.5pt} % Adjust the spacing between items
+  \item Basic Block Extraction
+  \item Operation Substitution
+  \item Strings Obfuscation
+  \item Opaque Predicates
+  \item Function Merging
+  \item Introduce Jump into Loop
+  \item Control Flow Flattening
+  \item Integer Literals Obfuscation
+  \item Function Call Obfuscation
+  \item Branch Function Obfuscation
+  \item Bogus Control Flow
+\end{enumerate}
+

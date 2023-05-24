@@ -447,7 +447,7 @@ bool Substitution::handlerANDVersion3(llvm::BasicBlock &BB, llvm::BinaryOperator
 bool Substitution::handlerORVersion3(llvm::BasicBlock &BB, llvm::BinaryOperator *BO, llvm::BasicBlock::iterator &BI) {
     llvm::IRBuilder<> builder(BO);
 
-    // implements a = (b OR !c) + c
+    // implements a = (b AND !c) + c
     llvm::Instruction *NewInstruction = llvm::BinaryOperator::CreateAdd(
             builder.CreateAnd(BO->getOperand(0), builder.CreateNot(BO->getOperand(1))),
             BO->getOperand(1)

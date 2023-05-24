@@ -52,7 +52,7 @@ struct Substitution : public llvm::PassInfoMixin<Substitution> {
          * With one of the below substitution, chosen at random (where r is a random value):
          * a = (b & c) | (b ^ c)
          * a = [(!b & r) | (b & !r) ^ (!c & r) |(c & !r) ] | [!(!b | !c) && (r | !r)]
-         * a = (b OR !c) + c
+         * a = (b AND !c) + c
          */
         ORHandlers[0] = &Substitution::handlerORVersion1;
         ORHandlers[1] = &Substitution::handlerORVersion2;
