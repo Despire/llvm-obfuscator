@@ -19,7 +19,7 @@ in strong control flow obfuscation.
 \subsection{Operation Substitution}
 
 Operation substitution is another simple transformation pass that substitutes an instruction into a sequence
-of instructions which ultimately end lup with the same result.
+of instructions which ultimately end up with the same result.
 
 This method is also known as Mixed Boolean-Arithmetic expressions. The MBA expressions were collected from \cite{ollvm, mba-exp} with
 some variations.
@@ -209,7 +209,7 @@ Another transformation pass that builds further upon opaque predicates. Given a 
 applies the transformation described in Figure 3 it then chooses a random block from the two split blocks
 continues to add bogus operations into it and proceeds to performer the same split transformation again on that chosen block
 
-One of the latter split blocks will be chosen as the loop latch and a branch to the former split basic block will be added,
+One of the latter split blocks will be chosen as the loop latch and a branch to the original basic block will be added,
 forming a loop from the created transformations, this process is depicted in Figure 5.
 
 \begin{figure}
@@ -302,8 +302,8 @@ uint64_t mod_inv(uint64_t x) {
 }
 \end{lstlisting}
 
-The multiplication $ odd * (mod\_inv(odd) * constant)$ will then at runtime yield the original constant. The operands of
-the multiplication have been further obfuscated by XORing them with random operations that cancel out and yield the original operand.
+The multiplication $ odd * (mod\_inv(odd) * constant)$ will at runtime yield the original constant. This core idea has been further obfuscated
+where the operands of the multiplication are XORed with random operations that cancel out and yield the original operand.
 
 The obfuscation of a constant after this transformation pass have the following structure
 
