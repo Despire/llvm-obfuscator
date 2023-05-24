@@ -2,6 +2,7 @@
 #include <unistd.h>
 #include <math.h>
 #include <string.h>
+#include <time.h>
 
 typedef int ERROR;
 
@@ -131,10 +132,21 @@ int main() {
     printf("\x1b[2J");
 
     for(;;) {
+         // Start tracking time
+        clock_t start = clock();
+
         err = main_loop(&A, &B, b, z, B_SIZE, Z_SIZE * 4);
         if (err != NIL) {
             return err;
         }
+
+        // End tracking time
+        clock_t end = clock();
+
+         // Calculate elapsed time in seconds
+        double elapsed = (double)(end - start) / CLOCKS_PER_SEC;
+
+        printf("time to render frame: %f seconds\n", elapsed);
 
         wait(WAIT_TIME);
     }

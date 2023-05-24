@@ -1,0 +1,17 @@
+\section{Future work}
+
+The implemented transformation passes can be improved upon, for example in the call obfuscation further obfuscating
+the performed call instruction, or in the control flow flattening pass, calculating the which switch statement will be executed
+next could be done via constructing a specific array, as described in Chapter 4.4.2 \cite{ss-chpt4} and calculating the value at runtime instead at compile time by
+inserting a function into the code.
+
+Further transformation passes for destroying abstractions such as classes, preventing debugging or tamper-proofing can be added.
+The transformation passes have been implemented to the best of my knowledge of LLVM, it may happen at an unexpected construct that they may break, thus
+making sure the passes don't fail on unexpected LLVM constructs, that other frontend languages may use, and hardening the passes overall.
+
+\section{Conclusion}
+Most of the obfuscation methods described in Chapter 4 of \cite{serr-soft} have been implemented, given that there already exist a few open-source obfuscation implementations
+for LLVM, that also implement some of the methods described in the book, effort was put in to distinguish the implementations in this paper from those already existing ones
+by implementing the method in a different manner, such as the indirect branching version of control flow flattening, or simply reworking the method to work differently but the
+core idea would still be there as changing it would yield a completely different transformation.
+

@@ -475,3 +475,33 @@ int f(int64 n) {
 \end{lstlisting}
 
 \subsection{Control Flow Flattening}
+
+This transformation pass implements two solutions for control flow flattening. The first is based on of \cite{ollvm} also
+described in Chapter 4.3.2 of \cite{ss-chpt4}, using a switch to decide which block within the switch statement should be executed next.
+
+The second is purely based on indirect branching, using aliasing to obfuscate the control flow.
+
+The idea of control flow flattening is to destroy the control flow of a function. Any branching, looping or jumping is
+flattened to make the original control flow hard to follow. The transformation pass is best illustrated by looking at the
+transformation in Figure 7 and Figure 8 and comparing them to the orignal flow in Figure 6.
+
+\begin{figure}[t]
+  \includegraphics[width=1\textwidth]{./images/update.pdf}
+  \caption{Original Function Flow}
+\end{figure}
+
+\begin{figure}[t]
+  \includegraphics[width=1\textwidth]{./images/update_switch.pdf}
+  \caption{Control Flow Flattening Switch}
+\end{figure}
+
+\begin{figure}[t]
+  \includegraphics[width=0.8\textwidth]{./images/update_alias.pdf}
+  \caption{Control Flow Flattening Aliasing}
+\end{figure}
+
+The former version uses an lookup array from which calculations are made to get the next block to be executed, addition,
+subtraction and modulus is used when calculating the switch case number.
+
+The latter version uses a lookup table where addresses are stored, it calculates the index of into that lookup table to get the address to which it should jump
+next.

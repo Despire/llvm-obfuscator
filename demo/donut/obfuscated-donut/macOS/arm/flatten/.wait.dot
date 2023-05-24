@@ -1,0 +1,5 @@
+digraph "CFG for 'wait' function" {
+	label="CFG for 'wait' function";
+
+	Node0x6000035e35c0 [shape=record,color="#b70d28ff", style=filled, fillcolor="#b70d2870",label="{%0:\l  %1 = call i32 @\"\\01_usleep\"(i32 30000) #10\l  ret void\l}"];
+}

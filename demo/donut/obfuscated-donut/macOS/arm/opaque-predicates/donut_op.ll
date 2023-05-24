@@ -9,7 +9,8 @@ target triple = "arm64-apple-macosx12.0.0"
 @.str = private unnamed_addr constant [13 x i8] c".,-~:;=!*#$@\00", align 1
 @CHARS = local_unnamed_addr global i8* getelementptr inbounds ([13 x i8], [13 x i8]* @.str, i64 0, i64 0), align 8
 @.str.1 = private unnamed_addr constant [5 x i8] c"\1B[2J\00", align 1
-@.str.2 = private unnamed_addr constant [4 x i8] c"\1B[H\00", align 1
+@.str.2 = private unnamed_addr constant [34 x i8] c"time to render frame: %f seconds\0A\00", align 1
+@.str.3 = private unnamed_addr constant [4 x i8] c"\1B[H\00", align 1
 
 ; Function Attrs: mustprogress nofree noinline norecurse nosync nounwind ssp willreturn uwtable
 define i32 @update(float* %0, float* %1) local_unnamed_addr #0 {
@@ -82,38 +83,38 @@ declare void @llvm.lifetime.end.p0i8(i64 immarg, i8* nocapture) #2
 
 ; Function Attrs: nofree noinline nounwind ssp uwtable
 define i32 @clear(i8* %0, i64 %1, float* %2, i64 %3) local_unnamed_addr #1 {
-  %5 = and i64 %1, 1
-  %6 = icmp eq i64 %5, 0
-  %7 = mul i64 %1, %1
-  %8 = add i64 %7, %1
-  %9 = mul i64 %8, 3
-  %10 = srem i64 %9, 2
+  %5 = icmp eq i8* %0, null
+  %6 = mul i64 %3, 2
+  %7 = mul i64 %3, 2
+  %8 = add i64 2, %7
+  %9 = mul i64 %6, %8
+  %10 = srem i64 %9, 4
   %11 = icmp eq i64 %10, 0
-  %12 = xor i1 %11, true
-  %13 = and i1 %6, %12
-  %14 = add i1 %13, %11
-  br i1 %14, label %15, label %26
+  %12 = mul i64 %3, %3
+  %13 = add i64 %12, %3
+  %14 = srem i64 %13, 2
+  %15 = icmp eq i64 %14, 0
+  %16 = and i1 %11, %15
+  %17 = xor i1 %11, %15
+  %18 = or i1 %16, %17
+  br i1 %18, label %19, label %27
 
-15:                                               ; preds = %4
-  %16 = add i64 97, 109
-  %17 = sub i64 12, 43
-  %18 = sub i64 95, 71
-  %19 = add i64 116, 121
-  %20 = mul i64 71, 103
-  %21 = sdiv i64 32, 116
-  %22 = mul i64 101, 36
-  %23 = sdiv i64 38, 118
-  %24 = sub i64 37, 99
-  %25 = mul i64 83, 104
-  br label %26
+19:                                               ; preds = %4
+  %20 = sub i64 9, 66
+  %21 = add i64 85, 18
+  %22 = mul i64 19, 126
+  %23 = sdiv i64 81, 109
+  %24 = sdiv i64 46, 32
+  %25 = sdiv i64 88, 4
+  %26 = add i64 40, 53
+  br label %27
 
-26:                                               ; preds = %4, %15
-  %27 = icmp eq i8* %0, null
+27:                                               ; preds = %4, %19
   %28 = icmp eq float* %2, null
-  %29 = select i1 %27, i1 true, i1 %28
+  %29 = select i1 %5, i1 true, i1 %28
   br i1 %29, label %36, label %30
 
-30:                                               ; preds = %26
+30:                                               ; preds = %27
   %31 = icmp ne i64 %1, 1760
   %32 = icmp ne i64 %3, 7040
   %33 = select i1 %31, i1 true, i1 %32
@@ -125,8 +126,8 @@ define i32 @clear(i8* %0, i64 %1, float* %2, i64 %3) local_unnamed_addr #1 {
   call void @llvm.memset.p0i8.i64(i8* noundef nonnull align 1 dereferenceable(7040) %35, i8 0, i64 7040, i1 false) #10
   br label %36
 
-36:                                               ; preds = %34, %30, %26
-  %37 = phi i32 [ 0, %34 ], [ 2, %26 ], [ 2, %30 ]
+36:                                               ; preds = %34, %30, %27
+  %37 = phi i32 [ 0, %34 ], [ 2, %27 ], [ 2, %30 ]
   ret i32 %37
 }
 
@@ -148,92 +149,248 @@ define i32 @main() local_unnamed_addr #4 {
   call void @llvm.lifetime.start.p0i8(i64 1760, i8* nonnull %8) #10
   %9 = call i32 (i8*, ...) @printf(i8* nonnull dereferenceable(1) getelementptr inbounds ([5 x i8], [5 x i8]* @.str.1, i64 0, i64 0))
   %10 = getelementptr inbounds [1760 x float], [1760 x float]* %3, i64 0, i64 0
-  %11 = call fastcc i32 @main_loop(float* nonnull %1, float* nonnull %2, i8* nonnull %8, float* nonnull %10)
-  %12 = icmp eq i32 %11, 0
-  br i1 %12, label %15, label %13
+  br label %11
 
-13:                                               ; preds = %15, %0
-  %14 = phi i32 [ %11, %0 ], [ %16, %15 ]
+11:                                               ; preds = %64, %0
+  %12 = phi i32 [ 0, %0 ], [ %59, %64 ]
+  %13 = call i64 @"\01_clock"() #10
+  %14 = call fastcc i32 @main_loop(float* nonnull %1, float* nonnull %2, i8* nonnull %8, float* nonnull %10)
+  %15 = icmp eq i32 %14, 0
+  %16 = mul i32 %9, 2
+  %17 = mul i32 %9, 2
+  %18 = add i32 2, %17
+  %19 = mul i32 %16, %18
+  %20 = srem i32 %19, 4
+  %21 = icmp eq i32 %20, 0
+  %22 = mul i32 %9, %9
+  %23 = add i32 %22, %9
+  %24 = srem i32 %23, 2
+  %25 = icmp eq i32 %24, 0
+  %26 = xor i1 %21, true
+  %27 = xor i1 %25, true
+  %28 = or i1 %26, %27
+  %29 = xor i1 %28, true
+  %30 = and i1 %29, true
+  %31 = xor i1 %15, true
+  %32 = or i1 %31, %30
+  %33 = xor i1 %15, true
+  %34 = and i32 %9, 1
+  %35 = icmp eq i32 %34, 1
+  %36 = mul i32 %9, %9
+  %37 = add i32 %36, %9
+  %38 = srem i32 %37, 2
+  %39 = icmp eq i32 %38, 0
+  %40 = and i1 %35, %39
+  %41 = xor i1 %35, %39
+  %42 = or i1 %40, %41
+  br i1 %42, label %43, label %50
+
+43:                                               ; preds = %11
+  %44 = sdiv i32 74, 68
+  %45 = sub i32 99, 99
+  %46 = add i32 82, 86
+  %47 = sdiv i32 75, 83
+  %48 = sub i32 71, 32
+  %49 = sub i32 83, 47
+  br label %50
+
+50:                                               ; preds = %11, %43
+  %51 = sub i1 %32, %33
+  br i1 %51, label %52, label %58
+
+52:                                               ; preds = %50
+  %53 = call i64 @"\01_clock"() #10
+  %54 = sub i64 %53, %13
+  %55 = uitofp i64 %54 to double
+  %56 = fdiv double %55, 1.000000e+06
+  %57 = call i32 (i8*, ...) @printf(i8* nonnull dereferenceable(1) getelementptr inbounds ([34 x i8], [34 x i8]* @.str.2, i64 0, i64 0), double %56)
+  call fastcc void @wait()
+  br label %58
+
+58:                                               ; preds = %52, %50
+  %59 = phi i32 [ %12, %52 ], [ %14, %50 ]
+  %60 = srem i32 %19, 2
+  %61 = icmp eq i32 %60, 0
+  br i1 %61, label %62, label %63
+
+62:                                               ; preds = %58
+  br label %64
+
+63:                                               ; preds = %58
+  br label %64
+
+64:                                               ; preds = %63, %62
+  br i1 %15, label %11, label %65, !llvm.loop !18
+
+65:                                               ; preds = %64
   call void @llvm.lifetime.end.p0i8(i64 1760, i8* nonnull %8) #10
   call void @llvm.lifetime.end.p0i8(i64 7040, i8* nonnull %7) #10
   call void @llvm.lifetime.end.p0i8(i64 4, i8* nonnull %6) #10
   call void @llvm.lifetime.end.p0i8(i64 4, i8* nonnull %5) #10
-  ret i32 %14
+  %66 = srem i32 %37, 2
+  %67 = icmp eq i32 %66, 0
+  br i1 %67, label %68, label %69
 
-15:                                               ; preds = %15, %0
-  call fastcc void @wait()
-  %16 = call fastcc i32 @main_loop(float* nonnull %1, float* nonnull %2, i8* nonnull %8, float* nonnull %10)
-  %17 = icmp eq i32 %16, 0
-  br i1 %17, label %15, label %13, !llvm.loop !18
+68:                                               ; preds = %65
+  br label %70
+
+69:                                               ; preds = %65
+  br label %70
+
+70:                                               ; preds = %69, %68
+  ret i32 %59
 }
 
 ; Function Attrs: nofree nounwind
 declare noundef i32 @printf(i8* nocapture noundef readonly, ...) local_unnamed_addr #3
 
+declare i64 @"\01_clock"() local_unnamed_addr #5
+
 ; Function Attrs: nofree noinline nounwind ssp uwtable
 define internal fastcc i32 @main_loop(float* %0, float* %1, i8* %2, float* %3) unnamed_addr #1 {
   %5 = call i32 @clear(i8* %2, i64 1760, float* %3, i64 7040)
   %6 = icmp eq i32 %5, 0
-  br i1 %6, label %7, label %42
+  br i1 %6, label %7, label %79
 
 7:                                                ; preds = %4
   %8 = call fastcc i32 @inner_loop(float 0.000000e+00, float* %0, float* %1, i8* %2, float* %3)
   %9 = icmp eq i32 %8, 0
-  br i1 %9, label %13, label %36
+  br i1 %9, label %35, label %42
 
-10:                                               ; preds = %13
-  %11 = call fastcc i32 @inner_loop(float %17, float* %0, float* %1, i8* %2, float* %3)
-  %12 = icmp eq i32 %11, 0
-  br i1 %12, label %13, label %36, !llvm.loop !19
+10:                                               ; preds = %35
+  %11 = call fastcc i32 @inner_loop(float %39, float* %0, float* %1, i8* %2, float* %3)
+  %12 = and i32 %5, 1
+  %13 = icmp eq i32 %12, 0
+  %14 = mul i32 %5, %5
+  %15 = add i32 %14, %5
+  %16 = mul i32 %15, 3
+  %17 = srem i32 %16, 2
+  %18 = icmp eq i32 %17, 0
+  %19 = and i1 %13, %18
+  %20 = xor i1 %13, %18
+  %21 = or i1 %19, %20
+  br i1 %21, label %22, label %33
 
-13:                                               ; preds = %10, %7
-  %14 = phi i32 [ %11, %10 ], [ %8, %7 ]
-  %15 = phi double [ %18, %10 ], [ 0.000000e+00, %7 ]
-  %16 = fadd double %15, 7.000000e-02
-  %17 = fptrunc double %16 to float
-  %18 = fpext float %17 to double
-  %19 = fcmp olt double %18, 6.280000e+00
-  %20 = mul i32 %5, 2
-  %21 = mul i32 %5, 2
-  %22 = add i32 2, %21
-  %23 = mul i32 %20, %22
-  %24 = srem i32 %23, 4
-  %25 = icmp eq i32 %24, 0
-  %26 = mul i32 %5, %5
-  %27 = add i32 %26, %5
-  %28 = srem i32 %27, 2
-  %29 = icmp eq i32 %28, 0
-  %30 = xor i1 %29, true
-  %31 = xor i1 %25, %30
-  %32 = and i1 %31, %25
-  %33 = xor i1 %32, true
-  %34 = xor i1 %19, %33
-  %35 = and i1 %34, %19
-  br i1 %35, label %10, label %36, !llvm.loop !19
+22:                                               ; preds = %10
+  %23 = sub i32 36, 110
+  %24 = sdiv i32 38, 84
+  %25 = add i32 75, 114
+  %26 = sub i32 25, 23
+  %27 = mul i32 113, 13
+  %28 = add i32 102, 28
+  %29 = sub i32 36, 54
+  %30 = sub i32 27, 16
+  %31 = sdiv i32 17, 22
+  %32 = mul i32 81, 69
+  br label %33
 
-36:                                               ; preds = %13, %10, %7
-  %37 = phi i32 [ %8, %7 ], [ %14, %13 ], [ %11, %10 ]
-  %38 = phi i1 [ true, %7 ], [ %19, %10 ], [ %19, %13 ]
-  br i1 %38, label %42, label %39
+33:                                               ; preds = %10, %22
+  %34 = icmp eq i32 %11, 0
+  br i1 %34, label %35, label %42, !llvm.loop !19
 
-39:                                               ; preds = %36
-  %40 = call i32 (i8*, ...) @printf(i8* nonnull dereferenceable(1) getelementptr inbounds ([4 x i8], [4 x i8]* @.str.2, i64 0, i64 0))
-  %41 = call i32 @render(float* %0, float* %1, i8* %2, i64 1760)
-  br label %42
+35:                                               ; preds = %33, %7
+  %36 = phi i32 [ %11, %33 ], [ %8, %7 ]
+  %37 = phi double [ %40, %33 ], [ 0.000000e+00, %7 ]
+  %38 = fadd double %37, 7.000000e-02
+  %39 = fptrunc double %38 to float
+  %40 = fpext float %39 to double
+  %41 = fcmp olt double %40, 6.280000e+00
+  br i1 %41, label %10, label %42, !llvm.loop !19
 
-42:                                               ; preds = %39, %36, %4
-  %43 = phi i32 [ %37, %36 ], [ %5, %4 ], [ %41, %39 ]
-  ret i32 %43
+42:                                               ; preds = %35, %33, %7
+  %43 = phi i32 [ %8, %7 ], [ %36, %35 ], [ %11, %33 ]
+  %44 = phi i1 [ true, %7 ], [ %41, %33 ], [ %41, %35 ]
+  %45 = and i32 %5, 1
+  %46 = icmp eq i32 %45, 1
+  %47 = mul i32 %5, %5
+  %48 = add i32 %47, %5
+  %49 = srem i32 %48, 2
+  %50 = icmp eq i32 %49, 0
+  %51 = xor i1 %46, true
+  %52 = and i1 %51, true
+  %53 = and i1 %46, false
+  %54 = or i1 %52, %53
+  %55 = xor i1 %50, true
+  %56 = and i1 %55, true
+  %57 = and i1 %50, false
+  %58 = or i1 %56, %57
+  %59 = xor i1 %54, %58
+  %60 = xor i1 %46, true
+  %61 = xor i1 %50, true
+  %62 = or i1 %60, %61
+  %63 = xor i1 %62, true
+  %64 = and i1 %63, true
+  %65 = or i1 %59, %64
+  br i1 %65, label %66, label %75
+
+66:                                               ; preds = %42
+  %67 = add i32 3, 96
+  %68 = sdiv i32 23, 52
+  %69 = sdiv i32 36, 68
+  %70 = add i32 64, 40
+  %71 = sub i32 14, 95
+  %72 = add i32 25, 59
+  %73 = add i32 31, 124
+  %74 = add i32 39, 25
+  br label %75
+
+75:                                               ; preds = %42, %66
+  br i1 %44, label %79, label %76
+
+76:                                               ; preds = %75
+  %77 = call i32 (i8*, ...) @printf(i8* nonnull dereferenceable(1) getelementptr inbounds ([4 x i8], [4 x i8]* @.str.3, i64 0, i64 0))
+  %78 = call i32 @render(float* %0, float* %1, i8* %2, i64 1760)
+  br label %79
+
+79:                                               ; preds = %76, %75, %4
+  %80 = phi i32 [ %43, %75 ], [ %5, %4 ], [ %78, %76 ]
+  %81 = and i32 %5, 1
+  %82 = icmp eq i32 %81, 0
+  %83 = mul i32 %5, %5
+  %84 = add i32 %83, %5
+  %85 = mul i32 %84, 3
+  %86 = srem i32 %85, 2
+  %87 = icmp eq i32 %86, 0
+  %88 = xor i1 %82, true
+  %89 = and i1 %88, false
+  %90 = and i1 %82, true
+  %91 = or i1 %89, %90
+  %92 = xor i1 %87, true
+  %93 = and i1 %92, false
+  %94 = and i1 %87, true
+  %95 = or i1 %93, %94
+  %96 = xor i1 %91, %95
+  %97 = xor i1 %82, true
+  %98 = xor i1 %87, true
+  %99 = or i1 %97, %98
+  %100 = xor i1 %99, true
+  %101 = and i1 %100, true
+  %102 = or i1 %96, %101
+  br i1 %102, label %103, label %112
+
+103:                                              ; preds = %79
+  %104 = sdiv i32 26, 121
+  %105 = add i32 16, 91
+  %106 = sdiv i32 8, 110
+  %107 = add i32 39, 99
+  %108 = mul i32 5, 12
+  %109 = sdiv i32 30, 55
+  %110 = sdiv i32 100, 67
+  %111 = add i32 91, 2
+  br label %112
+
+112:                                              ; preds = %79, %103
+  ret i32 %80
 }
 
 ; Function Attrs: noinline nounwind ssp uwtable
-define internal fastcc void @wait() unnamed_addr #5 {
+define internal fastcc void @wait() unnamed_addr #6 {
   %1 = call i32 @"\01_usleep"(i32 30000) #10
   ret void
 }
 
 ; Function Attrs: nofree noinline nosync nounwind ssp uwtable
-define internal fastcc i32 @inner_loop(float %0, float* readonly %1, float* readonly %2, i8* %3, float* %4) unnamed_addr #6 {
+define internal fastcc i32 @inner_loop(float %0, float* readonly %1, float* readonly %2, i8* %3, float* %4) unnamed_addr #7 {
   %6 = icmp eq float* %1, null
   %7 = icmp eq float* %2, null
   %8 = select i1 %6, i1 true, i1 %7
@@ -241,7 +398,7 @@ define internal fastcc i32 @inner_loop(float %0, float* readonly %1, float* read
   %10 = select i1 %8, i1 true, i1 %9
   %11 = icmp eq float* %4, null
   %12 = select i1 %10, i1 true, i1 %11
-  br i1 %12, label %100, label %13
+  br i1 %12, label %125, label %13
 
 13:                                               ; preds = %5
   %14 = fpext float %0 to double
@@ -252,8 +409,8 @@ define internal fastcc i32 @inner_loop(float %0, float* readonly %1, float* read
   %19 = fadd float %16, 2.000000e+00
   br label %20
 
-20:                                               ; preds = %95, %13
-  %21 = phi double [ 0.000000e+00, %13 ], [ %98, %95 ]
+20:                                               ; preds = %122, %13
+  %21 = phi double [ 0.000000e+00, %13 ], [ %123, %122 ]
   %22 = call double @llvm.sin.f64(double %21)
   %23 = fptrunc double %22 to float
   %24 = load float, float* %1, align 4, !tbaa !10
@@ -338,22 +495,51 @@ define internal fastcc i32 @inner_loop(float %0, float* readonly %1, float* read
 95:                                               ; preds = %87, %80, %20
   %96 = fadd double %21, 2.000000e-02
   %97 = fptrunc double %96 to float
-  %98 = fpext float %97 to double
-  %99 = fcmp olt double %98, 6.280000e+00
-  br i1 %99, label %20, label %100, !llvm.loop !22
+  %98 = mul i32 %74, 2
+  %99 = mul i32 %74, 2
+  %100 = add i32 2, %99
+  %101 = mul i32 %98, %100
+  %102 = srem i32 %101, 4
+  %103 = icmp eq i32 %102, 0
+  %104 = mul i32 %74, %74
+  %105 = mul i32 %104, %74
+  %106 = add i32 %105, %74
+  %107 = srem i32 %106, 2
+  %108 = icmp eq i32 %107, 0
+  %109 = xor i1 %108, true
+  %110 = xor i1 %103, %109
+  %111 = and i1 %110, %103
+  br i1 %111, label %112, label %122
 
-100:                                              ; preds = %95, %5
-  %101 = phi i32 [ 2, %5 ], [ 0, %95 ]
-  ret i32 %101
+112:                                              ; preds = %95
+  %113 = add i32 27, 89
+  %114 = sdiv i32 56, 0
+  %115 = mul i32 19, 58
+  %116 = sub i32 86, 3
+  %117 = mul i32 79, 113
+  %118 = mul i32 23, 95
+  %119 = sdiv i32 80, 5
+  %120 = mul i32 77, 99
+  %121 = add i32 104, 2
+  br label %122
+
+122:                                              ; preds = %95, %112
+  %123 = fpext float %97 to double
+  %124 = fcmp olt double %123, 6.280000e+00
+  br i1 %124, label %20, label %125, !llvm.loop !22
+
+125:                                              ; preds = %122, %5
+  %126 = phi i32 [ 2, %5 ], [ 0, %122 ]
+  ret i32 %126
 }
 
 ; Function Attrs: nocallback nofree nosync nounwind readnone speculatable willreturn
-declare double @llvm.sin.f64(double) #7
+declare double @llvm.sin.f64(double) #8
 
 ; Function Attrs: nocallback nofree nosync nounwind readnone speculatable willreturn
-declare double @llvm.cos.f64(double) #7
+declare double @llvm.cos.f64(double) #8
 
-declare i32 @"\01_usleep"(i32) local_unnamed_addr #8
+declare i32 @"\01_usleep"(i32) local_unnamed_addr #5
 
 ; Function Attrs: argmemonly nocallback nofree nounwind willreturn writeonly
 declare void @llvm.memset.p0i8.i64(i8* nocapture writeonly, i8, i64, i1 immarg) #9
@@ -363,10 +549,10 @@ attributes #1 = { nofree noinline nounwind ssp uwtable "frame-pointer"="non-leaf
 attributes #2 = { argmemonly nocallback nofree nosync nounwind willreturn }
 attributes #3 = { nofree nounwind "frame-pointer"="non-leaf" "no-trapping-math"="true" "probe-stack"="__chkstk_darwin" "stack-protector-buffer-size"="8" "target-cpu"="apple-m1" "target-features"="+aes,+crc,+crypto,+dotprod,+fp-armv8,+fp16fml,+fullfp16,+lse,+neon,+ras,+rcpc,+rdm,+sha2,+sha3,+sm4,+v8.5a,+zcm,+zcz" }
 attributes #4 = { nounwind ssp uwtable "frame-pointer"="non-leaf" "min-legal-vector-width"="0" "no-trapping-math"="true" "probe-stack"="__chkstk_darwin" "stack-protector-buffer-size"="8" "target-cpu"="apple-m1" "target-features"="+aes,+crc,+crypto,+dotprod,+fp-armv8,+fp16fml,+fullfp16,+lse,+neon,+ras,+rcpc,+rdm,+sha2,+sha3,+sm4,+v8.5a,+zcm,+zcz" }
-attributes #5 = { noinline nounwind ssp uwtable "frame-pointer"="non-leaf" "min-legal-vector-width"="0" "no-trapping-math"="true" "probe-stack"="__chkstk_darwin" "stack-protector-buffer-size"="8" "target-cpu"="apple-m1" "target-features"="+aes,+crc,+crypto,+dotprod,+fp-armv8,+fp16fml,+fullfp16,+lse,+neon,+ras,+rcpc,+rdm,+sha2,+sha3,+sm4,+v8.5a,+zcm,+zcz" }
-attributes #6 = { nofree noinline nosync nounwind ssp uwtable "frame-pointer"="non-leaf" "min-legal-vector-width"="0" "no-trapping-math"="true" "probe-stack"="__chkstk_darwin" "stack-protector-buffer-size"="8" "target-cpu"="apple-m1" "target-features"="+aes,+crc,+crypto,+dotprod,+fp-armv8,+fp16fml,+fullfp16,+lse,+neon,+ras,+rcpc,+rdm,+sha2,+sha3,+sm4,+v8.5a,+zcm,+zcz" }
-attributes #7 = { nocallback nofree nosync nounwind readnone speculatable willreturn }
-attributes #8 = { "frame-pointer"="non-leaf" "no-trapping-math"="true" "probe-stack"="__chkstk_darwin" "stack-protector-buffer-size"="8" "target-cpu"="apple-m1" "target-features"="+aes,+crc,+crypto,+dotprod,+fp-armv8,+fp16fml,+fullfp16,+lse,+neon,+ras,+rcpc,+rdm,+sha2,+sha3,+sm4,+v8.5a,+zcm,+zcz" }
+attributes #5 = { "frame-pointer"="non-leaf" "no-trapping-math"="true" "probe-stack"="__chkstk_darwin" "stack-protector-buffer-size"="8" "target-cpu"="apple-m1" "target-features"="+aes,+crc,+crypto,+dotprod,+fp-armv8,+fp16fml,+fullfp16,+lse,+neon,+ras,+rcpc,+rdm,+sha2,+sha3,+sm4,+v8.5a,+zcm,+zcz" }
+attributes #6 = { noinline nounwind ssp uwtable "frame-pointer"="non-leaf" "min-legal-vector-width"="0" "no-trapping-math"="true" "probe-stack"="__chkstk_darwin" "stack-protector-buffer-size"="8" "target-cpu"="apple-m1" "target-features"="+aes,+crc,+crypto,+dotprod,+fp-armv8,+fp16fml,+fullfp16,+lse,+neon,+ras,+rcpc,+rdm,+sha2,+sha3,+sm4,+v8.5a,+zcm,+zcz" }
+attributes #7 = { nofree noinline nosync nounwind ssp uwtable "frame-pointer"="non-leaf" "min-legal-vector-width"="0" "no-trapping-math"="true" "probe-stack"="__chkstk_darwin" "stack-protector-buffer-size"="8" "target-cpu"="apple-m1" "target-features"="+aes,+crc,+crypto,+dotprod,+fp-armv8,+fp16fml,+fullfp16,+lse,+neon,+ras,+rcpc,+rdm,+sha2,+sha3,+sm4,+v8.5a,+zcm,+zcz" }
+attributes #8 = { nocallback nofree nosync nounwind readnone speculatable willreturn }
 attributes #9 = { argmemonly nocallback nofree nounwind willreturn writeonly }
 attributes #10 = { nounwind }
 
