@@ -2,13 +2,14 @@
 LLVM trasnsformation passes for code obfuscation. Details described in [paper](https://github.com/Despire/llvm-obfuscator/blob/main/docs/paper.pdf)
 
 # How To Build
+
+# OS X
 Install LLVM via homebrew
 
 ```bash
 brew install llvm@15
 ```
 
-# OS X
 Set the directory in the CMakeLists.txt to the path of the installation of LLVM.
 
 ```CMake
