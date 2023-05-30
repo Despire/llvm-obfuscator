@@ -12,7 +12,7 @@ brew install llvm@15
 Set the directory in the CMakeLists.txt to the path of the installation of LLVM.
 
 ```CMake
-set(LT_LLVM_INSTALL_DIR ""/opt/homebrew/opt/llvm@15"")
+set(LT_LLVM_INSTALL_DIR "/opt/homebrew/opt/llvm@15")
 ```
 
 ```bash
