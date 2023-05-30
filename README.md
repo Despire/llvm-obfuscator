@@ -1,5 +1,5 @@
 # llvm-obfuscator
-LLVM trasnsformation passes for code obfuscation.
+LLVM trasnsformation passes for code obfuscation. Details described in [paper](https://github.com/Despire/llvm-obfuscator/blob/main/docs/paper.pdf)
 
 # How To Build
 Install LLVM via homebrew
